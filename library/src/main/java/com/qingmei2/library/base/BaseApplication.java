@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.support.v4.content.ContextCompat;
 
+import com.qingmei2.library.di.component.DaggerAppComponent;
 import com.qingmei2.library.di.module.AppModule;
 import com.qingmei2.library.di.module.CacheModule;
 import com.qingmei2.library.di.module.GlobalConfigModule;
