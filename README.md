@@ -2,9 +2,11 @@
 
 MVVM模式的开发框架。
 
-开发环境：AndroidStudio 3.0 Beta7
+### 开发环境：
 
-网络层：
+AndroidStudio 3.0 Beta7
+
+### 网络层：
 
 HTTP : Rxjava2 + Retrofit2 + Okhttp
 
@@ -12,7 +14,7 @@ ImageLoader:Glide v4
 
 Cache: RxCache
 
-数据处理层：
+### 数据处理层：
 
 JavaBean: lombok
 
@@ -20,7 +22,7 @@ Java8：Stream + Lambda
 
 Dependencies Injection: DaggerAndroid
 
-UI层：
+### UI层：
 
 Views Binding: DataBinding
 
@@ -28,7 +30,7 @@ List: RecyclerView + MultiType
 
 Layout:ConstraintLayout
 
-常见问题
+## 常见问题
 
 【Q】我的编译不通过怎么回事？
 
