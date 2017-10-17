@@ -1,13 +1,15 @@
 package com.qingmei2.library.ui.home;
 
 
+import com.qingmei2.library.R;
 import com.qingmei2.library.base.acitivty.BaseActivity;
+import com.qingmei2.library.databinding.ActivityHomeBinding;
 
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewModel> {
 
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.activity_home;
     }
 
     @Override
@@ -17,6 +19,7 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        binding.setView(this);
+        binding.setViewModel(viewModel);
     }
 }

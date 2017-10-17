@@ -12,6 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.qingmei2.library.base.BaseViewModel;
+
+import javax.inject.Inject;
+
 import dagger.android.support.AndroidSupportInjection;
 
 /**
@@ -19,9 +23,12 @@ import dagger.android.support.AndroidSupportInjection;
  * desc:
  */
 
-public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment {
+public abstract class BaseFragment<B extends ViewDataBinding, V extends BaseViewModel> extends Fragment {
 
     protected B binding;
+
+    @Inject
+    public V viewModel;
 
     protected View mRootView;
 

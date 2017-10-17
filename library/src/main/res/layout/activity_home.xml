@@ -4,12 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="com.qingmei2.library.http.entity.UserInfo"/>
         <variable
             name="view"
-            type="com.qingmei2.library.ui.home.HomeActivity"/>
+            type="com.qingmei2.library.ui.home.HomeActivity" />
+
         <variable
             name="viewModel"
-            type="com.qingmei2.library.ui.home.HomeViewModel"/>
+            type="com.qingmei2.library.ui.home.HomeViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -21,6 +24,7 @@
             android:id="@+id/btn_user_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.getUserInfo()}"
             android:text="请求网络信息!"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -30,6 +34,7 @@
             android:id="@+id/tv_user_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:text="@{viewModel.userInfo.get().name}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_user_info" />
@@ -42,6 +47,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:scaleType="centerCrop"
+            app:image="@{viewModel.userInfo.get().avatarUrl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_user_info"
             app:layout_constraintTop_toBottomOf="@+id/tv_user_info" />

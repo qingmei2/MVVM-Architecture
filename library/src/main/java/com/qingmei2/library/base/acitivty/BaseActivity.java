@@ -8,11 +8,18 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.qingmei2.library.base.BaseViewModel;
+
+import javax.inject.Inject;
+
 import dagger.android.AndroidInjection;
 
-public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatActivity {
+public abstract class BaseActivity<B extends ViewDataBinding,V extends BaseViewModel> extends AppCompatActivity {
 
     protected B binding;
+
+    @Inject
+    public V viewModel;
 
     protected ProgressDialog progressDialog;
 

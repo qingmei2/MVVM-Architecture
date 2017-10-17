@@ -1,6 +1,14 @@
 package com.qingmei2.library.ui.home;
 
+import android.databinding.ObservableField;
+
 import com.qingmei2.library.base.BaseViewModel;
+import com.qingmei2.library.http.entity.UserInfo;
+
+import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by QingMei on 2017/10/14.
@@ -9,4 +17,18 @@ import com.qingmei2.library.base.BaseViewModel;
 
 public class HomeViewModel extends BaseViewModel {
 
+    public final ObservableField<UserInfo> userInfo = new ObservableField<>();
+
+    @Inject
+    public HomeViewModel() {
+
+    }
+
+    public void getUserInfo() {
+        serviceManager.getUserInfoService()
+                .getUserInfo("qingmei2")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(userInfo::set, Throwable::printStackTrace);
+    }
 }
