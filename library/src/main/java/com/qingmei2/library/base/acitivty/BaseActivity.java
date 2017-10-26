@@ -1,7 +1,6 @@
 package com.qingmei2.library.base.acitivty;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -14,7 +13,7 @@ import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
 
-public abstract class BaseActivity<B extends ViewDataBinding,V extends BaseViewModel> extends AppCompatActivity {
+public abstract class BaseActivity<B extends ViewDataBinding, V extends BaseViewModel> extends AppCompatActivity {
 
     protected B binding;
 
@@ -39,7 +38,25 @@ public abstract class BaseActivity<B extends ViewDataBinding,V extends BaseViewM
         }
     }
 
-    protected void loadingDialog(boolean showing) {
+    protected void onStateChanged(BaseViewModel.State state) {
+        switch (state) {
+            case LOAD_WAIT:
+                break;
+            case LOAD_ING:
+                loading(true);
+                break;
+            case LOAD_SUCCESS:
+                loading(false);
+                break;
+            case LOAD_FAILED:
+                loading(false);
+                break;
+            default:
+                break;
+        }
+    }
+
+    protected void loading(boolean showing) {
         if (showing) {
             progressDialog = new ProgressDialog(this);
             progressDialog.setCancelable(false);
@@ -56,11 +73,4 @@ public abstract class BaseActivity<B extends ViewDataBinding,V extends BaseViewM
 
     protected abstract void initView();
 
-    public void onBackClicked() {
-        finish();
-    }
-
-    public void startActivity(Class clazz) {
-        startActivity(new Intent(this, clazz));
-    }
 }

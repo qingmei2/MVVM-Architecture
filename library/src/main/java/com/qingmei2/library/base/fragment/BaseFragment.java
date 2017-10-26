@@ -7,7 +7,6 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,15 +54,34 @@ public abstract class BaseFragment<B extends ViewDataBinding, V extends BaseView
         super.onAttach(activity);
     }
 
-    protected void changeDialogState(boolean loading) {
-        Log.i("tag", "loading:" + loading);
-        if (loading) {
-            progressDialog = new ProgressDialog(getContext());
-            progressDialog.setCancelable(false);
-            progressDialog.show();
-        } else if (progressDialog != null) {
-            progressDialog.dismiss();
-            progressDialog = null;
+    protected void onStateChanged(BaseViewModel.State state) {
+        switch (state) {
+            case LOAD_WAIT:
+                break;
+            case LOAD_ING:
+                loading(true);
+                break;
+            case LOAD_SUCCESS:
+                loading(false);
+                break;
+            case LOAD_FAILED:
+                loading(false);
+                break;
+            default:
+                break;
+        }
+    }
+
+    protected void loading(boolean showing) {
+        if (getContext() != null) {
+            if (showing) {
+                progressDialog = new ProgressDialog(getContext());
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+            } else if (progressDialog != null) {
+                progressDialog.dismiss();
+                progressDialog = null;
+            }
         }
     }
 

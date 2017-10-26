@@ -4,11 +4,11 @@ MVVM模式的开发框架。
 
 ### 开发环境：
 
-AndroidStudio 3.0 Beta7
+AndroidStudio 3.0.0
 
 ### 网络层：
 
-HTTP : Rxjava2 + Retrofit2 + Okhttp
+HTTP : Rxjava2 + Retrofit2 + Okhttp3
 
 ImageLoader:Glide v4
 

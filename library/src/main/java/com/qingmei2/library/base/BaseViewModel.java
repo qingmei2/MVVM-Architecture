@@ -1,11 +1,12 @@
 package com.qingmei2.library.base;
 
-import android.databinding.ObservableBoolean;
+import android.databinding.ObservableField;
 
 import com.qingmei2.library.http.service.ServiceManager;
 
 import javax.inject.Inject;
 
+import static com.qingmei2.library.base.BaseViewModel.State.LOAD_WAIT;
 
 
 /**
@@ -18,6 +19,25 @@ public class BaseViewModel {
     @Inject
     protected ServiceManager serviceManager;
 
-    public final ObservableBoolean dialogShowing = new ObservableBoolean(false);
+    public final ObservableField<State> loadingState = new ObservableField<>(LOAD_WAIT);
+
+    public enum State {
+        /**
+         * the state waiting for fetch data from server.
+         */
+        LOAD_WAIT,
+        /**
+         * the state is fetching data from server.
+         */
+        LOAD_ING,
+        /**
+         * fetch data successful
+         */
+        LOAD_SUCCESS,
+        /**
+         * fetch data faild
+         */
+        LOAD_FAILED
+    }
 
 }
