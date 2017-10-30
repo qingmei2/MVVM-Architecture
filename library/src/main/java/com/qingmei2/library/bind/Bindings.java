@@ -14,7 +14,7 @@ import android.webkit.WebView;
 import com.annimon.stream.IntPair;
 import com.annimon.stream.Stream;
 import com.annimon.stream.function.Function;
-import com.qingmei2.library.base.adapter.DataBindingItemViewBinder;
+import com.qingmei2.library.bind.adapter.DataBindingItemViewBinder;
 
 import java.util.Collections;
 import java.util.List;

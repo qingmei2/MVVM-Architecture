@@ -1,4 +1,4 @@
-package com.qingmei2.library.bind;
+package com.qingmei2.library.bind.image;
 
 import android.databinding.BindingAdapter;
 import android.widget.ImageView;

@@ -1,4 +1,4 @@
-package com.qingmei2.library.base.adapter;
+package com.qingmei2.library.bind.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;

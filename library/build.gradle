@@ -1,13 +1,13 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.0"
 
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
 
@@ -41,10 +41,10 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     //android support
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:recyclerview-v7:26.1.0'
-    implementation 'com.android.support:design:26.1.0'
-    implementation "com.android.support:support-annotations:26.1.0"
+    implementation 'com.android.support:appcompat-v7:27.0.0'
+    implementation 'com.android.support:recyclerview-v7:27.0.0'
+    implementation 'com.android.support:design:27.0.0'
+    implementation "com.android.support:support-annotations:27.0.0"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     //rx+retrofit
     implementation "com.squareup.retrofit2:retrofit:2.3.0"
