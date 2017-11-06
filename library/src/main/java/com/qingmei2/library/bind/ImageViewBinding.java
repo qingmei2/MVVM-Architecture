@@ -15,12 +15,12 @@ import com.qingmei2.library.image.GlideRequest;
 public class ImageViewBinding {
 
     @BindingAdapter(value = {"android:imageUrl", "android:placeHolder", "android:error", "android:beCircle"}, requireAll = false)
-    public static void loadImage(ImageView imageView, String url, Drawable placeHolder, Drawable error, boolean circle) {
+    public static void loadImage(ImageView imageView, String url, Drawable placeHolder, Drawable error, boolean beCircle) {
         GlideRequest<Drawable> glideRequest = GlideApp.with(imageView.getContext())
                 .load(url)
                 .error(error)
                 .placeholder(placeHolder);
-        glideRequest = circle ? glideRequest.circleCrop() : glideRequest;
+        glideRequest = beCircle ? glideRequest.circleCrop() : glideRequest;
         glideRequest.into(imageView);
     }
 }

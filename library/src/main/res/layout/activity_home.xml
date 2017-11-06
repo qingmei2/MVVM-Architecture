@@ -5,7 +5,8 @@
 
     <data>
 
-        <import type="com.qingmei2.library.http.entity.UserInfo"/>
+        <import type="com.qingmei2.library.http.entity.UserInfo" />
+
         <variable
             name="view"
             type="com.qingmei2.library.ui.home.HomeActivity" />
@@ -46,8 +47,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:imageUrl="@{viewModel.userInfo.get().avatarUrl}"
             android:scaleType="centerCrop"
-            app:image="@{viewModel.userInfo.get().avatarUrl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_user_info"
             app:layout_constraintTop_toBottomOf="@+id/tv_user_info" />
