@@ -7,7 +7,6 @@ import android.databinding.BindingAdapter;
 import android.os.Build;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
@@ -106,11 +105,6 @@ public class Bindings {
         view.setOnRefreshListener(listener);
     }
 
-    @BindingAdapter("visible")
-    public static void setVisible(View view, boolean visible) {
-        view.setVisibility(visible ? View.VISIBLE : View.GONE);
-    }
-
     @SuppressLint("SetJavaScriptEnabled")
     @BindingAdapter("html")
     public static void setHtml(WebView view, String html) {
@@ -135,14 +129,6 @@ public class Bindings {
                 "</html>";
         html = String.format(tmp, html);
         view.loadData(html, "text/html; charset=utf-8", "utf-8");
-    }
-
-    @BindingAdapter("onLongClick")
-    public static void setOnLongClick(View view, Runnable callback) {
-        view.setOnLongClickListener(__ -> {
-            callback.run();
-            return true;
-        });
     }
 
 }
