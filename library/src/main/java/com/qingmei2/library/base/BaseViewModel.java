@@ -2,6 +2,7 @@ package com.qingmei2.library.base;
 
 import android.databinding.ObservableField;
 
+import com.qingmei2.library.di.scheduler.SchedulerProvider;
 import com.qingmei2.library.http.service.ServiceManager;
 
 import javax.inject.Inject;
@@ -17,7 +18,9 @@ import static com.qingmei2.library.base.BaseViewModel.State.LOAD_WAIT;
 public class BaseViewModel {
 
     @Inject
-    protected ServiceManager serviceManager;
+    public ServiceManager serviceManager;
+    @Inject
+    public SchedulerProvider schedulers;
 
     public final ObservableField<State> loadingState = new ObservableField<>(LOAD_WAIT);
 
