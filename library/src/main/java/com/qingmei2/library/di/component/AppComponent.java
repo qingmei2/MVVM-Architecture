@@ -8,6 +8,7 @@ import com.qingmei2.library.di.module.CacheModule;
 import com.qingmei2.library.di.module.GlobalConfigModule;
 import com.qingmei2.library.di.module.HttpClientModule;
 import com.qingmei2.library.di.module.ServiceModule;
+import com.qingmei2.library.di.scheduler.SchedulersModule;
 import com.qingmei2.library.http.service.ServiceManager;
 
 import javax.inject.Singleton;
@@ -30,7 +31,8 @@ import okhttp3.OkHttpClient;
         GlobalConfigModule.class,
         ServiceModule.class,
         CacheModule.class,
-        ActivitiesModule.class
+        ActivitiesModule.class,
+        SchedulersModule.class
 })
 public interface AppComponent {
 
