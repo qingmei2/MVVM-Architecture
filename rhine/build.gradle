@@ -1,0 +1,82 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
+
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // support
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["design"]
+    implementation rootProject.ext.dependencies["constraint-layout"]
+
+    implementation rootProject.ext.dependencies["kotlin-android"]
+
+    // retrofit
+    implementation rootProject.ext.dependencies["retrofit"]
+    implementation rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
+    implementation rootProject.ext.dependencies["retrofit-converter-gson"]
+    implementation rootProject.ext.dependencies["retrofit-mock"]
+
+    // rx
+    implementation rootProject.ext.dependencies["rxjava"]
+    implementation rootProject.ext.dependencies["rxandroid"]
+    implementation rootProject.ext.dependencies["rxbinding"]
+    implementation rootProject.ext.dependencies["rxpermissions"]
+    implementation rootProject.ext.dependencies["rxschedulers_kotlin"]
+
+    // autodispose
+    implementation rootProject.ext.dependencies["autodispose"]
+    implementation rootProject.ext.dependencies["autodispose-archcomponents"]
+
+    //dagger2
+    implementation "com.google.dagger:dagger-android:2.11"
+    implementation "com.google.dagger:dagger-android-support:2.11"
+    kapt "com.google.dagger:dagger-android-processor:2.11"
+    kapt "com.google.dagger:dagger-compiler:2.11"
+
+    //okhttp
+    implementation rootProject.ext.dependencies["okhttp3"]
+    implementation rootProject.ext.dependencies["okhttp3-logging-interceptor"]
+
+    //glide
+    implementation rootProject.ext.dependencies["glide"]
+    kapt rootProject.ext.dependencies["glide-compiler"]
+
+    //rxCache
+    implementation rootProject.ext.dependencies["rxCache"]
+    implementation rootProject.ext.dependencies["rxCache-Jolyglot"]
+}

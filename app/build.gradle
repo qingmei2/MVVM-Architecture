@@ -1,17 +1,22 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.1"
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+
     defaultConfig {
-        applicationId "com.qingmei2.mvvmarchitecture"
-        minSdkVersion 16
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        applicationId "com.qingmei2.sample_rhine"
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
+
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -29,15 +34,15 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:27.0.1'
-    implementation 'com.android.support:support-annotations:27.0.1'
-    implementation 'com.android.support:support-v4:27.0.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+
+    // support
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["design"]
+    implementation rootProject.ext.dependencies["constraint-layout"]
+
+    implementation rootProject.ext.dependencies["kotlin-android"]
+
     testImplementation 'junit:junit:4.12'
-    implementation project(':library')
-    //kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    implementation project(':rhine')
 }
