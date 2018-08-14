@@ -79,4 +79,15 @@ dependencies {
     //rxCache
     implementation rootProject.ext.dependencies["rxCache"]
     implementation rootProject.ext.dependencies["rxCache-Jolyglot"]
+
+    // multitype
+    implementation rootProject.ext.dependencies["multitype"]
+
+    testImplementation rootProject.ext.dependencies["junit"]
+
+    androidTestImplementation rootProject.ext.dependencies["espresso-core"]
+    androidTestImplementation rootProject.ext.dependencies["espresso-contrib"]
+    androidTestImplementation rootProject.ext.dependencies["espresso-idling-resource"]
+    androidTestImplementation rootProject.ext.dependencies["espresso-test-runner"]
+    androidTestImplementation rootProject.ext.dependencies["espresso-test-rules"]
 }

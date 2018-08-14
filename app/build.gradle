@@ -34,6 +34,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':rhine')
 
     // support
     implementation rootProject.ext.dependencies["appcompat-v7"]
@@ -42,7 +43,12 @@ dependencies {
 
     implementation rootProject.ext.dependencies["kotlin-android"]
 
-    testImplementation 'junit:junit:4.12'
 
-    implementation project(':rhine')
+    testImplementation rootProject.ext.dependencies["junit"]
+
+    androidTestImplementation rootProject.ext.dependencies["espresso-core"]
+    androidTestImplementation rootProject.ext.dependencies["espresso-contrib"]
+    androidTestImplementation rootProject.ext.dependencies["espresso-idling-resource"]
+    androidTestImplementation rootProject.ext.dependencies["espresso-test-runner"]
+    androidTestImplementation rootProject.ext.dependencies["espresso-test-rules"]
 }
