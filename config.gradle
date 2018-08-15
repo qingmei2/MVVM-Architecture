@@ -15,7 +15,7 @@ project.ext {
 
     android = [
             compileSdkVersion: 27,
-            minSdkVersion    : 16,
+            minSdkVersion    : 19,
             targetSdkVersion : 27,
             versionCode      : 1,
             versionName      : "0.1.0"
@@ -91,6 +91,10 @@ project.ext {
 
             // multitype
             "multitype"                  : "me.drakeet.multitype:multitype:3.4.4",
+
+            // dsladapter
+            "dsl-adapter"                : "com.github.Yumenokanata.DslAdapter:dsladapter:0.8.1",
+            "dsl-adapter-databinding"    : "com.github.Yumenokanata.DslAdapter:adapterdatabinding:0.8.1",
 
             //robolectric
             "robolectric"                : "org.robolectric:robolectric:3.3.2",

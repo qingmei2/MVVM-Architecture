@@ -10,11 +10,6 @@ import com.bumptech.glide.load.engine.cache.LruResourceCache
 import com.bumptech.glide.module.AppGlideModule
 import com.qingmei2.rhine.R
 
-/**
- * Created by QingMei on 2017/10/17.
- * desc:
- */
-
 @com.bumptech.glide.annotation.GlideModule
 class GlideModule : AppGlideModule() {
 

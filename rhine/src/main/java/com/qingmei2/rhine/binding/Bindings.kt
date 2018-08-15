@@ -1,4 +1,4 @@
-package com.qingmei2.rhine.bind
+package com.qingmei2.rhine.binding
 
 import android.annotation.SuppressLint
 import android.databinding.BaseObservable
@@ -13,9 +13,7 @@ import android.webkit.WebView
 import com.annimon.stream.IntPair
 import com.annimon.stream.Stream
 import com.annimon.stream.function.Function
-import com.qingmei2.rhine.bind.adapter.DataBindingItemViewBinder
-
-import java.util.Collections
+import com.qingmei2.rhine.binding.adapter.DataBindingItemViewBinder
 
 import me.drakeet.multitype.ItemViewBinder
 import me.drakeet.multitype.MultiTypeAdapter

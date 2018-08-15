@@ -78,8 +78,11 @@ dependencies {
     implementation rootProject.ext.dependencies["rxCache"]
     implementation rootProject.ext.dependencies["rxCache-Jolyglot"]
 
-    // multitype
-    implementation rootProject.ext.dependencies["multitype"]
+    // recyclerview_binding
+    implementation rootProject.ext.dependencies["dsl-adapter-databinding"], {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    }
 
     testImplementation rootProject.ext.dependencies["junit"]
 

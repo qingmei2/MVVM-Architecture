@@ -1,4 +1,4 @@
-package com.qingmei2.rhine.bind.adapter
+package com.qingmei2.rhine.binding.adapter
 
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding

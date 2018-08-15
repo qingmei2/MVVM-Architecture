@@ -6,15 +6,10 @@ import android.content.SharedPreferences
 import com.qingmei2.rhine.base.BaseApplication
 import com.qingmei2.rhine.http.Constants
 
-import java.util.Collections
 import java.util.HashMap
 
-
-/**
- * Created by TaoPu on 17/6/23.
- */
-
 class SPUtils private constructor(spName: String) {
+
     private val sp: SharedPreferences
 
     val all: Map<String, *>
@@ -92,7 +87,7 @@ class SPUtils private constructor(spName: String) {
 
     companion object {
 
-        private val sSPMap = HashMap<String, SPUtils>()
+        private val sPMap = HashMap<String, SPUtils>()
 
         val instance: SPUtils
             get() = getInstance("")
@@ -100,10 +95,10 @@ class SPUtils private constructor(spName: String) {
         fun getInstance(spName: String): SPUtils {
             var spName = spName
             if (isSpace(spName)) spName = Constants.SP_NAME_DEFAULT
-            var sp: SPUtils? = sSPMap[spName]
+            var sp: SPUtils? = sPMap[spName]
             if (sp == null) {
                 sp = SPUtils(spName)
-                sSPMap[spName] = sp
+                sPMap[spName] = sp
             }
             return sp
         }

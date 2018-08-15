@@ -24,6 +24,7 @@ import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 
 open class BaseApplication : Application(), HasActivityInjector {
+
     @Inject
     internal var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>? = null
 
