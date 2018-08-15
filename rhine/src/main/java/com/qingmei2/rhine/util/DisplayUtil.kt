@@ -12,10 +12,10 @@ import java.lang.reflect.Field
 object DisplayUtil {
 
     private val screenHeight: Int
-        get() = BaseApplication.instance!!.resources.displayMetrics.heightPixels
+        get() = BaseApplication.INSTANCE.resources.displayMetrics.heightPixels
 
     private val screenWidth: Int
-        get() = BaseApplication.instance!!.resources.displayMetrics.widthPixels
+        get() = BaseApplication.INSTANCE.resources.displayMetrics.widthPixels
 
     fun layoutInflater(context: Context): LayoutInflater {
         return context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

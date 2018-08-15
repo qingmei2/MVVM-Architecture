@@ -7,6 +7,7 @@ import com.bumptech.glide.GlideBuilder
 import com.bumptech.glide.Registry
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory
+import com.bumptech.glide.load.engine.cache.InternalCacheDiskCacheFactory
 import com.bumptech.glide.load.engine.cache.LruResourceCache
 import com.bumptech.glide.module.AppGlideModule
 import com.qingmei2.rhine.R
@@ -22,7 +23,7 @@ class GlideModule : AppGlideModule() {
     }
 
     override fun applyOptions(context: Context, builder: GlideBuilder) {
-        builder.setDiskCache(ExternalCacheDiskCacheFactory(context,
+        builder.setDiskCache(InternalCacheDiskCacheFactory(context,
                 diskCacheFolderName(context),
                 diskCacheSizeBytes()))
                 .setMemoryCache(LruResourceCache(memoryCacheSizeBytes().toLong()))
@@ -46,7 +47,7 @@ class GlideModule : AppGlideModule() {
     /**
      * set the disk cache size, unit is the [Byte].
      */
-    private fun diskCacheSizeBytes(): Int {
+    private fun diskCacheSizeBytes(): Long {
         return 1024 * 1024 * 512 // 512 MB
     }
 

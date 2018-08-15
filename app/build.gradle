@@ -43,7 +43,6 @@ dependencies {
 
     implementation rootProject.ext.dependencies["kotlin-android"]
 
-    implementation rootProject.ext.dependencies["glide"]
     kapt rootProject.ext.dependencies["glide-compiler"]
 
     testImplementation rootProject.ext.dependencies["junit"]

@@ -15,8 +15,6 @@ import java.util.concurrent.TimeUnit
 
 const val HTTP_CLIENT_MODULE_TAG = "HttpClientModule"
 
-const val KODEIN_TAG_HTTP_BASE_URL = "KODEIN_TAG_HTTP_BASE_URL"
-
 const val TIME_OUT_SECONDS = 20
 
 val HttpClientModule = Kodein.Module(HTTP_CLIENT_MODULE_TAG) {
@@ -36,9 +34,14 @@ val HttpClientModule = Kodein.Module(HTTP_CLIENT_MODULE_TAG) {
 
     bind<OkHttpClient>() with singleton {
         instance<OkHttpClient.Builder>()
-                .connectTimeout(TIME_OUT_SECONDS.toLong(), TimeUnit.SECONDS)
-                .readTimeout(TIME_OUT_SECONDS.toLong(), TimeUnit.SECONDS)
-                .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .connectTimeout(
+                        TIME_OUT_SECONDS.toLong(),
+                        TimeUnit.SECONDS)
+                .readTimeout(
+                        TIME_OUT_SECONDS.toLong(),
+                        TimeUnit.SECONDS)
+                .addInterceptor(HttpLoggingInterceptor()
+                        .setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build()
     }
 

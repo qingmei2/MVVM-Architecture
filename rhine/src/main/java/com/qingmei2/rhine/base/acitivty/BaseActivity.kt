@@ -6,12 +6,30 @@ import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.qingmei2.rhine.base.BaseViewModel
+import com.qingmei2.rhine.http.service.ServiceManager
+import com.qingmei2.rxschedulers.SchedulerProvider
+import org.kodein.di.Copy
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.closestKodein
+import org.kodein.di.android.retainedKodein
+import org.kodein.di.generic.instance
 
-abstract class BaseActivity<B : ViewDataBinding, V : BaseViewModel> : AppCompatActivity() {
+abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompatActivity(), KodeinAware {
+
+    private val parentKodein by closestKodein()
+
+    override val kodein: Kodein by retainedKodein {
+        extend(parentKodein, copy = Copy.All)
+    }
+
+    val serviceManager: ServiceManager by instance()
+    val schedulers: SchedulerProvider by instance()
+
 
     protected lateinit var binding: B
 
-    protected lateinit var viewModel: V
+    protected lateinit var viewModel: VM
 
     protected var progressDialog: ProgressDialog? = null
 
@@ -19,14 +37,10 @@ abstract class BaseActivity<B : ViewDataBinding, V : BaseViewModel> : AppCompatA
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        inject()
         binding = DataBindingUtil.setContentView(this, layoutId)
+        viewModel = initViewModel()
         initView()
         initData()
-    }
-
-    private fun inject() {
-
     }
 
     protected fun onStateChanged(state: BaseViewModel.State) {
@@ -50,8 +64,9 @@ abstract class BaseActivity<B : ViewDataBinding, V : BaseViewModel> : AppCompatA
         }
     }
 
+    protected abstract fun initViewModel(): VM
+
     protected abstract fun initData()
 
     protected abstract fun initView()
-
 }

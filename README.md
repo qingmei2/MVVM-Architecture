@@ -1,31 +1,13 @@
-# MvvmArchitecture(building...)
+# MVVM-Rhine
 
-MVVM模式的开发框架。
+MVVM架构设计
 
-### 开发环境：
+网络请求 : Rxjava2 + Retrofit2 + Okhttp3
 
-AndroidStudio 3.0.0
+图片加载 : Glide
 
-### 网络层：
+缓存处理 : RxCache
 
-HTTP : Rxjava2 + Retrofit2 + Okhttp3
+依赖注入 : Kodein
 
-ImageLoader:Glide v4
-
-Cache: RxCache
-
-### 数据处理层：
-
-JavaBean: lombok
-
-Java8：Stream + Lambda
-
-Dependencies Injection: DaggerAndroid
-
-### UI层：
-
-Views Binding: DataBinding
-
-List: RecyclerView + MultiType
-
-Layout:ConstraintLayout
+数据绑定 : DataBinding

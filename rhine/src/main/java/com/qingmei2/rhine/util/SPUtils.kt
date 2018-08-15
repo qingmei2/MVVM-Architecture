@@ -16,7 +16,7 @@ class SPUtils private constructor(spName: String) {
         get() = sp.all
 
     init {
-        sp = BaseApplication.instance!!.getSharedPreferences(spName, Context.MODE_PRIVATE)
+        sp = BaseApplication.INSTANCE.getSharedPreferences(spName, Context.MODE_PRIVATE)
     }
 
     fun put(key: String, value: String) {
