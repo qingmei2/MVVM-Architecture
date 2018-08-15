@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="activity"
-            type="com.qingmei2.sample.MainActivity" />
+            name="viewModel"
+            type="com.qingmei2.sample.MainViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -18,6 +18,8 @@
             android:id="@+id/tvContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@{viewModel.showContent}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

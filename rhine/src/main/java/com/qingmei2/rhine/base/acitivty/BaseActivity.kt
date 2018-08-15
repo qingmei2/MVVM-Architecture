@@ -6,14 +6,11 @@ import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.qingmei2.rhine.base.BaseViewModel
-import com.qingmei2.rhine.http.service.ServiceManager
-import com.qingmei2.rxschedulers.SchedulerProvider
 import org.kodein.di.Copy
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
 import org.kodein.di.android.retainedKodein
-import org.kodein.di.generic.instance
 
 abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompatActivity(), KodeinAware {
 
@@ -22,10 +19,6 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompat
     override val kodein: Kodein by retainedKodein {
         extend(parentKodein, copy = Copy.All)
     }
-
-    val serviceManager: ServiceManager by instance()
-    val schedulers: SchedulerProvider by instance()
-
 
     protected lateinit var binding: B
 
@@ -37,8 +30,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompat
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, layoutId)
-        viewModel = initViewModel()
+        initDatabinding()
         initView()
         initData()
     }
@@ -64,7 +56,16 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompat
         }
     }
 
-    protected abstract fun initViewModel(): VM
+    protected fun initDatabinding() {
+        binding = DataBindingUtil.setContentView(this, layoutId)
+        viewModel = instanceViewModel()
+
+        binding.setVariable(variableId(), instanceViewModel())
+    }
+
+    protected fun instanceViewModel(): VM = viewModel::class.java.newInstance()
+
+    protected abstract fun variableId(): Int
 
     protected abstract fun initData()
 
