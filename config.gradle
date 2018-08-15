@@ -3,9 +3,9 @@ def okhttp_version = '3.10.0'
 def dagger_version = '2.14.1'
 def kotlin_version = '1.2.60'
 def kodein_version = '5.2.0'
-def support_version = '27.1.0'
+def support_version = '27.1.1'
 def espresso_version = '3.0.2'
-def glide_version = '4.6.0'
+def glide_version = '4.7.1'
 def routerVersion = "1.2.4"
 def routerCompilerVersion = "1.1.4"
 def autodispose_version = "0.5.1"
@@ -38,12 +38,13 @@ project.ext {
             //rx
             "rxjava"                     : "io.reactivex.rxjava2:rxjava:2.1.14",
             "rxandroid"                  : "io.reactivex.rxjava2:rxandroid:2.0.2",
+            "rxkotlin"                   : "io.reactivex.rxjava2:rxkotlin:2.2.0",
             "rxbinding"                  : "com.jakewharton.rxbinding2:rxbinding:2.0.0",
             "rxschedulers"               : "com.github.qingmei2.rxschedulers:rxschedulers:${rxschedulers_version}",
             "rxschedulers_kotlin"        : "com.github.qingmei2.rxschedulers:rxschedulers_support_kt:${rxschedulers_version}",
             "rxpermissions"              : "com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar",
 
-            // rxImagePicker
+            // imagepicker
             "rximagepicker"              : "com.github.qingmei2:rximagepicker:2.2.0-alpha",
             "rximagepicker_zhihu"        : "com.github.qingmei2:rximagepicker_support_zhihu:2.2.0-alpha",
 
@@ -83,18 +84,15 @@ project.ext {
             "glide"                      : "com.github.bumptech.glide:glide:${glide_version}",
             "glide-compiler"             : "com.github.bumptech.glide:compiler:${glide_version}",
 
-            // junit
-            "junit"                      : "junit:junit:4.12",
-
-            // mock
-            "mockito-kotlin"             : "com.nhaarman:mockito-kotlin-kt1.1:1.5.0",
-
             // multitype
             "multitype"                  : "me.drakeet.multitype:multitype:3.4.4",
 
             // dsladapter
             "dsl-adapter"                : "com.github.Yumenokanata.DslAdapter:dsladapter:0.8.1",
             "dsl-adapter-databinding"    : "com.github.Yumenokanata.DslAdapter:adapterdatabinding:0.8.1",
+
+            // junit
+            "junit"                      : "junit:junit:4.12",
 
             //robolectric
             "robolectric"                : "org.robolectric:robolectric:3.3.2",

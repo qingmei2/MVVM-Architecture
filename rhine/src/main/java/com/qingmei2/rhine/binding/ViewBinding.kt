@@ -3,11 +3,6 @@ package com.qingmei2.rhine.binding
 import android.databinding.BindingAdapter
 import android.view.View
 
-/**
- * Created by QingMei on 2017/11/6.
- * desc:
- */
-
 object ViewBinding {
 
     @BindingAdapter("visible")
@@ -17,7 +12,7 @@ object ViewBinding {
 
     @BindingAdapter("onLongClick")
     fun setOnLongClick(view: View, callback: Runnable) {
-        view.setOnLongClickListener { __ ->
+        view.setOnLongClickListener {
             callback.run()
             true
         }

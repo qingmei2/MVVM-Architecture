@@ -5,6 +5,7 @@ package com.qingmei2.rhine.util
 import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
+import io.reactivex.Observable
 
 /**
  * 判断网络状态是否可用

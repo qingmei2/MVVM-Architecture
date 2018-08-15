@@ -52,11 +52,13 @@ dependencies {
     implementation rootProject.ext.dependencies["retrofit-mock"]
 
     // rx
-    implementation rootProject.ext.dependencies["rxjava"]
+    implementation rootProject.ext.dependencies["rxkotlin"]
     implementation rootProject.ext.dependencies["rxandroid"]
     implementation rootProject.ext.dependencies["rxbinding"]
     implementation rootProject.ext.dependencies["rxpermissions"]
     implementation rootProject.ext.dependencies["rxschedulers_kotlin"]
+    implementation rootProject.ext.dependencies["rxCache"]
+    implementation rootProject.ext.dependencies["rxCache-Jolyglot"]
 
     // autodispose
     implementation rootProject.ext.dependencies["autodispose"]
@@ -73,10 +75,6 @@ dependencies {
     // glide
     implementation rootProject.ext.dependencies["glide"]
     kapt rootProject.ext.dependencies["glide-compiler"]
-
-    // rxCache
-    implementation rootProject.ext.dependencies["rxCache"]
-    implementation rootProject.ext.dependencies["rxCache-Jolyglot"]
 
     // recyclerview_binding
     implementation rootProject.ext.dependencies["dsl-adapter-databinding"], {

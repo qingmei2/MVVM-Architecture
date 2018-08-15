@@ -12,23 +12,13 @@ import android.view.ViewGroup
 
 import com.qingmei2.rhine.base.BaseViewModel
 
-import javax.inject.Inject
-
-import dagger.android.support.AndroidSupportInjection
-
-/**
- * Created by QingMei on 2017/10/12.
- * desc:
- */
-
 abstract class BaseFragment<B : ViewDataBinding, V : BaseViewModel> : Fragment() {
 
     protected var binding: B? = null
 
-    @Inject
     var viewModel: V? = null
 
-    protected var mRootView: View
+    protected lateinit var mRootView: View
 
     protected var progressDialog: ProgressDialog? = null
 
@@ -44,11 +34,6 @@ abstract class BaseFragment<B : ViewDataBinding, V : BaseViewModel> : Fragment()
         binding = DataBindingUtil.bind(view)
         initView(view)
         initData()
-    }
-
-    override fun onAttach(activity: Activity?) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(activity)
     }
 
     protected fun onStateChanged(state: BaseViewModel.State) {
