@@ -1,9 +1,9 @@
 package com.qingmei2.sample
 
 import android.databinding.ObservableField
-import com.qingmei2.rhine.base.BaseViewModel
+import com.qingmei2.rhine.base.BaseRhineViewModel
 
-class MainViewModel : BaseViewModel() {
+class MainRhineViewModel : BaseRhineViewModel() {
 
     val showContent: ObservableField<String> = ObservableField()
 

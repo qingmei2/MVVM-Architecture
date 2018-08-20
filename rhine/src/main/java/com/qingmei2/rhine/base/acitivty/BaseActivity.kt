@@ -5,14 +5,14 @@ import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.qingmei2.rhine.base.BaseViewModel
+import com.qingmei2.rhine.base.BaseRhineViewModel
 import org.kodein.di.Copy
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
 import org.kodein.di.android.retainedKodein
 
-abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompatActivity(), KodeinAware {
+abstract class BaseActivity<B : ViewDataBinding, VM : BaseRhineViewModel> : AppCompatActivity(), KodeinAware {
 
     private val parentKodein by closestKodein()
 
@@ -35,13 +35,13 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompat
         initData()
     }
 
-    protected fun onStateChanged(state: BaseViewModel.State) {
+    protected fun onStateChanged(state: BaseRhineViewModel.State) {
         when (state) {
-            BaseViewModel.State.LOAD_WAIT -> {
+            BaseRhineViewModel.State.LOAD_WAIT -> {
             }
-            BaseViewModel.State.LOAD_ING -> loading(true)
-            BaseViewModel.State.LOAD_SUCCESS -> loading(false)
-            BaseViewModel.State.LOAD_FAILED -> loading(false)
+            BaseRhineViewModel.State.LOAD_ING -> loading(true)
+            BaseRhineViewModel.State.LOAD_SUCCESS -> loading(false)
+            BaseRhineViewModel.State.LOAD_FAILED -> loading(false)
         }
     }
 

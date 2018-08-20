@@ -1,6 +1,5 @@
 package com.qingmei2.rhine.base.fragment
 
-import android.app.Activity
 import android.app.ProgressDialog
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
@@ -10,9 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import com.qingmei2.rhine.base.BaseViewModel
+import com.qingmei2.rhine.base.BaseRhineViewModel
 
-abstract class BaseFragment<B : ViewDataBinding, V : BaseViewModel> : Fragment() {
+abstract class BaseFragment<B : ViewDataBinding, V : BaseRhineViewModel> : Fragment() {
 
     protected var binding: B? = null
 
@@ -36,13 +35,13 @@ abstract class BaseFragment<B : ViewDataBinding, V : BaseViewModel> : Fragment()
         initData()
     }
 
-    protected fun onStateChanged(state: BaseViewModel.State) {
+    protected fun onStateChanged(state: BaseRhineViewModel.State) {
         when (state) {
-            BaseViewModel.State.LOAD_WAIT -> {
+            BaseRhineViewModel.State.LOAD_WAIT -> {
             }
-            BaseViewModel.State.LOAD_ING -> loading(true)
-            BaseViewModel.State.LOAD_SUCCESS -> loading(false)
-            BaseViewModel.State.LOAD_FAILED -> loading(false)
+            BaseRhineViewModel.State.LOAD_ING -> loading(true)
+            BaseRhineViewModel.State.LOAD_SUCCESS -> loading(false)
+            BaseRhineViewModel.State.LOAD_FAILED -> loading(false)
             else -> {
             }
         }
