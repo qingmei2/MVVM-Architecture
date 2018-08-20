@@ -1,14 +1,15 @@
-package com.qingmei2.rhine.base
+package com.qingmei2.rhine.base.viewmodel
 
 import android.databinding.ObservableField
-import com.qingmei2.rhine.base.BaseRhineViewModel.State.LOAD_WAIT
+import com.qingmei2.rhine.base.BaseApplication
+import com.qingmei2.rhine.base.viewmodel.BaseRhineViewModel.State.LOAD_WAIT
 import com.qingmei2.rhine.http.service.ServiceManager
 import com.qingmei2.rxschedulers.SchedulerProvider
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 
-open class BaseRhineViewModel : KodeinAware {
+open class BaseRhineViewModel : LifecycleViewModel(), KodeinAware {
 
     override val kodein: Kodein = BaseApplication.INSTANCE.kodein
 

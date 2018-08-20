@@ -2,7 +2,7 @@ package com.qingmei2.rhine.base
 
 import android.app.Application
 import android.content.Context
-import com.qingmei2.rhine.di.HttpClientModule
+import com.qingmei2.rhine.di.httpClientModule
 import com.qingmei2.rhine.di.cacheModule
 import com.qingmei2.rhine.di.rxModule
 import com.qingmei2.rhine.di.serviceModule
@@ -21,7 +21,7 @@ open class BaseApplication : Application(), KodeinAware {
         import(serviceModule)
         import(cacheModule)
         import(rxModule)
-        import(HttpClientModule)
+        import(httpClientModule)
     }
 
     override fun onCreate() {

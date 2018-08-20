@@ -1,7 +1,7 @@
 package com.qingmei2.sample
 
 import android.databinding.ObservableField
-import com.qingmei2.rhine.base.BaseRhineViewModel
+import com.qingmei2.rhine.base.viewmodel.BaseRhineViewModel
 
 class MainRhineViewModel : BaseRhineViewModel() {
 

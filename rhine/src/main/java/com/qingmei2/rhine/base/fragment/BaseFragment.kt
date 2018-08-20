@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import com.qingmei2.rhine.base.BaseRhineViewModel
+import com.qingmei2.rhine.base.viewmodel.BaseRhineViewModel
 
 abstract class BaseFragment<B : ViewDataBinding, V : BaseRhineViewModel> : Fragment() {
 

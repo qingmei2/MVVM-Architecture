@@ -1,18 +1,21 @@
 package com.qingmei2.rhine.base.acitivty
 
 import android.app.ProgressDialog
+import android.arch.lifecycle.LifecycleOwner
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.qingmei2.rhine.base.BaseRhineViewModel
+import com.qingmei2.rhine.base.IView
+import com.qingmei2.rhine.base.viewmodel.BaseRhineViewModel
 import org.kodein.di.Copy
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
 import org.kodein.di.android.retainedKodein
 
-abstract class BaseActivity<B : ViewDataBinding, VM : BaseRhineViewModel> : AppCompatActivity(), KodeinAware {
+abstract class BaseActivity<B : ViewDataBinding, VM : BaseRhineViewModel> : AppCompatActivity(),
+        KodeinAware, IView {
 
     private val parentKodein by closestKodein()
 
@@ -54,6 +57,10 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseRhineViewModel> : AppC
             progressDialog?.dismiss()
             progressDialog = null
         }
+    }
+
+    override fun injectLifecycleOwner(lifecycleOwner: LifecycleOwner) {
+        viewModel.initLifecycleOwner(this)
     }
 
     protected fun initDatabinding() {

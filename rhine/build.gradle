@@ -61,8 +61,9 @@ dependencies {
     api rootProject.ext.dependencies["rxCache-Jolyglot"]
 
     // autodispose
-    implementation rootProject.ext.dependencies["autodispose"]
-    implementation rootProject.ext.dependencies["autodispose-archcomponents"]
+    api rootProject.ext.dependencies["autodispose"]
+    api rootProject.ext.dependencies["autodispose-ktx"]
+    api rootProject.ext.dependencies["autodispose-archs-ktx"]
 
     // kodein
     api rootProject.ext.dependencies["kodein"]
@@ -77,7 +78,7 @@ dependencies {
     kapt rootProject.ext.dependencies["glide-compiler"]
 
     // recyclerview_binding
-    implementation rootProject.ext.dependencies["dsl-adapter-databinding"], {
+    api rootProject.ext.dependencies["dsl-adapter-databinding"], {
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }

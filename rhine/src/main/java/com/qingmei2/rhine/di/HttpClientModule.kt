@@ -13,11 +13,11 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-const val HTTP_CLIENT_MODULE_TAG = "HttpClientModule"
+const val HTTP_CLIENT_MODULE_TAG = "httpClientModule"
 
 const val TIME_OUT_SECONDS = 20
 
-val HttpClientModule = Kodein.Module(HTTP_CLIENT_MODULE_TAG) {
+val httpClientModule = Kodein.Module(HTTP_CLIENT_MODULE_TAG) {
 
     bind<Retrofit.Builder>() with singleton { Retrofit.Builder() }
 

@@ -8,7 +8,7 @@ def espresso_version = '3.0.2'
 def glide_version = '4.7.1'
 def routerVersion = "1.2.4"
 def routerCompilerVersion = "1.1.4"
-def autodispose_version = "0.5.1"
+def autodispose_version = "1.0.0-RC2"
 def rxschedulers_version = "0.1.1"
 
 project.ext {
@@ -50,7 +50,8 @@ project.ext {
 
             // autoDispose
             "autodispose"                : "com.uber.autodispose:autodispose-android:${autodispose_version}",
-            "autodispose-archcomponents" : "com.uber.autodispose:autodispose-android-archcomponents:${autodispose_version}",
+            "autodispose-ktx"            : "com.uber.autodispose:autodispose-android-ktx:${autodispose_version}",
+            "autodispose-archs-ktx"      : "com.uber.autodispose:autodispose-android-archcomponents-ktx:${autodispose_version}",
 
             // rxCache
             "rxCache"                    : "com.github.VictorAlbertos.RxCache:runtime:1.8.3-2.x",
