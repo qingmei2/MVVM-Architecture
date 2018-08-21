@@ -37,5 +37,4 @@ open class BaseRhineViewModel : LifecycleViewModel(), KodeinAware {
          */
         LOAD_FAILED
     }
-
 }

@@ -40,23 +40,22 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseRhineViewModel> : AppC
 
     protected fun onStateChanged(state: BaseRhineViewModel.State) {
         when (state) {
-            BaseRhineViewModel.State.LOAD_WAIT -> {
-            }
-            BaseRhineViewModel.State.LOAD_ING -> loading(true)
-            BaseRhineViewModel.State.LOAD_SUCCESS -> loading(false)
-            BaseRhineViewModel.State.LOAD_FAILED -> loading(false)
+            BaseRhineViewModel.State.LOAD_ING -> showLoading()
+            BaseRhineViewModel.State.LOAD_WAIT,
+            BaseRhineViewModel.State.LOAD_SUCCESS,
+            BaseRhineViewModel.State.LOAD_FAILED -> hideLoading()
         }
     }
 
-    protected fun loading(showing: Boolean) {
-        if (showing) {
-            progressDialog = ProgressDialog(this)
-            progressDialog?.setCancelable(false)
-            progressDialog?.show()
-        } else {
-            progressDialog?.dismiss()
-            progressDialog = null
-        }
+    override fun showLoading() {
+        progressDialog = ProgressDialog(this)
+        progressDialog?.setCancelable(false)
+        progressDialog?.show()
+    }
+
+    override fun hideLoading() {
+        progressDialog?.dismiss()
+        progressDialog = null
     }
 
     override fun injectLifecycleOwner(lifecycleOwner: LifecycleOwner) {

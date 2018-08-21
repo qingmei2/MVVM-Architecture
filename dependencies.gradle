@@ -1,0 +1,106 @@
+ext {
+
+    build_version = [
+            compileSdkVersion: 27,
+            minSdkVersion    : 19,
+            targetSdkVersion : 27,
+            versionCode      : 1,
+            versionName      : '1.0.0'
+    ]
+
+    versions = [
+            android_plugin       : '3.1.4',
+            kotlin               : '1.2.60',
+
+            support              : '27.1.1',
+            arch_comp_lifecycle  : '1.1.1',
+            arch_comp_persistence: '1.0.0',
+            retrofit             : '2.4.0',
+            okhttp               : '3.10.0',
+            kodein               : '5.2.0',
+            glide                : '4.7.1',
+            dsladapter           : '0.8.1',
+
+            rxjava               : '2.1.14',
+            rxkotlin             : '2.2.0',
+            rxandroid            : '2.0.2',
+            rxbinding            : '2.0.0',
+            rxcache              : '1.8.3-2.x',
+            autodispose          : '1.0.0-RC2',
+
+            espresso             : '3.0.2',
+            robolectric          : '3.3.2',
+            junit                : '4.12'
+    ]
+
+    build_plugins = [
+            android_gradle: [group: 'com.android.tools.build', name: 'gradle', version: versions.android_plugin],
+            kotlin_gradle : [group: 'org.jetbrains.kotlin', name: 'kotlin-gradle-plugin', version: versions.kotlin]
+    ]
+
+    libs = [
+            support_v4              : [group: 'com.android.support', name: 'support-v4', version: versions.support],
+            support_v7              : [group: 'com.android.support', name: 'appcompat-v7', version: versions.support],
+            support_v13             : [group: 'com.android.support', name: 'support-v13', version: versions.support],
+            design                  : [group: 'com.android.support', name: 'design', version: versions.support],
+            recyclerview            : [group: 'com.android.support', name: 'recyclerview-v7', version: versions.support],
+            cardview                : [group: 'com.android.support', name: 'cardview-v7', version: versions.support],
+            annotations             : [group: 'com.android.support', name: 'support-annotations', version: versions.support],
+
+            constraint              : [group: 'com.android.support.constraint', name: 'constraint-layout', version: '1.0.2'],
+
+            arch_comp_livedata      : [group: 'android.arch.lifecycle', name: 'livedata', version: versions.arch_comp_lifecycle],
+            arch_comp_viewmodel     : [group: 'android.arch.lifecycle', name: 'viewmodel', version: versions.arch_comp_lifecycle],
+            arch_comp_room          : [group: 'android.arch.persistence.room', name: 'runtime', version: versions.arch_comp_persistence],
+            arch_comp_room_compiler : [group: 'android.arch.persistence.room', name: 'compiler', version: versions.arch_comp_persistence],
+            arch_comp_room_rxjava   : [group: 'android.arch.persistence.room', name: 'rxjava2', version: versions.arch_comp_persistence],
+            arch_comp_room_test     : [group: 'android.arch.persistence.room', name: 'testing', version: versions.arch_comp_persistence],
+            arch_comp_test          : [group: 'android.arch.core', name: 'core-testing', version: versions.arch_comp_lifecycle],
+
+            arrow                   : [group: 'io.arrow-kt', name: 'arrow-core', version: '0.7.1'],
+            databinding_compiler    : [group: 'com.android.databinding', name: 'compiler', version: versions.android_plugin],
+            kotlin_stdlib           : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk7', version: versions.kotlin],
+
+            glide                   : [group: 'com.github.bumptech.glide', name: 'glide', version: versions.glide],
+            glide_compiler          : [group: 'com.github.bumptech.glide', name: 'compiler', version: versions.glide],
+
+            okhttp                  : [group: 'com.squareup.okhttp3', name: 'okhttp', version: versions.okhttp],
+            okhttp_logging          : [group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: versions.okhttp],
+
+            retrofit                : [group: 'com.squareup.retrofit2', name: 'retrofit', version: versions.retrofit],
+            retrofit_gson           : [group: 'com.squareup.retrofit2', name: 'converter-gson', version: versions.retrofit],
+            retrofit_rxjava         : [group: 'com.squareup.retrofit2', name: 'adapter-rxjava2', version: versions.retrofit],
+
+            rxjava                  : [group: 'io.reactivex.rxjava2', name: 'rxjava', version: versions.rxjava],
+            rxkotlin                : [group: 'io.reactivex.rxjava2', name: 'rxkotlin', version: versions.rxkotlin],
+            rxandroid               : [group: 'io.reactivex.rxjava2', name: 'rxandroid', version: versions.rxandroid],
+            rxbinding               : [group: 'com.jakewharton.rxbinding2', name: 'rxbinding', version: versions.rxbinding],
+            rxpermissions           : [group: 'com.github.tbruyelle', name: 'rxpermissions', version: '0.10.2'],
+            rxcache                 : [group: 'com.github.VictorAlbertos.RxCache', name: 'runtime', version: versions.rxcache],
+            rxcache_jolyglot        : [group: 'com.github.VictorAlbertos.Jolyglot', name: 'gson', version: '0.0.4'],
+            rximagepicker           : [group: 'com.github.qingmei2', name: 'rximagepicker', version: '2.0.0-alpha'],
+
+            autodispose             : [group: 'com.uber.autodispose', name: 'autodispose-android', version: versions.autodispose],
+            autodispose_ktx         : [group: 'com.uber.autodispose', name: 'autodispose-android-ktx', version: versions.autodispose],
+            autodispose_archs_ktx   : [group: 'com.uber.autodispose', name: 'autodispose-android-archcomponents-ktx', version: versions.autodispose],
+
+            kodein                  : [group: 'org.kodein.di', name: 'kodein-di-generic-jvm', version: versions.kodein],
+            kodein_android          : [group: 'org.kodein.di', name: 'kodein-di-framework-android-core', version: versions.kodein],
+
+            dsl_adapter             : [group: 'com.github.Yumenokanata.DslAdapter', name: 'dsladapter', version: versions.dsladapter],
+            dsl_adapter_binding     : [group: 'com.github.Yumenokanata.DslAdapter', name: 'adapterdatabinding', version: versions.dsladapter],
+
+            junit                   : [group: 'junit', name: 'junit', version: '4.12'],
+
+            mockito_kotlin          : [group: 'com.nhaarman', name: 'mockito-kotlin', version: '1.5.0'],
+
+            robolectric             : [group: 'org.robolectric', name: 'robolectric', version: versions.robolectric],
+            robolectric_v4          : [group: 'org.robolectric', name: 'shadows-support-v4', version: versions.robolectric],
+
+            espresso_core           : [group: 'com.android.support.test.espresso', name: 'espresso-core', version: versions.espresso],
+            espresso_contrib        : [group: 'com.android.support.test.espresso', name: 'espresso-contrib', version: versions.espresso],
+            espresso_idling_resource: [group: 'com.android.support.test.espresso', name: 'espresso-idling-resource', version: versions.espresso],
+            espresso_test_runner    : [group: 'com.android.support.test', name: 'runner', version: '1.0.2'],
+            espresso_test_rules     : [group: 'com.android.support.test', name: 'rules', version: '1.0.2']
+    ]
+}

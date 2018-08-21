@@ -4,14 +4,14 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    compileSdkVersion build_version.compileSdkVersion
 
     defaultConfig {
         applicationId "com.qingmei2.sample_rhine"
-        minSdkVersion rootProject.ext.android["minSdkVersion"]
-        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
-        versionCode rootProject.ext.android["versionCode"]
-        versionName rootProject.ext.android["versionName"]
+        minSdkVersion build_version.minSdkVersion
+        targetSdkVersion build_version.targetSdkVersion
+        versionCode build_version.versionCode
+        versionName build_version.versionName
 
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -37,19 +37,16 @@ dependencies {
     implementation project(':rhine')
 
     // support
-    implementation rootProject.ext.dependencies["appcompat-v7"]
-    implementation rootProject.ext.dependencies["design"]
-    implementation rootProject.ext.dependencies["constraint-layout"]
+    implementation libs.support_v7
+    implementation libs.recyclerview
+    implementation libs.design
+    implementation libs.constraint
 
-    implementation rootProject.ext.dependencies["kotlin-android"]
+    implementation libs.kotlin_stdlib
 
-    kapt rootProject.ext.dependencies["glide-compiler"]
+    kapt libs.glide_compiler
 
-    testImplementation rootProject.ext.dependencies["junit"]
+    testImplementation libs.junit
 
-    androidTestImplementation rootProject.ext.dependencies["espresso-core"]
-    androidTestImplementation rootProject.ext.dependencies["espresso-contrib"]
-    androidTestImplementation rootProject.ext.dependencies["espresso-idling-resource"]
-    androidTestImplementation rootProject.ext.dependencies["espresso-test-runner"]
-    androidTestImplementation rootProject.ext.dependencies["espresso-test-rules"]
+    androidTestImplementation libs.espresso_core
 }
