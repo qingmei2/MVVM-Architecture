@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
-            name="viewModel"
-            type="com.qingmei2.sample.MainViewModel" />
+            name="delegate"
+            type="com.qingmei2.sample.main.MainScreenDelegate" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -15,11 +14,11 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tvContent"
+            android:id="@+id/tvUserInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="@{viewModel.showContent}"
+            android:text="@{ delegate.viewModel.userInfo }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

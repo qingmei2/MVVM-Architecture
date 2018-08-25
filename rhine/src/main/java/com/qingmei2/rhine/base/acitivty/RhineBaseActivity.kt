@@ -1,20 +1,19 @@
 package com.qingmei2.rhine.base.acitivty
 
-import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.support.v7.app.AppCompatActivity
+import com.qingmei2.rhine.base.IScreenDelegate
 import com.qingmei2.rhine.base.IView
-import com.qingmei2.rhine.base.viewmodel.RhineBaseViewModel
 import org.kodein.di.Copy
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
 import org.kodein.di.android.retainedKodein
 
-abstract class RhineBaseActivity<B : ViewDataBinding, VM : RhineBaseViewModel> : AppCompatActivity(),
+abstract class RhineBaseActivity<B : ViewDataBinding, D : IScreenDelegate> : AppCompatActivity(),
         KodeinAware, IView {
 
     private val parentKodein by closestKodein()
@@ -25,37 +24,27 @@ abstract class RhineBaseActivity<B : ViewDataBinding, VM : RhineBaseViewModel> :
 
     protected lateinit var binding: B
 
-    protected lateinit var viewModel: VM
+    protected lateinit var screenDelegate: D
 
-    protected abstract val layoutId: Int
+    abstract val layoutId: Int
+
+    abstract val delegateId: Int
+
+    abstract val instanceDelegate: () -> D
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initViewModel()
-        initDatabinding()
-        initData()
-        initView()
+        initBinding()
     }
 
     @CallSuper
-    protected fun initDatabinding() {
+    protected fun initBinding() {
+        screenDelegate = instanceDelegate()
+
         binding = DataBindingUtil.setContentView(this, layoutId)
         with(binding) {
             setLifecycleOwner(this@RhineBaseActivity)
-            setVariable(variableId(), viewModel)
+            setVariable(delegateId, screenDelegate)
         }
     }
-
-    protected fun initViewModel(): VM = ViewModelProviders.of(this)
-            .get(viewModel::class.java)
-            .apply {
-                viewModel = this
-                initLifecycleOwner(this@RhineBaseActivity)
-            }
-
-    protected abstract fun variableId(): Int
-
-    protected abstract fun initData()
-
-    protected abstract fun initView()
 }

@@ -1,11 +1,10 @@
 package com.qingmei2.sample.base
 
 import android.databinding.ViewDataBinding
-import com.qingmei2.rhine.BR
+import com.qingmei2.rhine.base.IScreenDelegate
 import com.qingmei2.rhine.base.acitivty.RhineBaseActivity
-import com.qingmei2.rhine.base.viewmodel.RhineBaseViewModel
 
-abstract class BaseActivity<B : ViewDataBinding, VM : RhineBaseViewModel> : RhineBaseActivity<B, VM>() {
+abstract class BaseActivity<B : ViewDataBinding, D : IScreenDelegate> : RhineBaseActivity<B, D>() {
 
     override fun showLoading() {
 
@@ -14,6 +13,4 @@ abstract class BaseActivity<B : ViewDataBinding, VM : RhineBaseViewModel> : Rhin
     override fun hideLoading() {
 
     }
-
-    override fun variableId(): Int = BR.viewModel
 }
