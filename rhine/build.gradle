@@ -40,8 +40,6 @@ dependencies {
 
     // support
     implementation libs.support_v7
-    implementation libs.design
-    implementation libs.constraint
 
     implementation libs.kotlin_stdlib
 
@@ -59,6 +57,7 @@ dependencies {
     api libs.rxandroid
     api libs.rxbinding
     api libs.rxpermissions
+    api libs.rxschedulers
     api libs.rxcache
     api libs.rxcache_jolyglot
 

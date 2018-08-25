@@ -50,7 +50,8 @@ open class LifecycleViewModel : ViewModel(), ILifecycleViewModel {
     }
 
     @CallSuper
-    override fun onLifecycleChanged(lifecycleOwner: LifecycleOwner, event: Lifecycle.Event) {
+    override fun onLifecycleChanged(lifecycleOwner: LifecycleOwner,
+                                    event: Lifecycle.Event) {
 
     }
 }

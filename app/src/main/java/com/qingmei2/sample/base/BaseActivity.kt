@@ -10,15 +10,6 @@ abstract class BaseActivity<B : ViewDataBinding, VM : RhineBaseViewModel> : Rhin
 
     protected var progressDialog: ProgressDialog? = null
 
-//    protected fun onStateChanged(state: RhineBaseViewModel.State) {
-//        when (state) {
-//            RhineBaseViewModel.State.LOAD_ING -> showLoading()
-//            RhineBaseViewModel.State.LOAD_WAIT,
-//            RhineBaseViewModel.State.LOAD_SUCCESS,
-//            RhineBaseViewModel.State.LOAD_FAILED -> hideLoading()
-//        }
-//    }
-
     override fun showLoading() {
         progressDialog = ProgressDialog(this)
         progressDialog?.setCancelable(false)

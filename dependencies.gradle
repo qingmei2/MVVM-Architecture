@@ -50,7 +50,7 @@ ext {
             constraint              : [group: 'com.android.support.constraint', name: 'constraint-layout', version: '1.0.2'],
 
             arch_comp_extension     : [group: 'android.arch.lifecycle', name: 'extensions', version: versions.arch_comp_lifecycle],
-            arch_comp_compiler     : [group: 'android.arch.lifecycle', name: 'compiler', version: versions.arch_comp_lifecycle],
+            arch_comp_compiler      : [group: 'android.arch.lifecycle', name: 'compiler', version: versions.arch_comp_lifecycle],
             arch_comp_livedata      : [group: 'android.arch.lifecycle', name: 'livedata', version: versions.arch_comp_lifecycle],
             arch_comp_viewmodel     : [group: 'android.arch.lifecycle', name: 'viewmodel', version: versions.arch_comp_lifecycle],
             arch_comp_room          : [group: 'android.arch.persistence.room', name: 'runtime', version: versions.arch_comp_persistence],
@@ -81,6 +81,7 @@ ext {
             rxcache                 : [group: 'com.github.VictorAlbertos.RxCache', name: 'runtime', version: versions.rxcache],
             rxcache_jolyglot        : [group: 'com.github.VictorAlbertos.Jolyglot', name: 'gson', version: '0.0.4'],
             rximagepicker           : [group: 'com.github.qingmei2', name: 'rximagepicker', version: '2.0.0-alpha'],
+            rxschedulers            : [group: 'com.github.qingmei2.rxschedulers', name: 'rxschedulers_support_kt', version: '0.1.1'],
 
             autodispose             : [group: 'com.uber.autodispose', name: 'autodispose-android', version: versions.autodispose],
             autodispose_ktx         : [group: 'com.uber.autodispose', name: 'autodispose-android-ktx', version: versions.autodispose],
