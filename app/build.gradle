@@ -45,6 +45,7 @@ dependencies {
     implementation libs.kotlin_stdlib
 
     kapt libs.glide_compiler
+    kapt libs.arch_comp_compiler
 
     testImplementation libs.junit
 

@@ -45,6 +45,10 @@ dependencies {
 
     implementation libs.kotlin_stdlib
 
+    // jetpack
+    api libs.arch_comp_extension
+    kapt libs.arch_comp_compiler
+
     // retrofit
     api libs.retrofit
     api libs.retrofit_gson

@@ -1,9 +1,9 @@
 package com.qingmei2.sample
 
-import com.qingmei2.rhine.base.acitivty.BaseActivity
+import com.qingmei2.sample.base.BaseActivity
 import com.qingmei2.sample.databinding.ActivityMainBinding
 
-class MainActivity : BaseActivity<ActivityMainBinding, MainRhineViewModel>() {
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     override fun variableId(): Int = BR.viewModel
 

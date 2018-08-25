@@ -49,6 +49,8 @@ ext {
 
             constraint              : [group: 'com.android.support.constraint', name: 'constraint-layout', version: '1.0.2'],
 
+            arch_comp_extension     : [group: 'android.arch.lifecycle', name: 'extensions', version: versions.arch_comp_lifecycle],
+            arch_comp_compiler     : [group: 'android.arch.lifecycle', name: 'compiler', version: versions.arch_comp_lifecycle],
             arch_comp_livedata      : [group: 'android.arch.lifecycle', name: 'livedata', version: versions.arch_comp_lifecycle],
             arch_comp_viewmodel     : [group: 'android.arch.lifecycle', name: 'viewmodel', version: versions.arch_comp_lifecycle],
             arch_comp_room          : [group: 'android.arch.persistence.room', name: 'runtime', version: versions.arch_comp_persistence],

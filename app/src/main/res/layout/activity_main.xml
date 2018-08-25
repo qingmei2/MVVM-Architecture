@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.qingmei2.sample.MainRhineViewModel" />
+            type="com.qingmei2.sample.MainViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
