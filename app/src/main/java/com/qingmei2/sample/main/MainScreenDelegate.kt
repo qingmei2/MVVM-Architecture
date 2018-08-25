@@ -1,14 +1,10 @@
 package com.qingmei2.sample.main
 
-import com.qingmei2.rhine.base.IScreenDelegate
+import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
 
 class MainScreenDelegate(
         val viewModel: MainViewModel
-) : IScreenDelegate {
-
-    init {
-        fetchUserInfo()
-    }
+) : IViewDelegate {
 
     fun fetchUserInfo() = viewModel.fetchUserInfo()
 }

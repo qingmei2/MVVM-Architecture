@@ -8,7 +8,9 @@ import com.qingmei2.sample.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainScreenDelegate>() {
 
-    val mainViewModel = viewModel(MainViewModel::class.java)
+    private val mainViewModel by lazy {
+        viewModel(MainViewModel::class.java)
+    }
 
     override val delegateId: Int = BR.delegate
 

@@ -5,23 +5,13 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.ViewModel
 import android.support.annotation.CallSuper
 
-open class LifecycleViewModel : ViewModel(), ILifecycleViewModel {
+open class LifecycleViewModel : ViewModel(), IViewModel {
 
     var lifecycleOwner: LifecycleOwner? = null
 
-    override fun initLifecycleOwner(lifecycleOwner: LifecycleOwner) {
-        this.lifecycleOwner = lifecycleOwner
-    }
-
-    override fun checkLifecycleOwner(): Boolean = lifecycleOwner != null
-
-    override fun releaseLifecycleOwner() {
-        this.lifecycleOwner = null
-    }
-
     @CallSuper
     override fun onCreate(lifecycleOwner: LifecycleOwner) {
-
+        this.lifecycleOwner = lifecycleOwner
     }
 
     @CallSuper
@@ -46,7 +36,7 @@ open class LifecycleViewModel : ViewModel(), ILifecycleViewModel {
 
     @CallSuper
     override fun onDestroy(lifecycleOwner: LifecycleOwner) {
-        releaseLifecycleOwner()
+        this.lifecycleOwner = null
     }
 
     @CallSuper

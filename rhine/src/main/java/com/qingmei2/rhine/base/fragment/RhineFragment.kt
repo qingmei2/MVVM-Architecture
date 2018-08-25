@@ -8,10 +8,10 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.qingmei2.rhine.base.IScreenDelegate
+import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
 import com.qingmei2.rhine.base.IView
 
-abstract class RhineBaseFragment<B : ViewDataBinding, D : IScreenDelegate> : Fragment(), IView {
+abstract class RhineFragment<B : ViewDataBinding, D : IViewDelegate> : Fragment(), IView {
 
     protected lateinit var mRootView: View
 
@@ -41,7 +41,7 @@ abstract class RhineBaseFragment<B : ViewDataBinding, D : IScreenDelegate> : Fra
 
         binding = DataBindingUtil.bind(rootView)!!
         with(binding) {
-            setLifecycleOwner(this@RhineBaseFragment)
+            setLifecycleOwner(this@RhineFragment)
             setVariable(variableId, screenDelegate)
         }
     }

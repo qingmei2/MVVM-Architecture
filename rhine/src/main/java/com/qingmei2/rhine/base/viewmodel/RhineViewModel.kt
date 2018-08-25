@@ -7,7 +7,7 @@ import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 
-open class RhineBaseViewModel : LifecycleViewModel(), KodeinAware {
+open class RhineViewModel : LifecycleViewModel(), KodeinAware {
 
     override val kodein: Kodein = BaseApplication.INSTANCE.kodein
 

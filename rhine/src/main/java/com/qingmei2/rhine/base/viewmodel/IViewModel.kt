@@ -6,13 +6,7 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
 import org.jetbrains.annotations.NotNull
 
-interface ILifecycleViewModel : LifecycleObserver {
-
-    fun initLifecycleOwner(@NotNull lifecycleOwner: LifecycleOwner)
-
-    fun checkLifecycleOwner(): Boolean
-
-    fun releaseLifecycleOwner()
+interface IViewModel : LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate(@NotNull lifecycleOwner: LifecycleOwner)
