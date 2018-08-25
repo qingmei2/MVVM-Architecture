@@ -7,8 +7,8 @@ import io.reactivex.Maybe
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface UserInfoService {
+interface UserinfoApi {
 
-    @GET("users/{user}")
-    fun getUserInfo(@Path("user") user: String): Maybe<UserInfo>
+    @GET("users/{username}")
+    fun fetchUserInfo(@Path("username") username: String): Maybe<UserInfo>
 }

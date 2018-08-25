@@ -1,7 +1,7 @@
 package com.qingmei2.rhine.di
 
 import com.qingmei2.rhine.http.service.ServiceManager
-import com.qingmei2.rhine.http.service.UserInfoService
+import com.qingmei2.rhine.http.service.UserinfoApi
 
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
@@ -13,8 +13,8 @@ const val SERVICE_MODULE_TAG = "serviceModule"
 
 val serviceModule = Kodein.Module(SERVICE_MODULE_TAG) {
 
-    bind<UserInfoService>() with singleton {
-        instance<Retrofit>().create(UserInfoService::class.java)
+    bind<UserinfoApi>() with singleton {
+        instance<Retrofit>().create(UserinfoApi::class.java)
     }
 
     bind<ServiceManager>() with singleton {

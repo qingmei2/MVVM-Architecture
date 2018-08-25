@@ -1,4 +1,4 @@
-package com.qingmei2.sample.main
+package com.qingmei2.sample.main.presentation
 
 import android.arch.lifecycle.LifecycleOwner
 import android.databinding.ObservableField
@@ -9,14 +9,9 @@ class MainViewModel : RhineViewModel() {
 
     val userInfo: ObservableField<String> = ObservableField("213456")
 
-    override fun onCreate(lifecycleOwner: LifecycleOwner) {
-        super.onCreate(lifecycleOwner)
-        fetchUserInfo()
-    }
-
-    fun fetchUserInfo() {
-        serviceManager.userInfoService
-                .getUserInfo("qingmei2")
+    fun fetchUserInfo(username: String) {
+        serviceManager.userinfoApi
+                .fetchUserInfo(username)
                 .map { it.toString() }
                 .subscribeOn(schedulers.io())
                 .observeOn(schedulers.ui())
