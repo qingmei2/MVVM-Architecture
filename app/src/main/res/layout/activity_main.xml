@@ -12,23 +12,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.v7.widget.SearchView
+            android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:background="@color/colorPrimary"
-            app:titleTextColor="@android:color/white">
-
-            <android.support.v7.widget.SearchView
-                android:id="@+id/searchView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:on_query_text_submit="@{ (query) -> delegate.fetchUserInfo(query) }"
-                app:queryHint="Search github user..." />
-
-        </android.support.v7.widget.Toolbar>
+            app:bind_hint_color="@{ @android:color/darker_gray }"
+            app:bind_text_color="@{ @android:color/white }"
+            app:iconifiedByDefault="false"
+            app:on_query_text_submit="@{ (query) -> delegate.fetchUserInfo(query) }"
+            app:queryHint="Search github user..." />
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"

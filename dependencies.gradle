@@ -76,12 +76,16 @@ ext {
             rxjava                  : [group: 'io.reactivex.rxjava2', name: 'rxjava', version: versions.rxjava],
             rxkotlin                : [group: 'io.reactivex.rxjava2', name: 'rxkotlin', version: versions.rxkotlin],
             rxandroid               : [group: 'io.reactivex.rxjava2', name: 'rxandroid', version: versions.rxandroid],
-            rxbinding               : [group: 'com.jakewharton.rxbinding2', name: 'rxbinding', version: versions.rxbinding],
             rxpermissions           : [group: 'com.github.tbruyelle', name: 'rxpermissions', version: '0.10.2'],
             rxcache                 : [group: 'com.github.VictorAlbertos.RxCache', name: 'runtime', version: versions.rxcache],
             rxcache_jolyglot        : [group: 'com.github.VictorAlbertos.Jolyglot', name: 'gson', version: '0.0.4'],
             rximagepicker           : [group: 'com.github.qingmei2', name: 'rximagepicker', version: '2.0.0-alpha'],
             rxschedulers            : [group: 'com.github.qingmei2.rxschedulers', name: 'rxschedulers_support_kt', version: '0.1.1'],
+
+            rxbinding               : [group: 'com.jakewharton.rxbinding2', name: 'rxbinding', version: versions.rxbinding],
+            rxbinding_v7            : [group: 'com.jakewharton.rxbinding2', name: 'rxbinding-appcompat-v7', version: versions.rxbinding],
+            rxbinding_design        : [group: 'com.jakewharton.rxbinding2', name: 'rxbinding-design', version: versions.rxbinding],
+            rxbinding_recyclerview  : [group: 'com.jakewharton.rxbinding2', name: 'rxbinding-recyclerview-v7', version: versions.rxbinding],
 
             autodispose             : [group: 'com.uber.autodispose', name: 'autodispose-android', version: versions.autodispose],
             autodispose_ktx         : [group: 'com.uber.autodispose', name: 'autodispose-android-ktx', version: versions.autodispose],

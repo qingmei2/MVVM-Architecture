@@ -56,6 +56,7 @@ dependencies {
     api libs.rxkotlin
     api libs.rxandroid
     api libs.rxbinding
+    api libs.rxbinding_v7
     api libs.rxpermissions
     api libs.rxschedulers
     api libs.rxcache
