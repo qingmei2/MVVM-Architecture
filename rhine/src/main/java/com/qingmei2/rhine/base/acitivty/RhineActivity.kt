@@ -16,7 +16,7 @@ import org.kodein.di.android.retainedKodein
 abstract class RhineActivity<B : ViewDataBinding, D : IViewDelegate> : AppCompatActivity(),
         KodeinAware, IView {
 
-    private val parentKodein by closestKodein()
+    protected val parentKodein by closestKodein()
 
     override val kodein: Kodein by retainedKodein {
         extend(parentKodein, copy = Copy.All)
