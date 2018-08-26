@@ -1,4 +1,4 @@
-package com.qingmei2.sample.main.presentation
+package com.qingmei2.sample.main
 
 import android.arch.lifecycle.MutableLiveData
 import com.qingmei2.rhine.base.viewmodel.RhineViewModel
