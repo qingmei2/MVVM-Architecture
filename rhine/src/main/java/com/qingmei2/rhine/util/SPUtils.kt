@@ -2,11 +2,9 @@ package com.qingmei2.rhine.util
 
 import android.content.Context
 import android.content.SharedPreferences
-
+import com.qingmei2.rhine.SP_NAME_DEFAULT
 import com.qingmei2.rhine.base.BaseApplication
-import com.qingmei2.rhine.http.Constants
-
-import java.util.HashMap
+import java.util.*
 
 class SPUtils private constructor(spName: String) {
 
@@ -94,7 +92,7 @@ class SPUtils private constructor(spName: String) {
 
         fun getInstance(spName: String): SPUtils {
             var spName = spName
-            if (isSpace(spName)) spName = Constants.SP_NAME_DEFAULT
+            if (isSpace(spName)) spName = SP_NAME_DEFAULT
             var sp: SPUtils? = sPMap[spName]
             if (sp == null) {
                 sp = SPUtils(spName)

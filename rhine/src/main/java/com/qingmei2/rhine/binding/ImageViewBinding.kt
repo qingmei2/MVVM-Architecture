@@ -5,7 +5,7 @@ import android.widget.ImageView
 import com.qingmei2.rhine.image.GlideApp
 
 @BindingAdapter("bind_image_url")
-fun loadImage(imageView: ImageView, url: String) {
+fun loadImage(imageView: ImageView, url: String?) {
     GlideApp.with(imageView.context)
             .load(url)
             .into(imageView)

@@ -1,7 +1,7 @@
 package com.qingmei2.rhine.di
 
 import com.google.gson.Gson
-import com.qingmei2.rhine.http.Api
+import com.qingmei2.rhine.http.APIConstants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.kodein.di.Kodein
@@ -25,7 +25,7 @@ val httpClientModule = Kodein.Module(HTTP_CLIENT_MODULE_TAG) {
 
     bind<Retrofit>() with singleton {
         instance<Retrofit.Builder>()
-                .baseUrl(Api.BASE_API)
+                .baseUrl(APIConstants.BASE_API)
                 .client(instance())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
