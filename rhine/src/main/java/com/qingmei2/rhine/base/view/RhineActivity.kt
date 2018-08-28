@@ -1,11 +1,10 @@
-package com.qingmei2.rhine.base.acitivty
+package com.qingmei2.rhine.base.view
 
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.support.v7.app.AppCompatActivity
-import com.qingmei2.rhine.base.IView
 import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
 import org.kodein.di.Copy
 import org.kodein.di.Kodein
@@ -24,13 +23,9 @@ abstract class RhineActivity<B : ViewDataBinding, D : IViewDelegate> : AppCompat
 
     protected lateinit var binding: B
 
-    protected lateinit var screenDelegate: D
+    abstract val viewDelegate: D
 
     abstract val layoutId: Int
-
-    abstract val delegateId: Int
-
-    abstract val instanceDelegate: () -> D
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,12 +34,9 @@ abstract class RhineActivity<B : ViewDataBinding, D : IViewDelegate> : AppCompat
 
     @CallSuper
     protected fun initBinding() {
-        screenDelegate = instanceDelegate()
-
         binding = DataBindingUtil.setContentView(this, layoutId)
         with(binding) {
             setLifecycleOwner(this@RhineActivity)
-            setVariable(delegateId, screenDelegate)
         }
     }
 }

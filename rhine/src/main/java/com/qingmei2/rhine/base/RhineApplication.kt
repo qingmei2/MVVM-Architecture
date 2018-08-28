@@ -9,14 +9,16 @@ import com.qingmei2.rhine.di.serviceModule
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.androidModule
+import org.kodein.di.android.support.androidSupportModule
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.singleton
 
-open class BaseApplication : Application(), KodeinAware {
+open class RhineApplication : Application(), KodeinAware {
 
     override val kodein: Kodein = Kodein.lazy {
-        bind<Context>() with singleton { this@BaseApplication }
-        import(androidModule(this@BaseApplication))
+        bind<Context>() with singleton { this@RhineApplication }
+        import(androidModule(this@RhineApplication))
+        import(androidSupportModule(this@RhineApplication))
 
         import(serviceModule)
         import(cacheModule)
@@ -30,6 +32,6 @@ open class BaseApplication : Application(), KodeinAware {
     }
 
     companion object {
-        lateinit var INSTANCE: BaseApplication
+        lateinit var INSTANCE: RhineApplication
     }
 }

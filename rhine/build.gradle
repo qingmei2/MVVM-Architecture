@@ -70,6 +70,7 @@ dependencies {
     // kodein
     api libs.kodein
     api libs.kodein_android
+    api libs.kodein_android_support
 
     // okhttp
     api libs.okhttp

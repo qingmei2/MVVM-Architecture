@@ -3,19 +3,16 @@ package com.qingmei2.rhine.util
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
-import android.widget.Toast
 
-import com.qingmei2.rhine.base.BaseApplication
-
-import java.lang.reflect.Field
+import com.qingmei2.rhine.base.RhineApplication
 
 object DisplayUtil {
 
     private val screenHeight: Int
-        get() = BaseApplication.INSTANCE.resources.displayMetrics.heightPixels
+        get() = RhineApplication.INSTANCE.resources.displayMetrics.heightPixels
 
     private val screenWidth: Int
-        get() = BaseApplication.INSTANCE.resources.displayMetrics.widthPixels
+        get() = RhineApplication.INSTANCE.resources.displayMetrics.widthPixels
 
     fun layoutInflater(context: Context): LayoutInflater {
         return context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

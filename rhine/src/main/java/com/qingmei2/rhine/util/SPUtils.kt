@@ -3,7 +3,7 @@ package com.qingmei2.rhine.util
 import android.content.Context
 import android.content.SharedPreferences
 import com.qingmei2.rhine.SP_NAME_DEFAULT
-import com.qingmei2.rhine.base.BaseApplication
+import com.qingmei2.rhine.base.RhineApplication
 import java.util.*
 
 class SPUtils private constructor(spName: String) {
@@ -14,7 +14,7 @@ class SPUtils private constructor(spName: String) {
         get() = sp.all
 
     init {
-        sp = BaseApplication.INSTANCE.getSharedPreferences(spName, Context.MODE_PRIVATE)
+        sp = RhineApplication.INSTANCE.getSharedPreferences(spName, Context.MODE_PRIVATE)
     }
 
     fun put(key: String, value: String) {

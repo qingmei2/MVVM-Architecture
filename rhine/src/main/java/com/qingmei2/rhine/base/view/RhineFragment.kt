@@ -1,4 +1,4 @@
-package com.qingmei2.rhine.base.fragment
+package com.qingmei2.rhine.base.view
 
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
@@ -9,21 +9,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
-import com.qingmei2.rhine.base.IView
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.support.closestKodein
 
-abstract class RhineFragment<B : ViewDataBinding, D : IViewDelegate> : Fragment(), IView {
+abstract class RhineFragment<B : ViewDataBinding, D : IViewDelegate> : Fragment(),
+        KodeinAware, IView {
+
+    override val kodein by closestKodein()
 
     protected lateinit var mRootView: View
 
     protected lateinit var binding: B
 
-    protected lateinit var screenDelegate: D
+    abstract val viewDelegate: D
 
     abstract val layoutId: Int
-
-    abstract val variableId: Int
-
-    abstract val instanceDelegate: () -> D
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         mRootView = LayoutInflater.from(context).inflate(layoutId, container, false)
@@ -37,12 +37,9 @@ abstract class RhineFragment<B : ViewDataBinding, D : IViewDelegate> : Fragment(
 
     @CallSuper
     protected fun initBinding(rootView: View) {
-        screenDelegate = instanceDelegate()
-
         binding = DataBindingUtil.bind(rootView)!!
         with(binding) {
             setLifecycleOwner(this@RhineFragment)
-            setVariable(variableId, screenDelegate)
         }
     }
 }

@@ -12,10 +12,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewDelegate>() {
         viewModel(MainViewModel::class.java)
     }
 
-    override val delegateId: Int = BR.delegate
-
-    override val instanceDelegate = {
-        MainViewDelegate(mainViewModel)
+    override val viewDelegate by lazy {
+        MainViewDelegate(mainViewModel).apply {
+            binding.setVariable(BR.delegate,this)
+        }
     }
 
     override val layoutId = R.layout.activity_main

@@ -3,10 +3,10 @@ package com.qingmei2.sample.main
 import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
 
 class MainViewDelegate(
-        val viewModel: MainViewModel
+        val search: MainViewModel
 ) : IViewDelegate {
 
-    fun onQuerySubmit(new: String) = with(viewModel) {
+    fun onQuerySubmit(new: String) = with(search) {
         query.value = new
     }
 }
