@@ -6,5 +6,7 @@ class MainViewDelegate(
         val viewModel: MainViewModel
 ) : IViewDelegate {
 
-    fun fetchUserInfo(username: String) = viewModel.fetchUserInfo(username)
+    fun onQuerySubmit(new: String) = with(viewModel) {
+        query.value = new
+    }
 }
