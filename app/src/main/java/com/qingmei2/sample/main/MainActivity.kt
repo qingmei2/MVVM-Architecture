@@ -14,7 +14,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewDelegate>() {
 
     override val viewDelegate by lazy {
         MainViewDelegate(mainViewModel).apply {
-            binding.setVariable(BR.delegate,this)
+            binding.delegate = this
         }
     }
 

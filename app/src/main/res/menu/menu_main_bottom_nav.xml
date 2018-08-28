@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@mipmap/ic_nav_home"
+        android:title="@string/main_nav_home" />
+    <item
+        android:id="@+id/nav_task"
+        android:icon="@mipmap/ic_nav_task"
+        android:title="@string/main_nav_task" />
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@mipmap/ic_nav_mine"
+        android:title="@string/main_nav_profile" />
+</menu>
