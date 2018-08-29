@@ -5,6 +5,10 @@ import android.databinding.BindingAdapter
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
+import android.view.MenuItem
+import io.reactivex.functions.Consumer
+
+interface SelectedChangeConsumer : Consumer<MenuItem>
 
 /**
  * Disable [BottomNavigationView] shift mode.
@@ -28,5 +32,14 @@ fun disableShiftMode(view: BottomNavigationView, disable: Boolean = false) {
         } catch (e: NoSuchFieldException) {
         } catch (e: IllegalAccessException) {
         }
+    }
+}
+
+@BindingAdapter("bind_selected_changed")
+fun setOnSelectedChangeListener(view: BottomNavigationView,
+                                consumer: SelectedChangeConsumer?) {
+    view.setOnNavigationItemSelectedListener { item: MenuItem ->
+        consumer?.accept(item)
+        true
     }
 }

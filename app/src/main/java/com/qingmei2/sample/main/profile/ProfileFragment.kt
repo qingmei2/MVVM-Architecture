@@ -2,13 +2,15 @@ package com.qingmei2.sample.main.profile
 
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseFragment
-import com.qingmei2.sample.databinding.ActivityMainBinding
+import com.qingmei2.sample.databinding.FragmentMainProfileBinding
 
-class ProfileFragment : BaseFragment<ActivityMainBinding, ProfileViewDelegate>() {
+class ProfileFragment : BaseFragment<FragmentMainProfileBinding, ProfileViewDelegate>() {
 
     override val delegateSupplier = {
-        ProfileViewDelegate()
+        ProfileViewDelegate().apply {
+            binding.delegate = this@apply
+        }
     }
 
-    override val layoutId: Int = R.layout.activity_main
+    override val layoutId: Int = R.layout.fragment_main_profile
 }

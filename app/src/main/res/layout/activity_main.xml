@@ -123,6 +123,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            app:bind_selected_changed="@{ (menuItem) -> delegate }"
             app:itemBackground="@color/colorPrimary"
             app:itemIconTint="@drawable/selector_main_bottom_nav_button"
             app:itemTextColor="@drawable/selector_main_bottom_nav_button"
