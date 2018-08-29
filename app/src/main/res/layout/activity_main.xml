@@ -15,7 +15,8 @@
         android:layout_height="match_parent"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:onClickCloseSoftInput="@{ true }">
 
         <android.support.v7.widget.SearchView
             android:id="@+id/searchView"
@@ -123,8 +124,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:itemBackground="@color/colorPrimary"
-            app:itemIconTint="@color/primaryLightColor"
-            app:itemTextColor="@color/primaryLightColor"
+            app:itemIconTint="@drawable/selector_main_bottom_nav_button"
+            app:itemTextColor="@drawable/selector_main_bottom_nav_button"
             app:menu="@menu/menu_main_bottom_nav" />
     </LinearLayout>
 
