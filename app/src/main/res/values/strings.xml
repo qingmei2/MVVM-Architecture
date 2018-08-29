@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MVVM-Rhine</string>
+    <string name="app_name">MVVMRhine</string>
 
     <string name="main_nav_home">首页</string>
     <string name="main_nav_task">活动</string>
