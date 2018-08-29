@@ -6,7 +6,7 @@ import com.qingmei2.sample.databinding.ActivityMainBinding
 
 class ProfileFragment : BaseFragment<ActivityMainBinding, ProfileViewDelegate>() {
 
-    override val viewDelegate: ProfileViewDelegate by lazy {
+    override val delegateSupplier = {
         ProfileViewDelegate()
     }
 

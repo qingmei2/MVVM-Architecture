@@ -23,9 +23,11 @@ abstract class RhineActivity<B : ViewDataBinding, D : IViewDelegate> : AppCompat
 
     protected lateinit var binding: B
 
-    abstract val viewDelegate: D
+    protected lateinit var viewDelegate: D
 
     abstract val layoutId: Int
+
+    abstract val delegateSupplier: () -> D
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +37,7 @@ abstract class RhineActivity<B : ViewDataBinding, D : IViewDelegate> : AppCompat
     @CallSuper
     protected fun initBinding() {
         binding = DataBindingUtil.setContentView(this, layoutId)
+        viewDelegate = delegateSupplier()
         with(binding) {
             setLifecycleOwner(this@RhineActivity)
         }

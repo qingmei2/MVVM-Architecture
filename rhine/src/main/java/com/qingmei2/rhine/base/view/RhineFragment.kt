@@ -21,11 +21,15 @@ abstract class RhineFragment<B : ViewDataBinding, D : IViewDelegate> : Fragment(
 
     protected lateinit var binding: B
 
-    abstract val viewDelegate: D
+    protected lateinit var viewDelegate: D
 
     abstract val layoutId: Int
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    abstract val delegateSupplier: () -> D
+
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
         mRootView = LayoutInflater.from(context).inflate(layoutId, container, false)
         return mRootView
     }
@@ -38,6 +42,7 @@ abstract class RhineFragment<B : ViewDataBinding, D : IViewDelegate> : Fragment(
     @CallSuper
     protected fun initBinding(rootView: View) {
         binding = DataBindingUtil.bind(rootView)!!
+        viewDelegate = delegateSupplier()
         with(binding) {
             setLifecycleOwner(this@RhineFragment)
         }

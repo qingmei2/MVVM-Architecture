@@ -12,7 +12,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewDelegate>() {
         viewModel(MainViewModel::class.java)
     }
 
-    override val viewDelegate by lazy {
+    override val delegateSupplier = {
         MainViewDelegate(mainViewModel).apply {
             binding.delegate = this
         }
