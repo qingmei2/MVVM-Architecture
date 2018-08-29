@@ -35,7 +35,6 @@ class MainViewModel : RhineViewModel() {
             .userService
             .fetchUserInfo(username)
             .subscribeOn(schedulers.io())
-            .observeOn(schedulers.ui())
             .map { MainViewState.result(it) }
             .startWith(MainViewState.loading())
 

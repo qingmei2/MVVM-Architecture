@@ -19,7 +19,7 @@ ext {
             okhttp               : '3.10.0',
             kodein               : '5.2.0',
             glide                : '4.7.1',
-            dsladapter           : '0.8.1',
+            dsladapter           : '0.8.4',
 
             rxjava               : '2.1.14',
             rxkotlin             : '2.2.0',

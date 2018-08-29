@@ -51,3 +51,7 @@ dependencies {
 
     androidTestImplementation libs.espresso_core
 }
+
+kapt {
+    generateStubs = true
+}
