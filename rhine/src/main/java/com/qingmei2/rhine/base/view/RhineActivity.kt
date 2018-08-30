@@ -9,6 +9,7 @@ import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
 import org.kodein.di.Copy
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
+import org.kodein.di.KodeinTrigger
 import org.kodein.di.android.closestKodein
 import org.kodein.di.android.retainedKodein
 
@@ -21,6 +22,8 @@ abstract class RhineActivity<B : ViewDataBinding, D : IViewDelegate> : AppCompat
         extend(parentKodein, copy = Copy.All)
     }
 
+    override val kodeinTrigger = KodeinTrigger()
+
     protected lateinit var binding: B
 
     protected lateinit var viewDelegate: D
@@ -32,6 +35,7 @@ abstract class RhineActivity<B : ViewDataBinding, D : IViewDelegate> : AppCompat
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initBinding()
+        kodeinTrigger.trigger()
     }
 
     @CallSuper

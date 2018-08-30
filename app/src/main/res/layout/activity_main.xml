@@ -113,8 +113,9 @@
 
         </android.support.constraint.ConstraintLayout>
 
-        <Space
-            android:layout_width="1dp"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/clContainer"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
@@ -123,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:bind_selected_changed="@{ (menuItem) -> delegate }"
+            app:bind_selected_changed="@{ (menuItem) -> delegate.onNavSelectChanged(menuItem) }"
             app:itemBackground="@color/colorPrimary"
             app:itemIconTint="@drawable/selector_main_bottom_nav_button"
             app:itemTextColor="@drawable/selector_main_bottom_nav_button"

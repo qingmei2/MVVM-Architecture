@@ -1,33 +1,28 @@
 package com.qingmei2.sample.main
 
-import com.qingmei2.rhine.ext.viewmodel.viewModel
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseActivity
 import com.qingmei2.sample.databinding.ActivityMainBinding
-import com.qingmei2.sample.main.profile.ProfileFragment
+import org.kodein.di.Copy
+import org.kodein.di.Kodein
+import org.kodein.di.android.retainedKodein
+import org.kodein.di.generic.bind
+import org.kodein.di.generic.instance
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewDelegate>() {
 
-    private val mainViewModel by lazy {
-        viewModel(MainViewModel::class.java)
+    override val kodein: Kodein by retainedKodein {
+        extend(parentKodein, copy = Copy.All)
+        import(mainKodeinModule)
+        bind<MainActivity>() with instance(this@MainActivity)
     }
 
-    private val navigator by lazy {
-        MainNavigator(this).apply {
+    private val navigator: MainNavigator by instance()
 
-        }
-    }
-
-    private val profile by lazy {
-        ProfileFragment()
-    }
+    private val mainViewModel: MainViewModel by instance()
 
     override val delegateSupplier = {
-        MainViewDelegate(
-                mainViewModel,
-                profile,
-                navigator
-        ).apply {
+        MainViewDelegate(mainViewModel, navigator).apply {
             binding.delegate = this
         }
     }
