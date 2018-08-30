@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="delegate"
+            type="com.qingmei2.sample.main.home.HomeViewDelegate" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        app:onClickCloseSoftInput="@{ true }">
+
+        <android.support.v7.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@color/colorPrimary"
+            app:bind_hint_color="@{ @color/secondaryTextColor }"
+            app:bind_text_color="@{ @android:color/white }"
+            app:iconifiedByDefault="false"
+            app:on_query_text_submit="@{ (query) -> delegate.onQuerySubmit(query) }"
+            app:queryHint="Search github user..." />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <ImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_marginLeft="16dp"
+                app:bind_image_url="@{ delegate.search.result.avatarUrl }"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvNickName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:ellipsize="end"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="@{ delegate.search.result.name }"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@+id/ivAvatar"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ivAvatar"
+                tools:text="qingmei2" />
+
+            <TextView
+                android:id="@+id/tvBio"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:gravity="left"
+                android:maxLines="2"
+                android:text="@{ delegate.search.result.bio }"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@+id/ivAvatar"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNickName"
+                tools:text="In programming we trust." />
+
+            <ImageView
+                android:id="@+id/ivLocation"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="16dp"
+                android:src="@android:drawable/ic_menu_mylocation"
+                app:bind_visible="@{ delegate.search.result.location != null }"
+                app:layout_constraintBottom_toBottomOf="@+id/tvLocation"
+                app:layout_constraintLeft_toRightOf="@+id/ivAvatar"
+                app:layout_constraintRight_toLeftOf="@+id/tvLocation"
+                app:layout_constraintTop_toTopOf="@+id/tvLocation" />
+
+            <TextView
+                android:id="@+id/tvLocation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="@{ delegate.search.result.location }"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/ivLocation"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvBio"
+                tools:text="Chengdu" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </LinearLayout>
+</layout>

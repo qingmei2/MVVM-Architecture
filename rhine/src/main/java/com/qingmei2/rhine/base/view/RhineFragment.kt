@@ -10,12 +10,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
 import org.kodein.di.KodeinAware
+import org.kodein.di.KodeinTrigger
 import org.kodein.di.android.support.closestKodein
 
 abstract class RhineFragment<B : ViewDataBinding, D : IViewDelegate> : Fragment(),
         KodeinAware, IView {
 
     override val kodein by closestKodein()
+
+    override val kodeinTrigger = KodeinTrigger()
 
     protected lateinit var mRootView: View
 
@@ -37,6 +40,7 @@ abstract class RhineFragment<B : ViewDataBinding, D : IViewDelegate> : Fragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initBinding(view)
+        kodeinTrigger.trigger()
     }
 
     @CallSuper

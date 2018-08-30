@@ -2,9 +2,9 @@ package com.qingmei2.sample.main.profile
 
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseFragment
-import com.qingmei2.sample.databinding.FragmentMainProfileBinding
+import com.qingmei2.sample.databinding.FragmentProfileBinding
 
-class ProfileFragment : BaseFragment<FragmentMainProfileBinding, ProfileViewDelegate>() {
+class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewDelegate>() {
 
     override val delegateSupplier = {
         ProfileViewDelegate().apply {
@@ -12,5 +12,5 @@ class ProfileFragment : BaseFragment<FragmentMainProfileBinding, ProfileViewDele
         }
     }
 
-    override val layoutId: Int = R.layout.fragment_main_profile
+    override val layoutId: Int = R.layout.fragment_profile
 }
