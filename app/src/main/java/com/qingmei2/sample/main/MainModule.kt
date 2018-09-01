@@ -1,9 +1,11 @@
 package com.qingmei2.sample.main
 
+import androidx.navigation.fragment.NavHostFragment
 import com.qingmei2.rhine.ext.viewmodel.viewModel
 import com.qingmei2.sample.main.home.HomeFragment
 import com.qingmei2.sample.main.profile.ProfileFragment
 import com.qingmei2.sample.main.task.TaskFragment
+import kotlinx.android.synthetic.main.activity_main.*
 import org.kodein.di.Kodein
 import org.kodein.di.android.AndroidComponentsWeakScope
 import org.kodein.di.generic.bind
@@ -28,7 +30,11 @@ val mainKodeinModule = Kodein.Module(MAIN_MODULE_TAG) {
     }
 
     bind<MainNavigator>() with scoped(AndroidComponentsWeakScope).singleton {
-        MainNavigator(instance(), instance(), instance(), instance())
+        MainNavigator(instance(), instance<MainActivity>().navigation)
+    }
+
+    bind<NavHostFragment>() with scoped(AndroidComponentsWeakScope).singleton {
+        instance<MainActivity>().navHostFragment as NavHostFragment
     }
 
     bind<MainViewModel>() with scoped(AndroidComponentsWeakScope).singleton {

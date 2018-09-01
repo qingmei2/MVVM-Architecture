@@ -1,5 +1,6 @@
 package com.qingmei2.sample.main
 
+import androidx.navigation.Navigation
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseActivity
 import com.qingmei2.sample.databinding.ActivityMainBinding
@@ -28,4 +29,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewDelegate>() {
     }
 
     override val layoutId = R.layout.activity_main
+
+    override fun onSupportNavigateUp(): Boolean =
+            Navigation.findNavController(this, R.id.navHostFragment).navigateUp()
 }

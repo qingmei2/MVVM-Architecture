@@ -1,8 +1,8 @@
 # MVVM-Rhine
 
-the MVVM using RxJava and Android databinding.
+The MVVM using RxJava and Android databinding.
 
-> Development environment：AndroidStudio 3.3+ 
+> Development environment：Android Studio 3.3+
 
 ### Android Jetpack
 
@@ -17,23 +17,24 @@ the MVVM using RxJava and Android databinding.
 
 ### Rx
 
-* [RxKotlin:RxJava bindings for Kotlin](https://github.com/ReactiveX/RxKotlin)
-* [RxJava2:a library for composing asynchronous and event-based programs using observable sequences for the Java VM](https://github.com/ReactiveX/RxJava)
-* [RxAndroid:RxJava bindings for Android](https://github.com/ReactiveX/RxAndroid)
+* [RxKotlin: RxJava bindings for Kotlin](https://github.com/ReactiveX/RxKotlin)
+* [RxJava2: A library for composing asynchronous and event-based programs using observable sequences for the Java VM](https://github.com/ReactiveX/RxJava)
+* [RxAndroid: RxJava bindings for Android](https://github.com/ReactiveX/RxAndroid)
 
-* [RxBinding:RxJava binding APIs for Android's UI widgets.](https://github.com/JakeWharton/RxBinding)
-* [RxPermissions:Android runtime permissions powered by RxJava2](https://github.com/tbruyelle/RxPermissions)
-* [AutoDispose:Automatic binding+disposal of RxJava 2 streams.](https://github.com/uber/AutoDispose)
+* [RxBinding: RxJava binding APIs for Android's UI widgets.](https://github.com/JakeWharton/RxBinding)
+* [RxPermissions: Android runtime permissions powered by RxJava2](https://github.com/tbruyelle/RxPermissions)
+* [AutoDispose: Automatic binding+disposal of RxJava 2 streams.](https://github.com/uber/AutoDispose)
 
 ### Http
 
-* [Retrofit2:Type-safe HTTP client for Android and Java by Square, Inc.](https://github.com/square/retrofit)
-* [OkHttp:An HTTP+HTTP/2 client for Android and Java applications.](https://github.com/square/okhttp)
+* [Retrofit2: Type-safe HTTP client for Android and Java by Square, Inc.](https://github.com/square/retrofit)
+
+* [OkHttp: An HTTP+HTTP/2 client for Android and Java applications.](https://github.com/square/okhttp)
 
 ### ImageLoader
 
-* [Glide:An image loading and caching library for Android focused on smooth scrolling](https://github.com/bumptech/glide)
+* [Glide: An image loading and caching library for Android focused on smooth scrolling](https://github.com/bumptech/glide)
 
 ### DI
 
-* [Kodein-DI:Painless Kotlin Dependency Injection](https://github.com/Kodein-Framework/Kodein-DI)
+* [Kodein-DI: Painless Kotlin Dependency Injection](https://github.com/Kodein-Framework/Kodein-DI)

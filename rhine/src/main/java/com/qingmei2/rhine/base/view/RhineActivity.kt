@@ -34,8 +34,8 @@ abstract class RhineActivity<B : ViewDataBinding, D : IViewDelegate> : AppCompat
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initBinding()
         kodeinTrigger.trigger()
+        initBinding()
     }
 
     @CallSuper

@@ -16,18 +16,20 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/clContainer"
+        <fragment
+            android:id="@+id/navHostFragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/navigation_main" />
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:bind_selected_changed="@{ (menuItem) -> delegate.onNavSelectChanged(menuItem) }"
             app:itemBackground="@color/colorPrimary"
             app:itemIconTint="@drawable/selector_main_bottom_nav_button"
             app:itemTextColor="@drawable/selector_main_bottom_nav_button"
