@@ -46,6 +46,8 @@ dependencies {
 
     // jetpack
     api libs.arch_comp_extension
+    api libs.arch_comp_navigation
+    api libs.arch_comp_navigation_ui
     kapt libs.arch_comp_compiler
 
     // retrofit

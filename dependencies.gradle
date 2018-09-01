@@ -9,12 +9,14 @@ ext {
     ]
 
     versions = [
-            android_plugin       : '3.1.4',
+            android_plugin       : '3.3.0-alpha08',
             kotlin               : '1.2.60',
 
             support              : '27.1.1',
             arch_comp_lifecycle  : '1.1.1',
             arch_comp_persistence: '1.0.0',
+            arch_comp_navigation : '1.0.0-alpha05',
+
             retrofit             : '2.4.0',
             okhttp               : '3.10.0',
             kodein               : '5.2.0',
@@ -53,6 +55,10 @@ ext {
             arch_comp_compiler      : [group: 'android.arch.lifecycle', name: 'compiler', version: versions.arch_comp_lifecycle],
             arch_comp_livedata      : [group: 'android.arch.lifecycle', name: 'livedata', version: versions.arch_comp_lifecycle],
             arch_comp_viewmodel     : [group: 'android.arch.lifecycle', name: 'viewmodel', version: versions.arch_comp_lifecycle],
+
+            arch_comp_navigation    : [group: 'android.arch.navigation', name: 'navigation-fragment-ktx', version: versions.arch_comp_navigation],
+            arch_comp_navigation_ui : [group: 'android.arch.navigation', name: 'navigation-ui-ktx', version: versions.arch_comp_navigation],
+
             arch_comp_room          : [group: 'android.arch.persistence.room', name: 'runtime', version: versions.arch_comp_persistence],
             arch_comp_room_compiler : [group: 'android.arch.persistence.room', name: 'compiler', version: versions.arch_comp_persistence],
             arch_comp_room_rxjava   : [group: 'android.arch.persistence.room', name: 'rxjava2', version: versions.arch_comp_persistence],

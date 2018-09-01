@@ -1,13 +1,39 @@
 # MVVM-Rhine
 
-MVVM架构设计(开发中)
+the MVVM using RxJava and Android databinding.
 
-网络请求 : Rxjava2 + Retrofit2 + Okhttp3
+> Development environment：AndroidStudio 3.3+ 
 
-图片加载 : Glide
+### Android Jetpack
 
-缓存处理 : Room
+* [DataBinding](https://developer.android.com/topic/libraries/data-binding/)
 
-依赖注入 : Kodein
+* [Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle)
+* [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
+* [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
+* [Room](https://developer.android.com/topic/libraries/architecture/room)
 
-数据绑定 : DataBinding
+* [Navigation](https://developer.android.com/topic/libraries/architecture/navigation/)
+
+### Rx
+
+* [RxKotlin:RxJava bindings for Kotlin](https://github.com/ReactiveX/RxKotlin)
+* [RxJava2:a library for composing asynchronous and event-based programs using observable sequences for the Java VM](https://github.com/ReactiveX/RxJava)
+* [RxAndroid:RxJava bindings for Android](https://github.com/ReactiveX/RxAndroid)
+
+* [RxBinding:RxJava binding APIs for Android's UI widgets.](https://github.com/JakeWharton/RxBinding)
+* [RxPermissions:Android runtime permissions powered by RxJava2](https://github.com/tbruyelle/RxPermissions)
+* [AutoDispose:Automatic binding+disposal of RxJava 2 streams.](https://github.com/uber/AutoDispose)
+
+### Http
+
+* [Retrofit2:Type-safe HTTP client for Android and Java by Square, Inc.](https://github.com/square/retrofit)
+* [OkHttp:An HTTP+HTTP/2 client for Android and Java applications.](https://github.com/square/okhttp)
+
+### ImageLoader
+
+* [Glide:An image loading and caching library for Android focused on smooth scrolling](https://github.com/bumptech/glide)
+
+### DI
+
+* [Kodein-DI:Painless Kotlin Dependency Injection](https://github.com/Kodein-Framework/Kodein-DI)
