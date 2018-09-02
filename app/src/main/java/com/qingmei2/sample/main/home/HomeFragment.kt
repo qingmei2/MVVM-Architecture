@@ -1,19 +1,28 @@
 package com.qingmei2.sample.main.home
 
-import com.qingmei2.rhine.ext.viewmodel.viewModel
+import android.os.Bundle
+import android.view.View
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseFragment
 import com.qingmei2.sample.databinding.FragmentHomeBinding
+import org.kodein.di.Kodein
+import org.kodein.di.generic.bind
+import org.kodein.di.generic.instance
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
-    private val homeViewModel: HomeViewModel by lazy {
-        viewModel(HomeViewModel::class.java)
+    override val kodein: Kodein = Kodein.lazy {
+        extend(parentKodein)
+        import(homeKodeinModule)
+        bind<HomeFragment>() with instance(this@HomeFragment)
     }
 
-    private val viewDelegate = HomeViewDelegate(homeViewModel).apply {
-        binding.delegate = this
-    }
+    private val viewDelegate: HomeViewDelegate by instance()
 
     override val layoutId: Int = R.layout.fragment_home
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.delegate = viewDelegate
+    }
 }

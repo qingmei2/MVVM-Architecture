@@ -1,0 +1,11 @@
+<resources>
+
+    <declare-styleable name="View">
+        <attr name="bind_onClick" format="reference" />
+        <attr name="bind_throttleFirst" format="integer" />
+        <attr name="bind_onClick_closeSoftInput" format="boolean" />
+        <attr name="bind_onLongClick" format="reference" />
+        <attr name="bind_visibility" format="boolean" />
+    </declare-styleable>
+
+</resources>

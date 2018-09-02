@@ -7,7 +7,7 @@ import io.reactivex.functions.Consumer
 
 interface SelectedChangeConsumer : Consumer<MenuItem>
 
-@BindingAdapter("bind_selected_changed")
+@BindingAdapter("bind_onSelectedChanged")
 fun setOnSelectedChangeListener(view: BottomNavigationView,
                                 consumer: SelectedChangeConsumer?) {
     view.setOnNavigationItemSelectedListener { item: MenuItem ->

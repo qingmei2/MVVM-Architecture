@@ -3,24 +3,24 @@ package com.qingmei2.rhine.base.view
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.annotation.CallSuper
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
+import com.qingmei2.rhine.base.RhineApplication
 import org.kodein.di.KodeinAware
 import org.kodein.di.KodeinTrigger
-import org.kodein.di.android.support.closestKodein
 
 abstract class RhineFragment<B : ViewDataBinding> : Fragment(),
         KodeinAware, IView {
 
-    override val kodein by closestKodein()
+    protected val parentKodein = RhineApplication.INSTANCE.kodein
+
+    override val kodein = parentKodein
 
     override val kodeinTrigger = KodeinTrigger()
 
-    protected lateinit var mRootView: View
+    private lateinit var mRootView: View
 
     protected lateinit var binding: B
 
@@ -39,8 +39,7 @@ abstract class RhineFragment<B : ViewDataBinding> : Fragment(),
         kodeinTrigger.trigger()
     }
 
-    @CallSuper
-    protected fun initBinding(rootView: View) {
+    private fun initBinding(rootView: View) {
         binding = DataBindingUtil.bind(rootView)!!
         with(binding) {
             setLifecycleOwner(this@RhineFragment)

@@ -2,6 +2,7 @@ package com.qingmei2.rhine.di
 
 import com.google.gson.Gson
 import com.qingmei2.rhine.http.APIConstants
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.kodein.di.Kodein
@@ -14,6 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 const val HTTP_CLIENT_MODULE_TAG = "httpClientModule"
+const val HTTP_CLIENT_MODULE_INTERCEPTOR_LOG_TAG = "http_client_module_interceptor_log_tag"
 
 const val TIME_OUT_SECONDS = 20
 
@@ -32,6 +34,10 @@ val httpClientModule = Kodein.Module(HTTP_CLIENT_MODULE_TAG) {
                 .build()
     }
 
+    bind<Interceptor>(HTTP_CLIENT_MODULE_INTERCEPTOR_LOG_TAG) with singleton {
+        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+    }
+
     bind<OkHttpClient>() with singleton {
         instance<OkHttpClient.Builder>()
                 .connectTimeout(
@@ -40,8 +46,8 @@ val httpClientModule = Kodein.Module(HTTP_CLIENT_MODULE_TAG) {
                 .readTimeout(
                         TIME_OUT_SECONDS.toLong(),
                         TimeUnit.SECONDS)
-                .addInterceptor(HttpLoggingInterceptor()
-                        .setLevel(HttpLoggingInterceptor.Level.BODY))
+                .addInterceptor(
+                        instance(HTTP_CLIENT_MODULE_INTERCEPTOR_LOG_TAG))
                 .build()
     }
 

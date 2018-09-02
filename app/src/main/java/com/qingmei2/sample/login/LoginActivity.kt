@@ -1,5 +1,6 @@
 package com.qingmei2.sample.login
 
+import android.os.Bundle
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseActivity
 import com.qingmei2.sample.databinding.ActivityLoginBinding
@@ -16,12 +17,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         bind<LoginActivity>() with instance(this@LoginActivity)
     }
 
-    private val loginViewModel: LoginViewModel by instance()
-
     override val layoutId: Int = R.layout.activity_login
 
-    private val viewDelegate: LoginViewDelegate = LoginViewDelegate(loginViewModel).apply {
-        binding.delegate = this
-    }
+    private val viewDelegate: LoginViewDelegate by instance()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding.delegate = viewDelegate
+    }
 }

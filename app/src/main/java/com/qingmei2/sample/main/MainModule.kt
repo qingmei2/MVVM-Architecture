@@ -6,7 +6,7 @@ import com.qingmei2.sample.main.home.HomeFragment
 import com.qingmei2.sample.main.profile.ProfileFragment
 import com.qingmei2.sample.main.task.TaskFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import org.kodein.di.Kodein
+import org.kodein.di.Kodein.Module
 import org.kodein.di.android.AndroidComponentsWeakScope
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
@@ -15,7 +15,7 @@ import org.kodein.di.generic.singleton
 
 val MAIN_MODULE_TAG = "MAIN_MODULE_TAG"
 
-val mainKodeinModule = Kodein.Module(MAIN_MODULE_TAG) {
+val mainKodeinModule = Module(MAIN_MODULE_TAG) {
 
     bind<HomeFragment>() with scoped(AndroidComponentsWeakScope).singleton {
         HomeFragment()
@@ -29,15 +29,19 @@ val mainKodeinModule = Kodein.Module(MAIN_MODULE_TAG) {
         ProfileFragment()
     }
 
-    bind<MainNavigator>() with scoped(AndroidComponentsWeakScope).singleton {
-        MainNavigator(instance(), instance<MainActivity>().navigation)
-    }
-
     bind<NavHostFragment>() with scoped(AndroidComponentsWeakScope).singleton {
         instance<MainActivity>().navHostFragment as NavHostFragment
     }
 
+    bind<MainNavigator>() with scoped(AndroidComponentsWeakScope).singleton {
+        MainNavigator(instance(), instance<MainActivity>().navigation)
+    }
+
     bind<MainViewModel>() with scoped(AndroidComponentsWeakScope).singleton {
         instance<MainActivity>().viewModel(MainViewModel::class.java)
+    }
+
+    bind<MainViewDelegate>() with scoped(AndroidComponentsWeakScope).singleton {
+        MainViewDelegate(instance(), instance())
     }
 }

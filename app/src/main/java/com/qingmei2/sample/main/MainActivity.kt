@@ -1,5 +1,6 @@
 package com.qingmei2.sample.main
 
+import android.os.Bundle
 import androidx.navigation.Navigation
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseActivity
@@ -13,25 +14,20 @@ import org.kodein.di.generic.instance
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override val kodein: Kodein by retainedKodein {
-        extend(parentKodein, copy = Copy.All)
+        extend(parentKodein, allowOverride = true, copy = Copy.All)
         import(mainKodeinModule)
         bind<MainActivity>() with instance(this@MainActivity)
     }
 
-    private val navigator: MainNavigator by instance()
-
-    private val mainViewModel: MainViewModel by instance()
-
-    private val delegate: MainViewDelegate = MainViewDelegate(
-            mainViewModel,
-            navigator
-    ).apply {
-        binding.delegate = this
-    }
-
+    private val delegate: MainViewDelegate by instance()
 
     override val layoutId = R.layout.activity_main
 
     override fun onSupportNavigateUp(): Boolean =
             Navigation.findNavController(this, R.id.navHostFragment).navigateUp()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding.delegate = delegate
+    }
 }

@@ -3,9 +3,7 @@ package com.qingmei2.rhine.base.view
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.annotation.CallSuper
 import android.support.v7.app.AppCompatActivity
-import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
 import org.kodein.di.Copy
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -30,12 +28,11 @@ abstract class RhineActivity<B : ViewDataBinding> : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        kodeinTrigger.trigger()
         initBinding()
+        kodeinTrigger.trigger()
     }
 
-    @CallSuper
-    protected fun initBinding() {
+    private fun initBinding() {
         binding = DataBindingUtil.setContentView(this, layoutId)
         with(binding) {
             setLifecycleOwner(this@RhineActivity)
