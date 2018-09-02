@@ -13,7 +13,7 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.KodeinTrigger
 import org.kodein.di.android.support.closestKodein
 
-abstract class RhineFragment<B : ViewDataBinding, D : IViewDelegate> : Fragment(),
+abstract class RhineFragment<B : ViewDataBinding> : Fragment(),
         KodeinAware, IView {
 
     override val kodein by closestKodein()
@@ -24,11 +24,7 @@ abstract class RhineFragment<B : ViewDataBinding, D : IViewDelegate> : Fragment(
 
     protected lateinit var binding: B
 
-    protected lateinit var viewDelegate: D
-
     abstract val layoutId: Int
-
-    abstract val delegateSupplier: () -> D
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -46,7 +42,6 @@ abstract class RhineFragment<B : ViewDataBinding, D : IViewDelegate> : Fragment(
     @CallSuper
     protected fun initBinding(rootView: View) {
         binding = DataBindingUtil.bind(rootView)!!
-        viewDelegate = delegateSupplier()
         with(binding) {
             setLifecycleOwner(this@RhineFragment)
         }

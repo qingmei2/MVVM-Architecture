@@ -4,10 +4,8 @@ import android.support.design.widget.BottomNavigationView
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 
-class MainNavigator(
-        private val navHostFragment: NavHostFragment,
-        private val navBottomView: BottomNavigationView
-) {
+class MainNavigator(val navHostFragment: NavHostFragment,
+                    private val navBottomView: BottomNavigationView) {
 
     init {
         navHostFragment.navController.apply {

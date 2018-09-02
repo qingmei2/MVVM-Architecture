@@ -13,7 +13,7 @@ import org.kodein.di.KodeinTrigger
 import org.kodein.di.android.closestKodein
 import org.kodein.di.android.retainedKodein
 
-abstract class RhineActivity<B : ViewDataBinding, D : IViewDelegate> : AppCompatActivity(),
+abstract class RhineActivity<B : ViewDataBinding> : AppCompatActivity(),
         KodeinAware, IView {
 
     protected val parentKodein by closestKodein()
@@ -26,11 +26,7 @@ abstract class RhineActivity<B : ViewDataBinding, D : IViewDelegate> : AppCompat
 
     protected lateinit var binding: B
 
-    protected lateinit var viewDelegate: D
-
     abstract val layoutId: Int
-
-    abstract val delegateSupplier: () -> D
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +37,6 @@ abstract class RhineActivity<B : ViewDataBinding, D : IViewDelegate> : AppCompat
     @CallSuper
     protected fun initBinding() {
         binding = DataBindingUtil.setContentView(this, layoutId)
-        viewDelegate = delegateSupplier()
         with(binding) {
             setLifecycleOwner(this@RhineActivity)
         }

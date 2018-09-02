@@ -10,7 +10,7 @@ import org.kodein.di.android.retainedKodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 
-class MainActivity : BaseActivity<ActivityMainBinding, MainViewDelegate>() {
+class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override val kodein: Kodein by retainedKodein {
         extend(parentKodein, copy = Copy.All)
@@ -22,11 +22,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewDelegate>() {
 
     private val mainViewModel: MainViewModel by instance()
 
-    override val delegateSupplier = {
-        MainViewDelegate(mainViewModel, navigator).apply {
-            binding.delegate = this
-        }
+    private val delegate: MainViewDelegate = MainViewDelegate(
+            mainViewModel,
+            navigator
+    ).apply {
+        binding.delegate = this
     }
+
 
     override val layoutId = R.layout.activity_main
 
