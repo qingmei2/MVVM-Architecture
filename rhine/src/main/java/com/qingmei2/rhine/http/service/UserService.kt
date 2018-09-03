@@ -10,7 +10,4 @@ interface UserService {
 
     @GET("users/{username}")
     fun queryUser(@Path("username") username: String): Flowable<QueryUser>
-
-    @GET("user")
-    fun login(): Flowable<LoginUser>
 }

@@ -8,6 +8,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
+import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -21,9 +22,9 @@ const val TIME_OUT_SECONDS = 20
 
 val httpClientModule = Kodein.Module(HTTP_CLIENT_MODULE_TAG) {
 
-    bind<Retrofit.Builder>() with singleton { Retrofit.Builder() }
+    bind<Retrofit.Builder>() with provider { Retrofit.Builder() }
 
-    bind<OkHttpClient.Builder>() with singleton { OkHttpClient.Builder() }
+    bind<OkHttpClient.Builder>() with provider { OkHttpClient.Builder() }
 
     bind<Retrofit>() with singleton {
         instance<Retrofit.Builder>()

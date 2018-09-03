@@ -42,6 +42,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="请输入用户名"
+                        android:text="@={ delegate.viewModel.username }"
                         android:maxLines="1"
                         android:singleLine="true" />
 
@@ -51,11 +52,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <EditText
+                    <AutoCompleteTextView
                         android:id="@+id/tvPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="请输入密码"
+                        android:text="@={ delegate.viewModel.password }"
                         android:inputType="textPassword"
                         android:maxLines="1"
                         android:singleLine="true" />
@@ -70,7 +72,7 @@
                     android:layout_marginTop="16dp"
                     android:text="Sign in"
                     android:textStyle="bold"
-                    app:bind_onClick="@{ (v) -> delegate.navigator.toMain() }" />
+                    app:bind_onClick="@{ (v) -> delegate.login() }" />
 
             </LinearLayout>
         </ScrollView>

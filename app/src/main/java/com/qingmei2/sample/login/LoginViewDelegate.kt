@@ -1,9 +1,24 @@
 package com.qingmei2.sample.login
 
+import android.util.Log
 import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
+import com.qingmei2.rhine.ext.livedata.toFlowable
 
+@SuppressWarnings("CheckResult")
 class LoginViewDelegate(
         val viewModel: LoginViewModel,
-        val navigator: LoginNavigator
+        private val navigator: LoginNavigator
 ) : IViewDelegate {
+
+    init {
+        viewModel.userInfo
+                .toFlowable()
+                .subscribe { it ->
+                    Log.d("tag", it.toString())
+                    navigator.toMain()
+                }
+    }
+
+    fun login() = viewModel.login()
+
 }

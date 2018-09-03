@@ -9,7 +9,7 @@ class BasicAuthInterceptor(val username: String,
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val basic = "$username:$password".let {
-            Base64.encodeToString(it.toByteArray(), Base64.NO_WRAP)
+            "basic " + Base64.encodeToString(it.toByteArray(), Base64.NO_WRAP)
         }
 
         val request = chain.request().let {
