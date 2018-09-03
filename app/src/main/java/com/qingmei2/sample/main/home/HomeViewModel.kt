@@ -5,7 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import com.qingmei2.rhine.base.viewmodel.RhineViewModel
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
-import com.qingmei2.rhine.http.entity.UserInfo
+import com.qingmei2.rhine.http.entity.QueryUser
 import io.reactivex.Flowable
 
 class HomeViewModel : RhineViewModel() {
@@ -13,7 +13,7 @@ class HomeViewModel : RhineViewModel() {
     val query: MutableLiveData<String> = MutableLiveData()
     val error: MutableLiveData<Throwable> = MutableLiveData()
     val loading: MutableLiveData<Boolean> = MutableLiveData()
-    val result: MutableLiveData<UserInfo> = MutableLiveData()
+    val result: MutableLiveData<QueryUser> = MutableLiveData()
 
     override fun onCreate(lifecycleOwner: LifecycleOwner) {
         super.onCreate(lifecycleOwner)
@@ -31,14 +31,14 @@ class HomeViewModel : RhineViewModel() {
                 }
     }
 
-    private fun fetchUserInfo(username: String): Flowable<HomeViewState<UserInfo>> = serviceManager
+    private fun fetchUserInfo(username: String): Flowable<HomeViewState<QueryUser>> = serviceManager
             .userService
-            .fetchUserInfo(username)
+            .queryUser(username)
             .subscribeOn(schedulers.io())
             .map { HomeViewState.result(it) }
             .startWith(HomeViewState.loading())
 
-    private fun applyState(isLoading: Boolean, userInfo: UserInfo? = null, error: Throwable? = null) {
+    private fun applyState(isLoading: Boolean, userInfo: QueryUser? = null, error: Throwable? = null) {
         this.loading.postValue(isLoading)
         this.result.postValue(userInfo)
         this.error.postValue(error)

@@ -1,7 +1,7 @@
 package com.qingmei2.rhine.http.cache
 
 
-import com.qingmei2.rhine.http.entity.UserInfo
+import com.qingmei2.rhine.http.entity.QueryUser
 
 import java.util.concurrent.TimeUnit
 
@@ -20,9 +20,9 @@ interface UserInfoCacheProviders {
 
     @LifeCache(duration = 10, timeUnit = TimeUnit.SECONDS)
     fun getUserInfo(
-            userInfoObservable: Maybe<UserInfo>,
+            userInfoObservable: Maybe<QueryUser>,
             dynamicKey: DynamicKey,
             evictDynamicKey: EvictDynamicKey
-    ): Maybe<UserInfo>
+    ): Maybe<QueryUser>
 
 }
