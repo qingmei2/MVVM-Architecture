@@ -1,4 +1,4 @@
-package com.qingmei2.rhine.http.base.error
+package com.qingmei2.sample.http.base.error
 
 class ExceptionHandle {
 

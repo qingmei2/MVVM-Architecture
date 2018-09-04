@@ -1,11 +1,12 @@
 package com.qingmei2.sample.login
 
 import android.arch.lifecycle.MutableLiveData
-import com.qingmei2.rhine.base.viewmodel.RhineViewModel
+import com.qingmei2.sample.base.BaseViewModel
+import com.qingmei2.rhine.base.viewstate.SimpleViewState
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
-import com.qingmei2.rhine.http.entity.LoginUser
+import com.qingmei2.sample.http.entity.LoginUser
 
-class LoginViewModel : RhineViewModel() {
+class LoginViewModel : BaseViewModel() {
 
     val username: MutableLiveData<String> = MutableLiveData()
     val password: MutableLiveData<String> = MutableLiveData()
@@ -18,17 +19,17 @@ class LoginViewModel : RhineViewModel() {
             .loginService
             .login(username.value ?: "",
                     password.value ?: "")
-            .map { LoginViewState.result(it) }
+            .map { SimpleViewState.result(it) }
             .subscribeOn(schedulers.io())
-            .startWith(LoginViewState.loading())
-            .startWith(LoginViewState.idle())
+            .startWith(SimpleViewState.loading())
+            .startWith(SimpleViewState.idle())
             .bindLifecycle(this)
             .subscribe { state ->
                 when (state) {
-                    is LoginViewState.Loading -> applyState(isLoading = true)
-                    is LoginViewState.Idle -> applyState(isLoading = false)
-                    is LoginViewState.Error -> applyState(isLoading = false, error = state.error)
-                    is LoginViewState.Result -> applyState(isLoading = false, user = state.result)
+                    is SimpleViewState.Loading -> applyState(isLoading = true)
+                    is SimpleViewState.Idle -> applyState(isLoading = false)
+                    is SimpleViewState.Error -> applyState(isLoading = false, error = state.error)
+                    is SimpleViewState.Result -> applyState(isLoading = false, user = state.result)
                 }
             }
 

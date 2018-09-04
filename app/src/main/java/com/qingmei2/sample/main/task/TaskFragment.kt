@@ -3,6 +3,7 @@ package com.qingmei2.sample.main.task
 import android.os.Bundle
 import android.view.View
 import com.qingmei2.sample.R
+import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.base.BaseFragment
 import com.qingmei2.sample.databinding.FragmentTaskBinding
 import org.kodein.di.Kodein
@@ -11,7 +12,7 @@ import org.kodein.di.generic.instance
 class TaskFragment : BaseFragment<FragmentTaskBinding>() {
 
     override val kodein: Kodein = Kodein.lazy {
-        extend(parentKodein)
+        extend(BaseApplication.INSTANCE.kodein)
         import(taskKodeinModule)
     }
 

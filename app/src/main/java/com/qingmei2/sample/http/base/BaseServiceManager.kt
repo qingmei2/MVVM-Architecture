@@ -1,4 +1,4 @@
-package com.qingmei2.rhine.http.base
+package com.qingmei2.sample.http.base
 
 /**
  * Created by QingMei on 2017/8/15.

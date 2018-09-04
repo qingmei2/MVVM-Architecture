@@ -1,4 +1,4 @@
-package com.qingmei2.rhine.http.service
+package com.qingmei2.sample.http.service
 
 data class ServiceManager(val userService: UserService,
                           val loginService: LoginServiceImpl)

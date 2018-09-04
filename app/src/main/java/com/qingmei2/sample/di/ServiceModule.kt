@@ -1,8 +1,8 @@
-package com.qingmei2.rhine.di
+package com.qingmei2.sample.di
 
-import com.qingmei2.rhine.http.service.LoginServiceImpl
-import com.qingmei2.rhine.http.service.ServiceManager
-import com.qingmei2.rhine.http.service.UserService
+import com.qingmei2.sample.http.service.LoginServiceImpl
+import com.qingmei2.sample.http.service.ServiceManager
+import com.qingmei2.sample.http.service.UserService
 
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind

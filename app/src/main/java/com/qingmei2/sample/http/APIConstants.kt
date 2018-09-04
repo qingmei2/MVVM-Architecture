@@ -1,4 +1,4 @@
-package com.qingmei2.rhine.http
+package com.qingmei2.sample.http
 
 interface APIConstants {
 

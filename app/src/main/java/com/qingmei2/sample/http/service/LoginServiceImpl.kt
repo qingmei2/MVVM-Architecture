@@ -1,9 +1,9 @@
-package com.qingmei2.rhine.http.service
+package com.qingmei2.sample.http.service
 
-import com.qingmei2.rhine.di.TIME_OUT_SECONDS
-import com.qingmei2.rhine.http.APIConstants
-import com.qingmei2.rhine.http.entity.LoginUser
-import com.qingmei2.rhine.http.interceptor.BasicAuthInterceptor
+import com.qingmei2.sample.di.TIME_OUT_SECONDS
+import com.qingmei2.sample.http.APIConstants
+import com.qingmei2.sample.http.entity.LoginUser
+import com.qingmei2.sample.http.interceptor.BasicAuthInterceptor
 import io.reactivex.Flowable
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

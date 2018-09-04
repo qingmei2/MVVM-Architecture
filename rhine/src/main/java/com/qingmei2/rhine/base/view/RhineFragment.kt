@@ -7,16 +7,11 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.qingmei2.rhine.base.RhineApplication
 import org.kodein.di.KodeinAware
 import org.kodein.di.KodeinTrigger
 
 abstract class RhineFragment<B : ViewDataBinding> : Fragment(),
         KodeinAware, IView {
-
-    protected val parentKodein = RhineApplication.INSTANCE.kodein
-
-    override val kodein = parentKodein
 
     override val kodeinTrigger = KodeinTrigger()
 

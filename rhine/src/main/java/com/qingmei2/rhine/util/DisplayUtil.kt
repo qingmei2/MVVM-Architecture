@@ -2,21 +2,8 @@ package com.qingmei2.rhine.util
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.view.LayoutInflater
-
-import com.qingmei2.rhine.base.RhineApplication
 
 object DisplayUtil {
-
-    private val screenHeight: Int
-        get() = RhineApplication.INSTANCE.resources.displayMetrics.heightPixels
-
-    private val screenWidth: Int
-        get() = RhineApplication.INSTANCE.resources.displayMetrics.widthPixels
-
-    fun layoutInflater(context: Context): LayoutInflater {
-        return context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    }
 
     @SuppressLint("PrivateApi")
     fun getStatusbarHeight(context: Context): Int {
@@ -35,7 +22,7 @@ object DisplayUtil {
     }
 
     fun getScreenHeightExcludeStatusbar(context: Context): Int {
-        return screenHeight - getStatusbarHeight(context)
+        return context.resources.displayMetrics.heightPixels - getStatusbarHeight(context)
     }
 
     fun px2dp(context: Context, pxValue: Float): Int {

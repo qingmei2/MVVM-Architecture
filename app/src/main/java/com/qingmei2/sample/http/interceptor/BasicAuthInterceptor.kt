@@ -1,4 +1,4 @@
-package com.qingmei2.rhine.http.interceptor
+package com.qingmei2.sample.http.interceptor
 
 import android.util.Base64
 import okhttp3.Interceptor

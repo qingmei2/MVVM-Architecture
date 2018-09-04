@@ -1,4 +1,4 @@
-package com.qingmei2.rhine.di
+package com.qingmei2.sample.di
 
 import com.qingmei2.rxschedulers.RxSchedulerProvider
 import com.qingmei2.rxschedulers.SchedulerProvider

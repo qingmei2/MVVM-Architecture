@@ -1,6 +1,6 @@
-package com.qingmei2.rhine.http.service
+package com.qingmei2.sample.http.service
 
-import com.qingmei2.rhine.http.entity.LoginUser
+import com.qingmei2.sample.http.entity.LoginUser
 import io.reactivex.Flowable
 import retrofit2.http.GET
 

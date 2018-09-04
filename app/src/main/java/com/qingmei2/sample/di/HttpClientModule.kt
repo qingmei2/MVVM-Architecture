@@ -1,7 +1,7 @@
-package com.qingmei2.rhine.di
+package com.qingmei2.sample.di
 
 import com.google.gson.Gson
-import com.qingmei2.rhine.http.APIConstants
+import com.qingmei2.sample.http.APIConstants
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

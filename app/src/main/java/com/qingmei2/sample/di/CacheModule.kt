@@ -1,4 +1,4 @@
-package com.qingmei2.rhine.di
+package com.qingmei2.sample.di
 
 import android.support.v4.content.ContextCompat
 import io.rx_cache2.internal.RxCache

@@ -1,6 +1,6 @@
-package com.qingmei2.rhine.http.cache
+package com.qingmei2.sample.http.cache
 
-import com.qingmei2.rhine.http.entity.QueryUser
+import com.qingmei2.sample.http.entity.QueryUser
 import io.reactivex.Maybe
 import io.rx_cache2.DynamicKey
 import io.rx_cache2.EvictDynamicKey
