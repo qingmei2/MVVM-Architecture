@@ -17,7 +17,7 @@
             android:name="com.qingmei2.sample.ui.main.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.qingmei2.sample.ui.login.LoginActivity"
+            android:name="com.qingmei2.sample.ui.login.presentation.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

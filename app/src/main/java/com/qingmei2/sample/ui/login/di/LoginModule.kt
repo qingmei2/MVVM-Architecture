@@ -1,6 +1,10 @@
-package com.qingmei2.sample.ui.login
+package com.qingmei2.sample.ui.login.di
 
 import com.qingmei2.rhine.ext.viewmodel.viewModel
+import com.qingmei2.sample.ui.login.presentation.LoginActivity
+import com.qingmei2.sample.ui.login.presentation.LoginNavigator
+import com.qingmei2.sample.ui.login.presentation.LoginViewDelegate
+import com.qingmei2.sample.ui.login.presentation.LoginViewModel
 import org.kodein.di.Kodein
 import org.kodein.di.android.AndroidComponentsWeakScope
 import org.kodein.di.generic.bind

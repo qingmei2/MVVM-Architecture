@@ -46,6 +46,11 @@ dependencies {
 
     // jetpack
     api libs.arch_comp_extension
+
+    api libs.arch_comp_room
+    api libs.arch_comp_room_rxjava
+    kapt libs.arch_comp_room_compiler
+
     api libs.arch_comp_navigation
     api libs.arch_comp_navigation_ui
     kapt libs.arch_comp_compiler
@@ -62,8 +67,6 @@ dependencies {
     api libs.rxbinding_v7
     api libs.rxpermissions
     api libs.rxschedulers
-    api libs.rxcache
-    api libs.rxcache_jolyglot
 
     // autodispose
     api libs.autodispose

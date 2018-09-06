@@ -3,7 +3,7 @@ package com.qingmei2.sample.base
 import android.app.Application
 import android.content.Context
 import com.qingmei2.sample.di.httpClientModule
-import com.qingmei2.sample.di.cacheModule
+import com.qingmei2.sample.di.dbModule
 import com.qingmei2.sample.di.rxModule
 import com.qingmei2.sample.di.serviceModule
 import org.kodein.di.Kodein
@@ -21,7 +21,7 @@ open class BaseApplication : Application(), KodeinAware {
         import(androidSupportModule(this@BaseApplication))
 
         import(serviceModule)
-        import(cacheModule)
+        import(dbModule)
         import(rxModule)
         import(httpClientModule)
     }

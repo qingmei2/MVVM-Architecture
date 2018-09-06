@@ -1,9 +1,10 @@
-package com.qingmei2.sample.ui.login
+package com.qingmei2.sample.ui.login.presentation
 
 import android.os.Bundle
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseActivity
 import com.qingmei2.sample.databinding.ActivityLoginBinding
+import com.qingmei2.sample.ui.login.di.loginKodeinModule
 import org.kodein.di.Kodein
 import org.kodein.di.android.retainedKodein
 import org.kodein.di.generic.bind

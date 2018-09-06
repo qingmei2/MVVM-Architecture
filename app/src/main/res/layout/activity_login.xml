@@ -7,7 +7,7 @@
 
         <variable
             name="delegate"
-            type="com.qingmei2.sample.ui.login.LoginViewDelegate" />
+            type="com.qingmei2.sample.ui.login.presentation.LoginViewDelegate" />
 
     </data>
 
@@ -17,7 +17,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:gravity="center_horizontal"
-        tools:context=".ui.login.LoginActivity">
+        tools:context=".ui.login.presentation.LoginActivity">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
