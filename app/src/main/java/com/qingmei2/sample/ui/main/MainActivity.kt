@@ -1,4 +1,4 @@
-package com.qingmei2.sample.main
+package com.qingmei2.sample.ui.main
 
 import android.os.Bundle
 import androidx.navigation.Navigation

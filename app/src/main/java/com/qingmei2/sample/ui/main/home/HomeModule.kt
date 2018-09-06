@@ -1,4 +1,4 @@
-package com.qingmei2.sample.main.home
+package com.qingmei2.sample.ui.main.home
 
 import com.qingmei2.rhine.ext.viewmodel.viewModel
 import org.kodein.di.Kodein

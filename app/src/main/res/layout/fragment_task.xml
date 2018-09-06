@@ -6,7 +6,7 @@
 
         <variable
             name="delegate"
-            type="com.qingmei2.sample.main.task.TaskViewDelegate" />
+            type="com.qingmei2.sample.ui.main.task.TaskViewDelegate" />
     </data>
 
     <android.support.constraint.ConstraintLayout

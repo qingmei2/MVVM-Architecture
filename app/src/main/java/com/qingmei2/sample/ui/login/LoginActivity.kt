@@ -1,4 +1,4 @@
-package com.qingmei2.sample.login
+package com.qingmei2.sample.ui.login
 
 import android.os.Bundle
 import com.qingmei2.sample.R

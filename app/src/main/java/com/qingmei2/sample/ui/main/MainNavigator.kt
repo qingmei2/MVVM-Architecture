@@ -1,4 +1,4 @@
-package com.qingmei2.sample.main
+package com.qingmei2.sample.ui.main
 
 import android.support.design.widget.BottomNavigationView
 import androidx.navigation.fragment.NavHostFragment

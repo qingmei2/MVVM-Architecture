@@ -1,8 +1,8 @@
-package com.qingmei2.sample.main.task
+package com.qingmei2.sample.ui.main.profile
 
 import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
 
-class TaskViewDelegate(
+class ProfileViewDelegate(
 
 ) : IViewDelegate {
 

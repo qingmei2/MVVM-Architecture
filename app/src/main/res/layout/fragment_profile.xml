@@ -6,7 +6,7 @@
 
         <variable
             name="delegate"
-            type="com.qingmei2.sample.main.profile.ProfileViewDelegate" />
+            type="com.qingmei2.sample.ui.main.profile.ProfileViewDelegate" />
     </data>
 
     <android.support.constraint.ConstraintLayout

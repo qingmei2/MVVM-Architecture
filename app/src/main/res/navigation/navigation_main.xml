@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.qingmei2.sample.main.home.HomeFragment"
+        android:name="com.qingmei2.sample.ui.main.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/nav_task"
-        android:name="com.qingmei2.sample.main.task.TaskFragment"
+        android:name="com.qingmei2.sample.ui.main.task.TaskFragment"
         android:label="TaskFragment"
         tools:layout="@layout/fragment_task" />
     <fragment
         android:id="@+id/nav_profile"
-        android:name="com.qingmei2.sample.main.profile.ProfileFragment"
+        android:name="com.qingmei2.sample.ui.main.profile.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile" />
 </navigation>

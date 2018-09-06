@@ -1,7 +1,7 @@
-package com.qingmei2.sample.login
+package com.qingmei2.sample.ui.login
 
 import android.content.Intent
-import com.qingmei2.sample.main.MainActivity
+import com.qingmei2.sample.ui.main.MainActivity
 
 class LoginNavigator(
         private val context: LoginActivity

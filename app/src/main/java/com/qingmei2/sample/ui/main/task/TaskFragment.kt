@@ -1,24 +1,24 @@
-package com.qingmei2.sample.main.profile
+package com.qingmei2.sample.ui.main.task
 
 import android.os.Bundle
 import android.view.View
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.base.BaseFragment
-import com.qingmei2.sample.databinding.FragmentProfileBinding
+import com.qingmei2.sample.databinding.FragmentTaskBinding
 import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
 
-class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
+class TaskFragment : BaseFragment<FragmentTaskBinding>() {
 
     override val kodein: Kodein = Kodein.lazy {
         extend(BaseApplication.INSTANCE.kodein)
-        import(profileKodeinModule)
+        import(taskKodeinModule)
     }
 
-    private val viewDelegate: ProfileViewDelegate by instance()
+    private val viewDelegate: TaskViewDelegate by instance()
 
-    override val layoutId: Int = R.layout.fragment_profile
+    override val layoutId: Int = R.layout.fragment_task
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

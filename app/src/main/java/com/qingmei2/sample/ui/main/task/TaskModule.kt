@@ -1,4 +1,4 @@
-package com.qingmei2.sample.main.task
+package com.qingmei2.sample.ui.main.task
 
 import org.kodein.di.Kodein
 import org.kodein.di.android.AndroidComponentsWeakScope

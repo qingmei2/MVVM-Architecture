@@ -7,31 +7,47 @@
 
         <variable
             name="delegate"
-            type="com.qingmei2.sample.login.LoginViewDelegate" />
+            type="com.qingmei2.sample.ui.login.LoginViewDelegate" />
 
     </data>
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:gravity="center_horizontal"
-        android:orientation="vertical"
-        tools:context="com.qingmei2.sample.login.LoginActivity">
+        tools:context=".ui.login.LoginActivity">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:title="@string/login_sign_in"
             app:titleTextColor="@color/white" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bind_visibility="@{ safeUnbox(delegate.viewModel.loading) }"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ScrollView
             android:id="@+id/login_form"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
             <LinearLayout
                 android:id="@+id/email_login_form"
@@ -107,7 +123,7 @@
                     app:bind_onClick="@{ (v) -> delegate.login() }" />
             </LinearLayout>
         </ScrollView>
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 </layout>
 
 

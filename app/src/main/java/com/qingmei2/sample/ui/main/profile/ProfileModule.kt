@@ -1,4 +1,4 @@
-package com.qingmei2.sample.main.profile
+package com.qingmei2.sample.ui.main.profile
 
 import org.kodein.di.Kodein
 import org.kodein.di.android.AndroidComponentsWeakScope

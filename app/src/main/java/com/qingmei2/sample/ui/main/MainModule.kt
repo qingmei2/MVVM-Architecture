@@ -1,10 +1,10 @@
-package com.qingmei2.sample.main
+package com.qingmei2.sample.ui.main
 
 import androidx.navigation.fragment.NavHostFragment
 import com.qingmei2.rhine.ext.viewmodel.viewModel
-import com.qingmei2.sample.main.home.HomeFragment
-import com.qingmei2.sample.main.profile.ProfileFragment
-import com.qingmei2.sample.main.task.TaskFragment
+import com.qingmei2.sample.ui.main.home.HomeFragment
+import com.qingmei2.sample.ui.main.profile.ProfileFragment
+import com.qingmei2.sample.ui.main.task.TaskFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import org.kodein.di.Kodein.Module
 import org.kodein.di.android.AndroidComponentsWeakScope

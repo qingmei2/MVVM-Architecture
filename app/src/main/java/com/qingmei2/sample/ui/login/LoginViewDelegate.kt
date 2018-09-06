@@ -1,4 +1,4 @@
-package com.qingmei2.sample.login
+package com.qingmei2.sample.ui.login
 
 import android.util.Log
 import com.qingmei2.rhine.base.viewdelegate.IViewDelegate

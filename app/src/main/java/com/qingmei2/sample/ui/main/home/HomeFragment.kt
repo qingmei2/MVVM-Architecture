@@ -1,4 +1,4 @@
-package com.qingmei2.sample.main.home
+package com.qingmei2.sample.ui.main.home
 
 import android.os.Bundle
 import android.view.View

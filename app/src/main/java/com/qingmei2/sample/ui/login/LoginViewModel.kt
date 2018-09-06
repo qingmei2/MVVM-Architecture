@@ -1,4 +1,4 @@
-package com.qingmei2.sample.login
+package com.qingmei2.sample.ui.login
 
 import android.arch.lifecycle.MutableLiveData
 import com.qingmei2.sample.base.BaseViewModel
