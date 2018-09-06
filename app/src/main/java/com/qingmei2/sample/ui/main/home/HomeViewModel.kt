@@ -2,12 +2,14 @@ package com.qingmei2.sample.ui.main.home
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
-import com.qingmei2.sample.base.BaseViewModel
 import com.qingmei2.rhine.base.viewstate.SimpleViewState
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
+import com.qingmei2.sample.base.BaseViewModel
+import com.qingmei2.sample.http.RxSchedulers
 import com.qingmei2.sample.http.entity.QueryUser
 import io.reactivex.Flowable
+import io.reactivex.schedulers.Schedulers
 
 class HomeViewModel : BaseViewModel() {
 
@@ -35,7 +37,7 @@ class HomeViewModel : BaseViewModel() {
     private fun fetchUserInfo(username: String): Flowable<SimpleViewState<QueryUser>> = serviceManager
             .userService
             .queryUser(username)
-            .subscribeOn(schedulers.io())
+            .subscribeOn(RxSchedulers.io)
             .map { SimpleViewState.result(it) }
             .startWith(SimpleViewState.loading())
 

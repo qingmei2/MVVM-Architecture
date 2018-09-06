@@ -5,6 +5,7 @@ import com.qingmei2.sample.http.APIConstants
 import com.qingmei2.sample.http.entity.LoginUser
 import com.qingmei2.sample.http.interceptor.BasicAuthInterceptor
 import io.reactivex.Flowable
+import io.reactivex.Single
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -19,7 +20,7 @@ class LoginServiceImpl(private val httpInterceptor: Interceptor) {
     }
 
     fun login(username: String,
-              password: String): Flowable<LoginUser> {
+              password: String): Single<LoginUser> {
 
         val client =
                 OkHttpClient.Builder()

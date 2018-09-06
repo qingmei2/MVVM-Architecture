@@ -1,9 +1,10 @@
 package com.qingmei2.sample.ui.login.presentation
 
 import android.arch.lifecycle.MutableLiveData
-import com.qingmei2.sample.base.BaseViewModel
 import com.qingmei2.rhine.base.viewstate.SimpleViewState
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
+import com.qingmei2.sample.base.BaseViewModel
+import com.qingmei2.sample.http.RxSchedulers
 import com.qingmei2.sample.http.entity.LoginUser
 
 class LoginViewModel : BaseViewModel() {
@@ -19,8 +20,9 @@ class LoginViewModel : BaseViewModel() {
             .loginService
             .login(username.value ?: "",
                     password.value ?: "")
+            .toFlowable()
             .map { SimpleViewState.result(it) }
-            .subscribeOn(schedulers.io())
+            .subscribeOn(RxSchedulers.io)
             .startWith(SimpleViewState.loading())
             .startWith(SimpleViewState.idle())
             .bindLifecycle(this)
