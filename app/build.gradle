@@ -23,10 +23,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     dataBinding {
         enabled = true
     }
@@ -45,6 +47,7 @@ dependencies {
     implementation libs.kotlin_stdlib
 
     kapt libs.glide_compiler
+    kapt libs.arch_comp_room_compiler
     kapt libs.arch_comp_compiler
 
     testImplementation libs.junit
@@ -54,4 +57,7 @@ dependencies {
 
 kapt {
     generateStubs = true
+    arguments {
+        arg("room.schemaLocation", "$projectDir/schemas".toString())
+    }
 }

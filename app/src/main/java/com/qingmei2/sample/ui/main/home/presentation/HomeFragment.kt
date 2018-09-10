@@ -1,4 +1,4 @@
-package com.qingmei2.sample.ui.main.home
+package com.qingmei2.sample.ui.main.home.presentation
 
 import android.os.Bundle
 import android.view.View
@@ -6,6 +6,7 @@ import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.base.BaseFragment
 import com.qingmei2.sample.databinding.FragmentHomeBinding
+import com.qingmei2.sample.ui.main.home.homeKodeinModule
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance

@@ -1,8 +1,8 @@
 package com.qingmei2.sample.ui.main
 
 import androidx.navigation.fragment.NavHostFragment
-import com.qingmei2.rhine.ext.viewmodel.viewModel
-import com.qingmei2.sample.ui.main.home.HomeFragment
+import com.qingmei2.rhine.ext.viewmodel.addLifecycle
+import com.qingmei2.sample.ui.main.home.presentation.HomeFragment
 import com.qingmei2.sample.ui.main.profile.ProfileFragment
 import com.qingmei2.sample.ui.main.task.TaskFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -38,7 +38,9 @@ val mainKodeinModule = Module(MAIN_MODULE_TAG) {
     }
 
     bind<MainViewModel>() with scoped(AndroidComponentsWeakScope).singleton {
-        instance<MainActivity>().viewModel(MainViewModel::class.java)
+        MainViewModel().apply {
+            addLifecycle(instance<MainActivity>())
+        }
     }
 
     bind<MainViewDelegate>() with scoped(AndroidComponentsWeakScope).singleton {

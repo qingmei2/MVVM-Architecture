@@ -13,5 +13,5 @@ abstract class LoginDao {
     abstract fun findUserByName(username: String): Flowable<LoginEntity>
 
     @Insert
-    abstract fun insert(user: LoginEntity): Completable
+    abstract fun insert(user: LoginEntity): Long
 }

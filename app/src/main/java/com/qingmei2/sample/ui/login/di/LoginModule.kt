@@ -1,6 +1,9 @@
 package com.qingmei2.sample.ui.login.di
 
-import com.qingmei2.rhine.ext.viewmodel.viewModel
+import com.qingmei2.rhine.ext.viewmodel.addLifecycle
+import com.qingmei2.sample.ui.login.data.LoginDataSourceRepository
+import com.qingmei2.sample.ui.login.data.LoginLocalDataSource
+import com.qingmei2.sample.ui.login.data.LoginRemoteDataSource
 import com.qingmei2.sample.ui.login.presentation.LoginActivity
 import com.qingmei2.sample.ui.login.presentation.LoginNavigator
 import com.qingmei2.sample.ui.login.presentation.LoginViewDelegate
@@ -21,10 +24,24 @@ val loginKodeinModule = Kodein.Module(LOGIN_MODULE_TAG) {
     }
 
     bind<LoginViewModel>() with scoped(AndroidComponentsWeakScope).singleton {
-        instance<LoginActivity>().viewModel(LoginViewModel::class.java)
+        LoginViewModel(instance()).apply {
+            addLifecycle(instance<LoginActivity>())
+        }
     }
 
     bind<LoginViewDelegate>() with scoped(AndroidComponentsWeakScope).singleton {
         LoginViewDelegate(instance(), instance())
+    }
+
+    bind<LoginRemoteDataSource>() with scoped(AndroidComponentsWeakScope).singleton {
+        LoginRemoteDataSource(instance())
+    }
+
+    bind<LoginLocalDataSource>() with scoped(AndroidComponentsWeakScope).singleton {
+        LoginLocalDataSource(instance())
+    }
+
+    bind<LoginDataSourceRepository>() with scoped(AndroidComponentsWeakScope).singleton {
+        LoginDataSourceRepository(instance(), instance())
     }
 }

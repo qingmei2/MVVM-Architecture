@@ -4,10 +4,12 @@ import android.arch.lifecycle.MutableLiveData
 import com.qingmei2.rhine.base.viewstate.SimpleViewState
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.sample.base.BaseViewModel
-import com.qingmei2.sample.http.RxSchedulers
 import com.qingmei2.sample.http.entity.LoginUser
+import com.qingmei2.sample.ui.login.data.LoginDataSourceRepository
 
-class LoginViewModel : BaseViewModel() {
+class LoginViewModel(
+        private val repo: LoginDataSourceRepository
+) : BaseViewModel() {
 
     val username: MutableLiveData<String> = MutableLiveData()
     val password: MutableLiveData<String> = MutableLiveData()
@@ -16,24 +18,24 @@ class LoginViewModel : BaseViewModel() {
     val loading: MutableLiveData<Boolean> = MutableLiveData()
     val userInfo: MutableLiveData<LoginUser> = MutableLiveData()
 
-    fun login() = serviceManager
-            .loginService
+    fun login() = repo
             .login(username.value ?: "",
                     password.value ?: "")
             .toFlowable()
             .map { SimpleViewState.result(it) }
-            .subscribeOn(RxSchedulers.io)
             .startWith(SimpleViewState.loading())
             .startWith(SimpleViewState.idle())
             .bindLifecycle(this)
-            .subscribe { state ->
+            .subscribe ({ state ->
                 when (state) {
                     is SimpleViewState.Loading -> applyState(isLoading = true)
                     is SimpleViewState.Idle -> applyState(isLoading = false)
                     is SimpleViewState.Error -> applyState(isLoading = false, error = state.error)
                     is SimpleViewState.Result -> applyState(isLoading = false, user = state.result)
                 }
-            }
+            }, {
+                it.printStackTrace()
+            })
 
     private fun applyState(isLoading: Boolean, user: LoginUser? = null, error: Throwable? = null) {
         this.loading.postValue(isLoading)
