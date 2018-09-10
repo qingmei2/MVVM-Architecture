@@ -10,6 +10,7 @@ class LoginNavigator(
     fun toMain() {
         Intent(context, MainActivity::class.java).apply {
             context.startActivity(this)
+            context.finish()
         }
     }
 }

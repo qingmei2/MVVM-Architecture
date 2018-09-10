@@ -1,6 +1,7 @@
 package com.qingmei2.sample.ui.login.data
 
 import com.qingmei2.rhine.base.repository.RhineRepositoryBoth
+import com.qingmei2.rhine.base.viewstate.SimpleViewState
 import com.qingmei2.sample.db.LoginEntity
 import com.qingmei2.sample.db.UserDatabase
 import com.qingmei2.sample.http.RxSchedulers
@@ -15,11 +16,11 @@ class LoginDataSourceRepository(
         localDataSource: ILoginLocalDataSource
 ) : RhineRepositoryBoth<ILoginRemoteDataSource, ILoginLocalDataSource>(remoteDataSource, localDataSource) {
 
-    fun login(username: String, password: String): Single<LoginUser> =
+    fun login(username: String, password: String): Flowable<LoginUser> =
             remoteDataSource.login(username, password)
                     .flatMap {
                         localDataSource.insertUser(it)  // save user
-                                .andThen(Single.just(it))
+                                .andThen(Flowable.just(it))
                     }
 }
 
@@ -27,7 +28,7 @@ class LoginRemoteDataSource(
         private val serviceManager: ServiceManager
 ) : ILoginRemoteDataSource {
 
-    override fun login(username: String, password: String): Single<LoginUser> =
+    override fun login(username: String, password: String): Flowable<LoginUser> =
             serviceManager.loginService
                     .login(username, password)
                     .subscribeOn(RxSchedulers.io)

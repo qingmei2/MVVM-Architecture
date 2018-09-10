@@ -11,7 +11,7 @@ import io.reactivex.Single
 
 interface ILoginRemoteDataSource : IRemoteDataSource {
 
-    fun login(username: String, password: String): Single<LoginUser>
+    fun login(username: String, password: String): Flowable<LoginUser>
 }
 
 interface ILoginLocalDataSource : ILocalDataSource {

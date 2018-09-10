@@ -21,21 +21,19 @@ class LoginViewModel(
     fun login() = repo
             .login(username.value ?: "",
                     password.value ?: "")
-            .toFlowable()
             .map { SimpleViewState.result(it) }
             .startWith(SimpleViewState.loading())
             .startWith(SimpleViewState.idle())
+            .onErrorReturn { it -> SimpleViewState.error(it) }
             .bindLifecycle(this)
-            .subscribe ({ state ->
+            .subscribe { state ->
                 when (state) {
                     is SimpleViewState.Loading -> applyState(isLoading = true)
                     is SimpleViewState.Idle -> applyState(isLoading = false)
                     is SimpleViewState.Error -> applyState(isLoading = false, error = state.error)
                     is SimpleViewState.Result -> applyState(isLoading = false, user = state.result)
                 }
-            }, {
-                it.printStackTrace()
-            })
+            }
 
     private fun applyState(isLoading: Boolean, user: LoginUser? = null, error: Throwable? = null) {
         this.loading.postValue(isLoading)

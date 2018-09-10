@@ -20,7 +20,7 @@ class LoginServiceImpl(private val httpInterceptor: Interceptor) {
     }
 
     fun login(username: String,
-              password: String): Single<LoginUser> {
+              password: String): Flowable<LoginUser> {
 
         val client =
                 OkHttpClient.Builder()
