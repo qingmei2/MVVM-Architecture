@@ -18,6 +18,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.qingmei2.sample.ui.login.presentation.LoginActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

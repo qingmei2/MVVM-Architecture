@@ -40,5 +40,4 @@ class LoginViewModel(
         this.userInfo.postValue(user)
         this.error.postValue(error)
     }
-
 }
