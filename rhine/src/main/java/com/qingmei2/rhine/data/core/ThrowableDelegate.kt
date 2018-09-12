@@ -14,7 +14,6 @@ open class ThrowableDelegate(
     }
 
     companion object {
-
         val EMPTY = ThrowableDelegate(0, "")
     }
 }
