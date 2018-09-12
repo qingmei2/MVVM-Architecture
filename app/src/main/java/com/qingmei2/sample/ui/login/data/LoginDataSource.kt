@@ -1,7 +1,7 @@
 package com.qingmei2.sample.ui.login.data
 
 import com.qingmei2.rhine.base.repository.RhineRepositoryBoth
-import com.qingmei2.rhine.base.viewstate.SimpleViewState
+import com.qingmei2.sample.PrefsHelper
 import com.qingmei2.sample.db.LoginEntity
 import com.qingmei2.sample.db.UserDatabase
 import com.qingmei2.sample.http.RxSchedulers
@@ -9,7 +9,6 @@ import com.qingmei2.sample.http.entity.LoginUser
 import com.qingmei2.sample.http.service.ServiceManager
 import io.reactivex.Completable
 import io.reactivex.Flowable
-import io.reactivex.Single
 
 class LoginDataSourceRepository(
         remoteDataSource: ILoginRemoteDataSource,
@@ -18,10 +17,13 @@ class LoginDataSourceRepository(
 
     fun login(username: String, password: String): Flowable<LoginUser> =
             remoteDataSource.login(username, password)
+                    .doOnNext { }
                     .flatMap {
-                        localDataSource.insertUser(it)  // save user
+                        localDataSource.savePrefsUser(username, password)  // save user
                                 .andThen(Flowable.just(it))
                     }
+
+    fun prefsUser(): Flowable<LoginEntity> = localDataSource.fetchPrefsUser()
 }
 
 class LoginRemoteDataSource(
@@ -36,17 +38,18 @@ class LoginRemoteDataSource(
 }
 
 class LoginLocalDataSource(
-        private val database: UserDatabase
+        private val database: UserDatabase,
+        private val prefs: PrefsHelper
 ) : ILoginLocalDataSource {
 
-    override fun insertUser(user: LoginUser): Completable =
-            Completable.fromAction {
-                database.loginDao()
-                        .insert(user = LoginEntity(user.id, user.login, "", user.avatarUrl))
-            }.subscribeOn(RxSchedulers.database)
 
-    override fun findUserByUsername(username: String): Flowable<LoginEntity> =
-            database.loginDao()
-                    .findUserByName(username)
-                    .subscribeOn(RxSchedulers.database)
+    override fun savePrefsUser(username: String, password: String): Completable =
+            Completable.fromAction {
+                prefs.username = username
+                prefs.password = password
+            }
+
+    override fun fetchPrefsUser(): Flowable<LoginEntity> =
+            Flowable.just(prefs)
+                    .map { LoginEntity(1, it.username, it.password) }
 }

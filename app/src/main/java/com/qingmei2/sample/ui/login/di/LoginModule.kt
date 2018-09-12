@@ -38,7 +38,7 @@ val loginKodeinModule = Kodein.Module(LOGIN_MODULE_TAG) {
     }
 
     bind<LoginLocalDataSource>() with scoped(AndroidComponentsWeakScope).singleton {
-        LoginLocalDataSource(instance())
+        LoginLocalDataSource(instance(), instance())
     }
 
     bind<LoginDataSourceRepository>() with scoped(AndroidComponentsWeakScope).singleton {

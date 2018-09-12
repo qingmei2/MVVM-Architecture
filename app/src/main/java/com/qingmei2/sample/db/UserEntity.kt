@@ -12,7 +12,5 @@ data class LoginEntity(
         @ColumnInfo(name = "username")
         var username: String,
         @ColumnInfo(name = "password")
-        var password: String,
-        @ColumnInfo(name = "avatar_url")
-        var avatarUrl: String
+        var password: String
 )

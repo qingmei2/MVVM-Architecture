@@ -7,6 +7,7 @@ import com.qingmei2.sample.base.BaseViewModel
 import com.qingmei2.sample.http.entity.LoginUser
 import com.qingmei2.sample.ui.login.data.LoginDataSourceRepository
 
+@SuppressWarnings("checkResult")
 class LoginViewModel(
         private val repo: LoginDataSourceRepository
 ) : BaseViewModel() {
@@ -17,6 +18,14 @@ class LoginViewModel(
     val error: MutableLiveData<Throwable> = MutableLiveData()
     val loading: MutableLiveData<Boolean> = MutableLiveData()
     val userInfo: MutableLiveData<LoginUser> = MutableLiveData()
+
+    init {
+        repo.prefsUser()
+                .subscribe {
+                    username.postValue(it.username)
+                    password.postValue(it.password)
+                }
+    }
 
     fun login() = repo
             .login(username.value ?: "",

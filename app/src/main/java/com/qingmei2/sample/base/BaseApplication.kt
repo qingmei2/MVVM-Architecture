@@ -2,8 +2,9 @@ package com.qingmei2.sample.base
 
 import android.app.Application
 import android.content.Context
-import com.qingmei2.sample.di.httpClientModule
 import com.qingmei2.sample.di.dbModule
+import com.qingmei2.sample.di.httpClientModule
+import com.qingmei2.sample.di.prefsModule
 import com.qingmei2.sample.di.serviceModule
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -22,6 +23,7 @@ open class BaseApplication : Application(), KodeinAware {
         import(serviceModule)
         import(dbModule)
         import(httpClientModule)
+        import(prefsModule)
     }
 
     override fun onCreate() {
