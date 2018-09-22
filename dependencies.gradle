@@ -83,10 +83,9 @@ ext {
             rxkotlin                : [group: 'io.reactivex.rxjava2', name: 'rxkotlin', version: versions.rxkotlin],
             rxandroid               : [group: 'io.reactivex.rxjava2', name: 'rxandroid', version: versions.rxandroid],
             rxpermissions           : [group: 'com.github.tbruyelle', name: 'rxpermissions', version: '0.10.2'],
-            rxcache                 : [group: 'com.github.VictorAlbertos.RxCache', name: 'runtime', version: versions.rxcache],
-            rxcache_jolyglot        : [group: 'com.github.VictorAlbertos.Jolyglot', name: 'gson', version: '0.0.4'],
-            rximagepicker           : [group: 'com.github.qingmei2', name: 'rximagepicker', version: '2.0.0-alpha'],
-            rxschedulers            : [group: 'com.github.qingmei2.rxschedulers', name: 'rxschedulers_support_kt', version: '0.1.1'],
+
+            rximagepicker           : [group: 'com.github.qingmei2', name: 'rximagepicker', version: '2.2.0'],
+            rxweaver                : [group: 'com.github.qingmei2.rxweaver', name: 'rxweaver', version: '0.2.1'],
 
             rxbinding               : [group: 'com.jakewharton.rxbinding2', name: 'rxbinding', version: versions.rxbinding],
             rxbinding_v7            : [group: 'com.jakewharton.rxbinding2', name: 'rxbinding-appcompat-v7', version: versions.rxbinding],
