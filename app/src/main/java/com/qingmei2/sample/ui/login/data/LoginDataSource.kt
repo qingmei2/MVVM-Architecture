@@ -2,6 +2,7 @@ package com.qingmei2.sample.ui.login.data
 
 import com.qingmei2.rhine.base.repository.RhineRepositoryBoth
 import com.qingmei2.sample.PrefsHelper
+import com.qingmei2.sample.data.UserManager
 import com.qingmei2.sample.db.LoginEntity
 import com.qingmei2.sample.db.UserDatabase
 import com.qingmei2.sample.http.RxSchedulers
@@ -17,7 +18,7 @@ class LoginDataSourceRepository(
 
     fun login(username: String, password: String): Flowable<LoginUser> =
             remoteDataSource.login(username, password)
-                    .doOnNext { }
+                    .doOnNext { UserManager.INSTANCE = it }
                     .flatMap {
                         localDataSource.savePrefsUser(username, password)  // save user
                                 .andThen(Flowable.just(it))
@@ -41,7 +42,6 @@ class LoginLocalDataSource(
         private val database: UserDatabase,
         private val prefs: PrefsHelper
 ) : ILoginLocalDataSource {
-
 
     override fun savePrefsUser(username: String, password: String): Completable =
             Completable.fromAction {

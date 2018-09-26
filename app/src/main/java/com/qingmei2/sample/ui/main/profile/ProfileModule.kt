@@ -1,5 +1,6 @@
 package com.qingmei2.sample.ui.main.profile
 
+import com.qingmei2.sample.ui.main.profile.presentation.ProfileViewDelegate
 import org.kodein.di.Kodein
 import org.kodein.di.android.AndroidComponentsWeakScope
 import org.kodein.di.generic.bind

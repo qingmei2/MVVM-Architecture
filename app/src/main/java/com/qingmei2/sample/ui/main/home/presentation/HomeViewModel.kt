@@ -6,14 +6,12 @@ import com.qingmei2.rhine.base.viewstate.SimpleViewState
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.sample.base.BaseViewModel
-import com.qingmei2.sample.http.RxSchedulers
 import com.qingmei2.sample.http.entity.QueryUser
-import com.qingmei2.sample.ui.main.home.data.HomeRepository
+import com.qingmei2.sample.ui.main.home.data.ProfileRepository
 import io.reactivex.Flowable
-import io.reactivex.schedulers.Schedulers
 
 class HomeViewModel(
-        private val repo: HomeRepository
+        private val repo: ProfileRepository
 ) : BaseViewModel() {
 
     val query: MutableLiveData<String> = MutableLiveData()
