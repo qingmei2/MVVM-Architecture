@@ -9,16 +9,6 @@ import org.intellij.lang.annotations.Flow
 
 class HomeRepository(
         remoteDataSource: IRemoteHomeDataSource
-) : RhineRepositoryRemote<IRemoteHomeDataSource>(remoteDataSource) {
+) : RhineRepositoryRemote<IRemoteHomeDataSource>(remoteDataSource)
 
-    fun fetchUserInfo(username: String): Flowable<QueryUser> =
-            remoteDataSource.fetchUserInfo(username)
-}
-
-class HomeRemoteDataSource(val serviceManager: ServiceManager) : IRemoteHomeDataSource {
-
-    override fun fetchUserInfo(username: String): Flowable<QueryUser> =
-            serviceManager.userService
-                    .queryUser(username)
-                    .subscribeOn(RxSchedulers.io)
-}
+class HomeRemoteDataSource(val serviceManager: ServiceManager) : IRemoteHomeDataSource

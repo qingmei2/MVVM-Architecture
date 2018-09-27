@@ -19,7 +19,6 @@ class ProfileViewModel(
         super.onCreate(lifecycleOwner)
     }
 
-
     private fun applyState(isLoading: Boolean, userInfo: QueryUser? = null, error: Throwable? = null) {
         this.loading.postValue(isLoading)
         this.result.postValue(userInfo)

@@ -1,11 +1,14 @@
 package com.qingmei2.sample.ui.main.profile
 
+import com.qingmei2.rhine.ext.viewmodel.addLifecycle
+import com.qingmei2.sample.ui.main.profile.data.ProfileRemoteDataSource
+import com.qingmei2.sample.ui.main.profile.data.ProfileRepository
+import com.qingmei2.sample.ui.main.profile.presentation.ProfileFragment
 import com.qingmei2.sample.ui.main.profile.presentation.ProfileViewDelegate
+import com.qingmei2.sample.ui.main.profile.presentation.ProfileViewModel
 import org.kodein.di.Kodein
 import org.kodein.di.android.AndroidComponentsWeakScope
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.scoped
-import org.kodein.di.generic.singleton
+import org.kodein.di.generic.*
 
 const val PROFILE_MODULE_TAG = "PROFILE_MODULE_TAG"
 
@@ -13,5 +16,19 @@ val profileKodeinModule = Kodein.Module(PROFILE_MODULE_TAG) {
 
     bind<ProfileViewDelegate>() with scoped(AndroidComponentsWeakScope).singleton {
         ProfileViewDelegate()
+    }
+
+    bind<ProfileViewModel>() with scoped(AndroidComponentsWeakScope).singleton {
+        ProfileViewModel(instance()).apply {
+            addLifecycle(instance<ProfileFragment>())
+        }
+    }
+
+    bind<ProfileRemoteDataSource>() with provider {
+        ProfileRemoteDataSource(instance())
+    }
+
+    bind<ProfileRepository>() with provider {
+        ProfileRepository(instance())
     }
 }
