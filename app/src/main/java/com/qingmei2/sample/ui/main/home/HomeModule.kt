@@ -3,6 +3,7 @@ package com.qingmei2.sample.ui.main.home
 import com.qingmei2.rhine.ext.viewmodel.addLifecycle
 import com.qingmei2.sample.ui.main.home.data.HomeRemoteDataSource
 import com.qingmei2.sample.ui.main.home.data.HomeRepository
+import com.qingmei2.sample.ui.main.home.data.IRemoteHomeDataSource
 import com.qingmei2.sample.ui.main.home.presentation.HomeFragment
 import com.qingmei2.sample.ui.main.home.presentation.HomeViewDelegate
 import com.qingmei2.sample.ui.main.home.presentation.HomeViewModel
@@ -25,7 +26,7 @@ val homeKodeinModule = Kodein.Module(HOME_MODULE_TAG) {
         HomeViewDelegate(instance())
     }
 
-    bind<HomeRemoteDataSource>() with provider {
+    bind<IRemoteHomeDataSource>() with provider {
         HomeRemoteDataSource(instance())
     }
 

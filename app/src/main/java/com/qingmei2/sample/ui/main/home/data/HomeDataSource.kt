@@ -9,9 +9,9 @@ import io.reactivex.Flowable
 
 class HomeRepository(
         remoteDataSource: IRemoteHomeDataSource
-) : RhineRepositoryRemote<IRemoteHomeDataSource>(remoteDataSource), IRemoteHomeDataSource {
+) : RhineRepositoryRemote<IRemoteHomeDataSource>(remoteDataSource) {
 
-    override fun queryReceivedEvents(username: String): Flowable<List<ReceivedEvent>> =
+    fun queryReceivedEvents(username: String): Flowable<List<ReceivedEvent>> =
             remoteDataSource.queryReceivedEvents(username)
 
 }
