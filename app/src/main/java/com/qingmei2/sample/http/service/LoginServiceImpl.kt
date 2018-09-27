@@ -15,10 +15,6 @@ import java.util.concurrent.TimeUnit
 
 class LoginServiceImpl(private val httpInterceptor: Interceptor) {
 
-    init {
-
-    }
-
     fun login(username: String,
               password: String): Flowable<LoginUser> {
 

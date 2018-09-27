@@ -1,8 +1,8 @@
 package com.qingmei2.rhine.base.repository
 
-open class RhineRepositoryBoth<T : IRemoteDataSource, E : ILocalDataSource>(
+open class RhineRepositoryBoth<T : IRemoteDataSource, R : ILocalDataSource>(
         val remoteDataSource: T,
-        val localDataSource: E
+        val localDataSource: R
 ) : IRepository
 
 open class RhineRepositoryLocal<T : ILocalDataSource>(
