@@ -40,10 +40,14 @@ The MVVM using RxJava and Android databinding.
 
 * [OkHttp: An HTTP+HTTP/2 client for Android and Java applications.](https://github.com/square/okhttp)
 
+### DI
+
+* [Kodein-DI: Painless Kotlin Dependency Injection](https://github.com/Kodein-Framework/Kodein-DI)
+
 ### ImageLoader
 
 * [Glide: An image loading and caching library for Android focused on smooth scrolling](https://github.com/bumptech/glide)
 
-### DI
+### RecyclerView
 
-* [Kodein-DI: Painless Kotlin Dependency Injection](https://github.com/Kodein-Framework/Kodein-DI)
+* [DslAdapter: A RecyclerView Adapter builder by DSL. Easy to use, and all code written by kotlin.](https://github.com/Yumenokanata/DslAdapter)

@@ -1,4 +1,4 @@
-package com.qingmei2.rhine.binding.support_v7
+package com.qingmei2.rhine.binding.support
 
 import android.databinding.BindingAdapter
 import android.support.v7.widget.SearchView
@@ -14,6 +14,7 @@ fun bindHintColor(searchView: SearchView, hintColor: Int, textColor: Int) {
     }
 }
 
+@SuppressWarnings("checkResult")
 @BindingAdapter("bind_onQuerySubmit", "bind_onQueryChanged", requireAll = false)
 fun bindSearchViewQueryText(searchView: SearchView,
                             onSubmit: SearchConsumer?,

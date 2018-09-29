@@ -8,4 +8,9 @@
         <attr name="bind_visibility" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="RecyclerView">
+        <attr name="bind_adapter" format="reference" />
+    </declare-styleable>
+
+
 </resources>

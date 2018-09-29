@@ -5,7 +5,8 @@ import com.google.gson.annotations.SerializedName
 data class ReceivedEvent(val id: String,
                          val type: Type,
                          val actor: Actor,
-                         val payload: Payload,
+//                         val payload: Payload,
+                         val repo: Repo,
                          val public: Boolean,
                          @SerializedName("created_at")
                          val createdAt: String)
