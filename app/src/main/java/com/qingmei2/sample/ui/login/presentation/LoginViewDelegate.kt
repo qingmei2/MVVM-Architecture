@@ -12,7 +12,7 @@ class LoginViewDelegate(
     init {
         viewModel.userInfo
                 .toFlowable()
-                .subscribe { it ->
+                .subscribe { _ ->
                     navigator.toMain()
                 }
     }

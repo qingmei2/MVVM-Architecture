@@ -50,6 +50,10 @@ class HomeViewModel(
 
     override fun onCreate(lifecycleOwner: LifecycleOwner) {
         super.onCreate(lifecycleOwner)
+        queryReceivedEvents()
+    }
+
+    fun queryReceivedEvents() {
         repo.queryReceivedEvents(UserManager.INSTANCE.name)
                 .map { SimpleViewState.result(it) }
                 .startWith(SimpleViewState.loading())

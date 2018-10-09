@@ -12,5 +12,8 @@
         <attr name="bind_adapter" format="reference" />
     </declare-styleable>
 
-
+    <declare-styleable name="SwipeRefreshLayout">
+        <attr name="refreshListener" format="reference" />
+        <attr name="refreshing" format="boolean" />
+    </declare-styleable>
 </resources>

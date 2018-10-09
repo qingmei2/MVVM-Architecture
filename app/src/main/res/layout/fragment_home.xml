@@ -16,12 +16,21 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:bind_adapter="@{ delegate.homeViewModel.adapter }"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+            app:onRefreshListener="@{() -> delegate.homeViewModel.queryReceivedEvents() }"
+            app:refreshing="@{ delegate.homeViewModel.loading }">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:bind_adapter="@{ delegate.homeViewModel.adapter }"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
     </LinearLayout>
+
 </layout>
