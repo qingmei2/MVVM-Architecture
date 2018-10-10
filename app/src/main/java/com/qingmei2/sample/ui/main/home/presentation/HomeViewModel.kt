@@ -29,22 +29,26 @@ class HomeViewModel(
 
     init {
         events.toFlowable()
-                .map { list ->
-                    RendererAdapter.repositoryAdapter()
-                            .addItem(list, LayoutRenderer.dataBindingItem<List<ReceivedEvent>, ItemHomeReceivedEventBinding>(
-                                    count = list.size,
-                                    layout = R.layout.item_home_received_event,
-                                    bindBinding = { ItemHomeReceivedEventBinding.bind(it) },
-                                    binder = { bind, item, index ->
-                                        bind.data = item[index]
-                                    },
-                                    recycleFun = { it.data = null }
-                            ))
-                            .build()
-                }
                 .observeOn(RxSchedulers.ui)
-                .subscribe { new ->
-                    adapter.postValue(new)
+                .subscribe { _ ->
+                    if (adapter.value == null)
+                        adapter.postValue(
+                                RendererAdapter.repositoryAdapter()
+                                        .add({ events.value!! }, LayoutRenderer.dataBindingItem<List<ReceivedEvent>, ItemHomeReceivedEventBinding>(
+                                                count = events.value!!.size,
+                                                layout = R.layout.item_home_received_event,
+                                                bindBinding = { ItemHomeReceivedEventBinding.bind(it) },
+                                                binder = { bind, item, index ->
+                                                    bind.data = item[index]
+                                                },
+                                                recycleFun = { it.data = null }
+                                        ))
+                                        .build()
+                        )
+                    else
+                        adapter.value!!.apply {
+                            forceUpdateAdapter()
+                        }
                 }
     }
 
