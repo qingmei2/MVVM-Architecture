@@ -1,8 +1,15 @@
 # MVVM-Rhine
 
-The MVVM using RxJava and Android databinding.
+The MVVM using RxJava and Android databinding(:construction: ** Building... **).
 
-> Development environment：Android Studio 3.3+
+## ScreenShots
+
+<div align:left;display:inline;>
+<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/login.png"/>
+<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/home.png"/>
+</div>
+
+## Librarys
 
 ### Android Jetpack
 
