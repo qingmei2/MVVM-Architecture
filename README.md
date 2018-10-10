@@ -1,15 +1,15 @@
 # MVVM-Rhine
 
-The MVVM using RxJava and Android databinding(:construction: ** Building... **).
+:construction: The MVVM using RxJava and Android databinding.
 
 ## ScreenShots
 
 <div align:left;display:inline;>
-<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/login.png"/>
-<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/home.png"/>
+<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/login.png"/>
+<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/home.png"/>
 </div>
 
-## Librarys
+## Libraries
 
 ### Android Jetpack
 
