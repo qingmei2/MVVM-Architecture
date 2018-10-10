@@ -10,7 +10,10 @@
     <color name="secondaryDarkColor">#1c313a</color>
 
     <color name="primaryTextColor">#263238</color>
-    <color name="secondaryTextColor">#607d8b</color>
+    <color name="secondaryTextGray">#aaaaaa</color>
+    <color name="secondaryTextBlueGray">#607d8b</color>
+
+    <color name="dividerColor">#cfd8dc</color>
 
     <color name="white">#ffffff</color>
 </resources>

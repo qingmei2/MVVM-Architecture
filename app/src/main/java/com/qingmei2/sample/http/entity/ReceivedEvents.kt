@@ -9,7 +9,7 @@ data class ReceivedEvent(val id: String,
                          val repo: Repo,
                          val public: Boolean,
                          @SerializedName("created_at")
-                         val createdAt: String)
+                         val createdAt: String?)
 
 data class Actor(val id: Int,
                  val login: String,

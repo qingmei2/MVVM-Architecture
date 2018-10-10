@@ -16,11 +16,18 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/colorPrimary"
+            app:title="@string/main_nav_home"
+            app:titleTextColor="@color/white" />
+
         <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:onRefreshListener="@{() -> delegate.homeViewModel.queryReceivedEvents() }"
-            app:refreshing="@{ delegate.homeViewModel.loading }">
+            app:refreshing="@{ safeUnbox(delegate.homeViewModel.loading) }">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"

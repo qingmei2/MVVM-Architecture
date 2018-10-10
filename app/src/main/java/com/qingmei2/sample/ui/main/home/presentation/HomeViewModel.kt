@@ -34,8 +34,10 @@ class HomeViewModel(
                     if (adapter.value == null)
                         adapter.postValue(
                                 RendererAdapter.repositoryAdapter()
-                                        .add({ events.value!! }, LayoutRenderer.dataBindingItem<List<ReceivedEvent>, ItemHomeReceivedEventBinding>(
-                                                count = events.value!!.size,
+                                        .add({
+                                            events.value ?: listOf()
+                                        }, LayoutRenderer.dataBindingItem<List<ReceivedEvent>, ItemHomeReceivedEventBinding>(
+                                                count = events.value?.size ?: 0,
                                                 layout = R.layout.item_home_received_event,
                                                 bindBinding = { ItemHomeReceivedEventBinding.bind(it) },
                                                 binder = { bind, item, index ->

@@ -5,28 +5,89 @@
 
     <data>
 
+        <import
+            alias="utils"
+            type="com.qingmei2.sample.ui.main.home.presentation.HomeUtils" />
+
         <variable
             name="data"
             type="com.qingmei2.sample.http.entity.ReceivedEvent" />
     </data>
 
-
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:bind_imageUrl="@{ data.actor.avatarUrl }"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"
+            tools:src="@mipmap/ic_github" />
 
         <TextView
+            android:id="@+id/tvEventContent"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:gravity="center_vertical"
-            android:text="@{ data.actor.login + data.type }"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="8dp"
+            android:ellipsize="end"
+            android:gravity="start"
+            android:maxLines="2"
+            android:text="@{ utils.eventTitle(tvEventContent, data) }"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/tvEventTime"
+            app:layout_constraintEnd_toStartOf="@+id/ivEventType"
+            app:layout_constraintStart_toEndOf="@+id/ivAvatar"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="In programming we trust." />
+            tools:text="Anyone star qingmei2/RxImagePicker" />
+
+        <TextView
+            android:id="@+id/tvEventTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="start"
+            android:text="@{ utils.eventTimeToString(data.createdAt) }"
+            android:textColor="@color/secondaryTextGray"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tvEventContent"
+            app:layout_constraintStart_toStartOf="@+id/tvEventContent"
+            app:layout_constraintTop_toBottomOf="@+id/tvEventContent"
+            tools:text="2小时前" />
+
+        <ImageView
+            android:id="@+id/ivEventType"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="16dp"
+            android:src="@{ utils.eventTypeToDrawable(ivEventType, data.type) }"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"
+            tools:src="@mipmap/ic_star" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginStart="12dp"
+            android:background="@color/dividerColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>
