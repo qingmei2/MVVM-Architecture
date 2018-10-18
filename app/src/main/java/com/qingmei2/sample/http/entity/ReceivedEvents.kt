@@ -32,5 +32,6 @@ data class Payload(val action: String?,
 enum class Type {
     WatchEvent,
     ForkEvent,
+    PushEvent,
     CreateEvent;
 }

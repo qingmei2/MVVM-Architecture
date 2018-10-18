@@ -28,7 +28,7 @@ object HomeUtils {
             when (eventType) {
                 Type.WatchEvent ->
                     ContextCompat.getDrawable(view.context, R.mipmap.ic_star)
-                Type.CreateEvent, Type.ForkEvent ->
+                Type.CreateEvent, Type.ForkEvent, Type.PushEvent ->
                     ContextCompat.getDrawable(view.context, R.mipmap.ic_fork)
             }
 
@@ -41,6 +41,7 @@ object HomeUtils {
             Type.WatchEvent -> "starred"
             Type.CreateEvent -> "created"
             Type.ForkEvent -> "forked"
+            Type.PushEvent -> "pushed"
         }
         val repo = data.repo.name
 
