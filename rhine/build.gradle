@@ -86,6 +86,9 @@ dependencies {
     api libs.glide
     kapt libs.glide_compiler
 
+    // logger
+    api libs.timber
+
     // recyclerview_binding
     api libs.dsl_adapter_binding, {
         exclude group: 'com.android.support', module: 'appcompat-v7'

@@ -2,6 +2,8 @@ package com.qingmei2.sample.base
 
 import android.app.Application
 import android.content.Context
+import com.qingmei2.rhine.logger.initLogger
+import com.qingmei2.sample.BuildConfig
 import com.qingmei2.sample.di.dbModule
 import com.qingmei2.sample.di.httpClientModule
 import com.qingmei2.sample.di.prefsModule
@@ -29,6 +31,8 @@ open class BaseApplication : Application(), KodeinAware {
     override fun onCreate() {
         super.onCreate()
         INSTANCE = this
+
+        initLogger(BuildConfig.DEBUG)
     }
 
     companion object {

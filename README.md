@@ -58,3 +58,7 @@
 ### RecyclerView
 
 * [DslAdapter: A RecyclerView Adapter builder by DSL. Easy to use, and all code written by kotlin.](https://github.com/Yumenokanata/DslAdapter)
+
+### Others
+
+* [Timber: A logger with a small, extensible API which provides utility on top of Android's normal Log class.](https://github.com/JakeWharton/timber)
