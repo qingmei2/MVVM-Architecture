@@ -33,5 +33,6 @@ enum class Type {
     WatchEvent,
     ForkEvent,
     PushEvent,
+    MemberEvent,
     CreateEvent;
 }

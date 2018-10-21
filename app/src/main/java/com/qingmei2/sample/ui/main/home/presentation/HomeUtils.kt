@@ -30,6 +30,8 @@ object HomeUtils {
                     ContextCompat.getDrawable(view.context, R.mipmap.ic_star)
                 Type.CreateEvent, Type.ForkEvent, Type.PushEvent ->
                     ContextCompat.getDrawable(view.context, R.mipmap.ic_fork)
+                else ->
+                    throw RuntimeException("$eventType can't be displayed.")
             }
 
     @JvmStatic
@@ -42,6 +44,7 @@ object HomeUtils {
             Type.CreateEvent -> "created"
             Type.ForkEvent -> "forked"
             Type.PushEvent -> "pushed"
+            else -> throw RuntimeException("${data.type} can't be displayed.")
         }
         val repo = data.repo.name
 
