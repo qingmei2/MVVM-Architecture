@@ -16,7 +16,7 @@ class HomeRepository(
 
 }
 
-class HomeRemoteDataSource(val serviceManager: ServiceManager) : IRemoteHomeDataSource {
+class HomeRemoteDataSource(private val serviceManager: ServiceManager) : IRemoteHomeDataSource {
 
     override fun queryReceivedEvents(username: String): Flowable<List<ReceivedEvent>> =
             serviceManager.userService

@@ -1,6 +1,7 @@
 package com.qingmei2.rhine.logger
 
 import android.app.Application
+import com.qingmei2.rhine.functional.Supplier
 import timber.log.Timber
 
 fun Application.initLogger(isDebug: Boolean = true) {
@@ -12,12 +13,12 @@ fun Application.initLogger(isDebug: Boolean = true) {
     log { "initLogger successfully, isDebug = $isDebug" }
 }
 
-inline fun log(supplier: () -> String) = logd(supplier)
+inline fun log(supplier: Supplier<String>) = logd(supplier)
 
-inline fun logd(supplier: () -> String) = Timber.d(supplier())
+inline fun logd(supplier: Supplier<String>) = Timber.d(supplier())
 
-inline fun logi(supplier: () -> String) = Timber.i(supplier())
+inline fun logi(supplier: Supplier<String>) = Timber.i(supplier())
 
-inline fun logw(supplier: () -> String) = Timber.w(supplier())
+inline fun logw(supplier: Supplier<String>) = Timber.w(supplier())
 
-inline fun loge(supplier: () -> String) = Timber.e(supplier())
+inline fun loge(supplier: Supplier<String>) = Timber.e(supplier())

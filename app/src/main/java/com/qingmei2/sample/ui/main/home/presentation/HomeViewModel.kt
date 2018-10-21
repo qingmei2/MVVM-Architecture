@@ -16,6 +16,7 @@ import indi.yume.tools.adapterdatabinding.dataBindingItem
 import indi.yume.tools.dsladapter.RendererAdapter
 import indi.yume.tools.dsladapter.renderers.LayoutRenderer
 
+
 @SuppressWarnings("checkResult")
 class HomeViewModel(
         private val repo: HomeRepository
