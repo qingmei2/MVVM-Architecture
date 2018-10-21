@@ -66,7 +66,7 @@ class HomeViewModel(
 
     override fun onCreate(lifecycleOwner: LifecycleOwner) {
         super.onCreate(lifecycleOwner)
-        queryReceivedEvents()
+        queryReceivedEvents()   // fetch API when fragment's onCreated()
     }
 
     fun queryReceivedEvents() {
