@@ -95,6 +95,6 @@ data class RepoOwner(val login: String,
 
 data class License(val key: String,
                    val name: String,
-                   @SerializedName("node_id") val spdxId: String,
+                   @SerializedName("spdx_id") val spdxId: String,
                    val url: String,
                    @SerializedName("node_id") val nodeId: String)
