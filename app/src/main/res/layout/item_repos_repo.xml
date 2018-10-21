@@ -4,17 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <import
-            alias="utils"
-            type="com.qingmei2.sample.ui.main.home.presentation.HomeUtils" />
-
         <variable
             name="data"
-            type="com.qingmei2.sample.http.entity.ReceivedEvent" />
+            type="com.qingmei2.sample.http.entity.Repo" />
 
         <variable
-            name="actorEvent"
+            name="avatarEvent"
             type="io.reactivex.functions.Consumer&lt;String>" />
 
         <variable

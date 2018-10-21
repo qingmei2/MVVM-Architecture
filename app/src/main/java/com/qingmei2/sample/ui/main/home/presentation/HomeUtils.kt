@@ -27,9 +27,9 @@ object HomeUtils {
     fun eventTypeToDrawable(view: ImageView, eventType: Type): Drawable? =
             when (eventType) {
                 Type.WatchEvent ->
-                    ContextCompat.getDrawable(view.context, R.mipmap.ic_star)
+                    ContextCompat.getDrawable(view.context, R.mipmap.ic_star_yellowlight)
                 Type.CreateEvent, Type.ForkEvent, Type.PushEvent ->
-                    ContextCompat.getDrawable(view.context, R.mipmap.ic_fork)
+                    ContextCompat.getDrawable(view.context, R.mipmap.ic_fork_green_light)
                 else ->
                     throw RuntimeException("$eventType can't be displayed.")
             }
