@@ -11,11 +11,11 @@ import android.text.style.StyleSpan
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.qingmei2.sample.R
 import com.qingmei2.sample.http.entity.ReceivedEvent
 import com.qingmei2.sample.http.entity.Type
 import com.qingmei2.sample.utils.TimeConverter
+import io.reactivex.functions.Consumer
 
 object HomeUtils {
 
@@ -35,9 +35,8 @@ object HomeUtils {
             }
 
     @JvmStatic
-    fun eventTitle(view: TextView, data: ReceivedEvent): CharSequence {
-        val context = view.context
-
+    fun eventTitle(view: TextView, data: ReceivedEvent,
+                   actorEvent: Consumer<String>, repoEvent: Consumer<String>): CharSequence {
         val actor = data.actor.displayLogin
         val action = when (data.type) {
             Type.WatchEvent -> "starred"
@@ -50,18 +49,18 @@ object HomeUtils {
 
         val actorSpan = object : ClickableSpan() {
             override fun onClick(widget: View?) {
-                Toast.makeText(context, actor, Toast.LENGTH_SHORT).show()
+                actorEvent.accept(data.actor.url)
             }
         }
         val repoSpan = object : ClickableSpan() {
             override fun onClick(widget: View?) {
-                Toast.makeText(context, repo, Toast.LENGTH_SHORT).show()
+                repoEvent.accept(data.repo.url)
             }
         }
         val styleSpan = StyleSpan(Typeface.BOLD)
         val styleSpan2 = StyleSpan(Typeface.BOLD)
 
-        view.movementMethod = LinkMovementMethod.getInstance();
+        view.movementMethod = LinkMovementMethod.getInstance()
 
         return SpannableStringBuilder().apply {
             append("$actor $action $repo")

@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">MVVMRhine</string>
+    <string name="app_name">MyGithub</string>
 
     <string name="main_nav_home">Home</string>
-    <string name="main_nav_task">Task</string>
+    <string name="main_nav_task">Repos</string>
     <string name="main_nav_profile">Me</string>
 
     <string name="login_tips">Sign in to GitHub</string>
