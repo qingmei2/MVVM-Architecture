@@ -15,11 +15,11 @@
 
         <variable
             name="actorEvent"
-            type="io.reactivex.functions.Consumer&lt;String>" />
+            type="com.qingmei2.rhine.functional.Consumer&lt;String>" />
 
         <variable
             name="repoEvent"
-            type="io.reactivex.functions.Consumer&lt;String>" />
+            type="com.qingmei2.rhine.functional.Consumer&lt;String>" />
     </data>
 
     <android.support.constraint.ConstraintLayout

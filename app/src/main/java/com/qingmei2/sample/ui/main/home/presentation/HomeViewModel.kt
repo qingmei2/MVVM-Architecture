@@ -6,6 +6,7 @@ import com.qingmei2.rhine.base.viewstate.SimpleViewState
 import com.qingmei2.rhine.ext.jumpBrowser
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
+import com.qingmei2.rhine.functional.Consumer
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.base.BaseViewModel
@@ -17,8 +18,6 @@ import com.qingmei2.sample.ui.main.home.data.HomeRepository
 import indi.yume.tools.adapterdatabinding.dataBindingItem
 import indi.yume.tools.dsladapter.RendererAdapter
 import indi.yume.tools.dsladapter.renderers.LayoutRenderer
-import io.reactivex.functions.Consumer
-
 
 @SuppressWarnings("checkResult")
 class HomeViewModel(
@@ -46,11 +45,15 @@ class HomeViewModel(
                                                 bindBinding = { ItemHomeReceivedEventBinding.bind(it) },
                                                 binder = { bind, item, index ->
                                                     bind.data = item[index]
-                                                    bind.actorEvent = Consumer<String> {
-                                                        BaseApplication.INSTANCE.jumpBrowser(it)
+                                                    bind.actorEvent = object : Consumer<String> {
+                                                        override fun accept(t: String) {
+                                                            BaseApplication.INSTANCE.jumpBrowser(t)
+                                                        }
                                                     }
-                                                    bind.repoEvent = Consumer<String> {
-                                                        BaseApplication.INSTANCE.jumpBrowser(it)
+                                                    bind.repoEvent = object : Consumer<String> {
+                                                        override fun accept(t: String) {
+                                                            BaseApplication.INSTANCE.jumpBrowser(t)
+                                                        }
                                                     }
                                                 },
                                                 recycleFun = { it.data = null }

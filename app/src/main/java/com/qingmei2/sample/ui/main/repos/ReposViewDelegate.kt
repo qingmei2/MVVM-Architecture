@@ -1,8 +1,8 @@
-package com.qingmei2.sample.ui.main.task
+package com.qingmei2.sample.ui.main.repos
 
 import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
 
-class TaskViewDelegate(
+class ReposViewDelegate(
 
 ) : IViewDelegate {
 

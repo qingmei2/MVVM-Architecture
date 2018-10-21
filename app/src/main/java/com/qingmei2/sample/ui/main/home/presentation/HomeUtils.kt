@@ -11,11 +11,11 @@ import android.text.style.StyleSpan
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.qingmei2.rhine.functional.Consumer
 import com.qingmei2.sample.R
 import com.qingmei2.sample.http.entity.ReceivedEvent
 import com.qingmei2.sample.http.entity.Type
 import com.qingmei2.sample.utils.TimeConverter
-import io.reactivex.functions.Consumer
 
 object HomeUtils {
 
@@ -27,7 +27,7 @@ object HomeUtils {
     fun eventTypeToDrawable(view: ImageView, eventType: Type): Drawable? =
             when (eventType) {
                 Type.WatchEvent ->
-                    ContextCompat.getDrawable(view.context, R.mipmap.ic_star_yellowlight)
+                    ContextCompat.getDrawable(view.context, R.mipmap.ic_star_yellow_light)
                 Type.CreateEvent, Type.ForkEvent, Type.PushEvent ->
                     ContextCompat.getDrawable(view.context, R.mipmap.ic_fork_green_light)
                 else ->

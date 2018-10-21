@@ -4,93 +4,205 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="data"
             type="com.qingmei2.sample.http.entity.Repo" />
 
         <variable
             name="avatarEvent"
-            type="io.reactivex.functions.Consumer&lt;String>" />
+            type="com.qingmei2.rhine.functional.Consumer&lt;String>" />
 
         <variable
             name="repoEvent"
-            type="io.reactivex.functions.Consumer&lt;String>" />
+            type="com.qingmei2.rhine.functional.Consumer&lt;String>" />
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:bind_onClick="@{ () -> repoEvent.accept(data.htmlUrl) }">
 
-        <ImageView
-            android:id="@+id/ivAvatar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="16dp"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/btnAvatar"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            app:bind_imageUrl="@{ data.actor.avatarUrl }"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginRight="16dp"
+            app:bind_onClick="@{ () -> repoEvent.accept(data.owner.htmlUrl) }"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription"
-            tools:src="@mipmap/ic_github" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                app:bind_imageUrl="@{ data.owner.avatarUrl }"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@mipmap/ic_github" />
+
+            <TextView
+                android:id="@+id/tvOwnerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{ data.owner.login }"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/ivAvatar"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="qingmei2" />
+
+            <TextView
+                android:id="@+id/tvLanguage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{ data.language }"
+                android:textColor="@color/secondaryTextBlueGray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Kotlin" />
+
+        </android.support.constraint.ConstraintLayout>
 
         <TextView
-            android:id="@+id/tvEventContent"
+            android:id="@+id/tvRepoName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="8dp"
-            android:ellipsize="end"
-            android:gravity="start"
-            android:maxLines="2"
-            android:text="@{ utils.eventTitle(tvEventContent, data, actorEvent, repoEvent) }"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="16dp"
+            android:singleLine="true"
+            android:text="@{ data.fullName }"
             android:textColor="@color/primaryTextColor"
             android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@+id/tvEventTime"
-            app:layout_constraintEnd_toStartOf="@+id/ivEventType"
-            app:layout_constraintStart_toEndOf="@+id/ivAvatar"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Anyone star qingmei2/RxImagePicker" />
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnAvatar"
+            tools:text="qingmei2/MVVM-Rhine" />
 
         <TextView
-            android:id="@+id/tvEventTime"
+            android:id="@+id/tvRepoDesc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:gravity="start"
-            android:text="@{ utils.eventTimeToString(data.createdAt) }"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="16dp"
+            android:text="@{ data.fullName }"
             android:textColor="@color/secondaryTextGray"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/tvEventContent"
-            app:layout_constraintStart_toStartOf="@+id/tvEventContent"
-            app:layout_constraintTop_toBottomOf="@+id/tvEventContent"
-            tools:text="2小时前" />
-
-        <ImageView
-            android:id="@+id/ivEventType"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="16dp"
-            android:src="@{ utils.eventTypeToDrawable(ivEventType, data.type) }"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription"
-            tools:src="@mipmap/ic_star_yellow_light" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvRepoName"
+            tools:text="The MVVM Architecture in Android（MVVM+Jetpack架构的Github客户端，开发中）." />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/clIcons"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvRepoDesc">
+
+            <ImageView
+                android:id="@+id/ivStar"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_star_gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvStar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="@{ data.stargazersCount }"
+                android:textColor="@color/secondaryTextGray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/ivStar"
+                app:layout_constraintStart_toEndOf="@+id/ivStar"
+                app:layout_constraintTop_toTopOf="@+id/ivStar"
+                tools:text="502" />
+
+            <ImageView
+                android:id="@+id/ivIssue"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginStart="12dp"
+                android:paddingTop="1dp"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_issue_gray"
+                app:layout_constraintBottom_toBottomOf="@+id/tvStar"
+                app:layout_constraintStart_toEndOf="@+id/tvStar"
+                app:layout_constraintTop_toTopOf="@+id/tvStar" />
+
+            <TextView
+                android:id="@+id/tvIssue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="@{ data.openIssuesCount }"
+                android:textColor="@color/secondaryTextGray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/ivIssue"
+                app:layout_constraintStart_toEndOf="@+id/ivIssue"
+                app:layout_constraintTop_toTopOf="@+id/ivIssue"
+                tools:text="6" />
+
+            <ImageView
+                android:id="@+id/ivFork"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginStart="12dp"
+                android:paddingTop="1dp"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_fork_gray"
+                app:layout_constraintBottom_toBottomOf="@+id/tvIssue"
+                app:layout_constraintStart_toEndOf="@+id/tvIssue"
+                app:layout_constraintTop_toTopOf="@+id/tvIssue" />
+
+            <TextView
+                android:id="@+id/tvFork"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="@{ data.forksCount }"
+                android:textColor="@color/secondaryTextGray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/ivFork"
+                app:layout_constraintStart_toEndOf="@+id/ivFork"
+                app:layout_constraintTop_toTopOf="@+id/ivFork"
+                tools:text="88" />
+
+        </android.support.constraint.ConstraintLayout>
 
         <View
             android:id="@+id/divider"
             android:layout_width="0dp"
             android:layout_height="0.5dp"
             android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
             android:background="@color/dividerColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clIcons" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>
