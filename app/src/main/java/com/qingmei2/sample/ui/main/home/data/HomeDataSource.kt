@@ -23,7 +23,7 @@ class HomeRemoteDataSource(private val serviceManager: ServiceManager) : IRemote
     override fun filterEvents(): FlowableTransformer<List<ReceivedEvent>, List<ReceivedEvent>> =
             FlowableTransformer { datas ->
                 datas.flatMap { Flowable.fromIterable(it) }
-                        .filter { it.type != Type.MemberEvent }
+                        .filter { it.type != Type.MemberEvent && it.type != Type.PublicEvent }
                         .toList()
                         .toFlowable()
             }

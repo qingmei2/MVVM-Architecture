@@ -5,6 +5,10 @@
 
     <data>
 
+        <import
+            alias="utils"
+            type="com.qingmei2.sample.ui.main.repos.presentation.ReposUtil" />
+
         <variable
             name="data"
             type="com.qingmei2.sample.http.entity.Repo" />
@@ -39,7 +43,7 @@
                 android:id="@+id/ivAvatar"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                app:bind_imageUrl="@{ data.owner.avatarUrl }"
+                app:bind_imageUrl_circle="@{ data.owner.avatarUrl }"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -56,9 +60,21 @@
                 android:textColor="@color/primaryTextColor"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/ivAvatar"
+                app:layout_constraintStart_toEndOf="@+id/ivAvatar"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="qingmei2" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivLanguageColor"
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:layout_marginEnd="4dp"
+                android:src="@{ utils.transLanguageColor(ivLanguageColor, data.language) }"
+                app:bind_visibility="@{ data.language != null }"
+                app:layout_constraintBottom_toBottomOf="@+id/tvLanguage"
+                app:layout_constraintEnd_toStartOf="@+id/tvLanguage"
+                app:layout_constraintTop_toTopOf="@+id/tvLanguage"
+                tools:src="@color/color_language_kotlin" />
 
             <TextView
                 android:id="@+id/tvLanguage"
@@ -68,7 +84,7 @@
                 android:textColor="@color/secondaryTextBlueGray"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Kotlin" />
 
@@ -98,7 +114,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="6dp"
             android:layout_marginRight="16dp"
-            android:text="@{ data.fullName }"
+            android:text="@{ utils.transRepoDesc(data.description) }"
             android:textColor="@color/secondaryTextGray"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"

@@ -10,6 +10,7 @@
 
     <declare-styleable name="ImageView">
         <attr name="bind_imageUrl" format="reference" />
+        <attr name="bind_imageUrl_circle" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="RecyclerView">

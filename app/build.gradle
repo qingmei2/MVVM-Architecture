@@ -46,6 +46,8 @@ dependencies {
 
     implementation libs.kotlin_stdlib
 
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+
     kapt libs.glide_compiler
     kapt libs.arch_comp_room_compiler
     kapt libs.arch_comp_compiler
