@@ -3,18 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/nav_home"
-        android:icon="@mipmap/ic_nav_home"
-        android:title="@string/main_nav_home"
+        android:id="@+id/menu_repos_stars"
+        android:title="@string/repos_filter_stars"
         app:showAsAction="never" />
     <item
-        android:id="@+id/nav_task"
-        android:icon="@mipmap/ic_nav_task"
-        android:title="@string/main_nav_repos"
+        android:id="@+id/menu_repos_letter"
+        android:title="@string/repos_filter_letter"
         app:showAsAction="never" />
     <item
-        android:id="@+id/nav_profile"
-        android:icon="@mipmap/ic_nav_mine"
-        android:title="@string/main_nav_profile"
+        android:id="@+id/menu_repos_update"
+        android:title="@string/repos_filter_update"
         app:showAsAction="never" />
 </menu>

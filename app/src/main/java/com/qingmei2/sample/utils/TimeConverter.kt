@@ -6,9 +6,18 @@ import java.util.*
 
 object TimeConverter {
 
-    fun eventTimeToString(eventTime: String?): String {
-        val timestamp = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
-                .parse(eventTime).time
-        return DateUtils.getRelativeTimeSpanString(timestamp).toString()
-    }
+    /**
+     * 2018-08-13T08:51:43Z -> 2 days ago
+     */
+    fun tramsTimeAgo(time: String?): String =
+            transTimeStamp(time).let {
+                DateUtils.getRelativeTimeSpanString(it).toString()
+            }
+
+    /**
+     * 2018-08-13T08:51:43Z -> time stamp
+     */
+    fun transTimeStamp(time: String?): Long =
+            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
+                    .parse(time).time
 }

@@ -21,7 +21,7 @@ object HomeUtils {
 
     @JvmStatic
     fun eventTimeToString(eventTime: String?): String =
-            TimeConverter.eventTimeToString(eventTime)
+            TimeConverter.tramsTimeAgo(eventTime)
 
     @JvmStatic
     fun eventTypeToDrawable(view: ImageView, eventType: Type): Drawable? =

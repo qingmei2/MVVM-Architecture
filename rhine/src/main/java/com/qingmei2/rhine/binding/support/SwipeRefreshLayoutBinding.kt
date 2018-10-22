@@ -10,10 +10,6 @@ fun isSwipeRefreshLayoutRefreshing(swipeRefreshLayout: SwipeRefreshLayout,
         swipeRefreshLayout.isRefreshing = newValue
 }
 
-//@InverseBindingAdapter(attribute = "refreshing", event = "onRefreshAttrChanged")
-//fun setSwipeRefreshLayoutRefreshing(swipeRefreshLayout: SwipeRefreshLayout): Boolean =
-//        swipeRefreshLayout.isRefreshing
-
 @BindingAdapter("onRefreshListener")
 fun setOnRefreshListener(swipeRefreshLayout: SwipeRefreshLayout,
                          refreshListener: Runnable?) {

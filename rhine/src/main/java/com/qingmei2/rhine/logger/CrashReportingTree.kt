@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED_PARAMETER")
+
 package com.qingmei2.rhine.logger
 
 import android.util.Log
