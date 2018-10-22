@@ -3,17 +3,18 @@ package com.qingmei2.sample.ui.main.repos.presentation
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
 import com.qingmei2.rhine.base.viewstate.SimpleViewState
+import com.qingmei2.rhine.ext.jumpBrowser
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.rhine.functional.Consumer
 import com.qingmei2.sample.R
+import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.base.BaseViewModel
 import com.qingmei2.sample.data.UserManager
 import com.qingmei2.sample.databinding.ItemReposRepoBinding
 import com.qingmei2.sample.http.RxSchedulers
 import com.qingmei2.sample.http.entity.Repo
 import com.qingmei2.sample.ui.main.repos.data.ReposDataSource
-import com.qingmei2.sample.utils.toast
 import indi.yume.tools.adapterdatabinding.dataBindingItem
 import indi.yume.tools.dsladapter.RendererAdapter
 import indi.yume.tools.dsladapter.renderers.LayoutRenderer
@@ -32,7 +33,7 @@ class ReposViewModel(
     init {
         events.toFlowable()
                 .observeOn(RxSchedulers.ui)
-                .subscribe {
+                .subscribe { _ ->
                     if (adapter.value == null) {
                         adapter.postValue(
                                 RendererAdapter.repositoryAdapter()
@@ -46,16 +47,12 @@ class ReposViewModel(
                                                     bind.data = item[index]
                                                     bind.avatarEvent = object : Consumer<String> {
                                                         override fun accept(t: String) {
-                                                            toast {
-                                                                "avatar: $t"
-                                                            }
+                                                            BaseApplication.INSTANCE.jumpBrowser(t)
                                                         }
                                                     }
                                                     bind.repoEvent = object : Consumer<String> {
                                                         override fun accept(t: String) {
-                                                            toast {
-                                                                "repo: $t"
-                                                            }
+                                                            BaseApplication.INSTANCE.jumpBrowser(t)
                                                         }
                                                     }
                                                 },
