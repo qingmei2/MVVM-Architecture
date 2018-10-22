@@ -4,7 +4,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.qingmei2.rhine.ext.viewmodel.addLifecycle
 import com.qingmei2.sample.ui.main.home.presentation.HomeFragment
 import com.qingmei2.sample.ui.main.profile.presentation.ProfileFragment
-import com.qingmei2.sample.ui.main.repos.ReposFragment
+import com.qingmei2.sample.ui.main.repos.presentation.ReposFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import org.kodein.di.Kodein.Module
 import org.kodein.di.android.AndroidComponentsWeakScope
