@@ -1,9 +1,9 @@
 ext {
 
     build_version = [
-            compileSdkVersion: 27,
+            compileSdkVersion: 28,
             minSdkVersion    : 19,
-            targetSdkVersion : 27,
+            targetSdkVersion : 28,
             versionCode      : 1,
             versionName      : '1.0.0'
     ]
@@ -12,7 +12,7 @@ ext {
             android_plugin       : '3.3.0-beta01',
             kotlin               : '1.2.71',
 
-            support              : '27.1.1',
+            support              : '28.0.0',
             arch_comp_lifecycle  : '1.1.1',
             arch_comp_persistence: '1.0.0',
             arch_comp_navigation : '1.0.0-alpha05',
