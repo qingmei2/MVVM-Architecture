@@ -10,10 +10,10 @@ import com.qingmei2.rhine.functional.Consumer
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.base.BaseViewModel
-import com.qingmei2.sample.data.UserManager
+import com.qingmei2.sample.manager.UserManager
 import com.qingmei2.sample.databinding.ItemHomeReceivedEventBinding
 import com.qingmei2.sample.http.RxSchedulers
-import com.qingmei2.sample.http.entity.ReceivedEvent
+import com.qingmei2.sample.entity.ReceivedEvent
 import com.qingmei2.sample.ui.main.home.data.HomeRepository
 import indi.yume.tools.adapterdatabinding.dataBindingItem
 import indi.yume.tools.dsladapter.RendererAdapter

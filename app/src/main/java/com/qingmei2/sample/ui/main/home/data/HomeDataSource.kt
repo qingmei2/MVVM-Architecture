@@ -2,8 +2,8 @@ package com.qingmei2.sample.ui.main.home.data
 
 import com.qingmei2.rhine.base.repository.RhineRepositoryRemote
 import com.qingmei2.sample.http.RxSchedulers
-import com.qingmei2.sample.http.entity.ReceivedEvent
-import com.qingmei2.sample.http.entity.Type
+import com.qingmei2.sample.entity.ReceivedEvent
+import com.qingmei2.sample.entity.Type
 import com.qingmei2.sample.http.globalErrorTransformer
 import com.qingmei2.sample.http.service.ServiceManager
 import io.reactivex.Flowable

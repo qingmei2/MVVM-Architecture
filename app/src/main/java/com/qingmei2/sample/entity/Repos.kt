@@ -1,4 +1,4 @@
-package com.qingmei2.sample.http.entity
+package com.qingmei2.sample.entity
 
 import com.google.gson.annotations.SerializedName
 

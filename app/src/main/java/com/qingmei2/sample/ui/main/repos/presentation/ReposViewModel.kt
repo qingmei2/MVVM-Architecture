@@ -10,10 +10,10 @@ import com.qingmei2.rhine.functional.Consumer
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.base.BaseViewModel
-import com.qingmei2.sample.data.UserManager
+import com.qingmei2.sample.manager.UserManager
 import com.qingmei2.sample.databinding.ItemReposRepoBinding
 import com.qingmei2.sample.http.RxSchedulers
-import com.qingmei2.sample.http.entity.Repo
+import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.ui.main.repos.data.ReposDataSource
 import com.qingmei2.sample.utils.TimeConverter
 import indi.yume.tools.adapterdatabinding.dataBindingItem

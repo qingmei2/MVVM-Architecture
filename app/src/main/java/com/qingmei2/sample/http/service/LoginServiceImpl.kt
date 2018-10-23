@@ -1,11 +1,10 @@
 package com.qingmei2.sample.http.service
 
+import com.qingmei2.sample.di.BASE_URL
 import com.qingmei2.sample.di.TIME_OUT_SECONDS
-import com.qingmei2.sample.http.APIConstants
-import com.qingmei2.sample.http.entity.LoginUser
+import com.qingmei2.sample.entity.LoginUser
 import com.qingmei2.sample.http.interceptor.BasicAuthInterceptor
 import io.reactivex.Flowable
-import io.reactivex.Single
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -31,7 +30,7 @@ class LoginServiceImpl(private val httpInterceptor: Interceptor) {
 
         val retrofit =
                 Retrofit.Builder()
-                        .baseUrl(APIConstants.BASE_API)
+                        .baseUrl(BASE_URL)
                         .client(client)
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create())

@@ -1,8 +1,7 @@
 package com.qingmei2.sample.http.service
 
-import com.qingmei2.sample.http.entity.LoginUser
+import com.qingmei2.sample.entity.LoginUser
 import io.reactivex.Flowable
-import io.reactivex.Single
 import retrofit2.http.GET
 
 interface LoginService {

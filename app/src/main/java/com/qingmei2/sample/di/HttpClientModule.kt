@@ -1,7 +1,6 @@
 package com.qingmei2.sample.di
 
 import com.google.gson.Gson
-import com.qingmei2.sample.http.APIConstants
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,6 +18,7 @@ const val HTTP_CLIENT_MODULE_TAG = "httpClientModule"
 const val HTTP_CLIENT_MODULE_INTERCEPTOR_LOG_TAG = "http_client_module_interceptor_log_tag"
 
 const val TIME_OUT_SECONDS = 20
+const val BASE_URL = "https://api.github.com/"
 
 val httpClientModule = Kodein.Module(HTTP_CLIENT_MODULE_TAG) {
 
@@ -28,7 +28,7 @@ val httpClientModule = Kodein.Module(HTTP_CLIENT_MODULE_TAG) {
 
     bind<Retrofit>() with singleton {
         instance<Retrofit.Builder>()
-                .baseUrl(APIConstants.BASE_API)
+                .baseUrl(BASE_URL)
                 .client(instance())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())

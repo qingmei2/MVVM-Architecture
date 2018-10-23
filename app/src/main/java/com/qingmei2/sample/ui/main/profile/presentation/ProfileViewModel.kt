@@ -3,7 +3,7 @@ package com.qingmei2.sample.ui.main.profile.presentation
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
 import com.qingmei2.sample.base.BaseViewModel
-import com.qingmei2.sample.http.entity.QueryUser
+import com.qingmei2.sample.entity.QueryUser
 import com.qingmei2.sample.ui.main.profile.data.ProfileRepository
 
 class ProfileViewModel(

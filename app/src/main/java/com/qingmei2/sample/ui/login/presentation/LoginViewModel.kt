@@ -4,7 +4,7 @@ import android.arch.lifecycle.MutableLiveData
 import com.qingmei2.rhine.base.viewstate.SimpleViewState
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.sample.base.BaseViewModel
-import com.qingmei2.sample.http.entity.LoginUser
+import com.qingmei2.sample.entity.LoginUser
 import com.qingmei2.sample.ui.login.data.LoginDataSourceRepository
 
 @SuppressWarnings("checkResult")

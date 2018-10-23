@@ -1,7 +1,7 @@
 package com.qingmei2.sample.http.service
 
-import com.qingmei2.sample.http.entity.ReceivedEvent
-import com.qingmei2.sample.http.entity.Repo
+import com.qingmei2.sample.entity.ReceivedEvent
+import com.qingmei2.sample.entity.Repo
 import io.reactivex.Flowable
 import retrofit2.http.GET
 import retrofit2.http.Path

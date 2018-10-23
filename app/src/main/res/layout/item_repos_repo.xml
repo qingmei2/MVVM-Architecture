@@ -11,7 +11,7 @@
 
         <variable
             name="data"
-            type="com.qingmei2.sample.http.entity.Repo" />
+            type="com.qingmei2.sample.entity.Repo" />
 
         <variable
             name="avatarEvent"

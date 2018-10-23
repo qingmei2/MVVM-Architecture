@@ -3,7 +3,7 @@ package com.qingmei2.sample.ui.login.data
 import com.qingmei2.rhine.base.repository.ILocalDataSource
 import com.qingmei2.rhine.base.repository.IRemoteDataSource
 import com.qingmei2.sample.db.LoginEntity
-import com.qingmei2.sample.http.entity.LoginUser
+import com.qingmei2.sample.entity.LoginUser
 import io.reactivex.Completable
 import io.reactivex.Flowable
 

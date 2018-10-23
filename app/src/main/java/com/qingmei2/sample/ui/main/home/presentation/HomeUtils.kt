@@ -13,8 +13,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.qingmei2.rhine.functional.Consumer
 import com.qingmei2.sample.R
-import com.qingmei2.sample.http.entity.ReceivedEvent
-import com.qingmei2.sample.http.entity.Type
+import com.qingmei2.sample.entity.ReceivedEvent
+import com.qingmei2.sample.entity.Type
 import com.qingmei2.sample.utils.TimeConverter
 
 object HomeUtils {

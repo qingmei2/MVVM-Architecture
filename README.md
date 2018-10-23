@@ -51,7 +51,7 @@
 
 * [AutoDispose: Automatic binding+disposal of RxJava 2 streams.](https://github.com/uber/AutoDispose)
 
-## Functional
+### Functional
 
 * [Arrow: Functional companion to Kotlin's Standard Library.](https://arrow-kt.io/)
 

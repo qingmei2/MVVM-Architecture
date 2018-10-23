@@ -2,11 +2,11 @@ package com.qingmei2.sample.ui.login.data
 
 import com.qingmei2.rhine.base.repository.RhineRepositoryBoth
 import com.qingmei2.sample.PrefsHelper
-import com.qingmei2.sample.data.UserManager
+import com.qingmei2.sample.manager.UserManager
 import com.qingmei2.sample.db.LoginEntity
 import com.qingmei2.sample.db.UserDatabase
 import com.qingmei2.sample.http.RxSchedulers
-import com.qingmei2.sample.http.entity.LoginUser
+import com.qingmei2.sample.entity.LoginUser
 import com.qingmei2.sample.http.service.ServiceManager
 import io.reactivex.Completable
 import io.reactivex.Flowable

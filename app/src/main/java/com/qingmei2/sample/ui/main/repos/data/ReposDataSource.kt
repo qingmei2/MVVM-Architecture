@@ -3,14 +3,12 @@ package com.qingmei2.sample.ui.main.repos.data
 import com.qingmei2.rhine.base.repository.ILocalDataSource
 import com.qingmei2.rhine.base.repository.IRemoteDataSource
 import com.qingmei2.rhine.base.repository.RhineRepositoryBoth
-import com.qingmei2.sample.data.UserManager
 import com.qingmei2.sample.http.RxSchedulers
-import com.qingmei2.sample.http.entity.Repo
+import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.http.globalErrorTransformer
 import com.qingmei2.sample.http.service.ServiceManager
 import io.reactivex.Completable
 import io.reactivex.Flowable
-import org.intellij.lang.annotations.Flow
 
 interface IRemoteReposDataSource : IRemoteDataSource {
 

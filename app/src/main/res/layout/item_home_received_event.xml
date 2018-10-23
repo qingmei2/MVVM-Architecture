@@ -11,7 +11,7 @@
 
         <variable
             name="data"
-            type="com.qingmei2.sample.http.entity.ReceivedEvent" />
+            type="com.qingmei2.sample.entity.ReceivedEvent" />
 
         <variable
             name="actorEvent"
