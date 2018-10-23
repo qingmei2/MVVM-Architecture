@@ -1,13 +1,15 @@
 package com.qingmei2.sample.ui.login.data
 
+import arrow.core.Either
 import com.qingmei2.rhine.base.repository.RhineRepositoryBoth
 import com.qingmei2.sample.PrefsHelper
-import com.qingmei2.sample.manager.UserManager
 import com.qingmei2.sample.db.LoginEntity
 import com.qingmei2.sample.db.UserDatabase
-import com.qingmei2.sample.http.RxSchedulers
+import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.LoginUser
+import com.qingmei2.sample.http.RxSchedulers
 import com.qingmei2.sample.http.service.ServiceManager
+import com.qingmei2.sample.manager.UserManager
 import io.reactivex.Completable
 import io.reactivex.Flowable
 
@@ -16,26 +18,34 @@ class LoginDataSourceRepository(
         localDataSource: ILoginLocalDataSource
 ) : RhineRepositoryBoth<ILoginRemoteDataSource, ILoginLocalDataSource>(remoteDataSource, localDataSource) {
 
-    fun login(username: String, password: String): Flowable<LoginUser> =
+    fun login(username: String, password: String): Flowable<Either<Errors, LoginUser>> =
             remoteDataSource.login(username, password)
-                    .doOnNext { UserManager.INSTANCE = it }
+                    .doOnNext { either ->
+                        either.fold({
+
+                        }, {
+                            UserManager.INSTANCE = it
+                        })
+                    }
                     .flatMap {
                         localDataSource.savePrefsUser(username, password)  // save user
                                 .andThen(Flowable.just(it))
                     }
 
-    fun prefsUser(): Flowable<LoginEntity> = localDataSource.fetchPrefsUser()
+    fun prefsUser(): Flowable<Either<Errors, LoginEntity>> = localDataSource.fetchPrefsUser()
 }
 
 class LoginRemoteDataSource(
         private val serviceManager: ServiceManager
 ) : ILoginRemoteDataSource {
 
-    override fun login(username: String, password: String): Flowable<LoginUser> =
+    override fun login(username: String, password: String): Flowable<Either<Errors, LoginUser>> =
             serviceManager.loginService
                     .login(username, password)
                     .subscribeOn(RxSchedulers.io)
-
+                    .map {
+                        Either.right(it)
+                    }
 }
 
 class LoginLocalDataSource(
@@ -49,7 +59,12 @@ class LoginLocalDataSource(
                 prefs.password = password
             }
 
-    override fun fetchPrefsUser(): Flowable<LoginEntity> =
+    override fun fetchPrefsUser(): Flowable<Either<Errors, LoginEntity>> =
             Flowable.just(prefs)
-                    .map { LoginEntity(1, it.username, it.password) }
+                    .map {
+                        when (it.username == "" || it.password == "") {
+                            true -> Either.left(Errors.EmptyResultsError)
+                            false -> Either.right(LoginEntity(1, it.username, it.password))
+                        }
+                    }
 }
