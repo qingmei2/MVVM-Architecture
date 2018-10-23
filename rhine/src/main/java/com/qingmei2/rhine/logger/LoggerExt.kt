@@ -1,6 +1,7 @@
 package com.qingmei2.rhine.logger
 
 import android.app.Application
+import com.qingmei2.rhine.ext.toast
 import com.qingmei2.rhine.functional.Supplier
 import timber.log.Timber
 

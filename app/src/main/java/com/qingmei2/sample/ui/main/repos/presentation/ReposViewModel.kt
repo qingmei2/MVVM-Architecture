@@ -133,7 +133,6 @@ class ReposViewModel(
             val value2 = Collator.getInstance().getCollationKey(o2.name)
             value1.compareTo(value2)
         }
-
     }
 }
 

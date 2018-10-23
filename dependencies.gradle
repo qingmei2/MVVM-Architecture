@@ -65,7 +65,7 @@ ext {
             arch_comp_room_test     : [group: 'android.arch.persistence.room', name: 'testing', version: versions.arch_comp_persistence],
             arch_comp_test          : [group: 'android.arch.core', name: 'core-testing', version: versions.arch_comp_lifecycle],
 
-            arrow                   : [group: 'io.arrow-kt', name: 'arrow-core', version: '0.7.1'],
+            arrow                   : [group: 'io.arrow-kt', name: 'arrow-core', version: '0.7.3'],
             databinding_compiler    : [group: 'com.android.databinding', name: 'compiler', version: versions.android_plugin],
             kotlin_stdlib           : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk7', version: versions.kotlin],
 
