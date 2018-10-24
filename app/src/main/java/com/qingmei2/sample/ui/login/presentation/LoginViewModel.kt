@@ -8,10 +8,14 @@ import arrow.core.some
 import com.qingmei2.rhine.base.viewstate.SimpleViewState
 import com.qingmei2.rhine.ext.arrow.whenNotNull
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
+import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.sample.base.BaseViewModel
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.LoginUser
+import com.qingmei2.sample.http.globalErrorTransformer
 import com.qingmei2.sample.ui.login.data.LoginDataSourceRepository
+import com.qingmei2.sample.utils.toast
+import retrofit2.HttpException
 
 @SuppressWarnings("checkResult")
 class LoginViewModel(
@@ -21,13 +25,34 @@ class LoginViewModel(
     val username: MutableLiveData<String> = MutableLiveData()
     val password: MutableLiveData<String> = MutableLiveData()
 
-    val error: MutableLiveData<Option<Throwable>> = MutableLiveData()
     val loading: MutableLiveData<Boolean> = MutableLiveData()
+    val error: MutableLiveData<Option<Throwable>> = MutableLiveData()
 
     val userInfo: MutableLiveData<LoginUser> = MutableLiveData()
 
     override fun onCreate(lifecycleOwner: LifecycleOwner) {
         super.onCreate(lifecycleOwner)
+        error.toFlowable()
+                .map { errorOpt ->
+                    errorOpt.flatMap {
+                        when (it) {
+                            is Errors.EmptyInputError -> "username or password can't be null.".some()
+                            is HttpException ->
+                                when (it.code()) {
+                                    401 -> "username or password error.".some()
+                                    else -> "network error".some()
+                                }
+                            else -> none()
+                        }
+                    }
+                }
+                .bindLifecycle(this)
+                .subscribe { errorMsg ->
+                    errorMsg.whenNotNull {
+                        toast { it }
+                    }
+                }
+
         repo.prefsUser()
                 .bindLifecycle(this)
                 .subscribe { either ->
@@ -40,10 +65,11 @@ class LoginViewModel(
     }
 
     fun login() {
-        when (username.value != null && password.value != null) {
-            false -> applyState(isLoading = false, error = Errors.EmptyInputError.some())
-            true -> repo
+        when (username.value.isNullOrEmpty() || password.value.isNullOrEmpty()) {
+            true -> applyState(isLoading = false, error = Errors.EmptyInputError.some())
+            false -> repo
                     .login(username.value!!, password.value!!)
+                    .compose(globalErrorTransformer())
                     .map { either ->
                         either.fold({
                             SimpleViewState.error<LoginUser>(it)

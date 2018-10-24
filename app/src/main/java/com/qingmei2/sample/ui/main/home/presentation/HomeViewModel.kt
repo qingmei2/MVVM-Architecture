@@ -42,7 +42,8 @@ class HomeViewModel(
                     adapter.value.toOption()
                             .fold({
                                 adapter.postValue(
-                                        RendererAdapter.repositoryAdapter()
+                                        RendererAdapter
+                                                .repositoryAdapter()
                                                 .add({
                                                     events.value ?: listOf()
                                                 }, LayoutRenderer.dataBindingItem<List<ReceivedEvent>, ItemHomeReceivedEventBinding>(
