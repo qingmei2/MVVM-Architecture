@@ -2,6 +2,7 @@ package com.qingmei2.sample.ui.main.repos.presentation
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
+import arrow.core.toOption
 import com.qingmei2.rhine.base.viewstate.SimpleViewState
 import com.qingmei2.rhine.ext.jumpBrowser
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
@@ -10,10 +11,10 @@ import com.qingmei2.rhine.functional.Consumer
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.base.BaseViewModel
-import com.qingmei2.sample.manager.UserManager
 import com.qingmei2.sample.databinding.ItemReposRepoBinding
-import com.qingmei2.sample.http.RxSchedulers
 import com.qingmei2.sample.entity.Repo
+import com.qingmei2.sample.http.RxSchedulers
+import com.qingmei2.sample.manager.UserManager
 import com.qingmei2.sample.ui.main.repos.data.ReposDataSource
 import com.qingmei2.sample.utils.TimeConverter
 import indi.yume.tools.adapterdatabinding.dataBindingItem
@@ -49,44 +50,49 @@ class ReposViewModel(
                 .observeOn(RxSchedulers.ui)
                 .bindLifecycle(this)
                 .subscribe { _ ->
-                    if (adapter.value == null) {
-                        adapter.postValue(
-                                RendererAdapter.repositoryAdapter()
-                                        .add({
-                                            events.value ?: listOf()
-                                        }, LayoutRenderer.dataBindingItem<List<Repo>, ItemReposRepoBinding>(
-                                                count = events.value?.size ?: 0,
-                                                layout = R.layout.item_repos_repo,
-                                                bindBinding = { ItemReposRepoBinding.bind(it) },
-                                                binder = { bind, item, index ->
-                                                    bind.data = item[index]
-                                                    bind.avatarEvent = object : Consumer<String> {
-                                                        override fun accept(t: String) {
-                                                            BaseApplication.INSTANCE.jumpBrowser(t)
-                                                        }
-                                                    }
-                                                    bind.repoEvent = object : Consumer<String> {
-                                                        override fun accept(t: String) {
-                                                            BaseApplication.INSTANCE.jumpBrowser(t)
-                                                        }
-                                                    }
-                                                },
-                                                recycleFun = { it.data = null }
-                                        ))
-                                        .build()
-                        )
-                    } else {
-                        adapter.value!!.apply {
-                            forceUpdateAdapter()
-                        }
-                    }
+                    adapter.value.toOption()
+                            .fold({
+                                adapter.postValue(
+                                        RendererAdapter.repositoryAdapter()
+                                                .add({
+                                                    events.value ?: listOf()
+                                                }, LayoutRenderer.dataBindingItem<List<Repo>, ItemReposRepoBinding>(
+                                                        count = events.value?.size ?: 0,
+                                                        layout = R.layout.item_repos_repo,
+                                                        bindBinding = { ItemReposRepoBinding.bind(it) },
+                                                        binder = { bind, item, index ->
+                                                            bind.data = item[index]
+                                                            bind.avatarEvent = object : Consumer<String> {
+                                                                override fun accept(t: String) {
+                                                                    BaseApplication.INSTANCE.jumpBrowser(t)
+                                                                }
+                                                            }
+                                                            bind.repoEvent = object : Consumer<String> {
+                                                                override fun accept(t: String) {
+                                                                    BaseApplication.INSTANCE.jumpBrowser(t)
+                                                                }
+                                                            }
+                                                        },
+                                                        recycleFun = { it.data = null }
+                                                ))
+                                                .build()
+                                )
+                            }, {
+                                it.forceUpdateAdapter()
+                            })
                 }
         queryUserRepos()
     }
 
     fun queryUserRepos() {
         repo.queryRepos(UserManager.INSTANCE.name)
-                .map { SimpleViewState.result(sortUserRepos(it)) }
+                .map { either ->
+                    either.fold({
+                        SimpleViewState.error<List<Repo>>(it)
+                    }, {
+                        SimpleViewState.result(sortUserRepos(it))
+                    })
+                }
                 .startWith(SimpleViewState.loading())
                 .startWith(SimpleViewState.idle())
                 .onErrorReturn { it -> SimpleViewState.error(it) }
