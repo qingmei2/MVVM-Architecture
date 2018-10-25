@@ -15,7 +15,7 @@ const val PROFILE_MODULE_TAG = "PROFILE_MODULE_TAG"
 val profileKodeinModule = Kodein.Module(PROFILE_MODULE_TAG) {
 
     bind<ProfileViewDelegate>() with scoped(AndroidComponentsWeakScope).singleton {
-        ProfileViewDelegate()
+        ProfileViewDelegate(instance())
     }
 
     bind<ProfileViewModel>() with scoped(AndroidComponentsWeakScope).singleton {

@@ -22,14 +22,31 @@ data class ReceivedEventRepo(val id: String,
                              val url: String)
 
 data class Payload(val action: String?,
-                   val forkee: String?)  // todo  ForkInfo
+                   val forkee: String?)
 
 
 enum class Type {
     WatchEvent,
     ForkEvent,
     PushEvent,
+    CreateEvent,
+
     MemberEvent,
     PublicEvent,
-    CreateEvent;
+    IssuesEvent,
+    IssueCommentEvent;
 }
+
+val DISPLAY_EVENT_TYPES: List<Type> = listOf(
+        Type.WatchEvent,
+        Type.ForkEvent,
+        Type.PushEvent,
+        Type.CreateEvent
+)
+
+val IGNORE_EVENT_TYPES: List<Type> = listOf(
+        Type.MemberEvent,
+        Type.PublicEvent,
+        Type.IssuesEvent,
+        Type.IssueCommentEvent
+)

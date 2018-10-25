@@ -10,103 +10,109 @@
             type="com.qingmei2.sample.ui.main.profile.presentation.ProfileViewDelegate" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:text="Comming Soon..."
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <android.support.constraint.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:visibility="gone"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:id="@+id/clProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:id="@+id/btnEdit"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="6dp"
+                android:padding="10dp"
+                android:src="@drawable/ic_edit_pencil"
+                app:bind_onClick="@{ () -> delegate.edit() }"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/ivAvatar"
-                android:layout_width="0dp"
-                android:layout_height="120dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="16dp"
+                app:bind_imageUrl_circle="@{ delegate.viewModel.user.avatarUrl }"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.3"
+                tools:src="@mipmap/ic_github" />
 
             <TextView
-                android:id="@+id/tvNickName"
-                android:layout_width="0dp"
+                android:id="@+id/tvNickname"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="80dp"
                 android:ellipsize="end"
-                android:gravity="start"
-                android:singleLine="true"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="18sp"
+                android:maxLines="1"
+                android:text="@{ delegate.viewModel.user.name }"
+                android:textColor="@color/white"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="@id/ivAvatar"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/ivAvatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivAvatar"
                 tools:text="qingmei2" />
 
             <TextView
                 android:id="@+id/tvBio"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="80dp"
                 android:ellipsize="end"
-                android:gravity="left"
-                android:maxLines="2"
-                android:textColor="@color/secondaryTextBlueGray"
-                android:textSize="16sp"
-                app:layout_constraintLeft_toRightOf="@+id/ivAvatar"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvNickName"
+                android:maxLines="1"
+                android:text="@{ delegate.viewModel.user.bio }"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNickname"
                 tools:text="In programming we trust." />
 
             <ImageView
-                android:id="@+id/ivLocation"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="16dp"
-                android:src="@android:drawable/ic_menu_mylocation"
-                app:layout_constraintBottom_toBottomOf="@+id/tvLocation"
-                app:layout_constraintLeft_toRightOf="@+id/ivAvatar"
-                app:layout_constraintRight_toLeftOf="@+id/tvLocation"
-                app:layout_constraintTop_toTopOf="@+id/tvLocation" />
+                android:id="@+id/icLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/ic_location_on_gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvLocation"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvBio" />
 
             <TextView
                 android:id="@+id/tvLocation"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="40dp"
                 android:ellipsize="end"
-                android:gravity="left"
+                android:gravity="center"
                 android:singleLine="true"
-                android:textColor="@color/secondaryTextBlueGray"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/ivLocation"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvBio"
-                tools:text="Chengdu" />
+                android:text="@{ delegate.viewModel.user.location }"
+                android:textColor="@color/secondaryTextGray"
+                app:layout_constraintBottom_toBottomOf="@+id/icLocation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/icLocation"
+                app:layout_constraintTop_toTopOf="@+id/icLocation"
+                tools:text="Chengdu, Sichuan, China" />
 
         </android.support.constraint.ConstraintLayout>
 
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 
 </layout>

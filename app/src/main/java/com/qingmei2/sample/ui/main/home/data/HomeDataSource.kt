@@ -3,9 +3,9 @@ package com.qingmei2.sample.ui.main.home.data
 import arrow.core.Either
 import com.qingmei2.rhine.base.repository.IRemoteDataSource
 import com.qingmei2.rhine.base.repository.RhineRepositoryRemote
+import com.qingmei2.sample.entity.DISPLAY_EVENT_TYPES
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.ReceivedEvent
-import com.qingmei2.sample.entity.Type
 import com.qingmei2.sample.http.RxSchedulers
 import com.qingmei2.sample.http.globalHandleError
 import com.qingmei2.sample.http.service.ServiceManager
@@ -26,7 +26,7 @@ class HomeRemoteDataSource(private val serviceManager: ServiceManager) : IRemote
     override fun filterEvents(): FlowableTransformer<List<ReceivedEvent>, List<ReceivedEvent>> =
             FlowableTransformer { datas ->
                 datas.flatMap { Flowable.fromIterable(it) }
-                        .filter { it.type != Type.MemberEvent && it.type != Type.PublicEvent }
+                        .filter { DISPLAY_EVENT_TYPES.contains(it.type) }
                         .toList()
                         .toFlowable()
             }

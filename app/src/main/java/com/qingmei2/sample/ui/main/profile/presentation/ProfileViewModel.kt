@@ -2,26 +2,37 @@ package com.qingmei2.sample.ui.main.profile.presentation
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
+import arrow.core.Option
+import arrow.core.none
+import arrow.core.toOption
+import com.qingmei2.rhine.ext.arrow.whenNotNull
 import com.qingmei2.sample.base.BaseViewModel
-import com.qingmei2.sample.entity.QueryUser
+import com.qingmei2.sample.entity.LoginUser
+import com.qingmei2.sample.manager.UserManager
 import com.qingmei2.sample.ui.main.profile.data.ProfileRepository
 
 class ProfileViewModel(
         private val repo: ProfileRepository
 ) : BaseViewModel() {
 
-    val query: MutableLiveData<String> = MutableLiveData()
-    val error: MutableLiveData<Throwable> = MutableLiveData()
+    val error: MutableLiveData<Option<Throwable>> = MutableLiveData()
     val loading: MutableLiveData<Boolean> = MutableLiveData()
-    val result: MutableLiveData<QueryUser> = MutableLiveData()
+
+    val user: MutableLiveData<LoginUser> = MutableLiveData()
 
     override fun onCreate(lifecycleOwner: LifecycleOwner) {
         super.onCreate(lifecycleOwner)
+        applyState(user = UserManager.INSTANCE.toOption())
     }
 
-    private fun applyState(isLoading: Boolean, userInfo: QueryUser? = null, error: Throwable? = null) {
+    private fun applyState(isLoading: Boolean = false,
+                           user: Option<LoginUser> = none(),
+                           error: Option<Throwable> = none()) {
         this.loading.postValue(isLoading)
-        this.result.postValue(userInfo)
         this.error.postValue(error)
+
+        user.whenNotNull {
+            this.user.postValue(it)
+        }
     }
 }

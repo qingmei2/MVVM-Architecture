@@ -13,5 +13,4 @@
     <string name="repos_filter_stars">Sort by stars</string>
     <string name="repos_filter_letter">Sort by letter</string>
     <string name="repos_filter_update">Sort by update</string>
-
 </resources>
