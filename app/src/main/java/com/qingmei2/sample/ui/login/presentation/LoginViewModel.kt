@@ -12,7 +12,7 @@ import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.sample.base.BaseViewModel
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.LoginUser
-import com.qingmei2.sample.http.globalErrorTransformer
+import com.qingmei2.sample.http.globalHandleError
 import com.qingmei2.sample.ui.login.data.LoginDataSourceRepository
 import com.qingmei2.sample.utils.toast
 import retrofit2.HttpException
@@ -69,7 +69,7 @@ class LoginViewModel(
             true -> applyState(isLoading = false, error = Errors.EmptyInputError.some())
             false -> repo
                     .login(username.value!!, password.value!!)
-                    .compose(globalErrorTransformer())
+                    .compose(globalHandleError())
                     .map { either ->
                         either.fold({
                             SimpleViewState.error<LoginUser>(it)

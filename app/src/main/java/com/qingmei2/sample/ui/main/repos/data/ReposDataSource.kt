@@ -7,7 +7,7 @@ import com.qingmei2.rhine.base.repository.RhineRepositoryBoth
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.http.RxSchedulers
-import com.qingmei2.sample.http.globalErrorTransformer
+import com.qingmei2.sample.http.globalHandleError
 import com.qingmei2.sample.http.service.ServiceManager
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -46,7 +46,7 @@ class RemoteReposDataSource(private val serviceManager: ServiceManager) : IRemot
                         false -> Either.right(it)
                     }
                 }
-                .compose(globalErrorTransformer())
+                .compose(globalHandleError())
     }
 }
 

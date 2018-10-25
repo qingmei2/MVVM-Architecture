@@ -7,7 +7,7 @@ import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.ReceivedEvent
 import com.qingmei2.sample.entity.Type
 import com.qingmei2.sample.http.RxSchedulers
-import com.qingmei2.sample.http.globalErrorTransformer
+import com.qingmei2.sample.http.globalHandleError
 import com.qingmei2.sample.http.service.ServiceManager
 import io.reactivex.Flowable
 import io.reactivex.FlowableTransformer
@@ -35,7 +35,7 @@ class HomeRemoteDataSource(private val serviceManager: ServiceManager) : IRemote
             serviceManager.userService
                     .queryReceivedEvents(username)
                     .compose(filterEvents())        // except the MemberEvent
-                    .compose(globalErrorTransformer())
+                    .compose(globalHandleError())
                     .subscribeOn(RxSchedulers.io)
                     .map { list ->
                         when (list.isEmpty()) {
