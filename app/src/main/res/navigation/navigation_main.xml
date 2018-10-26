@@ -3,13 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_main"
-    app:startDestination="@id/nav_login">
+    app:startDestination="@id/nav_main">
 
-    <fragment
-        android:id="@+id/nav_login"
-        android:name="com.qingmei2.sample.ui.login.presentation.LoginFragment"
-        android:label="LoginFragment"
-        tools:layout="@layout/activity_login" />
     <fragment
         android:id="@+id/nav_main"
         android:name="com.qingmei2.sample.ui.main.MainFragment"

@@ -5,13 +5,13 @@ import android.view.View
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.base.BaseFragment
-import com.qingmei2.sample.databinding.ActivityLoginBinding
+import com.qingmei2.sample.databinding.FragmentLoginBinding
 import com.qingmei2.sample.ui.login.di.loginKodeinModule
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 
-class LoginFragment : BaseFragment<ActivityLoginBinding>() {
+class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     override val kodein: Kodein = Kodein.lazy {
         extend(BaseApplication.INSTANCE.kodein)
@@ -19,7 +19,7 @@ class LoginFragment : BaseFragment<ActivityLoginBinding>() {
         bind<LoginFragment>() with instance(this@LoginFragment)
     }
 
-    override val layoutId: Int = R.layout.activity_login
+    override val layoutId: Int = R.layout.fragment_login
 
     private val viewDelegate: LoginViewDelegate by instance()
 

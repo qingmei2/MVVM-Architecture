@@ -19,31 +19,30 @@ fun bindViewPagerAdapter(viewPager: ViewPager,
                          fragmentManager: FragmentManager,
                          fragments: List<Fragment>,
                          pageLimit: Int?) {
-    viewPager.adapter.toOption()
+    viewPager.adapter
+            .toOption()
             .whenEmpty {
                 viewPager.adapter = ViewPagerAdapter(fragmentManager, fragments)
             }
-    viewPager.offscreenPageLimit = pageLimit ?: 1
+    viewPager.offscreenPageLimit = pageLimit ?: DEFAULT_OFF_SCREEN_PAGE_LIMIT
 }
 
 @BindingAdapter("bind_onPageSelectedChanged", requireAll = false)
 fun onPageChangeListener(viewPager: ViewPager,
-                         onPageSelected: ViewPagerConsumer) {
-    viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                         onPageSelected: ViewPagerConsumer) =
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
-        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
 
-        }
+            }
 
-        override fun onPageSelected(position: Int) {
-            onPageSelected.accept(position)
-        }
+            override fun onPageSelected(position: Int) = onPageSelected.accept(position)
 
-        override fun onPageScrollStateChanged(state: Int) {
 
-        }
-    })
-}
+            override fun onPageScrollStateChanged(state: Int) {
+
+            }
+        })
 
 class ViewPagerAdapter(fragmentManager: FragmentManager,
                        private val fragments: List<Fragment>) : FragmentPagerAdapter(fragmentManager) {
@@ -52,3 +51,5 @@ class ViewPagerAdapter(fragmentManager: FragmentManager,
 
     override fun getCount(): Int = fragments.size
 }
+
+const val DEFAULT_OFF_SCREEN_PAGE_LIMIT = 1

@@ -30,7 +30,6 @@ enum class Type {
     ForkEvent,
     PushEvent,
     CreateEvent,
-
     MemberEvent,
     PublicEvent,
     IssuesEvent,
