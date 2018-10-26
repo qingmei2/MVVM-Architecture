@@ -2,6 +2,7 @@ package com.qingmei2.sample.ui.main
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.support.v4.app.FragmentManager
 import android.view.View
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
@@ -10,6 +11,7 @@ import com.qingmei2.sample.databinding.FragmentMainBinding
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
+import org.kodein.di.generic.provider
 
 @SuppressLint("CheckResult")
 class MainFragment : BaseFragment<FragmentMainBinding>() {
@@ -18,6 +20,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         extend(BaseApplication.INSTANCE.kodein)
         import(mainKodeinModule)
         bind<MainFragment>() with instance(this@MainFragment)
+        bind<FragmentManager>() with provider {
+            childFragmentManager
+        }
     }
 
     override val layoutId: Int = R.layout.fragment_main

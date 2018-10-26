@@ -5,7 +5,7 @@
         android:icon="@mipmap/ic_nav_home"
         android:title="@string/main_nav_home" />
     <item
-        android:id="@+id/nav_task"
+        android:id="@+id/nav_repos"
         android:icon="@mipmap/ic_nav_task"
         android:title="@string/main_nav_repos" />
     <item

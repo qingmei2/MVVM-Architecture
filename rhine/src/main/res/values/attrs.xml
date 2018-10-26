@@ -17,6 +17,17 @@
         <attr name="bind_menuClick" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="ViewPager">
+        <attr name="bind_fragmentManager" format="reference" />
+        <attr name="bind_fragments" format="reference" />
+        <attr name="bind_offScreenPageLimit" format="integer" />
+        <attr name="bind_onPageSelectedChanged" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="BottomNavigationView">
+        <attr name="bind_onNavigationBottomSelectedChanged" format="reference" />
+    </declare-styleable>
+
     <declare-styleable name="RecyclerView">
         <attr name="bind_adapter" format="reference" />
     </declare-styleable>
