@@ -1,16 +1,15 @@
 package com.qingmei2.sample.ui.login.presentation
 
-import android.content.Intent
-import com.qingmei2.sample.ui.main.MainActivity
+import android.support.v4.app.FragmentActivity
+import androidx.navigation.Navigation
+import com.qingmei2.sample.R
 
 class LoginNavigator(
-        private val context: LoginActivity
+        private val activity: FragmentActivity
 ) {
 
-    fun toMain() {
-        Intent(context, MainActivity::class.java).apply {
-            context.startActivity(this)
-            context.finish()
-        }
-    }
+    private fun findNavController() =
+            Navigation.findNavController(activity, R.id.navHostFragment)
+
+    fun toMain() = findNavController().navigate(R.id.nav_main)
 }

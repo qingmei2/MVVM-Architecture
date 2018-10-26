@@ -14,10 +14,7 @@
         tools:replace="android:icon">
 
         <activity
-            android:name="com.qingmei2.sample.ui.main.MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.qingmei2.sample.ui.login.presentation.LoginActivity"
+            android:name=".ui.MainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>

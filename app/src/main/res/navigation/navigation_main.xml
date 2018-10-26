@@ -3,21 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_main"
-    app:startDestination="@id/nav_home">
+    app:startDestination="@id/nav_login">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.qingmei2.sample.ui.main.home.presentation.HomeFragment"
-        android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_login"
+        android:name="com.qingmei2.sample.ui.login.presentation.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/activity_login" />
     <fragment
-        android:id="@+id/nav_task"
-        android:name="com.qingmei2.sample.ui.main.repos.presentation.ReposFragment"
-        android:label="TaskFragment"
-        tools:layout="@layout/fragment_repos" />
-    <fragment
-        android:id="@+id/nav_profile"
-        android:name="com.qingmei2.sample.ui.main.profile.presentation.ProfileFragment"
-        android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile" />
+        android:id="@+id/nav_main"
+        android:name="com.qingmei2.sample.ui.main.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/activity_main" />
 </navigation>

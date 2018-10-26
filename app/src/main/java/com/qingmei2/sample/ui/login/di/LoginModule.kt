@@ -4,10 +4,10 @@ import com.qingmei2.rhine.ext.viewmodel.addLifecycle
 import com.qingmei2.sample.ui.login.data.LoginDataSourceRepository
 import com.qingmei2.sample.ui.login.data.LoginLocalDataSource
 import com.qingmei2.sample.ui.login.data.LoginRemoteDataSource
-import com.qingmei2.sample.ui.login.presentation.LoginActivity
-import com.qingmei2.sample.ui.login.presentation.LoginNavigator
+import com.qingmei2.sample.ui.login.presentation.LoginFragment
 import com.qingmei2.sample.ui.login.presentation.LoginViewDelegate
 import com.qingmei2.sample.ui.login.presentation.LoginViewModel
+import com.qingmei2.sample.ui.login.presentation.LoginNavigator
 import org.kodein.di.Kodein
 import org.kodein.di.android.AndroidComponentsWeakScope
 import org.kodein.di.generic.bind
@@ -15,17 +15,17 @@ import org.kodein.di.generic.instance
 import org.kodein.di.generic.scoped
 import org.kodein.di.generic.singleton
 
-val LOGIN_MODULE_TAG = "LOGIN_MODULE_TAG"
+const val LOGIN_MODULE_TAG = "LOGIN_MODULE_TAG"
 
 val loginKodeinModule = Kodein.Module(LOGIN_MODULE_TAG) {
 
     bind<LoginNavigator>() with scoped(AndroidComponentsWeakScope).singleton {
-        LoginNavigator(instance())
+        LoginNavigator(instance<LoginFragment>().activity!!)
     }
 
     bind<LoginViewModel>() with scoped(AndroidComponentsWeakScope).singleton {
         LoginViewModel(instance()).apply {
-            addLifecycle(instance<LoginActivity>())
+            addLifecycle(instance<LoginFragment>())
         }
     }
 

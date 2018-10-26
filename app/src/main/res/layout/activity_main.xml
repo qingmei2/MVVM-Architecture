@@ -6,34 +6,26 @@
 
         <variable
             name="delegate"
-            type="com.qingmei2.sample.ui.main.MainViewDelegate" />
+            type="com.qingmei2.sample.ui.MainActivityDelegate" />
     </data>
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <fragment
             android:id="@+id/navHostFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1"
             app:defaultNavHost="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:navGraph="@navigation/navigation_main" />
 
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            app:itemBackground="@color/colorPrimary"
-            app:itemIconTint="@drawable/selector_main_bottom_nav_button"
-            app:itemTextColor="@drawable/selector_main_bottom_nav_button"
-            app:menu="@menu/menu_main_bottom_nav" />
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </layout>
