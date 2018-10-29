@@ -1,17 +1,35 @@
 package com.qingmei2.sample.ui.login.data
 
 import arrow.core.Either
+import com.qingmei2.rhine.base.repository.ILocalDataSource
+import com.qingmei2.rhine.base.repository.IRemoteDataSource
 import com.qingmei2.rhine.base.repository.RhineRepositoryBoth
-import com.qingmei2.sample.manager.PrefsHelper
 import com.qingmei2.sample.db.LoginEntity
 import com.qingmei2.sample.db.UserDatabase
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.LoginUser
 import com.qingmei2.sample.http.RxSchedulers
 import com.qingmei2.sample.http.service.ServiceManager
+import com.qingmei2.sample.manager.PrefsHelper
 import com.qingmei2.sample.manager.UserManager
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Single
+
+interface ILoginRemoteDataSource : IRemoteDataSource {
+
+    fun login(username: String, password: String): Flowable<Either<Errors, LoginUser>>
+}
+
+interface ILoginLocalDataSource : ILocalDataSource {
+
+    fun savePrefsUser(username: String,
+                      password: String): Completable
+
+    fun fetchPrefsUser(): Flowable<Either<Errors, LoginEntity>>
+
+    fun isAutoLogin(): Single<Boolean>
+}
 
 class LoginDataSourceRepository(
         remoteDataSource: ILoginRemoteDataSource,
@@ -32,7 +50,11 @@ class LoginDataSourceRepository(
                                 .andThen(Flowable.just(it))
                     }
 
-    fun prefsUser(): Flowable<Either<Errors, LoginEntity>> = localDataSource.fetchPrefsUser()
+    fun prefsUser(): Flowable<Either<Errors, LoginEntity>> =
+            localDataSource.fetchPrefsUser()
+
+    fun prefsAutoLogin(): Single<Boolean> =
+            localDataSource.isAutoLogin()
 }
 
 class LoginRemoteDataSource(
@@ -53,6 +75,9 @@ class LoginLocalDataSource(
         private val prefs: PrefsHelper
 ) : ILoginLocalDataSource {
 
+    override fun isAutoLogin(): Single<Boolean> =
+            Single.just(prefs.autoLogin)
+
     override fun savePrefsUser(username: String, password: String): Completable =
             Completable.fromAction {
                 prefs.username = username
@@ -62,9 +87,9 @@ class LoginLocalDataSource(
     override fun fetchPrefsUser(): Flowable<Either<Errors, LoginEntity>> =
             Flowable.just(prefs)
                     .map {
-                        when (it.username == "" || it.password == "") {
-                            true -> Either.left(Errors.EmptyResultsError)
-                            false -> Either.right(LoginEntity(1, it.username, it.password))
+                        when (it.username.isNotEmpty() && it.password.isNotEmpty()) {
+                            true -> Either.right(LoginEntity(1, it.username, it.password))
+                            false -> Either.left(Errors.EmptyResultsError)
                         }
                     }
 }

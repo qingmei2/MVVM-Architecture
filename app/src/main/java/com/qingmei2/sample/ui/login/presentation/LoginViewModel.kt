@@ -2,6 +2,7 @@ package com.qingmei2.sample.ui.login.presentation
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
+import arrow.core.Either
 import arrow.core.Option
 import arrow.core.none
 import arrow.core.some
@@ -10,11 +11,14 @@ import com.qingmei2.rhine.ext.arrow.whenNotNull
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.sample.base.BaseViewModel
+import com.qingmei2.sample.db.LoginEntity
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.LoginUser
 import com.qingmei2.sample.http.globalHandleError
 import com.qingmei2.sample.ui.login.data.LoginDataSourceRepository
 import com.qingmei2.sample.utils.toast
+import io.reactivex.Single
+import io.reactivex.functions.BiFunction
 import retrofit2.HttpException
 
 @SuppressWarnings("checkResult")
@@ -53,13 +57,22 @@ class LoginViewModel(
                     }
                 }
 
-        repo.prefsUser()
+        Single.zip(
+                repo.prefsUser().firstOrError(),
+                repo.prefsAutoLogin(),
+                BiFunction { either: Either<Errors, LoginEntity>, autoLogin: Boolean ->
+                    autoLogin to either
+                })
                 .bindLifecycle(this)
-                .subscribe { either ->
-                    either.fold({ error ->
+                .subscribe { pair ->
+                    pair.second.fold({ error ->
                         applyState(error = error.some())
                     }, { entity ->
-                        applyState(username = entity.username.some(), password = entity.password.some())
+                        applyState(
+                                username = entity.username.some(),
+                                password = entity.password.some(),
+                                autoLogin = pair.first
+                        )
                     })
                 }
     }
@@ -96,13 +109,16 @@ class LoginViewModel(
                            user: Option<LoginUser> = none(),
                            error: Option<Throwable> = none(),
                            username: Option<String> = none(),
-                           password: Option<String> = none()) {
+                           password: Option<String> = none(),
+                           autoLogin: Boolean = false) {
         this.loading.postValue(isLoading)
         this.error.postValue(error)
 
         this.userInfo.postValue(user.orNull())
 
-        username.whenNotNull { this.username.postValue(it) }
-        password.whenNotNull { this.password.postValue(it) }
+        username.whenNotNull { this.username.value = it }
+        password.whenNotNull { this.password.value = it }
+
+        if (autoLogin) login()
     }
 }
