@@ -10,7 +10,7 @@ import org.kodein.di.generic.instance
 import org.kodein.di.generic.singleton
 import retrofit2.Retrofit
 
-const val SERVICE_MODULE_TAG = "serviceModule"
+private const val SERVICE_MODULE_TAG = "serviceModule"
 
 val serviceModule = Kodein.Module(SERVICE_MODULE_TAG) {
 

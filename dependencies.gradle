@@ -103,6 +103,8 @@ ext {
             dsl_adapter             : [group: 'com.github.Yumenokanata.DslAdapter', name: 'dsladapter', version: versions.dsladapter],
             dsl_adapter_binding     : [group: 'com.github.Yumenokanata.DslAdapter', name: 'adapterdatabinding', version: versions.dsladapter],
 
+            dsl_adapter_viewpager   : [group: 'com.github.qingmei2.dslviewpager', name: 'adapter_databinding', version: '0.1.0'],
+
             timber                  : [group: 'com.jakewharton.timber', name: 'timber', version: '4.7.1'],
 
             junit                   : [group: 'junit', name: 'junit', version: '4.12'],

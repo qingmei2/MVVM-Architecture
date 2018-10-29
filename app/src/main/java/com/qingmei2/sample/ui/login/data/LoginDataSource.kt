@@ -2,7 +2,7 @@ package com.qingmei2.sample.ui.login.data
 
 import arrow.core.Either
 import com.qingmei2.rhine.base.repository.RhineRepositoryBoth
-import com.qingmei2.sample.PrefsHelper
+import com.qingmei2.sample.manager.PrefsHelper
 import com.qingmei2.sample.db.LoginEntity
 import com.qingmei2.sample.db.UserDatabase
 import com.qingmei2.sample.entity.Errors

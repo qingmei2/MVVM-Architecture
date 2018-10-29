@@ -1,4 +1,4 @@
-package com.qingmei2.sample
+package com.qingmei2.sample.manager
 
 import android.content.SharedPreferences
 import com.qingmei2.rhine.util.prefs.string

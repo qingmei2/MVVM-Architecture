@@ -7,7 +7,7 @@ import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.singleton
 
-val DB_MODULE_TAG = "DBModule"
+private const val DB_MODULE_TAG = "DBModule"
 
 val dbModule = Kodein.Module(DB_MODULE_TAG) {
 

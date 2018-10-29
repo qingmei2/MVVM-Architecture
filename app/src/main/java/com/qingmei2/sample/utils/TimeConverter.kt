@@ -19,5 +19,8 @@ object TimeConverter {
      */
     fun transTimeStamp(time: String?): Long =
             SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
-                    .parse(time).time
+                    .let {
+                        it.timeZone = TimeZone.getTimeZone("GMT+1")
+                        it.parse(time).time
+                    }
 }
