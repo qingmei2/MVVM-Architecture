@@ -50,6 +50,7 @@ ext {
             annotations             : [group: 'com.android.support', name: 'support-annotations', version: versions.support],
 
             constraint              : [group: 'com.android.support.constraint', name: 'constraint-layout', version: '1.0.2'],
+            flexbox                 : [group: 'com.google.android', name: 'flexbox', version: '1.1.0'],
 
             arch_comp_extension     : [group: 'android.arch.lifecycle', name: 'extensions', version: versions.arch_comp_lifecycle],
             arch_comp_compiler      : [group: 'android.arch.lifecycle', name: 'compiler', version: versions.arch_comp_lifecycle],

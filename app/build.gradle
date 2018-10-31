@@ -43,6 +43,7 @@ dependencies {
     implementation libs.recyclerview
     implementation libs.design
     implementation libs.constraint
+    implementation libs.flexbox
 
     implementation libs.kotlin_stdlib
 
