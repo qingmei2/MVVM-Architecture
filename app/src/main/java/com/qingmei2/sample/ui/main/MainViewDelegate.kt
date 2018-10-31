@@ -5,17 +5,25 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.view.ViewPager
 import android.view.MenuItem
+import com.github.qingmei2.dslviewpager.DslFragmentPagerAdapter
+import com.github.qingmei2.dslviewpager.build
 import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
 import com.qingmei2.sample.R
 
 class MainViewDelegate(
         val viewModel: MainViewModel,
         private val navigator: MainNavigator,
-        val fragments: List<Fragment>,
-        val fragmentManager: FragmentManager,
+        private val fragments: List<Fragment>,
+        private val fragmentManager: FragmentManager,
         private val navigationView: BottomNavigationView,
         private val viewPager: ViewPager
 ) : IViewDelegate {
+
+    val viewPagerAdapter: DslFragmentPagerAdapter = DslFragmentPagerAdapter.build(
+            fragmentManager = fragmentManager,
+            fragmentsProvider = { fragments },
+            recycle = { _, _ -> true }
+    )
 
     fun onPageSelectChanged(index: Int) {
         for (position in 0..index) {

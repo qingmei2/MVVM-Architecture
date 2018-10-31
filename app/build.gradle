@@ -47,6 +47,9 @@ dependencies {
 
     implementation libs.kotlin_stdlib
 
+    implementation libs.dsl_viewpager
+    implementation libs.dsl_viewpager_databinding
+
     implementation 'de.hdodenhof:circleimageview:2.2.0'
 
     kapt libs.glide_compiler

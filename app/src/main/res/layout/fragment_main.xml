@@ -18,14 +18,14 @@
             android:id="@+id/viewPager"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:bind_fragmentManager="@{ delegate.fragmentManager }"
-            app:bind_fragments="@{ delegate.fragments }"
-            app:bind_offScreenPageLimit="@{ 2 }"
-            app:bind_onPageSelectedChanged="@{ (index) -> delegate.onPageSelectChanged(index) }"
             app:layout_constraintBottom_toTopOf="@+id/navigation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:onViewPagerPageChanged="@{ (index) -> delegate.onPageSelectChanged(index) }"
+            app:viewPagerAdapter="@{ delegate.viewPagerAdapter }"
+            app:viewPagerDefaultItem="@{ 0 }"
+            app:viewPagerPageLimit="@{ 2 }" />
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/navigation"
