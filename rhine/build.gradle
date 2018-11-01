@@ -113,6 +113,8 @@ kapt {
     generateStubs = true
 }
 
+def publishMode = false
+
 version = build_version.versionName
 group = "com.github.qingmei2.rhine"
 def siteUrl = "https://github.com/qingmei2/MVVM-Rhine"
@@ -171,12 +173,14 @@ artifacts {
     archives sourcesJar
 }
 
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
+if (publishMode) {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+}
 
 bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
+    user = publishMode ? properties.getProperty("bintray.user") : ""
+    key = publishMode ? properties.getProperty("bintray.apikey") : ""
     configurations = ['archives']
     pkg {
         repo = "maven"
