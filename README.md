@@ -1,5 +1,7 @@
 # MVVM-Rhine
 
+<a href='https://bintray.com/mq2553299/maven/mvvm-rhine/_latestVersion'><img src='https://api.bintray.com/packages/mq2553299/maven/mvvm-rhine/images/download.svg'></a>
+
 :construction: The MVVM using RxJava and databinding.
 
 ## ScreenShots
@@ -13,6 +15,14 @@
 <img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/repos.png"/>
 <img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/me.png"/>
 </div>
+
+## Usage
+
+Here is a simple way to denpend on, but we suggestion that adding into project by module:
+
+```groovy
+implementation 'com.github.qingmei2.rhine:rhine:${lastVersion}'
+```
 
 ## Libraries
 
