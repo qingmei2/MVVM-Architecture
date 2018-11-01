@@ -55,6 +55,7 @@ dependencies {
     kapt libs.glide_compiler
     kapt libs.arch_comp_room_compiler
     kapt libs.arch_comp_compiler
+    kapt "com.android.databinding:compiler:${versions.android_plugin}"
 
     testImplementation libs.junit
 

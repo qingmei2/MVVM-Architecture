@@ -96,6 +96,8 @@ dependencies {
     api libs.glide
     kapt libs.glide_compiler
 
+    kapt "com.android.databinding:compiler:${versions.android_plugin}"
+
     // logger
     api libs.timber
 
