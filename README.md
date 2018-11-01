@@ -21,7 +21,7 @@
 Here is a simple way to denpend on, but we suggestion that adding into project by module:
 
 ```groovy
-implementation 'com.github.qingmei2.rhine:rhine:${lastVersion}'
+// implementation 'com.github.qingmei2.rhine:rhine:${lastVersion}'
 ```
 
 ## Libraries

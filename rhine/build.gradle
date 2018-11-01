@@ -113,8 +113,6 @@ kapt {
     generateStubs = true
 }
 
-def publishMode = false
-
 version = build_version.versionName
 group = "com.github.qingmei2.rhine"
 def siteUrl = "https://github.com/qingmei2/MVVM-Rhine"
@@ -173,8 +171,9 @@ artifacts {
     archives sourcesJar
 }
 
+def publishMode = false
+Properties properties = new Properties()
 if (publishMode) {
-    Properties properties = new Properties()
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
 }
 

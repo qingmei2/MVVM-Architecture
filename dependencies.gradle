@@ -4,8 +4,8 @@ ext {
             compileSdkVersion: 28,
             minSdkVersion    : 19,
             targetSdkVersion : 28,
-            versionCode      : 1,
-            versionName      : '0.1.0'
+            versionCode      : 2,
+            versionName      : '0.1.1'
     ]
 
     versions = [
@@ -104,8 +104,8 @@ ext {
             dsl_adapter              : [group: 'com.github.Yumenokanata.DslAdapter', name: 'dsladapter', version: versions.dsladapter],
             dsl_adapter_binding      : [group: 'com.github.Yumenokanata.DslAdapter', name: 'adapterdatabinding', version: versions.dsladapter],
 
-            dsl_viewpager            : [group: 'com.github.qingmei2.dslviewpager', name: 'adapter', version: '0.1.0'],
-            dsl_viewpager_databinding: [group: 'com.github.qingmei2.dslviewpager', name: 'adapter_databinding', version: '0.1.0'],
+            dsl_viewpager            : [group: 'com.github.qingmei2.dslviewpager', name: 'adapter', version: '0.1.4'],
+            dsl_viewpager_databinding: [group: 'com.github.qingmei2.dslviewpager', name: 'adapter_databinding', version: '0.1.4'],
 
             timber                   : [group: 'com.jakewharton.timber', name: 'timber', version: '4.7.1'],
 
