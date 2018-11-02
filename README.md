@@ -1,20 +1,8 @@
-# MVVM-Rhine
-
-<a href='https://bintray.com/mq2553299/maven/mvvm-rhine/_latestVersion'><img src='https://api.bintray.com/packages/mq2553299/maven/mvvm-rhine/images/download.svg'></a>
+<img width="500" height="300" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/bg.jpg"/>
 
 :construction: The MVVM using RxJava and databinding.
 
-## ScreenShots
-
-<div align:left;display:inline;>
-<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/login.png"/>
-<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/home.png"/>
-</div>
-
-<div align:left;display:inline;>
-<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/repos.png"/>
-<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/me.png"/>
-</div>
+<a href='https://bintray.com/mq2553299/maven/mvvm-rhine/_latestVersion'><img src='https://api.bintray.com/packages/mq2553299/maven/mvvm-rhine/images/download.svg'></a>
 
 ## Libraries
 
@@ -69,6 +57,18 @@
 * [Glide: An image loading and caching library for Android focused on smooth scrolling](https://github.com/bumptech/glide)
 
 * [Timber: A logger with a small, extensible API which provides utility on top of Android's normal Log class.](https://github.com/JakeWharton/timber)
+
+## ScreenShots
+
+<div align:left;display:inline;>
+<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/login.png"/>
+<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/home.png"/>
+</div>
+
+<div align:left;display:inline;>
+<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/repos.png"/>
+<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/me.png"/>
+</div>
 
 ## Thanks to
 
