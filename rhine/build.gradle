@@ -109,10 +109,6 @@ dependencies {
     androidTestImplementation libs.espresso_core
 }
 
-kapt {
-    generateStubs = true
-}
-
 version = build_version.versionName
 group = "com.github.qingmei2.rhine"
 def siteUrl = "https://github.com/qingmei2/MVVM-Rhine"

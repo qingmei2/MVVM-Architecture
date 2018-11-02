@@ -34,8 +34,17 @@ class LoginViewModel(
 
     val userInfo: MutableLiveData<LoginUser> = MutableLiveData()
 
+    private val autoLogin: MutableLiveData<Boolean> = MutableLiveData()
+
     override fun onCreate(lifecycleOwner: LifecycleOwner) {
         super.onCreate(lifecycleOwner)
+
+        autoLogin.toFlowable()
+                .filter { it }
+                .doOnNext { login() }
+                .bindLifecycle(this)
+                .subscribe()
+
         error.toFlowable()
                 .map { errorOpt ->
                     errorOpt.flatMap {
@@ -57,25 +66,28 @@ class LoginViewModel(
                     }
                 }
 
-        Single.zip(
-                repo.prefsUser().firstOrError(),
-                repo.prefsAutoLogin(),
-                BiFunction { either: Either<Errors, LoginEntity>, autoLogin: Boolean ->
-                    autoLogin to either
-                })
-                .bindLifecycle(this)
-                .subscribe { pair ->
-                    pair.second.fold({ error ->
-                        applyState(error = error.some())
-                    }, { entity ->
-                        applyState(
-                                username = entity.username.some(),
-                                password = entity.password.some(),
-                                autoLogin = pair.first
-                        )
-                    })
-                }
+        initAutoLogin()
     }
+
+    private fun initAutoLogin() =
+            Single.zip(
+                    repo.prefsUser().firstOrError(),
+                    repo.prefsAutoLogin(),
+                    BiFunction { either: Either<Errors, LoginEntity>, autoLogin: Boolean ->
+                        autoLogin to either
+                    })
+                    .bindLifecycle(this)
+                    .subscribe { pair ->
+                        pair.second.fold({ error ->
+                            applyState(error = error.some())
+                        }, { entity ->
+                            applyState(
+                                    username = entity.username.some(),
+                                    password = entity.password.some(),
+                                    autoLogin = pair.first
+                            )
+                        })
+                    }
 
     fun login() {
         when (username.value.isNullOrEmpty() || password.value.isNullOrEmpty()) {
@@ -119,6 +131,6 @@ class LoginViewModel(
         username.whenNotNull { this.username.value = it }
         password.whenNotNull { this.password.value = it }
 
-        if (autoLogin) login()
+        this.autoLogin.postValue(autoLogin)
     }
 }

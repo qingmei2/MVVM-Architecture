@@ -62,7 +62,6 @@ dependencies {
 }
 
 kapt {
-    generateStubs = true
     arguments {
         arg("room.schemaLocation", "$projectDir/schemas".toString())
     }
