@@ -1,4 +1,4 @@
-<img width="500" height="300" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/bg.jpg"/>
+<img width="500" height="200" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/bg.jpg"/>
 
 :construction: The MVVM using RxJava and databinding.
 
