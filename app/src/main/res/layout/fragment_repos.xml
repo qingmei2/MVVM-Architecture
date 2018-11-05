@@ -41,12 +41,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:bind_adapter="@{ delegate.viewModel.adapter }"
+                    app:bind_scrollStateChanges="@{ delegate.fabViewModel.stateChangesConsumer }"
+                    app:bind_scrollStateChanges_debounce="@{ 500 }"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_repos_repo" />
 
             </android.support.v4.widget.SwipeRefreshLayout>
 
         </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/ic_keyboard_arrow_up_white_24dp"
+            app:bind_onClick="@{ () -> recyclerView.scrollToPosition(0) }"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 

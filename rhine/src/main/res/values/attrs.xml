@@ -30,6 +30,8 @@
 
     <declare-styleable name="RecyclerView">
         <attr name="bind_adapter" format="reference" />
+        <attr name="bind_scrollStateChanges" format="reference" />
+        <attr name="bind_scrollStateChanges_debounce" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="SwipeRefreshLayout">
