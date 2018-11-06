@@ -7,7 +7,7 @@ android {
     compileSdkVersion build_version.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.qingmei2.sample_rhine"
+        applicationId "com.qingmei2.sample"
         minSdkVersion build_version.minSdkVersion
         targetSdkVersion build_version.targetSdkVersion
         versionCode build_version.versionCode
