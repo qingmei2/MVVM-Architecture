@@ -1,7 +1,7 @@
 package com.qingmei2.sample.ui.main.home
 
 import com.qingmei2.rhine.ext.viewmodel.addLifecycle
-import com.qingmei2.sample.ui.main.common.FabAnimateViewModel
+import com.qingmei2.sample.common.FabAnimateViewModel
 import com.qingmei2.sample.ui.main.home.data.HomeRemoteDataSource
 import com.qingmei2.sample.ui.main.home.data.HomeRepository
 import com.qingmei2.sample.ui.main.home.data.IRemoteHomeDataSource

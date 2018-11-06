@@ -1,7 +1,7 @@
 package com.qingmei2.sample.ui.main.repos
 
 import com.qingmei2.rhine.ext.viewmodel.addLifecycle
-import com.qingmei2.sample.ui.main.common.FabAnimateViewModel
+import com.qingmei2.sample.common.FabAnimateViewModel
 import com.qingmei2.sample.ui.main.repos.data.*
 import com.qingmei2.sample.ui.main.repos.presentation.ReposFragment
 import com.qingmei2.sample.ui.main.repos.presentation.ReposViewDelegate

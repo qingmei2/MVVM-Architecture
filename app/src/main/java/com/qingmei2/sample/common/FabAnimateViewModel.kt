@@ -1,13 +1,12 @@
-package com.qingmei2.sample.ui.main.common
+package com.qingmei2.sample.common
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
 import android.support.v7.widget.RecyclerView
-import arrow.core.none
-import arrow.core.some
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.sample.base.BaseViewModel
+import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.http.RxSchedulers
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.zipWith
@@ -36,16 +35,16 @@ class FabAnimateViewModel : BaseViewModel() {
                 .compose { upstream ->
                     upstream.zipWith(upstream.startWith(true)) { last, current ->
                         when (last == current) {
-                            true -> none<Boolean>()
-                            false -> current.some()
+                            true -> Result.failure<Boolean>(Errors.EmptyInputError)
+                            false -> Result.success(current)
                         }
                     }
                 }
                 .flatMap { changed ->
                     changed.fold({
-                        Observable.empty<Boolean>()
-                    }, {
                         Observable.just(it)
+                    }, {
+                        Observable.empty<Boolean>()
                     })
                 }
                 .observeOn(RxSchedulers.ui)
