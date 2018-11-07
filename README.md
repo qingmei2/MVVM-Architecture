@@ -58,6 +58,10 @@
 
 * [Timber: A logger with a small, extensible API which provides utility on top of Android's normal Log class.](https://github.com/JakeWharton/timber)
 
+### Tools
+
+* [MVVM-Rhine-Template: Activity or Fragment code generation template for MVVM-Rhine.](https://github.com/qingmei2/MVVM-Rhine-Template)
+
 ## ScreenShots
 
 <div align:left;display:inline;>
