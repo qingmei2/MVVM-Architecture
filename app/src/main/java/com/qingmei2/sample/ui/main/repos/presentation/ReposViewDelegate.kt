@@ -7,13 +7,14 @@ import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.sample.R
+import com.qingmei2.sample.base.BaseViewDelegate
 import com.qingmei2.sample.common.FabAnimateViewModel
 
 class ReposViewDelegate(
         val viewModel: ReposViewModel,
         val fabViewModel: FabAnimateViewModel,
         val fabTop: FloatingActionButton
-) : IViewDelegate {
+) : BaseViewDelegate() {
 
     init {
         fabViewModel.visibleState

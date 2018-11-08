@@ -4,6 +4,7 @@ import arrow.core.Either
 import com.qingmei2.rhine.base.repository.ILocalDataSource
 import com.qingmei2.rhine.base.repository.IRemoteDataSource
 import com.qingmei2.rhine.base.repository.RhineRepositoryBoth
+import com.qingmei2.sample.base.BaseRepositoryBoth
 import com.qingmei2.sample.db.LoginEntity
 import com.qingmei2.sample.db.UserDatabase
 import com.qingmei2.sample.entity.Errors
@@ -34,7 +35,7 @@ interface ILoginLocalDataSource : ILocalDataSource {
 class LoginDataSourceRepository(
         remoteDataSource: ILoginRemoteDataSource,
         localDataSource: ILoginLocalDataSource
-) : RhineRepositoryBoth<ILoginRemoteDataSource, ILoginLocalDataSource>(remoteDataSource, localDataSource) {
+) : BaseRepositoryBoth<ILoginRemoteDataSource, ILoginLocalDataSource>(remoteDataSource, localDataSource) {
 
     fun login(username: String, password: String): Flowable<Either<Errors, LoginUser>> =
             remoteDataSource.login(username, password)

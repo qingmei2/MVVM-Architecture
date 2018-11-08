@@ -4,6 +4,7 @@ import arrow.core.Either
 import com.qingmei2.rhine.base.repository.ILocalDataSource
 import com.qingmei2.rhine.base.repository.IRemoteDataSource
 import com.qingmei2.rhine.base.repository.RhineRepositoryBoth
+import com.qingmei2.sample.base.BaseRepositoryBoth
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.http.RxSchedulers
@@ -24,7 +25,7 @@ interface ILocalReposDataSource : ILocalDataSource {
 
 class ReposDataSource(remote: IRemoteReposDataSource,
                       local: ILocalReposDataSource) :
-        RhineRepositoryBoth<IRemoteReposDataSource, ILocalReposDataSource>(remote, local) {
+        BaseRepositoryBoth<IRemoteReposDataSource, ILocalReposDataSource>(remote, local) {
 
     fun queryRepos(username: String): Flowable<Either<Errors, List<Repo>>> =
             remoteDataSource.queryRepos(username)

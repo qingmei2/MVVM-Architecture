@@ -7,8 +7,8 @@ import android.support.v4.view.ViewPager
 import android.view.MenuItem
 import com.github.qingmei2.dslviewpager.DslFragmentPagerAdapter
 import com.github.qingmei2.dslviewpager.build
-import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
 import com.qingmei2.sample.R
+import com.qingmei2.sample.base.BaseViewDelegate
 
 class MainViewDelegate(
         val viewModel: MainViewModel,
@@ -17,7 +17,7 @@ class MainViewDelegate(
         private val fragmentManager: FragmentManager,
         private val navigationView: BottomNavigationView,
         private val viewPager: ViewPager
-) : IViewDelegate {
+) : BaseViewDelegate() {
 
     val viewPagerAdapter: DslFragmentPagerAdapter = DslFragmentPagerAdapter.build(
             fragmentManager = fragmentManager,

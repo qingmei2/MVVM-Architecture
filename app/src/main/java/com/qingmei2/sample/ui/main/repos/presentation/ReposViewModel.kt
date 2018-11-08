@@ -3,7 +3,7 @@ package com.qingmei2.sample.ui.main.repos.presentation
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
 import arrow.core.toOption
-import com.qingmei2.rhine.base.viewstate.SimpleViewState
+import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.rhine.ext.jumpBrowser
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable

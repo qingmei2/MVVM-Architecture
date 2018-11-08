@@ -1,5 +1,5 @@
 package com.qingmei2.sample.ui
 
-import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
+import com.qingmei2.sample.base.BaseViewDelegate
 
-class MainActivityDelegate : IViewDelegate
+class MainActivityDelegate : BaseViewDelegate()

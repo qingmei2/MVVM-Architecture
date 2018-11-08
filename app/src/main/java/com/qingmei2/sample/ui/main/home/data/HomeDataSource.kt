@@ -3,6 +3,7 @@ package com.qingmei2.sample.ui.main.home.data
 import arrow.core.Either
 import com.qingmei2.rhine.base.repository.IRemoteDataSource
 import com.qingmei2.rhine.base.repository.RhineRepositoryRemote
+import com.qingmei2.sample.base.BaseRepositoryRemote
 import com.qingmei2.sample.entity.DISPLAY_EVENT_TYPES
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.ReceivedEvent
@@ -14,7 +15,7 @@ import io.reactivex.FlowableTransformer
 
 class HomeRepository(
         remoteDataSource: IRemoteHomeDataSource
-) : RhineRepositoryRemote<IRemoteHomeDataSource>(remoteDataSource) {
+) : BaseRepositoryRemote<IRemoteHomeDataSource>(remoteDataSource) {
 
     fun queryReceivedEvents(username: String): Flowable<Either<Errors, List<ReceivedEvent>>> =
             remoteDataSource.queryReceivedEvents(username)

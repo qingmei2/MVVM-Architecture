@@ -3,9 +3,9 @@ package com.qingmei2.sample.ui.main.home.presentation
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.support.design.widget.FloatingActionButton
-import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
+import com.qingmei2.sample.base.BaseViewDelegate
 import com.qingmei2.sample.common.FabAnimateViewModel
 
 @SuppressLint("CheckResult")
@@ -13,7 +13,7 @@ class HomeViewDelegate(
         val homeViewModel: HomeViewModel,
         val fabViewModel: FabAnimateViewModel,
         val fabTop: FloatingActionButton
-) : IViewDelegate {
+) : BaseViewDelegate() {
 
     init {
         fabViewModel.visibleState

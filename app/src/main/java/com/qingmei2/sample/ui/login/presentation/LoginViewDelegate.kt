@@ -1,13 +1,13 @@
 package com.qingmei2.sample.ui.login.presentation
 
-import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
 import com.qingmei2.rhine.ext.livedata.toFlowable
+import com.qingmei2.sample.base.BaseViewDelegate
 
 @SuppressWarnings("CheckResult")
 class LoginViewDelegate(
         val viewModel: LoginViewModel,
         private val navigator: LoginNavigator
-) : IViewDelegate {
+) : BaseViewDelegate() {
 
     init {
         viewModel.userInfo

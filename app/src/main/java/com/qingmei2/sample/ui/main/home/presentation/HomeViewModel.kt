@@ -6,7 +6,7 @@ import arrow.core.Option
 import arrow.core.none
 import arrow.core.some
 import arrow.core.toOption
-import com.qingmei2.rhine.base.viewstate.SimpleViewState
+import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.rhine.ext.jumpBrowser
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
