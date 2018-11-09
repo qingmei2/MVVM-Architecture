@@ -26,6 +26,11 @@ class LoginViewDelegate(
                 .doOnNext { applyState(it) }
                 .bindLifecycle(lifecycleOwner)
                 .subscribe()
+
+        loadingViewModel.loadingState
+                .toFlowable()
+                .bindLifecycle(lifecycleOwner)
+                .subscribe()
     }
 
     fun login() = viewModel.login()

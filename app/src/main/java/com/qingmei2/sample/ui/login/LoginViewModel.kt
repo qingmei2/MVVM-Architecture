@@ -108,16 +108,16 @@ class LoginViewModel(
                     .bindLifecycle(this)
                     .subscribe { state ->
                         when (state) {
-                            is SimpleViewState.Loading -> applyState(loadingLayout = CommonLoadingState.Loading)
+                            is SimpleViewState.Loading -> applyState(loadingLayout = CommonLoadingState.LOADING)
                             is SimpleViewState.Idle -> applyState()
-                            is SimpleViewState.Error -> applyState(loadingLayout = CommonLoadingState.Error, error = state.error.some())
+                            is SimpleViewState.Error -> applyState(loadingLayout = CommonLoadingState.ERROR, error = state.error.some())
                             is SimpleViewState.Result -> applyState(user = state.result.some())
                         }
                     }
         }
     }
 
-    private fun applyState(loadingLayout: CommonLoadingState = CommonLoadingState.Content,
+    private fun applyState(loadingLayout: CommonLoadingState = CommonLoadingState.IDLE,
                            user: Option<LoginUser> = none(),
                            error: Option<Throwable> = none(),
                            username: Option<String> = none(),
