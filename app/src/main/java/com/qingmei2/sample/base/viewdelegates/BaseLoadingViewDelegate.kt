@@ -9,10 +9,9 @@ import com.qingmei2.sample.common.loadings.*
 
 @Suppress("MemberVisibilityCanBePrivate")
 abstract class BaseLoadingViewDelegate(
-        private val lifecycleOwner: LifecycleOwner
+        private val lifecycleOwner: LifecycleOwner,
+        loadingView: View
 ) : BaseViewDelegate() {
-
-    abstract val loadingContainer: View
 
     open val loadingViewSuppiler: () -> ILoadingLayout = { LoadingLayout() }
     open val errorViewSuppiler: () -> ILoadingLayout = { ErrorLayout() }
@@ -23,7 +22,7 @@ abstract class BaseLoadingViewDelegate(
     init {
         loadingViewModel = CommonLoadingViewModel.instance(
                 LoadingView.build(
-                        loadingContainer, loadingViewSuppiler,
+                        loadingView, loadingViewSuppiler,
                         errorViewSuppiler, emptyViewSuppiler
                 )
         ).apply {

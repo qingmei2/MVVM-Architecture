@@ -1,9 +1,9 @@
 package com.qingmei2.rhine.widget.placeholderview
 
-import android.R
 import android.support.v4.app.FragmentActivity
 import android.view.View
 import android.view.ViewGroup
+import com.qingmei2.rhine.R
 
 class LoadingView private constructor(
         private val controller: LoadingViewController

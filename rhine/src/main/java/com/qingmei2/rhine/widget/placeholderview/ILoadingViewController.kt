@@ -47,7 +47,6 @@ class LoadingViewController(
     }
 
     override fun showLoadingView() {
-        hideContentView()
         hidePlaceholders()
         loadingLayout.show()
     }

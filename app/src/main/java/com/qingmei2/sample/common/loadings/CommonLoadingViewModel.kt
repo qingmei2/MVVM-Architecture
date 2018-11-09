@@ -21,10 +21,10 @@ class CommonLoadingViewModel private constructor(
                 .bindLifecycle(this)
                 .subscribe { state ->
                     when (state) {
-                        CommonLoadingState.LayoutError -> loadingView.showErrorView()
-                        CommonLoadingState.LayoutEmpty -> loadingView.showEmptyView()
-                        CommonLoadingState.LayoutLoading -> loadingView.showLoadingView()
-                        CommonLoadingState.LayoutContent -> loadingView.showContentView()
+                        CommonLoadingState.Error -> loadingView.showErrorView()
+                        CommonLoadingState.Empty -> loadingView.showEmptyView()
+                        CommonLoadingState.Loading -> loadingView.showLoadingView()
+                        CommonLoadingState.Content -> loadingView.showContentView()
                     }
                 }
     }
@@ -39,11 +39,11 @@ class CommonLoadingViewModel private constructor(
 
 enum class CommonLoadingState {
 
-    LayoutError,
+    Error,
 
-    LayoutEmpty,
+    Empty,
 
-    LayoutLoading,
+    Loading,
 
-    LayoutContent
+    Content
 }

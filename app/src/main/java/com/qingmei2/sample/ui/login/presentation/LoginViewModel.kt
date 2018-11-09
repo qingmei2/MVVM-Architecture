@@ -6,11 +6,12 @@ import arrow.core.Either
 import arrow.core.Option
 import arrow.core.none
 import arrow.core.some
-import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.rhine.ext.arrow.whenNotNull
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.sample.base.BaseViewModel
+import com.qingmei2.sample.base.SimpleViewState
+import com.qingmei2.sample.common.loadings.CommonLoadingState
 import com.qingmei2.sample.db.LoginEntity
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.LoginUser
@@ -29,7 +30,7 @@ class LoginViewModel(
     val username: MutableLiveData<String> = MutableLiveData()
     val password: MutableLiveData<String> = MutableLiveData()
 
-    val loading: MutableLiveData<Boolean> = MutableLiveData()
+    val loadingLayout: MutableLiveData<CommonLoadingState> = MutableLiveData()
     val error: MutableLiveData<Option<Throwable>> = MutableLiveData()
 
     val userInfo: MutableLiveData<LoginUser> = MutableLiveData()
@@ -91,7 +92,7 @@ class LoginViewModel(
 
     fun login() {
         when (username.value.isNullOrEmpty() || password.value.isNullOrEmpty()) {
-            true -> applyState(isLoading = false, error = Errors.EmptyInputError.some())
+            true -> applyState(error = Errors.EmptyInputError.some())
             false -> repo
                     .login(username.value!!, password.value!!)
                     .compose(globalHandleError())
@@ -108,22 +109,22 @@ class LoginViewModel(
                     .bindLifecycle(this)
                     .subscribe { state ->
                         when (state) {
-                            is SimpleViewState.Loading -> applyState(isLoading = true)
+                            is SimpleViewState.Loading -> applyState(loadingLayout = CommonLoadingState.Loading)
                             is SimpleViewState.Idle -> applyState()
-                            is SimpleViewState.Error -> applyState(error = state.error.some())
+                            is SimpleViewState.Error -> applyState(loadingLayout = CommonLoadingState.Error, error = state.error.some())
                             is SimpleViewState.Result -> applyState(user = state.result.some())
                         }
                     }
         }
     }
 
-    private fun applyState(isLoading: Boolean = false,
+    private fun applyState(loadingLayout: CommonLoadingState = CommonLoadingState.Content,
                            user: Option<LoginUser> = none(),
                            error: Option<Throwable> = none(),
                            username: Option<String> = none(),
                            password: Option<String> = none(),
                            autoLogin: Boolean = false) {
-        this.loading.postValue(isLoading)
+        this.loadingLayout.postValue(loadingLayout)
         this.error.postValue(error)
 
         this.userInfo.postValue(user.orNull())

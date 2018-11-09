@@ -5,9 +5,10 @@ import com.qingmei2.sample.ui.login.data.LoginDataSourceRepository
 import com.qingmei2.sample.ui.login.data.LoginLocalDataSource
 import com.qingmei2.sample.ui.login.data.LoginRemoteDataSource
 import com.qingmei2.sample.ui.login.presentation.LoginFragment
+import com.qingmei2.sample.ui.login.presentation.LoginNavigator
 import com.qingmei2.sample.ui.login.presentation.LoginViewDelegate
 import com.qingmei2.sample.ui.login.presentation.LoginViewModel
-import com.qingmei2.sample.ui.login.presentation.LoginNavigator
+import kotlinx.android.synthetic.main.fragment_login.*
 import org.kodein.di.Kodein
 import org.kodein.di.android.AndroidComponentsWeakScope
 import org.kodein.di.generic.bind
@@ -30,7 +31,12 @@ val loginKodeinModule = Kodein.Module(LOGIN_MODULE_TAG) {
     }
 
     bind<LoginViewDelegate>() with scoped(AndroidComponentsWeakScope).singleton {
-        LoginViewDelegate(instance(), instance())
+        LoginViewDelegate(
+                viewModel = instance(),
+                navigator = instance(),
+                loadingView = instance<LoginFragment>().loginForm,
+                lifecycleOwner = instance<LoginFragment>()
+        )
     }
 
     bind<LoginRemoteDataSource>() with scoped(AndroidComponentsWeakScope).singleton {
