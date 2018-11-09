@@ -1,4 +1,4 @@
-package com.qingmei2.sample.ui.main.home.presentation
+package com.qingmei2.sample.ui.main.home
 
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable

@@ -7,7 +7,7 @@
 
         <import
             alias="utils"
-            type="com.qingmei2.sample.ui.main.home.presentation.HomeUtils" />
+            type="com.qingmei2.sample.ui.main.home.HomeUtils" />
 
         <variable
             name="data"

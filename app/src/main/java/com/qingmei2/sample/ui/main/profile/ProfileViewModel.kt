@@ -1,4 +1,4 @@
-package com.qingmei2.sample.ui.main.profile.presentation
+package com.qingmei2.sample.ui.main.profile
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
@@ -9,7 +9,7 @@ import com.qingmei2.rhine.ext.arrow.whenNotNull
 import com.qingmei2.sample.base.BaseViewModel
 import com.qingmei2.sample.entity.LoginUser
 import com.qingmei2.sample.manager.UserManager
-import com.qingmei2.sample.ui.main.profile.data.ProfileRepository
+import com.qingmei2.sample.ui.main.profile.ProfileRepository
 
 class ProfileViewModel(
         private val repo: ProfileRepository

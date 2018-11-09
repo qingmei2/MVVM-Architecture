@@ -1,4 +1,4 @@
-package com.qingmei2.sample.ui.login.presentation
+package com.qingmei2.sample.ui.login
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
@@ -16,7 +16,6 @@ import com.qingmei2.sample.db.LoginEntity
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.LoginUser
 import com.qingmei2.sample.http.globalHandleError
-import com.qingmei2.sample.ui.login.data.LoginDataSourceRepository
 import com.qingmei2.sample.utils.toast
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction

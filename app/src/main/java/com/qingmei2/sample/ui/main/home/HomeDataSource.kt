@@ -1,8 +1,7 @@
-package com.qingmei2.sample.ui.main.home.data
+package com.qingmei2.sample.ui.main.home
 
 import arrow.core.Either
 import com.qingmei2.rhine.base.repository.IRemoteDataSource
-import com.qingmei2.rhine.base.repository.RhineRepositoryRemote
 import com.qingmei2.sample.base.BaseRepositoryRemote
 import com.qingmei2.sample.entity.DISPLAY_EVENT_TYPES
 import com.qingmei2.sample.entity.Errors

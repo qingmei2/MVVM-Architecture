@@ -7,7 +7,7 @@
 
         <variable
             name="delegate"
-            type="com.qingmei2.sample.ui.main.home.presentation.HomeViewDelegate" />
+            type="com.qingmei2.sample.ui.main.home.HomeViewDelegate" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout

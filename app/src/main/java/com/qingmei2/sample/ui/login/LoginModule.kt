@@ -1,13 +1,6 @@
-package com.qingmei2.sample.ui.login.di
+package com.qingmei2.sample.ui.login
 
 import com.qingmei2.rhine.ext.viewmodel.addLifecycle
-import com.qingmei2.sample.ui.login.data.LoginDataSourceRepository
-import com.qingmei2.sample.ui.login.data.LoginLocalDataSource
-import com.qingmei2.sample.ui.login.data.LoginRemoteDataSource
-import com.qingmei2.sample.ui.login.presentation.LoginFragment
-import com.qingmei2.sample.ui.login.presentation.LoginNavigator
-import com.qingmei2.sample.ui.login.presentation.LoginViewDelegate
-import com.qingmei2.sample.ui.login.presentation.LoginViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.kodein.di.Kodein
 import org.kodein.di.android.AndroidComponentsWeakScope

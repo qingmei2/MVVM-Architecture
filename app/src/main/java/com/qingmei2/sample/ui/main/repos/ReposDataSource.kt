@@ -1,9 +1,8 @@
-package com.qingmei2.sample.ui.main.repos.data
+package com.qingmei2.sample.ui.main.repos
 
 import arrow.core.Either
 import com.qingmei2.rhine.base.repository.ILocalDataSource
 import com.qingmei2.rhine.base.repository.IRemoteDataSource
-import com.qingmei2.rhine.base.repository.RhineRepositoryBoth
 import com.qingmei2.sample.base.BaseRepositoryBoth
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.Repo

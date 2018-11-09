@@ -1,11 +1,6 @@
 package com.qingmei2.sample.ui.main.profile
 
 import com.qingmei2.rhine.ext.viewmodel.addLifecycle
-import com.qingmei2.sample.ui.main.profile.data.ProfileRemoteDataSource
-import com.qingmei2.sample.ui.main.profile.data.ProfileRepository
-import com.qingmei2.sample.ui.main.profile.presentation.ProfileFragment
-import com.qingmei2.sample.ui.main.profile.presentation.ProfileViewDelegate
-import com.qingmei2.sample.ui.main.profile.presentation.ProfileViewModel
 import org.kodein.di.Kodein
 import org.kodein.di.android.AndroidComponentsWeakScope
 import org.kodein.di.generic.*

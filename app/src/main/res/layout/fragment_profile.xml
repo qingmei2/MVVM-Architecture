@@ -7,7 +7,7 @@
 
         <variable
             name="delegate"
-            type="com.qingmei2.sample.ui.main.profile.presentation.ProfileViewDelegate" />
+            type="com.qingmei2.sample.ui.main.profile.ProfileViewDelegate" />
     </data>
 
     <LinearLayout

@@ -2,12 +2,6 @@ package com.qingmei2.sample.ui.main.home
 
 import com.qingmei2.rhine.ext.viewmodel.addLifecycle
 import com.qingmei2.sample.common.FabAnimateViewModel
-import com.qingmei2.sample.ui.main.home.data.HomeRemoteDataSource
-import com.qingmei2.sample.ui.main.home.data.HomeRepository
-import com.qingmei2.sample.ui.main.home.data.IRemoteHomeDataSource
-import com.qingmei2.sample.ui.main.home.presentation.HomeFragment
-import com.qingmei2.sample.ui.main.home.presentation.HomeViewDelegate
-import com.qingmei2.sample.ui.main.home.presentation.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind

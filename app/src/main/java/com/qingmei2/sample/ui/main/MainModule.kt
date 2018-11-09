@@ -4,9 +4,9 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import com.qingmei2.rhine.ext.viewmodel.addLifecycle
-import com.qingmei2.sample.ui.main.home.presentation.HomeFragment
-import com.qingmei2.sample.ui.main.profile.presentation.ProfileFragment
-import com.qingmei2.sample.ui.main.repos.presentation.ReposFragment
+import com.qingmei2.sample.ui.main.home.HomeFragment
+import com.qingmei2.sample.ui.main.profile.ProfileFragment
+import com.qingmei2.sample.ui.main.repos.ReposFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.kodein.di.Kodein.Module
 import org.kodein.di.android.AndroidComponentsWeakScope

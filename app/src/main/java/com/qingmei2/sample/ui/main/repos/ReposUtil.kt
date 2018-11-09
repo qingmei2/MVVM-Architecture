@@ -1,4 +1,4 @@
-package com.qingmei2.sample.ui.main.repos.presentation
+package com.qingmei2.sample.ui.main.repos
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable

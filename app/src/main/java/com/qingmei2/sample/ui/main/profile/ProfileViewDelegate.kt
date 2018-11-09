@@ -1,4 +1,4 @@
-package com.qingmei2.sample.ui.main.profile.presentation
+package com.qingmei2.sample.ui.main.profile
 
 import com.qingmei2.sample.base.viewdelegates.BaseViewDelegate
 import com.qingmei2.sample.utils.toast

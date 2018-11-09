@@ -1,29 +1,26 @@
-package com.qingmei2.sample.ui.main.home.presentation
+package com.qingmei2.sample.ui.main.profile
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.base.BaseFragment
-import com.qingmei2.sample.databinding.FragmentHomeBinding
-import com.qingmei2.sample.ui.main.home.homeKodeinModule
+import com.qingmei2.sample.databinding.FragmentProfileBinding
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 
-@SuppressLint("CheckResult")
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     override val kodein: Kodein = Kodein.lazy {
         extend(BaseApplication.INSTANCE.kodein)
-        import(homeKodeinModule)
-        bind<HomeFragment>() with instance(this@HomeFragment)
+        import(profileKodeinModule)
+        bind<ProfileFragment>() with instance(this@ProfileFragment)
     }
 
-    private val viewDelegate: HomeViewDelegate by instance()
+    private val viewDelegate: ProfileViewDelegate by instance()
 
-    override val layoutId: Int = R.layout.fragment_home
+    override val layoutId: Int = R.layout.fragment_profile
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

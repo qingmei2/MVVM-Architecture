@@ -7,7 +7,7 @@
 
         <variable
             name="delegate"
-            type="com.qingmei2.sample.ui.main.repos.presentation.ReposViewDelegate" />
+            type="com.qingmei2.sample.ui.main.repos.ReposViewDelegate" />
     </data>
 
     <android.support.constraint.ConstraintLayout

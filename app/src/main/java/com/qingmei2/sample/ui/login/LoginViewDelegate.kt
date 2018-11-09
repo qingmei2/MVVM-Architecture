@@ -1,4 +1,4 @@
-package com.qingmei2.sample.ui.login.presentation
+package com.qingmei2.sample.ui.login
 
 import android.arch.lifecycle.LifecycleOwner
 import android.view.View

@@ -1,4 +1,4 @@
-package com.qingmei2.sample.ui.main.home.presentation
+package com.qingmei2.sample.ui.main.home
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
@@ -18,7 +18,7 @@ import com.qingmei2.sample.databinding.ItemHomeReceivedEventBinding
 import com.qingmei2.sample.entity.ReceivedEvent
 import com.qingmei2.sample.http.RxSchedulers
 import com.qingmei2.sample.manager.UserManager
-import com.qingmei2.sample.ui.main.home.data.HomeRepository
+import com.qingmei2.sample.ui.main.home.HomeRepository
 import indi.yume.tools.adapterdatabinding.dataBindingItem
 import indi.yume.tools.dsladapter.RendererAdapter
 import indi.yume.tools.dsladapter.renderers.LayoutRenderer

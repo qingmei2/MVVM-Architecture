@@ -1,4 +1,4 @@
-package com.qingmei2.sample.ui.login.presentation
+package com.qingmei2.sample.ui.login
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

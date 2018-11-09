@@ -1,4 +1,4 @@
-package com.qingmei2.sample.ui.login.presentation
+package com.qingmei2.sample.ui.login
 
 import android.support.v4.app.FragmentActivity
 import com.qingmei2.sample.ui.MainActivity

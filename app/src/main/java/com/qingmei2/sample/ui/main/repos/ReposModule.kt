@@ -2,10 +2,6 @@ package com.qingmei2.sample.ui.main.repos
 
 import com.qingmei2.rhine.ext.viewmodel.addLifecycle
 import com.qingmei2.sample.common.FabAnimateViewModel
-import com.qingmei2.sample.ui.main.repos.data.*
-import com.qingmei2.sample.ui.main.repos.presentation.ReposFragment
-import com.qingmei2.sample.ui.main.repos.presentation.ReposViewDelegate
-import com.qingmei2.sample.ui.main.repos.presentation.ReposViewModel
 import kotlinx.android.synthetic.main.fragment_repos.*
 import org.kodein.di.Kodein
 import org.kodein.di.android.AndroidComponentsWeakScope

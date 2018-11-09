@@ -1,4 +1,4 @@
-package com.qingmei2.sample.ui.main.repos.presentation
+package com.qingmei2.sample.ui.main.repos
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
@@ -15,7 +15,6 @@ import com.qingmei2.sample.databinding.ItemReposRepoBinding
 import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.http.RxSchedulers
 import com.qingmei2.sample.manager.UserManager
-import com.qingmei2.sample.ui.main.repos.data.ReposDataSource
 import com.qingmei2.sample.utils.TimeConverter
 import indi.yume.tools.adapterdatabinding.dataBindingItem
 import indi.yume.tools.dsladapter.RendererAdapter

@@ -1,4 +1,4 @@
-package com.qingmei2.sample.ui.login.presentation
+package com.qingmei2.sample.ui.login
 
 import android.os.Bundle
 import android.view.View
@@ -6,7 +6,6 @@ import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.base.BaseFragment
 import com.qingmei2.sample.databinding.FragmentLoginBinding
-import com.qingmei2.sample.ui.login.di.loginKodeinModule
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
