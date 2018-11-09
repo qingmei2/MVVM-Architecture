@@ -3,11 +3,10 @@ package com.qingmei2.sample.ui.main.repos.presentation
 import android.animation.ObjectAnimator
 import android.support.design.widget.FloatingActionButton
 import android.view.MenuItem
-import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.sample.R
-import com.qingmei2.sample.base.BaseViewDelegate
+import com.qingmei2.sample.base.viewdelegates.BaseViewDelegate
 import com.qingmei2.sample.common.FabAnimateViewModel
 
 class ReposViewDelegate(

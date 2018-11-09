@@ -27,7 +27,6 @@ class ReposFragment : BaseFragment<FragmentReposBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         toolbar.inflateMenu(R.menu.menu_repos_filter_type)
-
         binding.delegate = viewDelegate
     }
 }

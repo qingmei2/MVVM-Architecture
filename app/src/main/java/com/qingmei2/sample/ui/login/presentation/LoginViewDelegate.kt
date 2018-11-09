@@ -1,7 +1,7 @@
 package com.qingmei2.sample.ui.login.presentation
 
 import com.qingmei2.rhine.ext.livedata.toFlowable
-import com.qingmei2.sample.base.BaseViewDelegate
+import com.qingmei2.sample.base.viewdelegates.BaseViewDelegate
 
 @SuppressWarnings("CheckResult")
 class LoginViewDelegate(

@@ -8,7 +8,7 @@ import android.view.MenuItem
 import com.github.qingmei2.dslviewpager.DslFragmentPagerAdapter
 import com.github.qingmei2.dslviewpager.build
 import com.qingmei2.sample.R
-import com.qingmei2.sample.base.BaseViewDelegate
+import com.qingmei2.sample.base.viewdelegates.BaseViewDelegate
 
 class MainViewDelegate(
         val viewModel: MainViewModel,
