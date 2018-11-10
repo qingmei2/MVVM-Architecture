@@ -1,14 +1,10 @@
 package com.qingmei2.sample.common.loadings
 
 import android.arch.lifecycle.MutableLiveData
-import com.qingmei2.rhine.widget.placeholderview.ILoadingViewController
-import com.qingmei2.rhine.widget.placeholderview.LoadingView
 import com.qingmei2.sample.base.BaseViewModel
 
 @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
-class CommonLoadingViewModel private constructor(
-        private val loadingView: LoadingView
-) : BaseViewModel(), ILoadingViewController by loadingView {
+class CommonLoadingViewModel private constructor() : BaseViewModel() {
 
     val loadingState: MutableLiveData<CommonLoadingState> = MutableLiveData()
 
@@ -18,7 +14,7 @@ class CommonLoadingViewModel private constructor(
 
     companion object {
 
-        fun instance(loadingView: LoadingView) = CommonLoadingViewModel(loadingView)
+        fun instance() = CommonLoadingViewModel()
     }
 }
 

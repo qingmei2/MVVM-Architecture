@@ -27,7 +27,6 @@ val loginKodeinModule = Kodein.Module(LOGIN_MODULE_TAG) {
         LoginViewDelegate(
                 viewModel = instance(),
                 navigator = instance(),
-                loadingView = instance<LoginFragment>().loginForm,
                 lifecycleOwner = instance<LoginFragment>()
         )
     }

@@ -10,9 +10,8 @@ import com.qingmei2.sample.base.viewdelegates.BaseLoadingViewDelegate
 class LoginViewDelegate(
         val viewModel: LoginViewModel,
         private val navigator: LoginNavigator,
-        loadingView: View,
         lifecycleOwner: LifecycleOwner
-) : BaseLoadingViewDelegate(lifecycleOwner, loadingView) {
+) : BaseLoadingViewDelegate(lifecycleOwner) {
 
     init {
         viewModel.userInfo
@@ -24,11 +23,6 @@ class LoginViewDelegate(
         viewModel.loadingLayout
                 .toFlowable()
                 .doOnNext { applyState(it) }
-                .bindLifecycle(lifecycleOwner)
-                .subscribe()
-
-        loadingViewModel.loadingState
-                .toFlowable()
                 .bindLifecycle(lifecycleOwner)
                 .subscribe()
     }
