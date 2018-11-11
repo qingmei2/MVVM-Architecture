@@ -15,9 +15,8 @@ import org.kodein.di.generic.instance
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override val kodein: Kodein = Kodein.lazy {
-        extend(BaseApplication.INSTANCE.kodein)
+        extend(parentKodein)
         import(homeKodeinModule)
-        bind<HomeFragment>() with instance(this@HomeFragment)
     }
 
     private val viewDelegate: HomeViewDelegate by instance()

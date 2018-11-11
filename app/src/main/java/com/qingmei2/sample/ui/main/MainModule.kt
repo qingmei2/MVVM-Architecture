@@ -9,7 +9,7 @@ import com.qingmei2.sample.ui.main.profile.ProfileFragment
 import com.qingmei2.sample.ui.main.repos.ReposFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.kodein.di.Kodein.Module
-import org.kodein.di.android.AndroidComponentsWeakScope
+import org.kodein.di.android.support.AndroidLifecycleScope
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.scoped
@@ -21,41 +21,41 @@ const val MAIN_LIST_FRAGMENT = "MAIN_LIST_FRAGMENT"
 
 val mainKodeinModule = Module(MAIN_MODULE_TAG) {
 
-    bind<HomeFragment>() with scoped(AndroidComponentsWeakScope).singleton {
+    bind<HomeFragment>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
         HomeFragment()
     }
 
-    bind<ReposFragment>() with scoped(AndroidComponentsWeakScope).singleton {
+    bind<ReposFragment>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
         ReposFragment()
     }
 
-    bind<ProfileFragment>() with scoped(AndroidComponentsWeakScope).singleton {
+    bind<ProfileFragment>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
         ProfileFragment()
     }
 
-    bind<MainNavigator>() with scoped(AndroidComponentsWeakScope).singleton {
+    bind<MainNavigator>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
         MainNavigator()
     }
 
-    bind<MainViewModel>() with scoped(AndroidComponentsWeakScope).singleton {
+    bind<MainViewModel>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
         MainViewModel().apply {
-            addLifecycle(instance<MainFragment>())
+            addLifecycle(context)
         }
     }
 
-    bind<BottomNavigationView>() with scoped(AndroidComponentsWeakScope).singleton {
-        instance<MainFragment>().navigation
+    bind<BottomNavigationView>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
+        (context as MainFragment).navigation
     }
 
-    bind<ViewPager>() with scoped(AndroidComponentsWeakScope).singleton {
-        instance<MainFragment>().viewPager
+    bind<ViewPager>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
+        (context as MainFragment).viewPager
     }
 
-    bind<List<Fragment>>(MAIN_LIST_FRAGMENT) with scoped(AndroidComponentsWeakScope).singleton {
+    bind<List<Fragment>>(MAIN_LIST_FRAGMENT) with scoped(AndroidLifecycleScope<Fragment>()).singleton {
         listOf<Fragment>(instance<HomeFragment>(), instance<ReposFragment>(), instance<ProfileFragment>())
     }
 
-    bind<MainViewDelegate>() with scoped(AndroidComponentsWeakScope).singleton {
+    bind<MainViewDelegate>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
         MainViewDelegate(instance(), instance(), instance(MAIN_LIST_FRAGMENT), instance(), instance(), instance())
     }
 }

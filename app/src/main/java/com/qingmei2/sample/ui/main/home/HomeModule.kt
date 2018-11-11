@@ -1,44 +1,44 @@
 package com.qingmei2.sample.ui.main.home
 
+import android.support.v4.app.Fragment
 import com.qingmei2.rhine.ext.viewmodel.addLifecycle
 import com.qingmei2.sample.common.FabAnimateViewModel
 import com.qingmei2.sample.common.loadings.CommonLoadingViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.kodein.di.Kodein
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.provider
+import org.kodein.di.android.support.AndroidLifecycleScope
+import org.kodein.di.generic.*
 
 const val HOME_MODULE_TAG = "HOME_MODULE_TAG"
 
 val homeKodeinModule = Kodein.Module(HOME_MODULE_TAG) {
 
-    bind<HomeViewModel>() with provider {
+    bind<HomeViewModel>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
         HomeViewModel(instance()).apply {
-            addLifecycle(instance<HomeFragment>())
+            addLifecycle(context)
         }
     }
 
-    bind<FabAnimateViewModel>() with provider {
+    bind<FabAnimateViewModel>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
         FabAnimateViewModel().apply {
-            addLifecycle(instance<HomeFragment>())
+            addLifecycle(context)
         }
     }
 
-    bind<HomeViewDelegate>() with provider {
+    bind<HomeViewDelegate>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
         HomeViewDelegate(
                 homeViewModel = instance(),
                 fabViewModel = instance(),
-                fabTop = instance<HomeFragment>().fabTop,
-                loadingDelegate = CommonLoadingViewModel.instance(instance<HomeFragment>())
+                fabTop = (context as HomeFragment).fabTop,
+                loadingDelegate = CommonLoadingViewModel.instance(context)
         )
     }
 
-    bind<IRemoteHomeDataSource>() with provider {
+    bind<IRemoteHomeDataSource>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
         HomeRemoteDataSource(instance())
     }
 
-    bind<HomeRepository>() with provider {
+    bind<HomeRepository>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
         HomeRepository(instance())
     }
 }

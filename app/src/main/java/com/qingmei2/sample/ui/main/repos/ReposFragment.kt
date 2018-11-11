@@ -14,9 +14,8 @@ import org.kodein.di.generic.instance
 class ReposFragment : BaseFragment<FragmentReposBinding>() {
 
     override val kodein: Kodein = Kodein.lazy {
-        extend(BaseApplication.INSTANCE.kodein)
+        extend(parentKodein)
         import(reposKodeinModule)
-        bind<ReposFragment>() with instance(this@ReposFragment)
     }
 
     private val viewDelegate: ReposViewDelegate by instance()

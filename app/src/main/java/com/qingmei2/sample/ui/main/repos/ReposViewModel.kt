@@ -3,14 +3,15 @@ package com.qingmei2.sample.ui.main.repos
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
 import arrow.core.toOption
-import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.rhine.ext.jumpBrowser
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.rhine.functional.Consumer
+import com.qingmei2.rhine.logger.logd
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.base.BaseViewModel
+import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.sample.databinding.ItemReposRepoBinding
 import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.http.RxSchedulers
@@ -38,6 +39,9 @@ class ReposViewModel(
     override fun onCreate(lifecycleOwner: LifecycleOwner) {
         super.onCreate(lifecycleOwner)
         sortFunc.toFlowable()
+                .doOnComplete {
+                    logd { "ReposViewModel.sortFunc doOnComplete()" }
+                }
                 .distinctUntilChanged()
                 .bindLifecycle(this)
                 .subscribe {

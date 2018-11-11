@@ -52,6 +52,10 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:2.2.0'
 
+    debugImplementation libs.leak_canary_debug
+    debugImplementation libs.leak_canary_debug_support
+    releaseImplementation libs.leak_canary_release
+
     kapt libs.glide_compiler
     kapt libs.arch_comp_room_compiler
     kapt libs.arch_comp_compiler

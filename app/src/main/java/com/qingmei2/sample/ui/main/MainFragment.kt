@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.view.View
 import com.qingmei2.sample.R
-import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.base.BaseFragment
 import com.qingmei2.sample.databinding.FragmentMainBinding
 import org.kodein.di.Kodein
@@ -17,9 +16,8 @@ import org.kodein.di.generic.provider
 class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     override val kodein: Kodein = Kodein.lazy {
-        extend(BaseApplication.INSTANCE.kodein)
+        extend(parentKodein)
         import(mainKodeinModule)
-        bind<MainFragment>() with instance(this@MainFragment)
         bind<FragmentManager>() with provider {
             childFragmentManager
         }

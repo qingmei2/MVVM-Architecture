@@ -13,9 +13,8 @@ import org.kodein.di.generic.instance
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     override val kodein: Kodein = Kodein.lazy {
-        extend(BaseApplication.INSTANCE.kodein)
+        extend(parentKodein)
         import(profileKodeinModule)
-        bind<ProfileFragment>() with instance(this@ProfileFragment)
     }
 
     private val viewDelegate: ProfileViewDelegate by instance()

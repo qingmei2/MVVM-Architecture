@@ -30,6 +30,8 @@ ext {
             rxcache              : '1.8.3-2.x',
             autodispose          : '1.0.0-RC2',
 
+            leakcanary           : '1.6.2',
+
             espresso             : '3.0.2',
             robolectric          : '3.3.2',
             junit                : '4.12'
@@ -110,6 +112,10 @@ ext {
             rhine_core               : [group: 'com.github.qingmei2.rhine', name: 'rhine', version: '0.1.4'],
 
             timber                   : [group: 'com.jakewharton.timber', name: 'timber', version: '4.7.1'],
+
+            leak_canary_debug        : [group: 'com.squareup.leakcanary', name: 'leakcanary-android', version: versions.leakcanary],
+            leak_canary_debug_support: [group: 'com.squareup.leakcanary', name: 'leakcanary-support-fragment', version: versions.leakcanary],
+            leak_canary_release      : [group: 'com.squareup.leakcanary', name: 'leakcanary-android-no-op', version: versions.leakcanary],
 
             junit                    : [group: 'junit', name: 'junit', version: '4.12'],
 

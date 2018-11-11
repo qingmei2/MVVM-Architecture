@@ -8,6 +8,7 @@ import com.qingmei2.sample.di.dbModule
 import com.qingmei2.sample.di.httpClientModule
 import com.qingmei2.sample.di.prefsModule
 import com.qingmei2.sample.di.serviceModule
+import com.squareup.leakcanary.LeakCanary
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.androidModule
@@ -33,6 +34,14 @@ open class BaseApplication : Application(), KodeinAware {
         INSTANCE = this
 
         initLogger(BuildConfig.DEBUG)
+        initLeakCanary()
+    }
+
+    private fun initLeakCanary() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return
+        }
+        LeakCanary.install(this)
     }
 
     companion object {
