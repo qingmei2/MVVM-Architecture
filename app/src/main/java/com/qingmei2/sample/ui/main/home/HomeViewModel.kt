@@ -6,7 +6,6 @@ import arrow.core.Option
 import arrow.core.none
 import arrow.core.some
 import arrow.core.toOption
-import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.rhine.ext.jumpBrowser
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
@@ -14,11 +13,12 @@ import com.qingmei2.rhine.functional.Consumer
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.base.BaseViewModel
+import com.qingmei2.sample.base.SimpleViewState
+import com.qingmei2.sample.common.loadings.CommonLoadingState
 import com.qingmei2.sample.databinding.ItemHomeReceivedEventBinding
 import com.qingmei2.sample.entity.ReceivedEvent
 import com.qingmei2.sample.http.RxSchedulers
 import com.qingmei2.sample.manager.UserManager
-import com.qingmei2.sample.ui.main.home.HomeRepository
 import indi.yume.tools.adapterdatabinding.dataBindingItem
 import indi.yume.tools.dsladapter.RendererAdapter
 import indi.yume.tools.dsladapter.renderers.LayoutRenderer
@@ -32,7 +32,10 @@ class HomeViewModel(
 
     val adapter: MutableLiveData<RendererAdapter> = MutableLiveData()
 
-    val loading: MutableLiveData<Boolean> = MutableLiveData()
+    val refreshing: MutableLiveData<Boolean> = MutableLiveData()
+
+    val loadingLayout: MutableLiveData<CommonLoadingState> = MutableLiveData()
+
     val error: MutableLiveData<Option<Throwable>> = MutableLiveData()
 
     init {
@@ -93,18 +96,25 @@ class HomeViewModel(
                 .bindLifecycle(this)
                 .subscribe { state ->
                     when (state) {
-                        is SimpleViewState.Loading -> applyState(isLoading = true)
-                        is SimpleViewState.Idle -> applyState(isLoading = false)
-                        is SimpleViewState.Error -> applyState(error = state.error.some())
-                        is SimpleViewState.Result -> applyState(events = state.result.some())
+                        is SimpleViewState.Loading -> applyState(refreshing = true)
+                        is SimpleViewState.Idle -> applyState(refreshing = false)
+                        is SimpleViewState.Error -> applyState(
+                                loadingLayout = CommonLoadingState.ERROR,
+                                error = state.error.some()
+                        )
+                        is SimpleViewState.Result -> applyState(
+                                events = state.result.some()
+                        )
                     }
                 }
     }
 
-    private fun applyState(isLoading: Boolean = false,
+    private fun applyState(loadingLayout: CommonLoadingState = CommonLoadingState.IDLE,
+                           refreshing: Boolean = false,
                            events: Option<List<ReceivedEvent>> = none(),
                            error: Option<Throwable> = none()) {
-        this.loading.postValue(isLoading)
+        this.loadingLayout.postValue(loadingLayout)
+        this.refreshing.postValue(refreshing)
         this.error.postValue(error)
 
         this.events.postValue(events.orNull())

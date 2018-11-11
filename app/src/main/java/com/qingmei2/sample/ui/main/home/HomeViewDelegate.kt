@@ -7,13 +7,16 @@ import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.sample.base.viewdelegates.BaseViewDelegate
 import com.qingmei2.sample.common.FabAnimateViewModel
+import com.qingmei2.sample.common.loadings.CommonLoadingState
+import com.qingmei2.sample.common.loadings.ILoadingDelegate
 
 @SuppressLint("CheckResult")
 class HomeViewDelegate(
         val homeViewModel: HomeViewModel,
         val fabViewModel: FabAnimateViewModel,
-        val fabTop: FloatingActionButton
-) : BaseViewDelegate() {
+        val fabTop: FloatingActionButton,
+        private val loadingDelegate: ILoadingDelegate
+) : BaseViewDelegate(), ILoadingDelegate by loadingDelegate {
 
     init {
         fabViewModel.visibleState
@@ -22,6 +25,15 @@ class HomeViewDelegate(
                 .subscribe {
                     switchFabState(it)
                 }
+
+        homeViewModel.loadingLayout
+                .toFlowable()
+                .filter { it ->
+                    it != CommonLoadingState.LOADING    // loading state not used
+                }
+                .doOnNext { applyState(it) }
+                .bindLifecycle(homeViewModel)
+                .subscribe()
     }
 
     private fun switchFabState(show: Boolean) =

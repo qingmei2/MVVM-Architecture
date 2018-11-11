@@ -35,17 +35,38 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:onRefreshListener="@{() -> delegate.homeViewModel.queryReceivedEvents() }"
-            app:refreshing="@{ safeUnbox(delegate.homeViewModel.loading) }">
+            app:refreshing="@{ safeUnbox(delegate.homeViewModel.refreshing) }">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:bind_adapter="@{ delegate.homeViewModel.adapter }"
-                app:bind_scrollStateChanges="@{ delegate.fabViewModel.stateChangesConsumer }"
-                app:bind_scrollStateChanges_debounce="@{ 500 }"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_home_received_event" />
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:bind_adapter="@{ delegate.homeViewModel.adapter }"
+                    app:bind_scrollStateChanges="@{ delegate.fabViewModel.stateChangesConsumer }"
+                    app:bind_scrollStateChanges_debounce="@{ 500 }"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:listitem="@layout/item_home_received_event" />
+
+                <include
+                    layout="@layout/layout_placeholder_loading"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:delegate="@{ delegate }"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="gone" />
+
+            </android.support.constraint.ConstraintLayout>
 
         </android.support.v4.widget.SwipeRefreshLayout>
 

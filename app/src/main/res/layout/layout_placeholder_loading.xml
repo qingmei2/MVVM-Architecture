@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -10,8 +9,8 @@
             type="com.qingmei2.sample.common.loadings.LoadingController" />
 
         <variable
-            name="viewModel"
-            type="com.qingmei2.sample.common.loadings.CommonLoadingViewModel" />
+            name="delegate"
+            type="com.qingmei2.sample.common.loadings.ILoadingDelegate" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -19,37 +18,49 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ProgressBar
+        <FrameLayout
             android:id="@+id/statusLoading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:bind_visibility="@{ utils.applyLoadingState(viewModel.loadingState()) }"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:bind_visibility="@{ utils.applyLoadingState(delegate.loadingState()) }"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/statusEmpty"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="@string/common_loading_empty"
+            app:bind_visibility="@{ utils.applyEmptyState(delegate.loadingState()) }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/statusEmpty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:bind_visibility="@{ utils.applyEmptyState(viewModel.loadingState()) }"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="空空如也" />
-
-        <TextView
             android:id="@+id/statusError"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:bind_visibility="@{ utils.applyErrorState(viewModel.loadingState()) }"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="@string/common_loading_error"
+            app:bind_visibility="@{ utils.applyErrorState(delegate.loadingState()) }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="加载错误，点击重新尝试" />
+            app:layout_constraintTop_toTopOf="parent" />
+
     </android.support.constraint.ConstraintLayout>
 
 </layout>

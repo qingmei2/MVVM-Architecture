@@ -13,4 +13,8 @@
     <string name="repos_filter_stars">Sort by stars</string>
     <string name="repos_filter_letter">Sort by letter</string>
     <string name="repos_filter_update">Sort by update</string>
+
+    <string name="common_loading_empty">it\'s empty here</string>
+    <string name="common_loading_error">network error</string>
+
 </resources>
