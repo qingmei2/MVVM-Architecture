@@ -1,25 +1,26 @@
 package com.qingmei2.sample.common.loadings
 
+import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
+import com.qingmei2.rhine.ext.viewmodel.addLifecycle
 import com.qingmei2.sample.base.BaseViewModel
 
 @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
-class CommonLoadingViewModel private constructor() : BaseViewModel() {
+class CommonLoadingViewModel private constructor() : BaseViewModel(), ILoadingDelegate {
 
-    val loadingState: MutableLiveData<CommonLoadingState> = MutableLiveData()
+    private val state: MutableLiveData<CommonLoadingState> = MutableLiveData()
 
-    fun applyState(state: CommonLoadingState) {
-        loadingState.postValue(state)
+    override fun loadingState(): MutableLiveData<CommonLoadingState> = state
+
+    override fun applyState(state: CommonLoadingState) {
+        this.state.postValue(state)
     }
 
     companion object {
 
-        fun instance() = CommonLoadingViewModel()
+        fun instance(lifecycleOwner: LifecycleOwner) =
+                CommonLoadingViewModel().apply {
+                    addLifecycle(lifecycleOwner)
+                }
     }
-}
-
-enum class CommonLoadingState {
-
-    ERROR, EMPTY, LOADING, IDLE
-
 }

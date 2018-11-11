@@ -7,7 +7,7 @@
 
         <import
             alias="utils"
-            type="com.qingmei2.sample.common.loadings.LoadingUtil" />
+            type="com.qingmei2.sample.common.loadings.LoadingController" />
 
         <variable
             name="viewModel"
@@ -23,7 +23,7 @@
             android:id="@+id/statusLoading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:bind_visibility="@{ utils.applyLoadingState(viewModel.loadingState) }"
+            app:bind_visibility="@{ utils.applyLoadingState(viewModel.loadingState()) }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
             android:id="@+id/statusEmpty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:bind_visibility="@{ utils.applyEmptyState(viewModel.loadingState) }"
+            app:bind_visibility="@{ utils.applyEmptyState(viewModel.loadingState()) }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
             android:id="@+id/statusError"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:bind_visibility="@{ utils.applyErrorState(viewModel.loadingState) }"
+            app:bind_visibility="@{ utils.applyErrorState(viewModel.loadingState()) }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

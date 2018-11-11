@@ -1,29 +1,28 @@
 package com.qingmei2.sample.ui.login
 
-import android.arch.lifecycle.LifecycleOwner
-import android.view.View
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.sample.base.viewdelegates.BaseLoadingViewDelegate
+import com.qingmei2.sample.common.loadings.CommonLoadingViewModel
 
 @SuppressWarnings("CheckResult")
 class LoginViewDelegate(
         val viewModel: LoginViewModel,
         private val navigator: LoginNavigator,
-        lifecycleOwner: LifecycleOwner
-) : BaseLoadingViewDelegate(lifecycleOwner) {
+        loadingViewModel: CommonLoadingViewModel
+) : BaseLoadingViewDelegate(loadingViewModel) {
 
     init {
         viewModel.userInfo
                 .toFlowable()
                 .doOnNext { navigator.toMain() }
-                .bindLifecycle(lifecycleOwner)
+                .bindLifecycle(viewModel)
                 .subscribe()
 
         viewModel.loadingLayout
                 .toFlowable()
                 .doOnNext { applyState(it) }
-                .bindLifecycle(lifecycleOwner)
+                .bindLifecycle(loadingViewModel)
                 .subscribe()
     }
 

@@ -2,7 +2,7 @@ package com.qingmei2.sample.common.loadings
 
 import android.arch.lifecycle.MutableLiveData
 
-object LoadingUtil {
+object LoadingController {
 
     @JvmStatic
     fun applyEmptyState(state: MutableLiveData<CommonLoadingState>): Boolean = state.value?.let { it ->

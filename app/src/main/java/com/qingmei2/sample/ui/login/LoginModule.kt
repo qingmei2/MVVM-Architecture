@@ -1,7 +1,7 @@
 package com.qingmei2.sample.ui.login
 
 import com.qingmei2.rhine.ext.viewmodel.addLifecycle
-import kotlinx.android.synthetic.main.fragment_login.*
+import com.qingmei2.sample.common.loadings.CommonLoadingViewModel
 import org.kodein.di.Kodein
 import org.kodein.di.android.AndroidComponentsWeakScope
 import org.kodein.di.generic.bind
@@ -27,7 +27,7 @@ val loginKodeinModule = Kodein.Module(LOGIN_MODULE_TAG) {
         LoginViewDelegate(
                 viewModel = instance(),
                 navigator = instance(),
-                lifecycleOwner = instance<LoginFragment>()
+                loadingViewModel = CommonLoadingViewModel.instance(instance<LoginFragment>())
         )
     }
 
