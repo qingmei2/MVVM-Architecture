@@ -6,8 +6,9 @@ import arrow.core.Option
 import arrow.core.none
 import arrow.core.some
 import arrow.core.toOption
-import com.qingmei2.rhine.ext.jumpBrowser
 import com.qingmei2.rhine.ext.autodispose.bindLifecycle
+import com.qingmei2.rhine.ext.jumpBrowser
+import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.rhine.functional.Consumer
 import com.qingmei2.sample.R
