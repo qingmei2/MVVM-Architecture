@@ -1,8 +1,10 @@
-<img width="500" height="200" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/bg.jpg"/>
 
-:construction: The MVVM using RxJava and databinding.
 
-<a href='https://bintray.com/mq2553299/maven/mvvm-rhine/_latestVersion'><img src='https://api.bintray.com/packages/mq2553299/maven/mvvm-rhine/images/download.svg'></a>
+![](https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/bg.jpg)
+
+### The MVVM using RxJava and Android Jetpack.
+
+---
 
 ## Libraries
 
