@@ -4,7 +4,7 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
 import arrow.core.toOption
 import com.qingmei2.rhine.ext.jumpBrowser
-import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
+import com.qingmei2.rhine.ext.autodispose.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.rhine.functional.Consumer
 import com.qingmei2.rhine.logger.logd

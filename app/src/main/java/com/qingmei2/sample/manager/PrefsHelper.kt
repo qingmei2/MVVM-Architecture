@@ -6,7 +6,7 @@ import com.qingmei2.rhine.util.prefs.string
 
 class PrefsHelper(prefs: SharedPreferences) {
 
-    var autoLogin by prefs.boolean("autoLogin", false)
+    var autoLogin by prefs.boolean("autoLogin", true)
 
     var username by prefs.string("username", "")
     var password by prefs.string("password", "")

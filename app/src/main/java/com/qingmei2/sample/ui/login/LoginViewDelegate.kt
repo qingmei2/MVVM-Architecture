@@ -1,5 +1,6 @@
 package com.qingmei2.sample.ui.login
 
+import com.qingmei2.rhine.ext.autodispose.bindLifecycle
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.sample.base.viewdelegates.BaseLoadingViewDelegate

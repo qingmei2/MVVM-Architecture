@@ -7,7 +7,7 @@ import arrow.core.Option
 import arrow.core.none
 import arrow.core.some
 import com.qingmei2.rhine.ext.arrow.whenNotNull
-import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
+import com.qingmei2.rhine.ext.autodispose.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.sample.base.BaseViewModel
 import com.qingmei2.sample.base.SimpleViewState
