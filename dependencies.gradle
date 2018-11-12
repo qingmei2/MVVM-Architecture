@@ -19,7 +19,7 @@ ext {
 
             retrofit             : '2.4.0',
             okhttp               : '3.11.0',
-            kodein               : '5.2.0',
+            kodein               : '5.3.0',
             glide                : '4.8.0',
             dsladapter           : '0.8.4',
 

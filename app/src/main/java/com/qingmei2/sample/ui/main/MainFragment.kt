@@ -10,7 +10,6 @@ import com.qingmei2.sample.databinding.FragmentMainBinding
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
-import org.kodein.di.generic.provider
 
 @SuppressLint("CheckResult")
 class MainFragment : BaseFragment<FragmentMainBinding>() {
@@ -18,9 +17,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     override val kodein: Kodein = Kodein.lazy {
         extend(parentKodein)
         import(mainKodeinModule)
-        bind<FragmentManager>() with provider {
-            childFragmentManager
-        }
+        bind<FragmentManager>() with instance(childFragmentManager)
     }
 
     override val layoutId: Int = R.layout.fragment_main

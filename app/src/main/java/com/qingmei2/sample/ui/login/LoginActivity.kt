@@ -13,8 +13,14 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initFragment() {
-        supportFragmentManager.beginTransaction()
-                .add(R.id.flContainer, LoginFragment())
-                .commitAllowingStateLoss()
+        supportFragmentManager.apply {
+            findFragmentByTag(TAG) ?: beginTransaction()
+                    .add(R.id.flContainer, LoginFragment(), TAG)
+                    .commitAllowingStateLoss()
+        }
+    }
+
+    companion object {
+        private const val TAG = "LoginFragment"
     }
 }
