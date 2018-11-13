@@ -2,9 +2,7 @@
 
 ![](https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/bg.jpg)
 
-### The MVVM using RxJava and Android Jetpack.
-
----
+#### The MVVM using RxJava and Android Jetpack.
 
 ## Libraries
 
