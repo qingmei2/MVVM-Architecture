@@ -1,12 +1,11 @@
 package com.qingmei2.sample.common.loadmore
 
 import android.annotation.SuppressLint
-import android.arch.paging.DataSource
 import android.arch.paging.PageKeyedDataSource
 import io.reactivex.Flowable
 
 @SuppressLint("CheckResult")
-class CommonLoadMoreDataSource<T> private constructor(
+class CommonLoadMoreDataSource<T>(
         private val dataSourceProvider: (Int) -> Flowable<List<T>>
 ) : PageKeyedDataSource<Int, T>() {
 
@@ -37,15 +36,5 @@ class CommonLoadMoreDataSource<T> private constructor(
                 }, {
                     // do nothing
                 })
-    }
-
-    companion object {
-
-        fun <T> factory(dataSourceProvider: (Int) -> Flowable<List<T>>): DataSource.Factory<Int, T> =
-                object : DataSource.Factory<Int, T>() {
-
-                    override fun create(): DataSource<Int, T> =
-                            CommonLoadMoreDataSource(dataSourceProvider)
-                }
     }
 }

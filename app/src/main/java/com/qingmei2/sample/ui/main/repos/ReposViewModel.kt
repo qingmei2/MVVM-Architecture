@@ -2,24 +2,18 @@ package com.qingmei2.sample.ui.main.repos
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
-import arrow.core.toOption
-import com.qingmei2.rhine.ext.jumpBrowser
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
-import com.qingmei2.rhine.functional.Consumer
 import com.qingmei2.rhine.logger.logd
-import com.qingmei2.sample.R
-import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.base.BaseViewModel
 import com.qingmei2.sample.base.SimpleViewState
-import com.qingmei2.sample.databinding.ItemReposRepoBinding
+import com.qingmei2.sample.common.loadmore.createLiveData
+import com.qingmei2.sample.common.loadmore.loadMore
 import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.http.RxSchedulers
 import com.qingmei2.sample.manager.UserManager
 import com.qingmei2.sample.utils.TimeConverter
-import indi.yume.tools.adapterdatabinding.dataBindingItem
-import indi.yume.tools.dsladapter.RendererAdapter
-import indi.yume.tools.dsladapter.renderers.LayoutRenderer
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import java.text.Collator
 
@@ -29,7 +23,8 @@ class ReposViewModel(
 ) : BaseViewModel() {
 
     private val events: MutableLiveData<List<Repo>> = MutableLiveData()
-    val adapter: MutableLiveData<RendererAdapter> = MutableLiveData()
+
+    val adapter = RepoListAdapter()
 
     val sortFunc: MutableLiveData<RepoTransformer> = MutableLiveData()
 
@@ -49,66 +44,54 @@ class ReposViewModel(
                         events.value = sortUserRepos(repos)
                     }
                 }
-        events.toFlowable()
-                .observeOn(RxSchedulers.ui)
-                .bindLifecycle(this)
-                .subscribe { _ ->
-                    adapter.value.toOption()
-                            .fold({
-                                adapter.postValue(
-                                        RendererAdapter.repositoryAdapter()
-                                                .add({
-                                                    events.value ?: listOf()
-                                                }, LayoutRenderer.dataBindingItem<List<Repo>, ItemReposRepoBinding>(
-                                                        count = events.value?.size ?: 0,
-                                                        layout = R.layout.item_repos_repo,
-                                                        bindBinding = { ItemReposRepoBinding.bind(it) },
-                                                        binder = { bind, item, index ->
-                                                            bind.data = item[index]
-                                                            bind.avatarEvent = object : Consumer<String> {
-                                                                override fun accept(t: String) {
-                                                                    BaseApplication.INSTANCE.jumpBrowser(t)
-                                                                }
-                                                            }
-                                                            bind.repoEvent = object : Consumer<String> {
-                                                                override fun accept(t: String) {
-                                                                    BaseApplication.INSTANCE.jumpBrowser(t)
-                                                                }
-                                                            }
-                                                        },
-                                                        recycleFun = { it.data = null }
-                                                ))
-                                                .build()
-                                )
-                            }, {
-                                it.forceUpdateAdapter()
-                            })
-                }
-        queryUserRepos()
+        initReposList()
     }
 
-    fun queryUserRepos() {
-        repo.queryRepos(UserManager.INSTANCE.name)
-                .map { either ->
-                    either.fold({
-                        SimpleViewState.error<List<Repo>>(it)
-                    }, {
-                        SimpleViewState.result(sortUserRepos(it))
-                    })
+    fun initReposList() {
+        loadMore { pageIndex ->
+            when (pageIndex) {
+                1 -> queryReposRefreshAction()
+                else -> queryReposAction(pageIndex)
+            }.flatMap { state ->
+                when (state) {
+                    is SimpleViewState.Result -> Flowable.just(state.result)
+                    else -> Flowable.empty()
                 }
-                .startWith(SimpleViewState.loading())
-                .startWith(SimpleViewState.idle())
-                .onErrorReturn { it -> SimpleViewState.error(it) }
+            }
+        }.createLiveData(
+                enablePlaceholders = false,
+                pageSize = 15,
+                initialLoadSizeHint = 30
+        ).toFlowable()
                 .bindLifecycle(this)
-                .subscribe {
-                    when (it) {
-                        is SimpleViewState.Refreshing -> applyState(isLoading = true)
-                        is SimpleViewState.Idle -> applyState(isLoading = false)
-                        is SimpleViewState.Error -> applyState(isLoading = false, error = it.error)
-                        is SimpleViewState.Result -> applyState(isLoading = false, events = it.result)
-                    }
+                .subscribe { pagedList ->
+                    adapter.submitList(pagedList)
                 }
     }
+
+    private fun queryReposAction(pageIndex: Int): Flowable<SimpleViewState<List<Repo>>> =
+            repo.queryRepos(UserManager.INSTANCE.name, pageIndex, 15)
+                    .map { either ->
+                        either.fold({
+                            SimpleViewState.error<List<Repo>>(it)
+                        }, {
+                            SimpleViewState.result(sortUserRepos(it))
+                        })
+                    }
+                    .onErrorReturn { it -> SimpleViewState.error(it) }
+
+    private fun queryReposRefreshAction(): Flowable<SimpleViewState<List<Repo>>> =
+            queryReposAction(1)
+                    .startWith(SimpleViewState.loading())
+                    .startWith(SimpleViewState.idle())
+                    .doOnNext { state ->
+                        when (state) {
+                            is SimpleViewState.Refreshing -> applyState(isLoading = true)
+                            is SimpleViewState.Idle -> applyState()
+                            is SimpleViewState.Error -> applyState(error = state.error)
+                            is SimpleViewState.Result -> applyState(events = state.result)
+                        }
+                    }
 
     private fun sortUserRepos(repos: List<Repo>): List<Repo> =
             Observable.fromIterable(repos)
@@ -116,7 +99,7 @@ class ReposViewModel(
                     .toList()
                     .blockingGet()
 
-    private fun applyState(isLoading: Boolean,
+    private fun applyState(isLoading: Boolean = false,
                            events: List<Repo>? = null,
                            error: Throwable? = null) {
         this.loading.postValue(isLoading)

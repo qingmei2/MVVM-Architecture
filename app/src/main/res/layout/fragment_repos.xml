@@ -34,14 +34,14 @@
             <android.support.v4.widget.SwipeRefreshLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:onRefreshListener="@{ () -> delegate.viewModel.queryUserRepos() }"
+                app:onRefreshListener="@{ () -> delegate.viewModel.initReposList() }"
                 app:refreshing="@{ safeUnbox(delegate.viewModel.loading) }">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:bind_adapter="@{ delegate.viewModel.adapter }"
+                    app:bind_loadMore_adapter="@{ delegate.viewModel.adapter }"
                     app:bind_scrollStateChanges="@{ delegate.fabViewModel.stateChangesConsumer }"
                     app:bind_scrollStateChanges_debounce="@{ 500 }"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"

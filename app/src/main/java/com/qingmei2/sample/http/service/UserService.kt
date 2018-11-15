@@ -14,6 +14,8 @@ interface UserService {
                             @Query("page") pageIndex: Int,
                             @Query("per_page") perPage: Int): Flowable<List<ReceivedEvent>>
 
-    @GET("users/{username}/repos?per_page=100")
-    fun queryRepos(@Path("username") username: String): Flowable<List<Repo>>
+    @GET("users/{username}/repos?")
+    fun queryRepos(@Path("username") username: String,
+                   @Query("page") pageIndex: Int,
+                   @Query("per_page") perPage: Int): Flowable<List<Repo>>
 }
