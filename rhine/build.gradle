@@ -62,6 +62,9 @@ dependencies {
     api libs.arch_comp_navigation_ui
     kapt libs.arch_comp_compiler
 
+    api libs.arch_comp_paging
+    api libs.arch_comp_paging_rxjava
+
     // retrofit
     api libs.retrofit
     api libs.retrofit_gson

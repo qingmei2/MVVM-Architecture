@@ -1,24 +1,36 @@
+# MVVM-Rhine
 
+**The MVVM using RxJava2 and Android Jetpack.**
 
-![](https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/bg.jpg)
+## ScreenShots
 
-#### The MVVM using RxJava and Android Jetpack.
+<div align:left;display:inline;>
+<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/login.png"/>
+<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/home.png"/>
+</div>
+
+<div align:left;display:inline;>
+<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/repos.png"/>
+<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/me.png"/>
+</div>
 
 ## Libraries
 
 ### Android Jetpack
 
-* [DataBinding](https://developer.android.com/topic/libraries/data-binding/)
+* [DataBinding: Declaratively bind observable data to UI elements.](https://developer.android.com/topic/libraries/data-binding/)
 
-* [Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle)
+* [Lifecycle: Create a UI that automatically responds to lifecycle events.](https://developer.android.com/topic/libraries/architecture/lifecycle)
 
-* [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
+* [LiveData: Build data objects that notify views when the underlying database changes.](https://developer.android.com/topic/libraries/architecture/livedata)
 
-* [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
+* [ViewModel: Store UI-related data that isn't destroyed on app rotations. Easily schedule asynchronous tasks for optimal execution.](https://developer.android.com/topic/libraries/architecture/viewmodel)
 
-* [Room](https://developer.android.com/topic/libraries/architecture/room)
+* [Room: Access your app's SQLite database with in-app objects and compile-time checks.](https://developer.android.com/topic/libraries/architecture/room)
 
-* [Navigation](https://developer.android.com/topic/libraries/architecture/navigation/)
+* [Navigation: Handle everything needed for in-app navigation.](https://developer.android.com/topic/libraries/architecture/navigation/)
+
+* [Paging: Makes it easier for you to load data gradually and gracefully within your app's RecyclerView.](https://developer.android.com/topic/libraries/architecture/paging/)
 
 ### Http
 
@@ -50,8 +62,6 @@
 
 * [Arrow: Functional companion to Kotlin's Standard Library.](https://arrow-kt.io/)
 
-* [DslAdapter: A RecyclerView Adapter builder by DSL. Easy to use, and all code written by kotlin.](https://github.com/Yumenokanata/DslAdapter)
-
 ### Others
 
 * [Glide: An image loading and caching library for Android focused on smooth scrolling](https://github.com/bumptech/glide)
@@ -62,21 +72,11 @@
 
 * [MVVM-Rhine-Template: Activity or Fragment code generation template for MVVM-Rhine.](https://github.com/qingmei2/MVVM-Rhine-Template)
 
-## ScreenShots
-
-<div align:left;display:inline;>
-<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/login.png"/>
-<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/home.png"/>
-</div>
-
-<div align:left;display:inline;>
-<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/repos.png"/>
-<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/me.png"/>
-</div>
-
 ## Thanks to
 
 :art: The UI design of this project refers to [gitme](https://github.com/flutterchina/gitme).
+
+:star: Thanks for [rx-mvvm-android](https://github.com/ffgiraldez/rx-mvvm-android)'s guidance during development.
 
 ## License
 

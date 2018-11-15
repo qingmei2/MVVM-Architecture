@@ -2,8 +2,8 @@ buildscript {
     apply from: 'dependencies.gradle'
 
     repositories {
-        google()
         jcenter()
+        google()
     }
     dependencies {
         classpath build_plugins.android_gradle
@@ -17,8 +17,8 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
         jcenter()
+        google()
         maven { url "https://jitpack.io" }
         maven { url 'https://dl.bintray.com/kodein-framework/Kodein-DI/' }
     }
