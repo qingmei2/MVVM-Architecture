@@ -29,7 +29,7 @@ class HomeViewDelegate(
         homeViewModel.loadingLayout
                 .toFlowable()
                 .filter { it ->
-                    it != CommonLoadingState.LOADING    // loading state not used
+                    it != CommonLoadingState.LOADING    // Refreshing state not used
                 }
                 .doOnNext { applyState(it) }
                 .bindLifecycle(fabViewModel)

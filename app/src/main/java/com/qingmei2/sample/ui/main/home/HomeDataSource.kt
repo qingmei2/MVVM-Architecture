@@ -1,5 +1,7 @@
 package com.qingmei2.sample.ui.main.home
 
+import android.arch.paging.DataSource
+import android.arch.paging.PositionalDataSource
 import arrow.core.Either
 import com.qingmei2.rhine.base.repository.IRemoteDataSource
 import com.qingmei2.sample.base.BaseRepositoryRemote
@@ -9,6 +11,7 @@ import com.qingmei2.sample.entity.ReceivedEvent
 import com.qingmei2.sample.http.RxSchedulers
 import com.qingmei2.sample.http.globalHandleError
 import com.qingmei2.sample.http.service.ServiceManager
+import com.qingmei2.sample.manager.UserManager
 import io.reactivex.Flowable
 import io.reactivex.FlowableTransformer
 
@@ -16,8 +19,10 @@ class HomeRepository(
         remoteDataSource: IRemoteHomeDataSource
 ) : BaseRepositoryRemote<IRemoteHomeDataSource>(remoteDataSource) {
 
-    fun queryReceivedEvents(username: String): Flowable<Either<Errors, List<ReceivedEvent>>> =
-            remoteDataSource.queryReceivedEvents(username)
+    fun queryReceivedEvents(username: String,
+                            pageIndex: Int,
+                            perPage: Int): Flowable<Either<Errors, List<ReceivedEvent>>> =
+            remoteDataSource.queryReceivedEvents(username, pageIndex, perPage)
 
 }
 
@@ -31,9 +36,11 @@ class HomeRemoteDataSource(private val serviceManager: ServiceManager) : IRemote
                         .toFlowable()
             }
 
-    override fun queryReceivedEvents(username: String): Flowable<Either<Errors, List<ReceivedEvent>>> =
+    override fun queryReceivedEvents(username: String,
+                                     pageIndex: Int,
+                                     perPage: Int): Flowable<Either<Errors, List<ReceivedEvent>>> =
             serviceManager.userService
-                    .queryReceivedEvents(username)
+                    .queryReceivedEvents(username, pageIndex, perPage)
                     .compose(filterEvents())        // except the MemberEvent
                     .compose(globalHandleError())
                     .subscribeOn(RxSchedulers.io)
@@ -47,7 +54,9 @@ class HomeRemoteDataSource(private val serviceManager: ServiceManager) : IRemote
 
 interface IRemoteHomeDataSource : IRemoteDataSource {
 
-    fun queryReceivedEvents(username: String): Flowable<Either<Errors, List<ReceivedEvent>>>
+    fun queryReceivedEvents(username: String,
+                            pageIndex: Int,
+                            perPage: Int): Flowable<Either<Errors, List<ReceivedEvent>>>
 
     fun filterEvents(): FlowableTransformer<List<ReceivedEvent>, List<ReceivedEvent>>
 }

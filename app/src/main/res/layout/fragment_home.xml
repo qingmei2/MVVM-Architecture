@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:onRefreshListener="@{() -> delegate.homeViewModel.queryReceivedEvents() }"
+            app:onRefreshListener="@{() -> delegate.homeViewModel.initReceivedEvents() }"
             app:refreshing="@{ safeUnbox(delegate.homeViewModel.refreshing) }">
 
             <android.support.constraint.ConstraintLayout
@@ -45,7 +45,7 @@
                     android:id="@+id/recyclerView"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:bind_adapter="@{ delegate.homeViewModel.adapter }"
+                    app:bind_loadMore_adapter="@{ delegate.homeViewModel.adapter }"
                     app:bind_scrollStateChanges="@{ delegate.fabViewModel.stateChangesConsumer }"
                     app:bind_scrollStateChanges_debounce="@{ 500 }"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"

@@ -102,7 +102,7 @@ class ReposViewModel(
                 .bindLifecycle(this)
                 .subscribe {
                     when (it) {
-                        is SimpleViewState.Loading -> applyState(isLoading = true)
+                        is SimpleViewState.Refreshing -> applyState(isLoading = true)
                         is SimpleViewState.Idle -> applyState(isLoading = false)
                         is SimpleViewState.Error -> applyState(isLoading = false, error = it.error)
                         is SimpleViewState.Result -> applyState(isLoading = false, events = it.result)

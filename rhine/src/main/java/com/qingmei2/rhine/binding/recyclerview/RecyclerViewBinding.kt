@@ -19,6 +19,13 @@ fun bindAdapter(recyclerView: RecyclerView, adapter: RendererAdapter?) {
         recyclerView.adapter = adapter
 }
 
+@BindingAdapter("bind_loadMore_adapter")
+fun bindAdapter(recyclerView: RecyclerView, adapter: RecyclerView.Adapter<out RecyclerView.ViewHolder>?) {
+    adapter?.apply {
+        recyclerView.adapter = adapter
+    }
+}
+
 @SuppressLint("CheckResult")
 @BindingAdapter(
         "bind_scrollStateChanges",

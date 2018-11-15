@@ -2,27 +2,20 @@ package com.qingmei2.sample.ui.main.home
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
+import android.arch.paging.LivePagedListBuilder
+import android.arch.paging.PagedList
 import arrow.core.Option
 import arrow.core.none
 import arrow.core.some
-import arrow.core.toOption
-import com.qingmei2.rhine.ext.autodispose.bindLifecycle
-import com.qingmei2.rhine.ext.jumpBrowser
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
-import com.qingmei2.rhine.functional.Consumer
-import com.qingmei2.sample.R
-import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.base.BaseViewModel
 import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.sample.common.loadings.CommonLoadingState
-import com.qingmei2.sample.databinding.ItemHomeReceivedEventBinding
+import com.qingmei2.sample.common.loadmore.CommonLoadMoreDataSource
 import com.qingmei2.sample.entity.ReceivedEvent
-import com.qingmei2.sample.http.RxSchedulers
 import com.qingmei2.sample.manager.UserManager
-import indi.yume.tools.adapterdatabinding.dataBindingItem
-import indi.yume.tools.dsladapter.RendererAdapter
-import indi.yume.tools.dsladapter.renderers.LayoutRenderer
+import io.reactivex.Flowable
 
 @SuppressWarnings("checkResult")
 class HomeViewModel(
@@ -31,7 +24,7 @@ class HomeViewModel(
 
     private val events: MutableLiveData<List<ReceivedEvent>> = MutableLiveData()
 
-    val adapter: MutableLiveData<RendererAdapter> = MutableLiveData()
+    val adapter = HomeListAdapter()
 
     val refreshing: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -39,76 +32,69 @@ class HomeViewModel(
 
     val error: MutableLiveData<Option<Throwable>> = MutableLiveData()
 
-    init {
-        events.toFlowable()
-                .observeOn(RxSchedulers.ui)
-                .subscribe { _ ->
-                    adapter.value.toOption()
-                            .fold({
-                                adapter.postValue(
-                                        RendererAdapter
-                                                .repositoryAdapter()
-                                                .add({
-                                                    events.value ?: listOf()
-                                                }, LayoutRenderer.dataBindingItem<List<ReceivedEvent>, ItemHomeReceivedEventBinding>(
-                                                        count = events.value?.size ?: 0,
-                                                        layout = R.layout.item_home_received_event,
-                                                        bindBinding = { ItemHomeReceivedEventBinding.bind(it) },
-                                                        binder = { bind, item, index ->
-                                                            bind.data = item[index]
-                                                            bind.actorEvent = object : Consumer<String> {
-                                                                override fun accept(t: String) {
-                                                                    BaseApplication.INSTANCE.jumpBrowser(t)
-                                                                }
-                                                            }
-                                                            bind.repoEvent = object : Consumer<String> {
-                                                                override fun accept(t: String) {
-                                                                    BaseApplication.INSTANCE.jumpBrowser(t)
-                                                                }
-                                                            }
-                                                        },
-                                                        recycleFun = { it.data = null }
-                                                ))
-                                                .build()
-                                )
-                            }, {
-                                it.forceUpdateAdapter()
-                            })
-                }
-    }
-
     override fun onCreate(lifecycleOwner: LifecycleOwner) {
         super.onCreate(lifecycleOwner)
-        queryReceivedEvents()   // fetch API when fragment's onCreated()
+        initReceivedEvents()   // fetch API when fragment's onCreated()
     }
 
-    fun queryReceivedEvents() {
-        repo.queryReceivedEvents(UserManager.INSTANCE.name)
-                .map { either ->
-                    either.fold({
-                        SimpleViewState.error<List<ReceivedEvent>>(it)
-                    }, {
-                        SimpleViewState.result(it)
-                    })
-                }
-                .startWith(SimpleViewState.loading())
-                .startWith(SimpleViewState.idle())
-                .onErrorReturn { it -> SimpleViewState.error(it) }
+    fun initReceivedEvents() {
+        LivePagedListBuilder<Int, ReceivedEvent>(
+                CommonLoadMoreDataSource.factory(
+                        dataSourceProvider = { pageIndex ->
+                            when (pageIndex) {
+                                1 -> queryReceivedEventsRefreshAction()
+                                else -> queryReceivedEventsAction(pageIndex)
+                            }.flatMap { state ->
+                                when (state) {
+                                    is SimpleViewState.Refreshing -> Flowable.empty()
+                                    is SimpleViewState.Idle -> Flowable.empty()
+                                    is SimpleViewState.Error -> Flowable.empty()
+                                    is SimpleViewState.Result -> Flowable.just(state.result)
+                                }
+                            }
+                        }),
+                PagedList.Config
+                        .Builder()
+                        .setEnablePlaceholders(false)
+                        .setInitialLoadSizeHint(30)
+                        .setPageSize(15)
+                        .build())
+                .build()
+                .toFlowable()
                 .bindLifecycle(this)
-                .subscribe { state ->
-                    when (state) {
-                        is SimpleViewState.Loading -> applyState(refreshing = true)
-                        is SimpleViewState.Idle -> applyState(refreshing = false)
-                        is SimpleViewState.Error -> applyState(
-                                loadingLayout = CommonLoadingState.ERROR,
-                                error = state.error.some()
-                        )
-                        is SimpleViewState.Result -> applyState(
-                                events = state.result.some()
-                        )
-                    }
+                .subscribe {
+                    adapter.submitList(it)
                 }
     }
+
+    private fun queryReceivedEventsAction(pageIndex: Int): Flowable<SimpleViewState<List<ReceivedEvent>>> =
+            repo.queryReceivedEvents(UserManager.INSTANCE.name, pageIndex = pageIndex, perPage = 15)
+                    .map { either ->
+                        either.fold({
+                            SimpleViewState.error<List<ReceivedEvent>>(it)
+                        }, {
+                            SimpleViewState.result(it)
+                        })
+                    }
+                    .onErrorReturn { it -> SimpleViewState.error(it) }
+
+    private fun queryReceivedEventsRefreshAction(): Flowable<SimpleViewState<List<ReceivedEvent>>> =
+            queryReceivedEventsAction(1)
+                    .startWith(SimpleViewState.loading())
+                    .startWith(SimpleViewState.idle())
+                    .doOnNext { state ->
+                        when (state) {
+                            is SimpleViewState.Refreshing -> applyState(refreshing = true)
+                            is SimpleViewState.Idle -> applyState(refreshing = false)
+                            is SimpleViewState.Error -> applyState(
+                                    loadingLayout = CommonLoadingState.ERROR,
+                                    error = state.error.some()
+                            )
+                            is SimpleViewState.Result -> applyState(
+                                    events = state.result.some()
+                            )
+                        }
+                    }
 
     private fun applyState(loadingLayout: CommonLoadingState = CommonLoadingState.IDLE,
                            refreshing: Boolean = false,

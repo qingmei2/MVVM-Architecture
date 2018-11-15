@@ -108,7 +108,7 @@ class LoginViewModel(
                     .bindLifecycle(this)
                     .subscribe { state ->
                         when (state) {
-                            is SimpleViewState.Loading -> applyState(loadingLayout = CommonLoadingState.LOADING)
+                            is SimpleViewState.Refreshing -> applyState(loadingLayout = CommonLoadingState.LOADING)
                             is SimpleViewState.Idle -> applyState()
                             is SimpleViewState.Error -> applyState(loadingLayout = CommonLoadingState.ERROR, error = state.error.some())
                             is SimpleViewState.Result -> applyState(user = state.result.some())
