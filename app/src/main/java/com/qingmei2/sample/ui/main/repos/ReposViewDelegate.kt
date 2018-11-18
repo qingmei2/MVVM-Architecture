@@ -29,7 +29,7 @@ class ReposViewDelegate(
     }
 
     fun onMenuSelected(menuItem: MenuItem) {
-        viewModel.sortFunc.value = when (menuItem.itemId) {
+        viewModel.sort.value = when (menuItem.itemId) {
             R.id.menu_repos_letter -> ReposViewModel.sortByLetter
             R.id.menu_repos_update -> ReposViewModel.sortByUpdate
             R.id.menu_repos_created -> ReposViewModel.sortByCreated

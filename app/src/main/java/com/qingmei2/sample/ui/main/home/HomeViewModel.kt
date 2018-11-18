@@ -5,13 +5,19 @@ import android.arch.lifecycle.MutableLiveData
 import arrow.core.Option
 import arrow.core.none
 import arrow.core.some
+import com.qingmei2.rhine.adapter.BasePagingAdapter
+import com.qingmei2.rhine.ext.jumpBrowser
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.rhine.ext.paging.Paging
 import com.qingmei2.rhine.ext.paging.toLiveData
+import com.qingmei2.rhine.functional.Consumer
+import com.qingmei2.sample.R
+import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.base.BaseViewModel
 import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.sample.common.loadings.CommonLoadingState
+import com.qingmei2.sample.databinding.ItemHomeReceivedEventBinding
 import com.qingmei2.sample.entity.ReceivedEvent
 import com.qingmei2.sample.manager.UserManager
 import io.reactivex.Flowable
@@ -23,7 +29,22 @@ class HomeViewModel(
 
     private val events: MutableLiveData<List<ReceivedEvent>> = MutableLiveData()
 
-    val adapter = HomeListAdapter()
+    val adapter = BasePagingAdapter<ReceivedEvent, ItemHomeReceivedEventBinding>(
+            layoutId = R.layout.item_home_received_event,
+            callback = { data, binding, _ ->
+                binding.data = data
+                binding.actorEvent = object : Consumer<String> {
+                    override fun accept(t: String) {
+                        BaseApplication.INSTANCE.jumpBrowser(t)
+                    }
+                }
+                binding.repoEvent = object : Consumer<String> {
+                    override fun accept(t: String) {
+                        BaseApplication.INSTANCE.jumpBrowser(t)
+                    }
+                }
+            }
+    )
 
     val refreshing: MutableLiveData<Boolean> = MutableLiveData()
 

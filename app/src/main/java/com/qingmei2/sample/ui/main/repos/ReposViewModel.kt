@@ -2,12 +2,18 @@ package com.qingmei2.sample.ui.main.repos
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
+import com.qingmei2.rhine.adapter.BasePagingAdapter
+import com.qingmei2.rhine.ext.jumpBrowser
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.rhine.ext.paging.Paging
 import com.qingmei2.rhine.ext.paging.toLiveData
+import com.qingmei2.rhine.functional.Consumer
+import com.qingmei2.sample.R
+import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.base.BaseViewModel
 import com.qingmei2.sample.base.SimpleViewState
+import com.qingmei2.sample.databinding.ItemReposRepoBinding
 import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.manager.UserManager
 import io.reactivex.Flowable
@@ -19,16 +25,29 @@ class ReposViewModel(
 
     private val events: MutableLiveData<List<Repo>> = MutableLiveData()
 
-    val adapter = RepoListAdapter()
+    val adapter = BasePagingAdapter<Repo, ItemReposRepoBinding>(
+            layoutId = R.layout.item_repos_repo,
+            callback = { repo, binding, _ ->
+                binding.apply {
+                    data = repo
+                    repoEvent = object : Consumer<String> {
+                        override fun accept(t: String) {
+                            BaseApplication.INSTANCE.jumpBrowser(t)
+                        }
+                    }
+                }
+            }
+    )
 
-    val sortFunc: MutableLiveData<String> = MutableLiveData()
+    val sort: MutableLiveData<String> = MutableLiveData()
 
     val loading: MutableLiveData<Boolean> = MutableLiveData()
+
     val error: MutableLiveData<Throwable> = MutableLiveData()
 
     override fun onCreate(lifecycleOwner: LifecycleOwner) {
         super.onCreate(lifecycleOwner)
-        sortFunc.toFlowable()
+        sort.toFlowable()
                 .distinctUntilChanged()
                 .startWith(sortByLetter)
                 .bindLifecycle(this)
@@ -64,7 +83,7 @@ class ReposViewModel(
             repo.queryRepos(
                     UserManager.INSTANCE.name,
                     pageIndex, 15,
-                    sortFunc.value ?: sortByLetter
+                    sort.value ?: sortByLetter
             )
                     .map { either ->
                         either.fold({

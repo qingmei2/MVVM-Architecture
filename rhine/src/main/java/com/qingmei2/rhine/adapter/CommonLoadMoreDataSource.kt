@@ -1,4 +1,4 @@
-package com.qingmei2.rhine.ext.paging
+package com.qingmei2.rhine.adapter
 
 import android.annotation.SuppressLint
 import android.arch.paging.PageKeyedDataSource

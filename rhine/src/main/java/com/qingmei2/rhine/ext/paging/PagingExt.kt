@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.paging.DataSource
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
+import com.qingmei2.rhine.adapter.CommonLoadMoreDataSource
 import com.qingmei2.rhine.ext.paging.Paging.DEFAULT_INITIAL_LOAD_SIZE_HINT
 import com.qingmei2.rhine.ext.paging.Paging.DEFAULT_PAGE_SIZE
 import com.qingmei2.rhine.ext.paging.Paging.DEFAULT_PREFETCH_DISTANCE
