@@ -4,10 +4,10 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
+import com.qingmei2.rhine.ext.paging.Paging
+import com.qingmei2.rhine.ext.paging.toLiveData
 import com.qingmei2.sample.base.BaseViewModel
 import com.qingmei2.sample.base.SimpleViewState
-import com.qingmei2.sample.common.loadmore.createLiveData
-import com.qingmei2.sample.common.loadmore.loadMore
 import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.manager.UserManager
 import io.reactivex.Flowable
@@ -38,21 +38,22 @@ class ReposViewModel(
     }
 
     fun initReposList() {
-        loadMore { pageIndex ->
-            when (pageIndex) {
-                1 -> queryReposRefreshAction()
-                else -> queryReposAction(pageIndex)
-            }.flatMap { state ->
-                when (state) {
-                    is SimpleViewState.Result -> Flowable.just(state.result)
-                    else -> Flowable.empty()
-                }
-            }
-        }.createLiveData(
-                enablePlaceholders = false,
-                pageSize = 15,
-                initialLoadSizeHint = 30
-        ).toFlowable()
+        Paging
+                .dataSource { pageIndex ->
+                    when (pageIndex) {
+                        1 -> queryReposRefreshAction()
+                        else -> queryReposAction(pageIndex)
+                    }.flatMap { state ->
+                        when (state) {
+                            is SimpleViewState.Result -> Flowable.just(state.result)
+                            else -> Flowable.empty()
+                        }
+                    }
+                }.toLiveData(
+                        enablePlaceholders = false,
+                        pageSize = 15,
+                        initialLoadSizeHint = 30
+                ).toFlowable()
                 .bindLifecycle(this)
                 .subscribe { pagedList ->
                     adapter.submitList(pagedList)

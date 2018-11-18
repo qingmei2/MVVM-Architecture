@@ -7,11 +7,11 @@ import arrow.core.none
 import arrow.core.some
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
+import com.qingmei2.rhine.ext.paging.Paging
+import com.qingmei2.rhine.ext.paging.toLiveData
 import com.qingmei2.sample.base.BaseViewModel
 import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.sample.common.loadings.CommonLoadingState
-import com.qingmei2.sample.common.loadmore.createLiveData
-import com.qingmei2.sample.common.loadmore.loadMore
 import com.qingmei2.sample.entity.ReceivedEvent
 import com.qingmei2.sample.manager.UserManager
 import io.reactivex.Flowable
@@ -37,18 +37,19 @@ class HomeViewModel(
     }
 
     fun initReceivedEvents() {
-        loadMore { pageIndex ->
-            when (pageIndex) {
-                1 -> queryReceivedEventsRefreshAction()
-                else -> queryReceivedEventsAction(pageIndex)
-            }.flatMap { state ->
-                when (state) {
-                    is SimpleViewState.Result -> Flowable.just(state.result)
-                    else -> Flowable.empty()
+        Paging
+                .dataSource { pageIndex ->
+                    when (pageIndex) {
+                        1 -> queryReceivedEventsRefreshAction()
+                        else -> queryReceivedEventsAction(pageIndex)
+                    }.flatMap { state ->
+                        when (state) {
+                            is SimpleViewState.Result -> Flowable.just(state.result)
+                            else -> Flowable.empty()
+                        }
+                    }
                 }
-            }
-        }
-                .createLiveData()
+                .toLiveData()
                 .toFlowable()
                 .bindLifecycle(this)
                 .subscribe {
