@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_repos_stars"
-        android:title="@string/repos_filter_stars"
+        android:id="@+id/menu_repos_created"
+        android:title="@string/repos_filter_created"
         app:showAsAction="never" />
     <item
         android:id="@+id/menu_repos_letter"

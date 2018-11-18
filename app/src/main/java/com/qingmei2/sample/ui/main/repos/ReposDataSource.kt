@@ -16,7 +16,8 @@ interface IRemoteReposDataSource : IRemoteDataSource {
 
     fun queryRepos(username: String,
                    pageIndex: Int,
-                   perPage: Int): Flowable<Either<Errors, List<Repo>>>
+                   perPage: Int,
+                   sort: String): Flowable<Either<Errors, List<Repo>>>
 }
 
 interface ILocalReposDataSource : ILocalDataSource {
@@ -30,8 +31,9 @@ class ReposDataSource(remote: IRemoteReposDataSource,
 
     fun queryRepos(username: String,
                    pageIndex: Int,
-                   perPage: Int): Flowable<Either<Errors, List<Repo>>> =
-            remoteDataSource.queryRepos(username, pageIndex, perPage)
+                   perPage: Int,
+                   sort: String): Flowable<Either<Errors, List<Repo>>> =
+            remoteDataSource.queryRepos(username, pageIndex, perPage, sort)
                     .flatMap { reposEither ->
                         localDataSource.saveReposToLocal(reposEither)
                                 .andThen(Flowable.just(reposEither))
@@ -42,9 +44,10 @@ class RemoteReposDataSource(private val serviceManager: ServiceManager) : IRemot
 
     override fun queryRepos(username: String,
                             pageIndex: Int,
-                            perPage: Int): Flowable<Either<Errors, List<Repo>>> {
+                            perPage: Int,
+                            sort: String): Flowable<Either<Errors, List<Repo>>> {
         return serviceManager.userService
-                .queryRepos(username, pageIndex, perPage)
+                .queryRepos(username, pageIndex, perPage, sort)
                 .subscribeOn(RxSchedulers.io)
                 .map {
                     when (it.isEmpty()) {

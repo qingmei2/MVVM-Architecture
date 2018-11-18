@@ -10,7 +10,7 @@
     <string name="login_hint_password">Password</string>
     <string name="login_sign_in">Sign in</string>
 
-    <string name="repos_filter_stars">Sort by stars</string>
+    <string name="repos_filter_created">Sort by created</string>
     <string name="repos_filter_letter">Sort by letter</string>
     <string name="repos_filter_update">Sort by update</string>
 

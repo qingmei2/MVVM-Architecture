@@ -3,7 +3,6 @@ package com.qingmei2.sample.ui.main.repos
 import android.animation.ObjectAnimator
 import android.support.design.widget.FloatingActionButton
 import android.view.MenuItem
-import com.qingmei2.rhine.ext.autodispose.bindLifecycle
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.rhine.logger.logd
@@ -33,7 +32,7 @@ class ReposViewDelegate(
         viewModel.sortFunc.value = when (menuItem.itemId) {
             R.id.menu_repos_letter -> ReposViewModel.sortByLetter
             R.id.menu_repos_update -> ReposViewModel.sortByUpdate
-            R.id.menu_repos_stars -> ReposViewModel.sortByStars
+            R.id.menu_repos_created -> ReposViewModel.sortByCreated
             else -> throw IllegalArgumentException("error menuItem id.")
         }
     }

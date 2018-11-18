@@ -4,18 +4,13 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
-import com.qingmei2.rhine.logger.logd
 import com.qingmei2.sample.base.BaseViewModel
 import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.sample.common.loadmore.createLiveData
 import com.qingmei2.sample.common.loadmore.loadMore
 import com.qingmei2.sample.entity.Repo
-import com.qingmei2.sample.http.RxSchedulers
 import com.qingmei2.sample.manager.UserManager
-import com.qingmei2.sample.utils.TimeConverter
 import io.reactivex.Flowable
-import io.reactivex.Observable
-import java.text.Collator
 
 @SuppressWarnings("checkResult")
 class ReposViewModel(
@@ -26,7 +21,7 @@ class ReposViewModel(
 
     val adapter = RepoListAdapter()
 
-    val sortFunc: MutableLiveData<RepoTransformer> = MutableLiveData()
+    val sortFunc: MutableLiveData<String> = MutableLiveData()
 
     val loading: MutableLiveData<Boolean> = MutableLiveData()
     val error: MutableLiveData<Throwable> = MutableLiveData()
@@ -34,17 +29,12 @@ class ReposViewModel(
     override fun onCreate(lifecycleOwner: LifecycleOwner) {
         super.onCreate(lifecycleOwner)
         sortFunc.toFlowable()
-                .doOnComplete {
-                    logd { "ReposViewModel.sortFunc doOnComplete()" }
-                }
                 .distinctUntilChanged()
+                .startWith(sortByLetter)
                 .bindLifecycle(this)
                 .subscribe {
-                    events.value?.also { repos ->
-                        events.value = sortUserRepos(repos)
-                    }
+                    initReposList()
                 }
-        initReposList()
     }
 
     fun initReposList() {
@@ -70,12 +60,16 @@ class ReposViewModel(
     }
 
     private fun queryReposAction(pageIndex: Int): Flowable<SimpleViewState<List<Repo>>> =
-            repo.queryRepos(UserManager.INSTANCE.name, pageIndex, 15)
+            repo.queryRepos(
+                    UserManager.INSTANCE.name,
+                    pageIndex, 15,
+                    sortFunc.value ?: sortByLetter
+            )
                     .map { either ->
                         either.fold({
                             SimpleViewState.error<List<Repo>>(it)
                         }, {
-                            SimpleViewState.result(sortUserRepos(it))
+                            SimpleViewState.result(it)
                         })
                     }
                     .onErrorReturn { it -> SimpleViewState.error(it) }
@@ -93,12 +87,6 @@ class ReposViewModel(
                         }
                     }
 
-    private fun sortUserRepos(repos: List<Repo>): List<Repo> =
-            Observable.fromIterable(repos)
-                    .sorted(sortFunc.value ?: sortByStars)  // default sort by stars
-                    .toList()
-                    .blockingGet()
-
     private fun applyState(isLoading: Boolean = false,
                            events: List<Repo>? = null,
                            error: Throwable? = null) {
@@ -110,21 +98,11 @@ class ReposViewModel(
 
     companion object {
 
-        val sortByStars: RepoTransformer = { o1, o2 ->
-            o2.stargazersCount - o1.stargazersCount
-        }
+        const val sortByCreated: String = "created"
 
-        val sortByUpdate: RepoTransformer = { o1, o2 ->
-            val stamp1 = TimeConverter.transTimeStamp(o1.updatedAt)
-            val stamp2 = TimeConverter.transTimeStamp(o2.updatedAt)
-            (stamp1 - stamp2).toInt()
-        }
+        const val sortByUpdate: String = "updated"
 
-        val sortByLetter: RepoTransformer = { o1, o2 ->
-            val value1 = Collator.getInstance().getCollationKey(o1.name)
-            val value2 = Collator.getInstance().getCollationKey(o2.name)
-            value1.compareTo(value2)
-        }
+        const val sortByLetter: String = "full_name"
     }
 }
 

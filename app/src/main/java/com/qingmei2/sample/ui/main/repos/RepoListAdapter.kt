@@ -2,7 +2,6 @@ package com.qingmei2.sample.ui.main.repos
 
 import android.arch.paging.PagedListAdapter
 import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -14,9 +13,9 @@ import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.databinding.ItemReposRepoBinding
 import com.qingmei2.sample.entity.Repo
 
-class RepoListAdapter : PagedListAdapter<Repo, RepoItemViewHolder<ItemReposRepoBinding>>(diffCallback) {
+class RepoListAdapter : PagedListAdapter<Repo, RepoItemViewHolder>(diffCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoItemViewHolder<ItemReposRepoBinding> =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoItemViewHolder =
             RepoItemViewHolder(
                     DataBindingUtil.inflate(
                             LayoutInflater.from(parent.context),
@@ -25,7 +24,7 @@ class RepoListAdapter : PagedListAdapter<Repo, RepoItemViewHolder<ItemReposRepoB
                     )
             )
 
-    override fun onBindViewHolder(holder: RepoItemViewHolder<ItemReposRepoBinding>, position: Int) =
+    override fun onBindViewHolder(holder: RepoItemViewHolder, position: Int) =
             holder.bindTo(getItem(position))
 
     companion object {
@@ -40,14 +39,15 @@ class RepoListAdapter : PagedListAdapter<Repo, RepoItemViewHolder<ItemReposRepoB
     }
 }
 
-class RepoItemViewHolder<T : ViewDataBinding>(private val binding: T) : RecyclerView.ViewHolder(binding.root) {
+class RepoItemViewHolder(private val binding: ItemReposRepoBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bindTo(repo: Repo?) {
-        val eventBinding = binding as ItemReposRepoBinding
-        eventBinding.data = repo
-        eventBinding.repoEvent = object : Consumer<String> {
-            override fun accept(t: String) {
-                BaseApplication.INSTANCE.jumpBrowser(t)
+        binding.apply {
+            data = repo
+            repoEvent = object : Consumer<String> {
+                override fun accept(t: String) {
+                    BaseApplication.INSTANCE.jumpBrowser(t)
+                }
             }
         }
     }

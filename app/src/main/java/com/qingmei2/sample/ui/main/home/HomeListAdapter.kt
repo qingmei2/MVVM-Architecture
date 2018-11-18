@@ -1,21 +1,21 @@
 package com.qingmei2.sample.ui.main.home
 
-import android.arch.paging.DataSource
 import android.arch.paging.PagedListAdapter
 import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.qingmei2.rhine.ext.jumpBrowser
 import com.qingmei2.rhine.functional.Consumer
 import com.qingmei2.sample.R
+import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.databinding.ItemHomeReceivedEventBinding
 import com.qingmei2.sample.entity.ReceivedEvent
 
-class HomeListAdapter : PagedListAdapter<ReceivedEvent, HomeItemViewHolder<ItemHomeReceivedEventBinding>>(diffCallback) {
+class HomeListAdapter : PagedListAdapter<ReceivedEvent, HomeItemViewHolder>(diffCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeItemViewHolder<ItemHomeReceivedEventBinding> =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeItemViewHolder =
             HomeItemViewHolder(
                     DataBindingUtil.inflate(
                             LayoutInflater.from(parent.context),
@@ -24,7 +24,7 @@ class HomeListAdapter : PagedListAdapter<ReceivedEvent, HomeItemViewHolder<ItemH
                     )
             )
 
-    override fun onBindViewHolder(holder: HomeItemViewHolder<ItemHomeReceivedEventBinding>, position: Int) =
+    override fun onBindViewHolder(holder: HomeItemViewHolder, position: Int) =
             holder.bindTo(getItem(position))
 
     companion object {
@@ -39,19 +39,20 @@ class HomeListAdapter : PagedListAdapter<ReceivedEvent, HomeItemViewHolder<ItemH
     }
 }
 
-class HomeItemViewHolder<T : ViewDataBinding>(private val binding: T) : RecyclerView.ViewHolder(binding.root) {
+class HomeItemViewHolder(private val binding: ItemHomeReceivedEventBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bindTo(event: ReceivedEvent?) {
-        val eventBinding = binding as ItemHomeReceivedEventBinding
-        eventBinding.data = event
-        eventBinding.actorEvent = object : Consumer<String> {
-            override fun accept(t: String) {
-
+        binding.apply {
+            data = event
+            actorEvent = object : Consumer<String> {
+                override fun accept(t: String) {
+                    BaseApplication.INSTANCE.jumpBrowser(t)
+                }
             }
-        }
-        eventBinding.repoEvent = object : Consumer<String> {
-            override fun accept(t: String) {
-
+            repoEvent = object : Consumer<String> {
+                override fun accept(t: String) {
+                    BaseApplication.INSTANCE.jumpBrowser(t)
+                }
             }
         }
     }

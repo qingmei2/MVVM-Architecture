@@ -17,5 +17,6 @@ interface UserService {
     @GET("users/{username}/repos?")
     fun queryRepos(@Path("username") username: String,
                    @Query("page") pageIndex: Int,
-                   @Query("per_page") perPage: Int): Flowable<List<Repo>>
+                   @Query("per_page") perPage: Int,
+                   @Query("sort") sort: String): Flowable<List<Repo>>
 }
