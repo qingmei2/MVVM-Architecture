@@ -5,7 +5,7 @@ import android.annotation.SuppressLint
 import android.support.design.widget.FloatingActionButton
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
-import com.qingmei2.sample.base.viewdelegates.BaseViewDelegate
+import com.qingmei2.rhine.base.viewdelegate.BaseViewDelegate
 import com.qingmei2.sample.common.FabAnimateViewModel
 import com.qingmei2.sample.common.loadings.CommonLoadingState
 import com.qingmei2.sample.common.loadings.ILoadingDelegate

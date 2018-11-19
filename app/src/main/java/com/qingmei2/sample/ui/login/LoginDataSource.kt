@@ -1,9 +1,9 @@
 package com.qingmei2.sample.ui.login
 
 import arrow.core.Either
+import com.qingmei2.rhine.base.repository.BaseRepositoryBoth
 import com.qingmei2.rhine.base.repository.ILocalDataSource
 import com.qingmei2.rhine.base.repository.IRemoteDataSource
-import com.qingmei2.sample.base.BaseRepositoryBoth
 import com.qingmei2.sample.db.LoginEntity
 import com.qingmei2.sample.db.UserDatabase
 import com.qingmei2.sample.entity.Errors

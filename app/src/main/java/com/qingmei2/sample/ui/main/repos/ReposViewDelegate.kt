@@ -5,9 +5,8 @@ import android.support.design.widget.FloatingActionButton
 import android.view.MenuItem
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
-import com.qingmei2.rhine.logger.logd
 import com.qingmei2.sample.R
-import com.qingmei2.sample.base.viewdelegates.BaseViewDelegate
+import com.qingmei2.rhine.base.viewdelegate.BaseViewDelegate
 import com.qingmei2.sample.common.FabAnimateViewModel
 
 class ReposViewDelegate(

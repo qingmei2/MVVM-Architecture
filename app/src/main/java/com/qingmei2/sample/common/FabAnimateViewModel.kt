@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView
 import arrow.core.left
 import arrow.core.right
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
-import com.qingmei2.sample.base.BaseViewModel
+import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.http.RxSchedulers
 import io.reactivex.Observable

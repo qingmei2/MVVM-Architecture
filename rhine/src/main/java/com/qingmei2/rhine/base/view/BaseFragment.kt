@@ -12,7 +12,7 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.support.closestKodein
 import org.kodein.di.generic.kcontext
 
-abstract class RhineFragment<B : ViewDataBinding, VD : IViewDelegate> : Fragment(),
+abstract class BaseFragment<B : ViewDataBinding, VD : IViewDelegate> : Fragment(),
         KodeinAware, IView {
 
     protected val parentKodein by closestKodein()
@@ -38,12 +38,15 @@ abstract class RhineFragment<B : ViewDataBinding, VD : IViewDelegate> : Fragment
         super.onViewCreated(view, savedInstanceState)
         initBinding(view)
         lifecycle.addObserver(viewDelegate)
+        initView()
     }
+
+    abstract fun initView()
 
     private fun initBinding(rootView: View) {
         binding = DataBindingUtil.bind(rootView)!!
         with(binding) {
-            setLifecycleOwner(this@RhineFragment)
+            setLifecycleOwner(this@BaseFragment)
         }
     }
 }

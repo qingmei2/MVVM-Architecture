@@ -1,17 +1,14 @@
 package com.qingmei2.sample.ui.main.home
 
-import android.arch.paging.DataSource
-import android.arch.paging.PositionalDataSource
 import arrow.core.Either
+import com.qingmei2.rhine.base.repository.BaseRepositoryRemote
 import com.qingmei2.rhine.base.repository.IRemoteDataSource
-import com.qingmei2.sample.base.BaseRepositoryRemote
 import com.qingmei2.sample.entity.DISPLAY_EVENT_TYPES
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.ReceivedEvent
 import com.qingmei2.sample.http.RxSchedulers
 import com.qingmei2.sample.http.globalHandleError
 import com.qingmei2.sample.http.service.ServiceManager
-import com.qingmei2.sample.manager.UserManager
 import io.reactivex.Flowable
 import io.reactivex.FlowableTransformer
 

@@ -3,8 +3,8 @@ package com.qingmei2.sample.ui
 import android.content.Intent
 import android.support.v4.app.FragmentActivity
 import androidx.navigation.findNavController
+import com.qingmei2.rhine.base.view.BaseActivity
 import com.qingmei2.sample.R
-import com.qingmei2.sample.base.BaseActivity
 import com.qingmei2.sample.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainActivityDelegate>() {

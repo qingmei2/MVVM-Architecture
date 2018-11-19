@@ -6,10 +6,9 @@ import arrow.core.Option
 import arrow.core.none
 import arrow.core.toOption
 import com.qingmei2.rhine.ext.arrow.whenNotNull
-import com.qingmei2.sample.base.BaseViewModel
+import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.sample.entity.LoginUser
 import com.qingmei2.sample.manager.UserManager
-import com.qingmei2.sample.ui.main.profile.ProfileRepository
 
 class ProfileViewModel(
         private val repo: ProfileRepository

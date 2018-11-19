@@ -11,7 +11,7 @@ import com.qingmei2.rhine.ext.paging.toLiveData
 import com.qingmei2.rhine.functional.Consumer
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
-import com.qingmei2.sample.base.BaseViewModel
+import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.sample.databinding.ItemReposRepoBinding
 import com.qingmei2.sample.entity.Repo
