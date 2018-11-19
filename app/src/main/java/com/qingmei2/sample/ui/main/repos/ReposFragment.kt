@@ -1,15 +1,10 @@
 package com.qingmei2.sample.ui.main.repos
 
-import android.os.Bundle
-import android.view.View
 import com.qingmei2.sample.R
-import com.qingmei2.sample.R.id.toolbar
-import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.base.BaseFragment
 import com.qingmei2.sample.databinding.FragmentReposBinding
 import kotlinx.android.synthetic.main.fragment_repos.*
 import org.kodein.di.Kodein
-import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 
 class ReposFragment : BaseFragment<FragmentReposBinding, ReposViewDelegate>() {
@@ -23,8 +18,7 @@ class ReposFragment : BaseFragment<FragmentReposBinding, ReposViewDelegate>() {
 
     override val layoutId: Int = R.layout.fragment_repos
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initView() {
         toolbar.inflateMenu(R.menu.menu_repos_filter_type)
         binding.delegate = viewDelegate
     }

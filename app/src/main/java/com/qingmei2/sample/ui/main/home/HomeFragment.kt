@@ -23,8 +23,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewDelegate>() {
 
     override val layoutId: Int = R.layout.fragment_home
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initView() {
         binding.delegate = viewDelegate
     }
 }

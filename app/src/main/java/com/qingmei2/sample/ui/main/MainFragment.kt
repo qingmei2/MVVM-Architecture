@@ -1,9 +1,7 @@
 package com.qingmei2.sample.ui.main
 
 import android.annotation.SuppressLint
-import android.os.Bundle
 import android.support.v4.app.FragmentManager
-import android.view.View
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseFragment
 import com.qingmei2.sample.databinding.FragmentMainBinding
@@ -24,8 +22,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewDelegate>() {
 
     override val viewDelegate: MainViewDelegate by instance()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initView() {
         binding.delegate = viewDelegate
     }
 }

@@ -1,7 +1,6 @@
 package com.qingmei2.sample.ui
 
 import android.content.Intent
-import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import androidx.navigation.findNavController
 import com.qingmei2.sample.R
@@ -17,8 +16,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityDelegate>() {
     override fun onSupportNavigateUp(): Boolean =
             findNavController(R.id.navHostFragment).navigateUp()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun initView() {
         binding.delegate = viewDelegate
     }
 
