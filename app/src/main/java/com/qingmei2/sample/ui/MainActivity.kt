@@ -8,9 +8,9 @@ import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseActivity
 import com.qingmei2.sample.databinding.ActivityMainBinding
 
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+class MainActivity : BaseActivity<ActivityMainBinding, MainActivityDelegate>() {
 
-    private val delegate: MainActivityDelegate = MainActivityDelegate()
+    override val viewDelegate: MainActivityDelegate = MainActivityDelegate()
 
     override val layoutId = R.layout.activity_main
 
@@ -19,7 +19,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.delegate = delegate
+        binding.delegate = viewDelegate
     }
 
     companion object {

@@ -12,14 +12,14 @@ import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 
 @SuppressLint("CheckResult")
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewDelegate>() {
 
     override val kodein: Kodein = Kodein.lazy {
         extend(parentKodein)
         import(homeKodeinModule)
     }
 
-    private val viewDelegate: HomeViewDelegate by instance()
+    override val viewDelegate: HomeViewDelegate by instance()
 
     override val layoutId: Int = R.layout.fragment_home
 

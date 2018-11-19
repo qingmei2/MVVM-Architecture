@@ -10,14 +10,14 @@ import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 
-class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
+class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewDelegate>() {
 
     override val kodein: Kodein = Kodein.lazy {
         extend(parentKodein)
         import(profileKodeinModule)
     }
 
-    private val viewDelegate: ProfileViewDelegate by instance()
+    override val viewDelegate: ProfileViewDelegate by instance()
 
     override val layoutId: Int = R.layout.fragment_profile
 

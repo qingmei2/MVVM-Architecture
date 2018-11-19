@@ -19,9 +19,6 @@ class ReposViewDelegate(
     init {
         fabViewModel.visibleState
                 .toFlowable()
-                .doOnComplete {
-                    logd { "fabViewModel.visibleState doOnComplete()" }
-                }
                 .bindLifecycle(fabViewModel)
                 .subscribe {
                     switchFabState(it)

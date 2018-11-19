@@ -8,7 +8,7 @@ import com.qingmei2.sample.databinding.FragmentLoginBinding
 import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
 
-class LoginFragment : BaseFragment<FragmentLoginBinding>() {
+class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewDelegate>() {
 
     override val kodein: Kodein = Kodein.lazy {
         extend(parentKodein)
@@ -17,7 +17,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     override val layoutId: Int = R.layout.fragment_login
 
-    private val viewDelegate: LoginViewDelegate by instance()
+    override val viewDelegate: LoginViewDelegate by instance()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

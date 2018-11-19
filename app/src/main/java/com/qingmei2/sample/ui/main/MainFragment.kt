@@ -12,7 +12,7 @@ import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 
 @SuppressLint("CheckResult")
-class MainFragment : BaseFragment<FragmentMainBinding>() {
+class MainFragment : BaseFragment<FragmentMainBinding, MainViewDelegate>() {
 
     override val kodein: Kodein = Kodein.lazy {
         extend(parentKodein)
@@ -22,10 +22,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     override val layoutId: Int = R.layout.fragment_main
 
-    private val delegate: MainViewDelegate by instance()
+    override val viewDelegate: MainViewDelegate by instance()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.delegate = delegate
+        binding.delegate = viewDelegate
     }
 }

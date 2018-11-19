@@ -7,11 +7,12 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.support.closestKodein
 import org.kodein.di.generic.kcontext
 
-abstract class RhineFragment<B : ViewDataBinding> : Fragment(),
+abstract class RhineFragment<B : ViewDataBinding, VD : IViewDelegate> : Fragment(),
         KodeinAware, IView {
 
     protected val parentKodein by closestKodein()
@@ -24,6 +25,8 @@ abstract class RhineFragment<B : ViewDataBinding> : Fragment(),
 
     abstract val layoutId: Int
 
+    abstract val viewDelegate: IViewDelegate
+
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -34,6 +37,7 @@ abstract class RhineFragment<B : ViewDataBinding> : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initBinding(view)
+        lifecycle.addObserver(viewDelegate)
     }
 
     private fun initBinding(rootView: View) {

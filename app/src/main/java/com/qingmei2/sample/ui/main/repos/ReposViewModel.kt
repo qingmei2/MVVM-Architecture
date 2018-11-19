@@ -125,5 +125,3 @@ class ReposViewModel(
         const val sortByLetter: String = "full_name"
     }
 }
-
-typealias RepoTransformer = (Repo, Repo) -> Int
