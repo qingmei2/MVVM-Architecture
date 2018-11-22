@@ -8,56 +8,61 @@ import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider.from
 import io.reactivex.*
 
 fun <T> Observable<T>.bindLifecycle(
-        lifecycleOwner: LifecycleOwner
+        lifecycleOwner: LifecycleOwner,
+        lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_DESTROY
 ): ObservableSubscribeProxy<T> =
-        `as`(autoDisposable(from(lifecycleOwner)))
+        bindLifecycleEvent(lifecycleOwner, lifecycleEvent)
 
 fun <T> Flowable<T>.bindLifecycle(
-        lifecycleOwner: LifecycleOwner
+        lifecycleOwner: LifecycleOwner,
+        lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_DESTROY
 ): FlowableSubscribeProxy<T> =
-        `as`(autoDisposable(from(lifecycleOwner)))
+        bindLifecycleEvent(lifecycleOwner, lifecycleEvent)
 
 fun <T> Single<T>.bindLifecycle(
-        lifecycleOwner: LifecycleOwner
+        lifecycleOwner: LifecycleOwner,
+        lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_DESTROY
 ): SingleSubscribeProxy<T> =
-        `as`(autoDisposable(from(lifecycleOwner)))
+        bindLifecycleEvent(lifecycleOwner, lifecycleEvent)
 
 fun <T> Maybe<T>.bindLifecycle(
-        lifecycleOwner: LifecycleOwner
+        lifecycleOwner: LifecycleOwner,
+        lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_DESTROY
 ): MaybeSubscribeProxy<T> =
-        `as`(autoDisposable(from(lifecycleOwner)))
+        bindLifecycleEvent(lifecycleOwner, lifecycleEvent)
 
 fun Completable.bindLifecycle(
-        lifecycleOwner: LifecycleOwner
+        lifecycleOwner: LifecycleOwner,
+        lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_DESTROY
 ): CompletableSubscribeProxy =
-        `as`(autoDisposable<Unit>(from(lifecycleOwner)))
+        bindLifecycleEvent(lifecycleOwner, lifecycleEvent)
 
 fun <T> Observable<T>.bindLifecycleEvent(
         lifecycleOwner: LifecycleOwner,
-        lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_DESTROY
+        lifecycleEvent: Lifecycle.Event
 ): ObservableSubscribeProxy<T> =
         `as`(autoDisposable(from(lifecycleOwner, lifecycleEvent)))
 
 fun <T> Flowable<T>.bindLifecycleEvent(
         lifecycleOwner: LifecycleOwner,
-        lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_DESTROY
+        lifecycleEvent: Lifecycle.Event
 ): FlowableSubscribeProxy<T> =
         `as`(autoDisposable(from(lifecycleOwner, lifecycleEvent)))
 
 fun <T> Single<T>.bindLifecycleEvent(
         lifecycleOwner: LifecycleOwner,
-        lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_DESTROY
+        lifecycleEvent: Lifecycle.Event
 ): SingleSubscribeProxy<T> =
         `as`(autoDisposable(from(lifecycleOwner, lifecycleEvent)))
 
 fun <T> Maybe<T>.bindLifecycleEvent(
         lifecycleOwner: LifecycleOwner,
-        lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_DESTROY
+        lifecycleEvent: Lifecycle.Event
 ): MaybeSubscribeProxy<T> =
         `as`(autoDisposable(from(lifecycleOwner, lifecycleEvent)))
 
 fun Completable.bindLifecycleEvent(
         lifecycleOwner: LifecycleOwner,
-        lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_DESTROY
+        lifecycleEvent: Lifecycle.Event
 ): CompletableSubscribeProxy =
         `as`(autoDisposable<Unit>(from(lifecycleOwner, lifecycleEvent)))
