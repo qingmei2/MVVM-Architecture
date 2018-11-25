@@ -1,41 +1,45 @@
 <resources>
 
-    <declare-styleable name="View">
-        <attr name="bind_onClick" format="reference" />
-        <attr name="bind_throttleFirst" format="integer" />
-        <attr name="bind_onClick_closeSoftInput" format="boolean" />
-        <attr name="bind_onLongClick" format="reference" />
-        <attr name="bind_visibility" format="boolean" />
-    </declare-styleable>
+	<declare-styleable name="View">
+		<attr name="bind_onClick" format="reference" />
+		<attr name="bind_throttleFirst" format="integer" />
+		<attr name="bind_onClick_closeSoftInput" format="boolean" />
+		<attr name="bind_onLongClick" format="reference" />
+		<attr name="bind_visibility" format="boolean" />
+	</declare-styleable>
 
-    <declare-styleable name="ImageView">
-        <attr name="bind_imageUrl" format="reference" />
-        <attr name="bind_imageUrl_circle" format="reference" />
-    </declare-styleable>
+	<declare-styleable name="ImageView">
+		<attr name="bind_imageUrl" format="reference" />
+		<attr name="bind_imageUrl_circle" format="reference" />
+	</declare-styleable>
 
-    <declare-styleable name="Toolbar">
-        <attr name="bind_menuClick" format="reference" />
-    </declare-styleable>
+	<declare-styleable name="Toolbar">
+		<attr name="bind_menuClick" format="reference" />
+	</declare-styleable>
 
-    <declare-styleable name="ViewPager">
-        <attr name="bind_fragmentManager" format="reference" />
-        <attr name="bind_fragments" format="reference" />
-        <attr name="bind_offScreenPageLimit" format="integer" />
-        <attr name="bind_onPageSelectedChanged" format="reference" />
-    </declare-styleable>
+	<declare-styleable name="ViewPager">
+		<attr name="bind_fragmentManager" format="reference" />
+		<attr name="bind_fragments" format="reference" />
+		<attr name="bind_offScreenPageLimit" format="integer" />
+		<attr name="bind_onPageSelectedChanged" format="reference" />
+	</declare-styleable>
 
-    <declare-styleable name="BottomNavigationView">
-        <attr name="bind_onNavigationBottomSelectedChanged" format="reference" />
-    </declare-styleable>
+	<declare-styleable name="BottomNavigationView">
+		<attr name="bind_onNavigationBottomSelectedChanged" format="reference" />
+	</declare-styleable>
 
-    <declare-styleable name="RecyclerView">
-        <attr name="bind_adapter" format="reference" />
-        <attr name="bind_scrollStateChanges" format="reference" />
-        <attr name="bind_scrollStateChanges_debounce" format="integer" />
-    </declare-styleable>
+	<declare-styleable name="RecyclerView">
+		<attr name="bind_adapter" format="reference" />
+		<attr name="bind_scrollStateChanges" format="reference" />
+		<attr name="bind_scrollStateChanges_debounce" format="integer" />
+	</declare-styleable>
 
-    <declare-styleable name="SwipeRefreshLayout">
-        <attr name="refreshListener" format="reference" />
-        <attr name="refreshing" format="boolean" />
-    </declare-styleable>
+	<declare-styleable name="SwipeRefreshLayout">
+		<attr name="refreshListener" format="reference" />
+		<attr name="refreshing" format="boolean" />
+	</declare-styleable>
+
+	<declare-styleable name="TabLayout">
+		<attr name="bind_viewPager" format="reference" />
+	</declare-styleable>
 </resources>
