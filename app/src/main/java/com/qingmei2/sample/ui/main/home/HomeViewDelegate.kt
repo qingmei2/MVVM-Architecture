@@ -2,13 +2,15 @@ package com.qingmei2.sample.ui.main.home
 
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.arch.lifecycle.LifecycleOwner
 import android.support.design.widget.FloatingActionButton
-import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
-import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.rhine.base.viewdelegate.BaseViewDelegate
+import com.qingmei2.rhine.ext.autodispose.bindLifecycle
+import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.sample.common.FabAnimateViewModel
 import com.qingmei2.sample.common.loadings.CommonLoadingState
 import com.qingmei2.sample.common.loadings.ILoadingDelegate
+import io.reactivex.Completable
 
 @SuppressLint("CheckResult")
 class HomeViewDelegate(
@@ -18,21 +20,24 @@ class HomeViewDelegate(
         private val loadingDelegate: ILoadingDelegate
 ) : BaseViewDelegate(), ILoadingDelegate by loadingDelegate {
 
-    init {
-        fabViewModel.visibleState
-                .toFlowable()
-                .bindLifecycle(fabViewModel)
-                .subscribe {
-                    switchFabState(it)
-                }
+    override fun onCreate(lifecycleOwner: LifecycleOwner) {
+        super.onCreate(lifecycleOwner)
 
-        homeViewModel.loadingLayout
-                .toFlowable()
-                .filter { it ->
-                    it != CommonLoadingState.LOADING    // Refreshing state not used
-                }
-                .doOnNext { applyState(it) }
-                .bindLifecycle(fabViewModel)
+        Completable
+                .mergeArray(
+                        fabViewModel.visibleState
+                                .toFlowable()
+                                .doOnNext { switchFabState(it) }
+                                .ignoreElements(),
+                        homeViewModel.loadingLayout
+                                .toFlowable()
+                                .filter { it ->
+                                    it != CommonLoadingState.LOADING    // Refreshing state not used
+                                }
+                                .doOnNext { applyState(it) }
+                                .ignoreElements()
+                )
+                .bindLifecycle(lifecycleOwner)
                 .subscribe()
     }
 

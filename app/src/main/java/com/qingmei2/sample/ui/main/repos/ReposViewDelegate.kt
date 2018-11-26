@@ -1,12 +1,13 @@
 package com.qingmei2.sample.ui.main.repos
 
 import android.animation.ObjectAnimator
+import android.arch.lifecycle.LifecycleOwner
 import android.support.design.widget.FloatingActionButton
 import android.view.MenuItem
-import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
+import com.qingmei2.rhine.base.viewdelegate.BaseViewDelegate
+import com.qingmei2.rhine.ext.autodispose.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.sample.R
-import com.qingmei2.rhine.base.viewdelegate.BaseViewDelegate
 import com.qingmei2.sample.common.FabAnimateViewModel
 
 class ReposViewDelegate(
@@ -15,13 +16,13 @@ class ReposViewDelegate(
         val fabTop: FloatingActionButton
 ) : BaseViewDelegate() {
 
-    init {
+    override fun onCreate(lifecycleOwner: LifecycleOwner) {
+        super.onCreate(lifecycleOwner)
         fabViewModel.visibleState
                 .toFlowable()
-                .bindLifecycle(fabViewModel)
-                .subscribe {
-                    switchFabState(it)
-                }
+                .doOnNext { switchFabState(it) }
+                .bindLifecycle(lifecycleOwner)
+                .subscribe()
     }
 
     fun onMenuSelected(menuItem: MenuItem) {

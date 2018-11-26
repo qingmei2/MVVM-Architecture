@@ -33,7 +33,42 @@ enum class Type {
     MemberEvent,
     PublicEvent,
     IssuesEvent,
-    IssueCommentEvent;
+    IssueCommentEvent,
+    CheckRunEvent,
+    CheckSuiteEvent,
+    CommitCommentEvent,
+    DeleteEvent,
+    DeploymentEvent,
+    DeploymentStatusEvent,
+    DownloadEvent,
+    FollowEvent,
+    ForkApplyEvent,
+    GitHubAppAuthorizationEvent,
+    GistEvent,
+    GollumEvent,
+    InstallationEvent,
+    InstallationRepositoriesEvent,
+    MarketplacePurchaseEvent,
+    LabelEvent,
+    MembershipEvent,
+    MilestoneEvent,
+    OrganizationEvent,
+    OrgBlockEvent,
+    PageBuildEvent,
+    ProjectCardEvent,
+    ProjectColumnEvent,
+    ProjectEvent,
+    PullRequestEvent,
+    PullRequestReviewEvent,
+    PullRequestReviewCommentEvent,
+    ReleaseEvent,
+    RepositoryEvent,
+    RepositoryImportEvent,
+    RepositoryVulnerabilityAlertEvent,
+    SecurityAdvisoryEvent,
+    StatusEvent,
+    TeamEvent,
+    TeamAddEvent,
 }
 
 val DISPLAY_EVENT_TYPES: List<Type> = listOf(
@@ -41,11 +76,4 @@ val DISPLAY_EVENT_TYPES: List<Type> = listOf(
         Type.ForkEvent,
         Type.PushEvent,
         Type.CreateEvent
-)
-
-val IGNORE_EVENT_TYPES: List<Type> = listOf(
-        Type.MemberEvent,
-        Type.PublicEvent,
-        Type.IssuesEvent,
-        Type.IssueCommentEvent
 )
