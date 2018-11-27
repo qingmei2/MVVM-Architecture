@@ -2,7 +2,7 @@ package com.qingmei2.sample.ui.main.repos
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
-import com.qingmei2.rhine.adapter.BasePagingAdapter
+import com.qingmei2.rhine.adapter.BasePagingDataBindingAdapter
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.jumpBrowser
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
@@ -25,7 +25,7 @@ class ReposViewModel(
 
     private val events: MutableLiveData<List<Repo>> = MutableLiveData()
 
-    val adapter = BasePagingAdapter<Repo, ItemReposRepoBinding>(
+    val adapter = BasePagingDataBindingAdapter<Repo, ItemReposRepoBinding>(
             layoutId = R.layout.item_repos_repo,
             callback = { repo, binding, _ ->
                 binding.apply {

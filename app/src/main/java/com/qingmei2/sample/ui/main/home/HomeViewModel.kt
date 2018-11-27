@@ -5,7 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import arrow.core.Option
 import arrow.core.none
 import arrow.core.some
-import com.qingmei2.rhine.adapter.BasePagingAdapter
+import com.qingmei2.rhine.adapter.BasePagingDataBindingAdapter
 import com.qingmei2.rhine.ext.jumpBrowser
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
@@ -29,7 +29,7 @@ class HomeViewModel(
 
     private val events: MutableLiveData<List<ReceivedEvent>> = MutableLiveData()
 
-    val adapter = BasePagingAdapter<ReceivedEvent, ItemHomeReceivedEventBinding>(
+    val adapter = BasePagingDataBindingAdapter<ReceivedEvent, ItemHomeReceivedEventBinding>(
             layoutId = R.layout.item_home_received_event,
             callback = { data, binding, _ ->
                 binding.data = data

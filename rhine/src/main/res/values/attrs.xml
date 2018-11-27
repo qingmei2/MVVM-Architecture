@@ -40,6 +40,9 @@
 	</declare-styleable>
 
 	<declare-styleable name="TabLayout">
-		<attr name="bind_viewPager" format="reference" />
+		<attr name="bind_tabLayout_viewPager" format="reference" />
+		<attr name="bind_tabLayout_onTabSelected" format="reference" />
+		<attr name="bind_tabLayout_onTabUnselected" format="reference" />
+		<attr name="bind_tabLayout_onTabReselected" format="reference" />
 	</declare-styleable>
 </resources>
