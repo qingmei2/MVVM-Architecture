@@ -79,7 +79,7 @@ class HomeViewModel(
     }
 
     private fun queryReceivedEventsAction(pageIndex: Int): Flowable<SimpleViewState<List<ReceivedEvent>>> =
-            repo.queryReceivedEvents(UserManager.INSTANCE.name, pageIndex = pageIndex, perPage = 15)
+            repo.queryReceivedEvents(UserManager.INSTANCE.login, pageIndex = pageIndex, perPage = 15)
                     .map { either ->
                         either.fold({
                             SimpleViewState.error<List<ReceivedEvent>>(it)

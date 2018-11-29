@@ -81,7 +81,7 @@ class ReposViewModel(
 
     private fun queryReposAction(pageIndex: Int): Flowable<SimpleViewState<List<Repo>>> =
             repo.queryRepos(
-                    UserManager.INSTANCE.name,
+                    UserManager.INSTANCE.login,
                     pageIndex, 15,
                     sort.value ?: sortByLetter
             )
