@@ -2,14 +2,16 @@ package com.qingmei2.sample.ui.login
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
 import arrow.core.Either
 import arrow.core.Option
 import arrow.core.none
 import arrow.core.some
+import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.arrow.whenNotNull
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
-import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.sample.common.loadings.CommonLoadingState
 import com.qingmei2.sample.db.LoginEntity
@@ -133,4 +135,12 @@ class LoginViewModel(
 
         this.autoLogin.postValue(autoLogin)
     }
+}
+
+class LoginViewModelFactory(
+        private val repo: LoginDataSourceRepository
+) : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T =
+            LoginViewModel(repo) as T
 }

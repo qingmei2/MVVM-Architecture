@@ -1,20 +1,21 @@
 package com.qingmei2.sample.ui.main.home
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.*
+import android.support.v4.app.FragmentActivity
 import arrow.core.Option
 import arrow.core.none
 import arrow.core.some
 import com.qingmei2.rhine.adapter.BasePagingDataBindingAdapter
+import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.jumpBrowser
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.rhine.ext.paging.Paging
 import com.qingmei2.rhine.ext.paging.toLiveData
+import com.qingmei2.rhine.ext.viewmodel.addLifecycle
 import com.qingmei2.rhine.functional.Consumer
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
-import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.sample.common.loadings.CommonLoadingState
 import com.qingmei2.sample.databinding.ItemHomeReceivedEventBinding
@@ -116,5 +117,25 @@ class HomeViewModel(
         this.error.postValue(error)
 
         this.events.postValue(events.orNull())
+    }
+
+    companion object {
+
+        fun instance(activity: FragmentActivity, repo: HomeRepository): HomeViewModel =
+                ViewModelProviders
+                        .of(activity, HomeViewModelFactory(repo))
+                        .get(HomeViewModel::class.java).apply {
+                            addLifecycle(activity)
+                        }
+    }
+}
+
+class HomeViewModelFactory(
+        private val repo: HomeRepository
+) : ViewModelProvider.Factory {
+
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return HomeViewModel(repo) as T
     }
 }

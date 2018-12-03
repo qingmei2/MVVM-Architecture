@@ -1,5 +1,6 @@
 package com.qingmei2.sample.ui.main
 
+import android.arch.lifecycle.ViewModelProviders
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
@@ -38,9 +39,11 @@ val mainKodeinModule = Module(MAIN_MODULE_TAG) {
     }
 
     bind<MainViewModel>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
-        MainViewModel().apply {
-            addLifecycle(context)
-        }
+        ViewModelProviders.of(context, MainViewModelFactory())
+                .get(MainViewModel::class.java)
+                .apply {
+                    addLifecycle(context)
+                }
     }
 
     bind<BottomNavigationView>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {

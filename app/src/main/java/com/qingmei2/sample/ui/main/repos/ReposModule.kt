@@ -22,9 +22,10 @@ val reposKodeinModule = Kodein.Module(REPOS_MODULE_TAG) {
     }
 
     bind<ReposViewModel>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
-        ReposViewModel(instance()).apply {
-            addLifecycle(context)
-        }
+        ReposViewModel.instance(
+                activity = context.activity!!,
+                repo = instance()
+        )
     }
 
     bind<ReposViewDelegate>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {

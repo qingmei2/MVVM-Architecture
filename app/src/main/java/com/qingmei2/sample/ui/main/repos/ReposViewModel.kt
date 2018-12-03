@@ -1,7 +1,7 @@
 package com.qingmei2.sample.ui.main.repos
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.*
+import android.support.v4.app.FragmentActivity
 import com.qingmei2.rhine.adapter.BasePagingDataBindingAdapter
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.jumpBrowser
@@ -9,6 +9,7 @@ import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.rhine.ext.paging.Paging
 import com.qingmei2.rhine.ext.paging.toLiveData
+import com.qingmei2.rhine.ext.viewmodel.addLifecycle
 import com.qingmei2.rhine.functional.Consumer
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
@@ -123,5 +124,23 @@ class ReposViewModel(
         const val sortByUpdate: String = "updated"
 
         const val sortByLetter: String = "full_name"
+
+        fun instance(activity: FragmentActivity,
+                     repo: ReposDataSource): ReposViewModel =
+                ViewModelProviders
+                        .of(activity, ReposViewModelFactory(repo))
+                        .get(ReposViewModel::class.java).apply {
+                            addLifecycle(activity)
+                        }
+    }
+}
+
+class ReposViewModelFactory(
+        private val repo: ReposDataSource
+) : ViewModelProvider.Factory {
+
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return ReposViewModel(repo) as T
     }
 }
