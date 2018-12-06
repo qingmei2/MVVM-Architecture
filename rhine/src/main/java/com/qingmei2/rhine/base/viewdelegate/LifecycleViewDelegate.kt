@@ -1,8 +1,8 @@
 package com.qingmei2.rhine.base.viewdelegate
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleOwner
-import android.support.annotation.CallSuper
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.annotation.CallSuper
 
 open class LifecycleViewDelegate : IViewDelegate {
 

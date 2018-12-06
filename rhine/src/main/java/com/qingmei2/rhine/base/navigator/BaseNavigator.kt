@@ -1,6 +1,6 @@
 package com.qingmei2.rhine.base.navigator
 
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.FragmentActivity
 
 open class BaseNavigator(
         private val activity: FragmentActivity

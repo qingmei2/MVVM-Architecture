@@ -1,6 +1,6 @@
 package com.qingmei2.sample.di
 
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.db.UserDatabase
 import org.kodein.di.Kodein

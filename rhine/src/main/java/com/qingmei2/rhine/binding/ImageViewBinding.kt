@@ -1,6 +1,6 @@
 package com.qingmei2.rhine.binding
 
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import android.widget.ImageView
 import com.bumptech.glide.request.RequestOptions
 import com.qingmei2.rhine.image.GlideApp

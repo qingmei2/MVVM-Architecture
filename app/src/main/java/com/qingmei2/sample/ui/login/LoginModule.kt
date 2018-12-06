@@ -1,11 +1,11 @@
 package com.qingmei2.sample.ui.login
 
-import android.arch.lifecycle.ViewModelProviders
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.qingmei2.rhine.ext.viewmodel.addLifecycle
 import com.qingmei2.sample.common.loadings.CommonLoadingViewModel
 import org.kodein.di.Kodein
-import org.kodein.di.android.support.AndroidLifecycleScope
+import org.kodein.di.android.x.AndroidLifecycleScope
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.scoped
@@ -15,19 +15,19 @@ const val LOGIN_MODULE_TAG = "LOGIN_MODULE_TAG"
 
 val loginKodeinModule = Kodein.Module(LOGIN_MODULE_TAG) {
 
-    bind<LoginNavigator>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
+    bind<LoginNavigator>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         LoginNavigator(context.activity!!)
     }
 
-    bind<LoginViewModel>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
+    bind<LoginViewModel>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         ViewModelProviders
-                .of(context.activity!!, LoginViewModelFactory(instance()))
+                .of((context as Fragment).activity!!, LoginViewModelFactory(instance()))
                 .get(LoginViewModel::class.java).apply {
-                    addLifecycle(context)
+                    addLifecycle((context as Fragment))
                 }
     }
 
-    bind<LoginViewDelegate>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
+    bind<LoginViewDelegate>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         LoginViewDelegate(
                 viewModel = instance(),
                 navigator = instance(),
@@ -35,15 +35,15 @@ val loginKodeinModule = Kodein.Module(LOGIN_MODULE_TAG) {
         )
     }
 
-    bind<LoginRemoteDataSource>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
+    bind<LoginRemoteDataSource>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         LoginRemoteDataSource(instance())
     }
 
-    bind<LoginLocalDataSource>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
+    bind<LoginLocalDataSource>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         LoginLocalDataSource(instance(), instance())
     }
 
-    bind<LoginDataSourceRepository>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
+    bind<LoginDataSourceRepository>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         LoginDataSourceRepository(instance(), instance())
     }
 }

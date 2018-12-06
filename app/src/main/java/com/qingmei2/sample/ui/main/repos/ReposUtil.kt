@@ -3,7 +3,7 @@ package com.qingmei2.sample.ui.main.repos
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.view.View
 import com.qingmei2.sample.R
 

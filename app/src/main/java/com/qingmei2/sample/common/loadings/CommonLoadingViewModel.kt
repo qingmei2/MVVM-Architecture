@@ -1,7 +1,7 @@
 package com.qingmei2.sample.common.loadings
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
 import com.qingmei2.rhine.ext.viewmodel.addLifecycle
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 

@@ -1,32 +1,33 @@
 package com.qingmei2.sample.ui.main.profile
 
-import android.support.v4.app.Fragment
-import com.qingmei2.rhine.ext.viewmodel.addLifecycle
+import androidx.fragment.app.Fragment
 import org.kodein.di.Kodein
-import org.kodein.di.android.AndroidComponentsWeakScope
-import org.kodein.di.android.support.AndroidLifecycleScope
-import org.kodein.di.generic.*
+import org.kodein.di.android.x.AndroidLifecycleScope
+import org.kodein.di.generic.bind
+import org.kodein.di.generic.instance
+import org.kodein.di.generic.scoped
+import org.kodein.di.generic.singleton
 
 const val PROFILE_MODULE_TAG = "PROFILE_MODULE_TAG"
 
 val profileKodeinModule = Kodein.Module(PROFILE_MODULE_TAG) {
 
-    bind<ProfileViewDelegate>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
+    bind<ProfileViewDelegate>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         ProfileViewDelegate(instance())
     }
 
-    bind<ProfileViewModel>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
+    bind<ProfileViewModel>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         ProfileViewModel.instance(
                 activity = context.activity!!,
                 repo = instance()
         )
     }
 
-    bind<ProfileRemoteDataSource>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
+    bind<ProfileRemoteDataSource>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         ProfileRemoteDataSource(instance())
     }
 
-    bind<ProfileRepository>() with scoped(AndroidLifecycleScope<Fragment>()).singleton {
+    bind<ProfileRepository>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         ProfileRepository(instance())
     }
 }

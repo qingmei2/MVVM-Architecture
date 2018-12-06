@@ -9,7 +9,7 @@
             type="com.qingmei2.sample.ui.MainActivityDelegate" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -26,6 +26,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:navGraph="@navigation/navigation_main" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

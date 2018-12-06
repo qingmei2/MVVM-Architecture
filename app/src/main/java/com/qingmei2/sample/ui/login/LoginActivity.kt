@@ -1,7 +1,7 @@
 package com.qingmei2.sample.ui.login
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.qingmei2.sample.R
 
 class LoginActivity : AppCompatActivity() {

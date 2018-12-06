@@ -1,14 +1,14 @@
 package com.qingmei2.rhine.ext.viewmodel
 
-import android.arch.lifecycle.LifecycleOwner
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
+import androidx.lifecycle.LifecycleOwner
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.qingmei2.rhine.base.viewmodel.LifecycleViewModel
 
-fun LifecycleViewModel.addLifecycle(activity: FragmentActivity) =
+fun LifecycleViewModel.addLifecycle(activity: androidx.fragment.app.FragmentActivity) =
         activity inject this
 
-fun LifecycleViewModel.addLifecycle(fragment: Fragment) =
+fun LifecycleViewModel.addLifecycle(fragment: androidx.fragment.app.Fragment) =
         fragment inject this
 
 fun LifecycleViewModel.addLifecycle(lifecycleOwner: LifecycleOwner) =

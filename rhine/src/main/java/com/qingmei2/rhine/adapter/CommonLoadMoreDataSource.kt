@@ -1,7 +1,7 @@
 package com.qingmei2.rhine.adapter
 
 import android.annotation.SuppressLint
-import android.arch.paging.PageKeyedDataSource
+import androidx.paging.PageKeyedDataSource
 import io.reactivex.Flowable
 
 @SuppressLint("CheckResult")

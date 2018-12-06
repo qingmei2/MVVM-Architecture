@@ -1,7 +1,7 @@
 package com.qingmei2.sample.ui.main.profile
 
-import android.arch.lifecycle.*
-import android.support.v4.app.FragmentActivity
+import androidx.lifecycle.*
+import androidx.fragment.app.FragmentActivity
 import arrow.core.Option
 import arrow.core.none
 import arrow.core.toOption

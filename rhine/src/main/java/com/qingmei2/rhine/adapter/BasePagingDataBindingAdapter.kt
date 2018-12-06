@@ -1,9 +1,9 @@
 package com.qingmei2.rhine.adapter
 
-import android.arch.paging.PagedListAdapter
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.v7.util.DiffUtil
+import androidx.paging.PagedListAdapter
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.DiffUtil
 import android.view.LayoutInflater
 import android.view.ViewGroup
 

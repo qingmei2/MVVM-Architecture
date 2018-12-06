@@ -10,7 +10,7 @@
             type="com.qingmei2.sample.ui.main.repos.ReposViewDelegate" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintBg"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -22,7 +22,7 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
-            <android.support.v7.widget.Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -31,27 +31,27 @@
                 app:title="@string/main_nav_repos"
                 app:titleTextColor="@color/white" />
 
-            <android.support.v4.widget.SwipeRefreshLayout
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:onRefreshListener="@{ () -> delegate.viewModel.initReposList() }"
                 app:refreshing="@{ safeUnbox(delegate.viewModel.loading) }">
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:bind_recyclerView_adapter="@{ delegate.viewModel.adapter }"
                     app:bind_recyclerView_scrollStateChanges="@{ delegate.fabViewModel.stateChangesConsumer }"
                     app:bind_recyclerView_scrollStateChanges_debounce="@{ 500 }"
-                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_repos_repo" />
 
-            </android.support.v4.widget.SwipeRefreshLayout>
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         </LinearLayout>
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabTop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,6 +62,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

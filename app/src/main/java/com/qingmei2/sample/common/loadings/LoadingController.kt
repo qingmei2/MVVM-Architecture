@@ -1,6 +1,6 @@
 package com.qingmei2.sample.common.loadings
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 
 object LoadingController {
 

@@ -1,8 +1,8 @@
 package com.qingmei2.rhine.binding.support
 
-import android.databinding.BindingAdapter
-import android.support.design.widget.TabLayout
-import android.support.v4.view.ViewPager
+import androidx.databinding.BindingAdapter
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import com.qingmei2.rhine.functional.Consumer
 
 @BindingAdapter(

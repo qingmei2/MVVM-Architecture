@@ -2,10 +2,11 @@ package com.qingmei2.rhine.binding
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.databinding.BindingAdapter
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import com.jakewharton.rxbinding2.view.RxView
+import androidx.databinding.BindingAdapter
+import com.jakewharton.rxbinding3.view.clicks
+import com.jakewharton.rxbinding3.view.longClicks
 import io.reactivex.functions.Consumer
 import java.util.concurrent.TimeUnit
 
@@ -32,7 +33,7 @@ fun setVisible(view: View, visible: Boolean) {
 @SuppressLint("CheckResult")
 @BindingAdapter("bind_view_onLongClick")
 fun setOnLongClickEvent(view: View, consumer: ViewClickConsumer) {
-    RxView.longClicks(view)
+    view.longClicks()
             .subscribe { consumer.accept(view) }
 }
 
@@ -45,7 +46,7 @@ fun setOnLongClickEvent(view: View, consumer: ViewClickConsumer) {
 @SuppressLint("CheckResult")
 @BindingAdapter("bind_view_onClick", "bind_view_throttleFirst", requireAll = false)
 fun setOnClickEvent(view: View, consumer: ViewClickConsumer, time: Long?) {
-    RxView.clicks(view)
+    view.clicks()
             .throttleFirst(time ?: DEFAULT_THROTTLE_TIME, TimeUnit.MILLISECONDS)
             .subscribe { consumer.accept(view) }
 }
@@ -58,7 +59,7 @@ fun setOnClickEvent(view: View, consumer: ViewClickConsumer, time: Long?) {
 @SuppressLint("CheckResult")
 @BindingAdapter("bind_view_onClick_closeSoftInput")
 fun closeSoftInputWhenClick(view: View, closed: Boolean = false) {
-    RxView.clicks(view)
+    view.clicks()
             .subscribe {
                 if (closed) {
                     val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

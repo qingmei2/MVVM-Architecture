@@ -1,7 +1,7 @@
 package com.qingmei2.sample.ui.main
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 
 class MainViewModel : BaseViewModel()

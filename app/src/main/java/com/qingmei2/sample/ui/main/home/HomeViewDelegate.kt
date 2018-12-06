@@ -2,8 +2,8 @@ package com.qingmei2.sample.ui.main.home
 
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
-import android.arch.lifecycle.LifecycleOwner
-import android.support.design.widget.FloatingActionButton
+import androidx.lifecycle.LifecycleOwner
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.qingmei2.rhine.base.viewdelegate.BaseViewDelegate
 import com.qingmei2.rhine.ext.autodispose.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable

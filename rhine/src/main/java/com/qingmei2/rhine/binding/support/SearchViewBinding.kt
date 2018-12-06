@@ -1,14 +1,14 @@
 package com.qingmei2.rhine.binding.support
 
-import android.databinding.BindingAdapter
-import android.support.v7.widget.SearchView
 import android.widget.EditText
-import com.jakewharton.rxbinding2.support.v7.widget.RxSearchView
+import androidx.appcompat.widget.SearchView
+import androidx.databinding.BindingAdapter
+import com.jakewharton.rxbinding3.appcompat.queryTextChangeEvents
 import io.reactivex.functions.Consumer
 
 @BindingAdapter("bind_hintColor", "bind_textColor", requireAll = false)
 fun bindHintColor(searchView: SearchView, hintColor: Int, textColor: Int) {
-    searchView.findViewById<EditText>(android.support.v7.appcompat.R.id.search_src_text).apply {
+    searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text).apply {
         setTextColor(textColor)
         setHintTextColor(hintColor)
     }
@@ -19,12 +19,12 @@ fun bindHintColor(searchView: SearchView, hintColor: Int, textColor: Int) {
 fun bindSearchViewQueryText(searchView: SearchView,
                             onSubmit: SearchConsumer?,
                             onChange: SearchConsumer?) {
-    RxSearchView.queryTextChangeEvents(searchView)
+    searchView.queryTextChangeEvents()
             .subscribe {
                 if (it.isSubmitted)
-                    onSubmit?.accept(it.queryText().toString())
+                    onSubmit?.accept(it.queryText.toString())
                 else
-                    onChange?.accept(it.queryText().toString())
+                    onChange?.accept(it.queryText.toString())
             }
 }
 

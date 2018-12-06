@@ -22,12 +22,12 @@
             type="com.qingmei2.rhine.functional.Consumer&lt;String>" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:bind_view_onClick="@{ () -> repoEvent.accept(data.htmlUrl) }">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/btnAvatar"
             android:layout_width="0dp"
             android:layout_height="20dp"
@@ -88,7 +88,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Kotlin" />
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/tvRepoName"
@@ -122,7 +122,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvRepoName"
             tools:text="The MVVM Architecture in Android（MVVM+Jetpack架构的Github客户端，开发中）." />
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clIcons"
             android:layout_width="0dp"
             android:layout_height="20dp"
@@ -206,7 +206,7 @@
                 app:layout_constraintTop_toTopOf="@+id/ivFork"
                 tools:text="88" />
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:id="@+id/divider"
@@ -220,5 +220,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/clIcons" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

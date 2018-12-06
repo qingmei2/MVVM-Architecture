@@ -9,12 +9,12 @@
 			type="com.qingmei2.sample.ui.main.MainViewDelegate" />
 	</data>
 
-	<android.support.constraint.ConstraintLayout
+	<androidx.constraintlayout.widget.ConstraintLayout
 		android:id="@+id/container"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 
-		<android.support.v4.view.ViewPager
+		<androidx.viewpager.widget.ViewPager
 			android:id="@+id/viewPager"
 			android:layout_width="0dp"
 			android:layout_height="0dp"
@@ -27,7 +27,7 @@
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent" />
 
-		<android.support.design.widget.BottomNavigationView
+		<com.google.android.material.bottomnavigation.BottomNavigationView
 			android:id="@+id/navigation"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
@@ -41,6 +41,6 @@
 			app:layout_constraintTop_toBottomOf="@+id/viewPager"
 			app:menu="@menu/menu_main_bottom_nav" />
 
-	</android.support.constraint.ConstraintLayout>
+	</androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -1,7 +1,7 @@
 package com.qingmei2.sample.ui.main.repos
 
-import android.arch.lifecycle.*
-import android.support.v4.app.FragmentActivity
+import androidx.lifecycle.*
+import androidx.fragment.app.FragmentActivity
 import com.qingmei2.rhine.adapter.BasePagingDataBindingAdapter
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.jumpBrowser
@@ -125,7 +125,7 @@ class ReposViewModel(
 
         const val sortByLetter: String = "full_name"
 
-        fun instance(activity: FragmentActivity,
+        fun instance(activity: androidx.fragment.app.FragmentActivity,
                      repo: ReposDataSource): ReposViewModel =
                 ViewModelProviders
                         .of(activity, ReposViewModelFactory(repo))

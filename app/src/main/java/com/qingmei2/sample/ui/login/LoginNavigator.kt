@@ -1,10 +1,10 @@
 package com.qingmei2.sample.ui.login
 
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.FragmentActivity
 import com.qingmei2.sample.ui.MainActivity
 
 class LoginNavigator(
-        private val activity: FragmentActivity
+        private val activity: androidx.fragment.app.FragmentActivity
 ) {
 
     fun toMain() = MainActivity.launch(activity)

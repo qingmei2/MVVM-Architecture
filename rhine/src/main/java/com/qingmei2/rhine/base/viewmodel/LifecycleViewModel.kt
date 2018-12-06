@@ -1,10 +1,9 @@
 package com.qingmei2.rhine.base.viewmodel
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.ViewModel
-import android.support.annotation.CallSuper
-import com.qingmei2.rhine.logger.logd
+import androidx.annotation.CallSuper
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModel
 
 open class LifecycleViewModel : ViewModel(), IViewModel {
 

@@ -1,8 +1,8 @@
 package com.qingmei2.rhine.binding.design
 
-import android.databinding.BindingAdapter
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
+import androidx.databinding.BindingAdapter
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.fragment.app.Fragment
 import android.view.MenuItem
 import android.view.ViewGroup
 import io.reactivex.functions.Consumer

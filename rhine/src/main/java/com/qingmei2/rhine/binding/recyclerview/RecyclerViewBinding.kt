@@ -1,13 +1,13 @@
 package com.qingmei2.rhine.binding.recyclerview
 
 import android.annotation.SuppressLint
-import android.databinding.BindingAdapter
-import android.support.v7.widget.RecyclerView
-import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
+import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.jakewharton.rxbinding3.recyclerview.scrollStateChanges
 import java.util.concurrent.TimeUnit
 
 @BindingAdapter("bind_recyclerView_adapter")
-fun bindAdapter(recyclerView: RecyclerView, adapter: RecyclerView.Adapter<out RecyclerView.ViewHolder>?) {
+fun bindAdapter(recyclerView: RecyclerView, adapter: RecyclerView.Adapter<out androidx.recyclerview.widget.RecyclerView.ViewHolder>?) {
     adapter?.apply {
         recyclerView.adapter = adapter
     }
@@ -22,7 +22,7 @@ fun bindAdapter(recyclerView: RecyclerView, adapter: RecyclerView.Adapter<out Re
 fun setScrollStateChanges(recyclerView: RecyclerView,
                           listener: ScrollStateChangesListener,
                           debounce: Long = 500) {
-    RxRecyclerView.scrollStateChanges(recyclerView)
+    recyclerView.scrollStateChanges()
             .debounce(debounce, TimeUnit.MILLISECONDS)
             .subscribe { state ->
                 listener(state)

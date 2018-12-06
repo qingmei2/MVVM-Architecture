@@ -1,7 +1,7 @@
 package com.qingmei2.sample.ui.main
 
 import android.annotation.SuppressLint
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.FragmentManager
 import com.qingmei2.rhine.base.view.BaseFragment
 import com.qingmei2.sample.R
 import com.qingmei2.sample.databinding.FragmentMainBinding
@@ -15,7 +15,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewDelegate>() {
     override val kodein: Kodein = Kodein.lazy {
         extend(parentKodein)
         import(mainKodeinModule)
-        bind<FragmentManager>() with instance(childFragmentManager)
+        bind<androidx.fragment.app.FragmentManager>() with instance(childFragmentManager)
     }
 
     override val layoutId: Int = R.layout.fragment_main

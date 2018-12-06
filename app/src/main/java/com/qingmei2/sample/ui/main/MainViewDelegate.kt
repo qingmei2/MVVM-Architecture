@@ -1,10 +1,10 @@
 package com.qingmei2.sample.ui.main
 
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.view.ViewPager
 import android.view.MenuItem
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.qingmei2.rhine.base.viewdelegate.BaseViewDelegate
 import com.qingmei2.sample.R
 

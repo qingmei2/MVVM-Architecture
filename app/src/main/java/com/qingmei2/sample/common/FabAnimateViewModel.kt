@@ -1,13 +1,13 @@
 package com.qingmei2.sample.common
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.MutableLiveData
-import android.support.v7.widget.RecyclerView
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.RecyclerView
 import arrow.core.left
 import arrow.core.right
-import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
+import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.http.RxSchedulers
 import io.reactivex.Observable

@@ -1,16 +1,12 @@
 package com.qingmei2.rhine.base.view
 
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.support.closestKodein
-import org.kodein.di.generic.kcontext
 
 abstract class BaseFragment<B : ViewDataBinding, VD : IViewDelegate> : BaseInjectFragment() {
 

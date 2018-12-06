@@ -1,6 +1,6 @@
 package com.qingmei2.rhine.ext.lifecycle
 
-import android.arch.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle
 import com.qingmei2.rhine.base.viewmodel.LifecycleViewModel
 import com.qingmei2.rhine.ext.autodispose.bindLifecycleEvent
 import com.uber.autodispose.*
