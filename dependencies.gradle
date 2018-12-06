@@ -73,7 +73,6 @@ ext {
             arch_comp_test           : [group: 'android.arch.core', name: 'core-testing', version: versions.arch_comp_lifecycle],
 
             arrow                    : [group: 'io.arrow-kt', name: 'arrow-core', version: '0.7.3'],
-            databinding_compiler     : [group: 'com.android.databinding', name: 'compiler', version: versions.android_plugin],
             kotlin_stdlib            : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk7', version: versions.kotlin],
 
             glide                    : [group: 'com.github.bumptech.glide', name: 'glide', version: versions.glide],
@@ -106,11 +105,6 @@ ext {
             kodein                   : [group: 'org.kodein.di', name: 'kodein-di-generic-jvm', version: versions.kodein],
             kodein_android           : [group: 'org.kodein.di', name: 'kodein-di-framework-android-core', version: versions.kodein],
             kodein_android_support   : [group: 'org.kodein.di', name: 'kodein-di-framework-android-support', version: versions.kodein],
-
-            dsl_viewpager            : [group: 'com.github.qingmei2.dslviewpager', name: 'adapter', version: '0.1.4'],
-            dsl_viewpager_databinding: [group: 'com.github.qingmei2.dslviewpager', name: 'adapter_databinding', version: '0.1.4'],
-
-            rhine_core               : [group: 'com.github.qingmei2.rhine', name: 'rhine', version: '0.1.4'],
 
             timber                   : [group: 'com.jakewharton.timber', name: 'timber', version: '4.7.1'],
 

@@ -25,7 +25,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:bind_onClick="@{ () -> repoEvent.accept(data.htmlUrl) }">
+        app:bind_view_onClick="@{ () -> repoEvent.accept(data.htmlUrl) }">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/btnAvatar"
@@ -34,7 +34,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
-            app:bind_onClick="@{ () -> repoEvent.accept(data.owner.htmlUrl) }"
+            app:bind_view_onClick="@{ () -> repoEvent.accept(data.owner.htmlUrl) }"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -43,7 +43,7 @@
                 android:id="@+id/ivAvatar"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                app:bind_imageUrl_circle="@{ data.owner.avatarUrl }"
+                app:bind_imageView_url_circle="@{ data.owner.avatarUrl }"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -70,7 +70,7 @@
                 android:layout_height="7dp"
                 android:layout_marginEnd="4dp"
                 android:src="@{ utils.transLanguageColor(ivLanguageColor, data.language) }"
-                app:bind_visibility="@{ data.language != null }"
+                app:bind_view_visibility="@{ data.language != null }"
                 app:layout_constraintBottom_toBottomOf="@+id/tvLanguage"
                 app:layout_constraintEnd_toStartOf="@+id/tvLanguage"
                 app:layout_constraintTop_toTopOf="@+id/tvLanguage"

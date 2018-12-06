@@ -134,7 +134,7 @@
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        app:bind_onClick="@{ (v) -> delegate.login() }" />
+                        app:bind_view_onClick="@{ (v) -> delegate.login() }" />
                 </LinearLayout>
 
             </ScrollView>

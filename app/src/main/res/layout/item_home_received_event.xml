@@ -34,7 +34,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            app:bind_imageUrl="@{ data.actor.avatarUrl }"
+            app:bind_imageView_url="@{ data.actor.avatarUrl }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

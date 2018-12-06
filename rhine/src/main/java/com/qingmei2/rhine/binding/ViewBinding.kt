@@ -19,7 +19,7 @@ const val DEFAULT_THROTTLE_TIME = 500L
  *
  * @param visible 值为true时可见
  */
-@BindingAdapter("bind_visibility")
+@BindingAdapter("bind_view_visibility")
 fun setVisible(view: View, visible: Boolean) {
     view.visibility = if (visible) View.VISIBLE else View.GONE
 }
@@ -30,7 +30,7 @@ fun setVisible(view: View, visible: Boolean) {
  * @param consumer 事件消费者
  */
 @SuppressLint("CheckResult")
-@BindingAdapter("bind_onLongClick")
+@BindingAdapter("bind_view_onLongClick")
 fun setOnLongClickEvent(view: View, consumer: ViewClickConsumer) {
     RxView.longClicks(view)
             .subscribe { consumer.accept(view) }
@@ -43,7 +43,7 @@ fun setOnLongClickEvent(view: View, consumer: ViewClickConsumer) {
  * @param time 防抖动时间间隔，单位ms
  */
 @SuppressLint("CheckResult")
-@BindingAdapter("bind_onClick", "bind_throttleFirst", requireAll = false)
+@BindingAdapter("bind_view_onClick", "bind_view_throttleFirst", requireAll = false)
 fun setOnClickEvent(view: View, consumer: ViewClickConsumer, time: Long?) {
     RxView.clicks(view)
             .throttleFirst(time ?: DEFAULT_THROTTLE_TIME, TimeUnit.MILLISECONDS)
@@ -56,7 +56,7 @@ fun setOnClickEvent(view: View, consumer: ViewClickConsumer, time: Long?) {
  * @param closed 当值为true时，启动该功能
  */
 @SuppressLint("CheckResult")
-@BindingAdapter("bind_onClick_closeSoftInput")
+@BindingAdapter("bind_view_onClick_closeSoftInput")
 fun closeSoftInputWhenClick(view: View, closed: Boolean = false) {
     RxView.clicks(view)
             .subscribe {

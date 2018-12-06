@@ -1,16 +1,16 @@
 <resources>
 
 	<declare-styleable name="View">
-		<attr name="bind_onClick" format="reference" />
-		<attr name="bind_throttleFirst" format="integer" />
-		<attr name="bind_onClick_closeSoftInput" format="boolean" />
-		<attr name="bind_onLongClick" format="reference" />
-		<attr name="bind_visibility" format="boolean" />
+		<attr name="bind_view_onClick" format="reference" />
+		<attr name="bind_view_throttleFirst" format="integer" />
+		<attr name="bind_view_onClick_closeSoftInput" format="boolean" />
+		<attr name="bind_view_onLongClick" format="reference" />
+		<attr name="bind_view_visibility" format="boolean" />
 	</declare-styleable>
 
 	<declare-styleable name="ImageView">
-		<attr name="bind_imageUrl" format="reference" />
-		<attr name="bind_imageUrl_circle" format="reference" />
+		<attr name="bind_imageView_url" format="reference" />
+		<attr name="bind_imageView_url_circle" format="reference" />
 	</declare-styleable>
 
 	<declare-styleable name="Toolbar">
@@ -18,10 +18,10 @@
 	</declare-styleable>
 
 	<declare-styleable name="ViewPager">
-		<attr name="bind_fragmentManager" format="reference" />
-		<attr name="bind_fragments" format="reference" />
-		<attr name="bind_offScreenPageLimit" format="integer" />
-		<attr name="bind_onPageSelectedChanged" format="reference" />
+		<attr name="bind_viewPager_fragmentManager" format="reference" />
+		<attr name="bind_viewPager_fragments" format="reference" />
+		<attr name="bind_viewPager_offScreenPageLimit" format="integer" />
+		<attr name="bind_viewPager_onPageSelectedChanged" format="reference" />
 	</declare-styleable>
 
 	<declare-styleable name="BottomNavigationView">
@@ -29,9 +29,9 @@
 	</declare-styleable>
 
 	<declare-styleable name="RecyclerView">
-		<attr name="bind_adapter" format="reference" />
-		<attr name="bind_scrollStateChanges" format="reference" />
-		<attr name="bind_scrollStateChanges_debounce" format="integer" />
+		<attr name="bind_recyclerView_adapter" format="reference" />
+		<attr name="bind_recyclerView_scrollStateChanges" format="reference" />
+		<attr name="bind_recyclerView_scrollStateChanges_debounce" format="integer" />
 	</declare-styleable>
 
 	<declare-styleable name="SwipeRefreshLayout">

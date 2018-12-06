@@ -45,9 +45,9 @@
 					android:id="@+id/recyclerView"
 					android:layout_width="0dp"
 					android:layout_height="0dp"
-					app:bind_adapter="@{ delegate.homeViewModel.adapter }"
-					app:bind_scrollStateChanges="@{ delegate.fabViewModel.stateChangesConsumer }"
-					app:bind_scrollStateChanges_debounce="@{ 500 }"
+					app:bind_recyclerView_adapter="@{ delegate.homeViewModel.adapter }"
+					app:bind_recyclerView_scrollStateChanges="@{ delegate.fabViewModel.stateChangesConsumer }"
+					app:bind_recyclerView_scrollStateChanges_debounce="@{ 500 }"
 					app:layoutManager="android.support.v7.widget.LinearLayoutManager"
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintEnd_toEndOf="parent"
@@ -78,7 +78,7 @@
 			android:layout_marginEnd="16dp"
 			android:layout_marginBottom="16dp"
 			android:src="@drawable/ic_keyboard_arrow_up_white_24dp"
-			app:bind_onClick="@{ () -> recyclerView.scrollToPosition(0) }" />
+			app:bind_view_onClick="@{ () -> recyclerView.scrollToPosition(0) }" />
 
 	</android.support.design.widget.CoordinatorLayout>
 

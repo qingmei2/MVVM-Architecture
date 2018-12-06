@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import java.util.concurrent.TimeUnit
 
-@BindingAdapter("bind_adapter")
+@BindingAdapter("bind_recyclerView_adapter")
 fun bindAdapter(recyclerView: RecyclerView, adapter: RecyclerView.Adapter<out RecyclerView.ViewHolder>?) {
     adapter?.apply {
         recyclerView.adapter = adapter
@@ -15,8 +15,8 @@ fun bindAdapter(recyclerView: RecyclerView, adapter: RecyclerView.Adapter<out Re
 
 @SuppressLint("CheckResult")
 @BindingAdapter(
-        "bind_scrollStateChanges",
-        "bind_scrollStateChanges_debounce",
+        "bind_recyclerView_scrollStateChanges",
+        "bind_recyclerView_scrollStateChanges_debounce",
         requireAll = false
 )
 fun setScrollStateChanges(recyclerView: RecyclerView,

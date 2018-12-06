@@ -29,7 +29,7 @@
                 android:layout_marginEnd="6dp"
                 android:padding="10dp"
                 android:src="@drawable/ic_edit_pencil"
-                app:bind_onClick="@{ () -> delegate.edit() }"
+                app:bind_view_onClick="@{ () -> delegate.edit() }"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,7 +38,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginTop="16dp"
-                app:bind_imageUrl_circle="@{ delegate.viewModel.user.avatarUrl }"
+                app:bind_imageView_url_circle="@{ delegate.viewModel.user.avatarUrl }"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
