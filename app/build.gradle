@@ -28,7 +28,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
     dataBinding {
         enabled = true
     }
@@ -44,8 +46,6 @@ dependencies {
     implementation libs.design
     implementation libs.constraint
     implementation libs.flexbox
-
-    implementation libs.kotlin_stdlib
 
     implementation 'de.hdodenhof:circleimageview:2.2.0'
 

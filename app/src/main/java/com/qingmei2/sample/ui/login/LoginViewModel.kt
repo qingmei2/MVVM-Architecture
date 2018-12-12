@@ -10,6 +10,7 @@ import arrow.core.none
 import arrow.core.some
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.arrow.whenNotNull
+import com.qingmei2.rhine.ext.autodispose.bindLifecycle
 import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.sample.base.SimpleViewState
@@ -69,17 +70,20 @@ class LoginViewModel(
                 }
 
         initAutoLogin()
+                .bindLifecycle(lifecycleOwner)
+                .subscribe()
     }
 
     private fun initAutoLogin() =
-            Single.zip(
-                    repo.prefsUser().firstOrError(),
-                    repo.prefsAutoLogin(),
-                    BiFunction { either: Either<Errors, LoginEntity>, autoLogin: Boolean ->
-                        autoLogin to either
-                    })
-                    .bindLifecycle(this)
-                    .subscribe { pair ->
+            Single
+                    .zip(
+                            repo.prefsUser().firstOrError(),
+                            repo.prefsAutoLogin(),
+                            BiFunction { either: Either<Errors, LoginEntity>, autoLogin: Boolean ->
+                                autoLogin to either
+                            }
+                    )
+                    .doOnSuccess { pair ->
                         pair.second.fold({ error ->
                             applyState(error = error.some())
                         }, { entity ->
@@ -90,6 +94,7 @@ class LoginViewModel(
                             )
                         })
                     }
+
 
     fun login() {
         when (username.value.isNullOrEmpty() || password.value.isNullOrEmpty()) {
