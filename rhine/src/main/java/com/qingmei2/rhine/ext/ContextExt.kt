@@ -4,9 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 
-fun Context.jumpBrowser(url: String) =
-        Uri.parse(url).run {
-            Intent(Intent.ACTION_VIEW, this)
-        }.also { intent ->
-            startActivity(intent)
-        }
+fun Context.jumpBrowser(url: String) {
+    val uri = Uri.parse(url)
+    Intent(Intent.ACTION_VIEW, uri).apply {
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(this)
+    }
+}
