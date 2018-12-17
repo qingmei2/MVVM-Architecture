@@ -10,7 +10,7 @@ import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 
 @SuppressLint("CheckResult")
-class MainFragment : BaseFragment<FragmentMainBinding, MainViewDelegate>() {
+class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     override val kodein: Kodein = Kodein.lazy {
         extend(parentKodein)

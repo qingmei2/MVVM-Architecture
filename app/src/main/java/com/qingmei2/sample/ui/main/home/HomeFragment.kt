@@ -8,7 +8,7 @@ import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
 
 @SuppressLint("CheckResult")
-class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewDelegate>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override val kodein: Kodein = Kodein.lazy {
         extend(parentKodein)

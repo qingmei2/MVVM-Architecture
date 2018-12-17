@@ -1,7 +1,6 @@
 package com.qingmei2.sample.ui.main.repos
 
 import androidx.fragment.app.Fragment
-import com.qingmei2.rhine.ext.viewmodel.addLifecycle
 import com.qingmei2.sample.common.FabAnimateViewModel
 import kotlinx.android.synthetic.main.fragment_repos.*
 import org.kodein.di.Kodein
@@ -16,9 +15,7 @@ const val REPOS_MODULE_TAG = "REPOS_MODULE_TAG"
 val reposKodeinModule = Kodein.Module(REPOS_MODULE_TAG) {
 
     bind<FabAnimateViewModel>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
-        FabAnimateViewModel().apply {
-            addLifecycle(context)
-        }
+        FabAnimateViewModel()
     }
 
     bind<ReposViewModel>() with scoped<Fragment>(AndroidLifecycleScope).singleton {

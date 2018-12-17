@@ -1,15 +1,15 @@
 package com.qingmei2.sample.ui.main.repos
 
-import androidx.lifecycle.*
-import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.qingmei2.rhine.adapter.BasePagingDataBindingAdapter
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.jumpBrowser
-import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.rhine.ext.paging.Paging
 import com.qingmei2.rhine.ext.paging.toLiveData
-import com.qingmei2.rhine.ext.viewmodel.addLifecycle
 import com.qingmei2.rhine.functional.Consumer
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
@@ -17,6 +17,7 @@ import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.sample.databinding.ItemReposRepoBinding
 import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.manager.UserManager
+import com.uber.autodispose.autoDisposable
 import io.reactivex.Flowable
 
 @SuppressWarnings("checkResult")
@@ -46,12 +47,11 @@ class ReposViewModel(
 
     val error: MutableLiveData<Throwable> = MutableLiveData()
 
-    override fun onCreate(lifecycleOwner: LifecycleOwner) {
-        super.onCreate(lifecycleOwner)
+    init {
         sort.toFlowable()
                 .distinctUntilChanged()
                 .startWith(sortByLetter)
-                .bindLifecycle(this)
+                .autoDisposable(this)
                 .subscribe {
                     initReposList()
                 }
@@ -74,7 +74,7 @@ class ReposViewModel(
                         pageSize = 15,
                         initialLoadSizeHint = 30
                 ).toFlowable()
-                .bindLifecycle(this)
+                .autoDisposable(this)
                 .subscribe { pagedList ->
                     adapter.submitList(pagedList)
                 }
@@ -129,9 +129,7 @@ class ReposViewModel(
                      repo: ReposDataSource): ReposViewModel =
                 ViewModelProviders
                         .of(activity, ReposViewModelFactory(repo))
-                        .get(ReposViewModel::class.java).apply {
-                            addLifecycle(activity)
-                        }
+                        .get(ReposViewModel::class.java)
     }
 }
 

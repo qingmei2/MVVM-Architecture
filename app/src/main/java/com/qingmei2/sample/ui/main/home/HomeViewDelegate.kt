@@ -5,11 +5,11 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.qingmei2.rhine.base.viewdelegate.BaseViewDelegate
-import com.qingmei2.rhine.ext.autodispose.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.sample.common.FabAnimateViewModel
 import com.qingmei2.sample.common.loadings.CommonLoadingState
 import com.qingmei2.sample.common.loadings.ILoadingDelegate
+import com.uber.autodispose.autoDisposable
 import io.reactivex.Completable
 
 @SuppressLint("CheckResult")
@@ -37,7 +37,7 @@ class HomeViewDelegate(
                                 .doOnNext { applyState(it) }
                                 .ignoreElements()
                 )
-                .bindLifecycle(lifecycleOwner)
+                .autoDisposable(homeViewModel)
                 .subscribe()
     }
 

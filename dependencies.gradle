@@ -5,7 +5,7 @@ ext {
             minSdkVersion    : 19,
             targetSdkVersion : 28,
             versionCode      : 5,
-            versionName      : '0.2.0'
+            versionName      : '0.3.0'
     ]
 
     versions = [
@@ -30,7 +30,7 @@ ext {
             rxandroid            : '2.1.0',
             rxbinding            : '3.0.0-alpha1',
             rxcache              : '1.8.3-2.x',
-            autodispose          : '1.0.0',
+            autodispose          : '1.1.0',
 
             leakcanary           : '1.6.2',
 
@@ -101,7 +101,8 @@ ext {
             rxbinding_recyclerview   : [group: 'com.jakewharton.rxbinding3', name: 'rxbinding-recyclerview', version: versions.rxbinding],
 
             autodispose              : [group: 'com.uber.autodispose', name: 'autodispose-android', version: versions.autodispose],
-            autodispose_ktx          : [group: 'com.uber.autodispose', name: 'autodispose-android-ktx', version: versions.autodispose],
+            autodispose_ktx          : [group: 'com.uber.autodispose', name: 'autodispose-ktx', version: versions.autodispose],
+            autodispose_android_ktx  : [group: 'com.uber.autodispose', name: 'autodispose-android-ktx', version: versions.autodispose],
             autodispose_archs_ktx    : [group: 'com.uber.autodispose', name: 'autodispose-android-archcomponents-ktx', version: versions.autodispose],
 
             kodein                   : [group: 'org.kodein.di', name: 'kodein-di-generic-jvm', version: versions.kodein],

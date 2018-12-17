@@ -1,8 +1,6 @@
 package com.qingmei2.sample.common.loadings
 
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import com.qingmei2.rhine.ext.viewmodel.addLifecycle
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 
 @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
@@ -18,9 +16,7 @@ class CommonLoadingViewModel private constructor() : BaseViewModel(), ILoadingDe
 
     companion object {
 
-        fun instance(lifecycleOwner: LifecycleOwner) =
-                CommonLoadingViewModel().apply {
-                    addLifecycle(lifecycleOwner)
-                }
+        fun instance() =
+                CommonLoadingViewModel()
     }
 }

@@ -1,15 +1,14 @@
 package com.qingmei2.sample.common
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import arrow.core.left
 import arrow.core.right
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
-import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.http.RxSchedulers
+import com.uber.autodispose.autoDisposable
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.zipWith
 import io.reactivex.subjects.PublishSubject
@@ -30,8 +29,7 @@ class FabAnimateViewModel : BaseViewModel() {
 
     private val scrollStateSubject: PublishSubject<Int> = PublishSubject.create()
 
-    override fun onCreate(lifecycleOwner: LifecycleOwner) {
-        super.onCreate(lifecycleOwner)
+    init {
         scrollStateSubject
                 .map { it == RecyclerView.SCROLL_STATE_IDLE }
                 .compose { upstream ->
@@ -50,7 +48,7 @@ class FabAnimateViewModel : BaseViewModel() {
                     })
                 }
                 .observeOn(RxSchedulers.ui)
-                .bindLifecycle(this)
+                .autoDisposable(this)
                 .subscribe {
                     applyState(visible = it)
                 }

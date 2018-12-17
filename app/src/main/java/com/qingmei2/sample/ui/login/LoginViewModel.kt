@@ -1,6 +1,5 @@
 package com.qingmei2.sample.ui.login
 
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -10,8 +9,6 @@ import arrow.core.none
 import arrow.core.some
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.arrow.whenNotNull
-import com.qingmei2.rhine.ext.autodispose.bindLifecycle
-import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.sample.common.loadings.CommonLoadingState
@@ -20,6 +17,7 @@ import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.LoginUser
 import com.qingmei2.sample.http.globalHandleError
 import com.qingmei2.sample.utils.toast
+import com.uber.autodispose.autoDisposable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import retrofit2.HttpException
@@ -39,13 +37,11 @@ class LoginViewModel(
 
     private val autoLogin: MutableLiveData<Boolean> = MutableLiveData()
 
-    override fun onCreate(lifecycleOwner: LifecycleOwner) {
-        super.onCreate(lifecycleOwner)
-
+    init {
         autoLogin.toFlowable()
                 .filter { it }
                 .doOnNext { login() }
-                .bindLifecycle(this)
+                .autoDisposable(this)
                 .subscribe()
 
         error.toFlowable()
@@ -62,7 +58,7 @@ class LoginViewModel(
                         }
                     }
                 }
-                .bindLifecycle(this)
+                .autoDisposable(this)
                 .subscribe { errorMsg ->
                     errorMsg.whenNotNull {
                         toast { it }
@@ -70,7 +66,7 @@ class LoginViewModel(
                 }
 
         initAutoLogin()
-                .bindLifecycle(lifecycleOwner)
+                .autoDisposable(this)
                 .subscribe()
     }
 
@@ -112,7 +108,7 @@ class LoginViewModel(
                     .startWith(SimpleViewState.loading())
                     .startWith(SimpleViewState.idle())
                     .onErrorReturn { it -> SimpleViewState.error(it) }
-                    .bindLifecycle(this)
+                    .autoDisposable(this)
                     .subscribe { state ->
                         when (state) {
                             is SimpleViewState.Refreshing -> applyState(loadingLayout = CommonLoadingState.LOADING)

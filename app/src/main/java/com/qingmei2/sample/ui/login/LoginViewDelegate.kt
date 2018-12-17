@@ -1,9 +1,9 @@
 package com.qingmei2.sample.ui.login
 
-import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.sample.base.viewdelegates.BaseLoadingViewDelegate
 import com.qingmei2.sample.common.loadings.CommonLoadingViewModel
+import com.uber.autodispose.autoDisposable
 
 @SuppressWarnings("CheckResult")
 class LoginViewDelegate(
@@ -16,13 +16,13 @@ class LoginViewDelegate(
         viewModel.userInfo
                 .toFlowable()
                 .doOnNext { navigator.toMain() }
-                .bindLifecycle(viewModel)
+                .autoDisposable(viewModel)
                 .subscribe()
 
         viewModel.loadingLayout
                 .toFlowable()
                 .doOnNext { applyState(it) }
-                .bindLifecycle(loadingViewModel)
+                .autoDisposable(loadingViewModel)
                 .subscribe()
     }
 

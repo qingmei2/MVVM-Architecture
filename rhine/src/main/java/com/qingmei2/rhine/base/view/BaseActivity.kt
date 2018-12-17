@@ -5,7 +5,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
 
-abstract class BaseActivity<B : ViewDataBinding, VD : IViewDelegate> : BaseInjectActivity() {
+abstract class BaseActivity<B : ViewDataBinding> : BaseInjectActivity() {
 
     protected lateinit var binding: B
 

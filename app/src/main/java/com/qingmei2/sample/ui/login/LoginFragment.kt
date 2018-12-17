@@ -6,7 +6,7 @@ import com.qingmei2.sample.databinding.FragmentLoginBinding
 import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
 
-class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewDelegate>() {
+class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     override val kodein: Kodein = Kodein.lazy {
         extend(parentKodein)

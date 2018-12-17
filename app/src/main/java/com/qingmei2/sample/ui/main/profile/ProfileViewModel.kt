@@ -1,13 +1,15 @@
 package com.qingmei2.sample.ui.main.profile
 
-import androidx.lifecycle.*
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import arrow.core.Option
 import arrow.core.none
 import arrow.core.toOption
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.arrow.whenNotNull
-import com.qingmei2.rhine.ext.viewmodel.addLifecycle
 import com.qingmei2.sample.entity.LoginUser
 import com.qingmei2.sample.manager.UserManager
 
@@ -20,8 +22,7 @@ class ProfileViewModel(
 
     val user: MutableLiveData<LoginUser> = MutableLiveData()
 
-    override fun onCreate(lifecycleOwner: LifecycleOwner) {
-        super.onCreate(lifecycleOwner)
+    init {
         applyState(user = UserManager.INSTANCE.toOption())
     }
 
@@ -41,9 +42,7 @@ class ProfileViewModel(
         fun instance(activity: FragmentActivity, repo: ProfileRepository): ProfileViewModel =
                 ViewModelProviders
                         .of(activity, ProfileViewModelFactory(repo))
-                        .get(ProfileViewModel::class.java).apply {
-                            addLifecycle(activity)
-                        }
+                        .get(ProfileViewModel::class.java)
     }
 }
 

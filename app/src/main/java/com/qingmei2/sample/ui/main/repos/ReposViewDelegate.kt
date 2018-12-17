@@ -1,14 +1,14 @@
 package com.qingmei2.sample.ui.main.repos
 
 import android.animation.ObjectAnimator
+import android.view.MenuItem
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import android.view.MenuItem
 import com.qingmei2.rhine.base.viewdelegate.BaseViewDelegate
-import com.qingmei2.rhine.ext.autodispose.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.sample.R
 import com.qingmei2.sample.common.FabAnimateViewModel
+import com.uber.autodispose.autoDisposable
 
 class ReposViewDelegate(
         val viewModel: ReposViewModel,
@@ -21,7 +21,7 @@ class ReposViewDelegate(
         fabViewModel.visibleState
                 .toFlowable()
                 .doOnNext { switchFabState(it) }
-                .bindLifecycle(lifecycleOwner)
+                .autoDisposable(viewModel)
                 .subscribe()
     }
 

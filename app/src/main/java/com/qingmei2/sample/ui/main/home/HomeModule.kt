@@ -1,7 +1,6 @@
 package com.qingmei2.sample.ui.main.home
 
 import androidx.fragment.app.Fragment
-import com.qingmei2.rhine.ext.viewmodel.addLifecycle
 import com.qingmei2.sample.common.FabAnimateViewModel
 import com.qingmei2.sample.common.loadings.CommonLoadingViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -24,9 +23,7 @@ val homeKodeinModule = Kodein.Module(HOME_MODULE_TAG) {
     }
 
     bind<FabAnimateViewModel>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
-        FabAnimateViewModel().apply {
-            addLifecycle(context)
-        }
+        FabAnimateViewModel()
     }
 
     bind<HomeViewDelegate>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
@@ -34,7 +31,7 @@ val homeKodeinModule = Kodein.Module(HOME_MODULE_TAG) {
                 homeViewModel = instance(),
                 fabViewModel = instance(),
                 fabTop = (context as HomeFragment).fabTop,
-                loadingDelegate = CommonLoadingViewModel.instance(context)
+                loadingDelegate = CommonLoadingViewModel.instance()
         )
     }
 

@@ -1,13 +1,12 @@
 package com.qingmei2.sample.ui
 
 import android.content.Intent
-import androidx.fragment.app.FragmentActivity
 import androidx.navigation.findNavController
 import com.qingmei2.rhine.base.view.BaseActivity
 import com.qingmei2.sample.R
 import com.qingmei2.sample.databinding.ActivityMainBinding
 
-class MainActivity : BaseActivity<ActivityMainBinding, MainActivityDelegate>() {
+class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override val viewDelegate: MainActivityDelegate = MainActivityDelegate()
 

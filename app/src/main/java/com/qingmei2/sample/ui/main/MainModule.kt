@@ -3,7 +3,6 @@ package com.qingmei2.sample.ui.main
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.qingmei2.rhine.ext.viewmodel.addLifecycle
 import com.qingmei2.sample.ui.main.home.HomeFragment
 import com.qingmei2.sample.ui.main.profile.ProfileFragment
 import com.qingmei2.sample.ui.main.repos.ReposFragment
@@ -40,9 +39,6 @@ val mainKodeinModule = Module(MAIN_MODULE_TAG) {
     bind<MainViewModel>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         ViewModelProviders.of(context, MainViewModelFactory())
                 .get(MainViewModel::class.java)
-                .apply {
-                    addLifecycle(context)
-                }
     }
 
     bind<BottomNavigationView>() with scoped<Fragment>(AndroidLifecycleScope).singleton {

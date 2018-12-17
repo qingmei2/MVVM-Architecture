@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
 
-abstract class BaseFragment<B : ViewDataBinding, VD : IViewDelegate> : BaseInjectFragment() {
+abstract class BaseFragment<B : ViewDataBinding> : BaseInjectFragment() {
 
     private lateinit var mRootView: View
 

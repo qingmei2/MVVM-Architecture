@@ -84,6 +84,7 @@ dependencies {
     // autodispose
     api libs.autodispose
     api libs.autodispose_ktx
+    api libs.autodispose_android_ktx
     api libs.autodispose_archs_ktx
 
     // kodein

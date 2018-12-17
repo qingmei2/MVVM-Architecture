@@ -1,18 +1,19 @@
 package com.qingmei2.sample.ui.main.home
 
-import androidx.lifecycle.*
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import arrow.core.Option
 import arrow.core.none
 import arrow.core.some
 import com.qingmei2.rhine.adapter.BasePagingDataBindingAdapter
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.jumpBrowser
-import com.qingmei2.rhine.ext.lifecycle.bindLifecycle
 import com.qingmei2.rhine.ext.livedata.toFlowable
 import com.qingmei2.rhine.ext.paging.Paging
 import com.qingmei2.rhine.ext.paging.toLiveData
-import com.qingmei2.rhine.ext.viewmodel.addLifecycle
 import com.qingmei2.rhine.functional.Consumer
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
@@ -21,6 +22,7 @@ import com.qingmei2.sample.common.loadings.CommonLoadingState
 import com.qingmei2.sample.databinding.ItemHomeReceivedEventBinding
 import com.qingmei2.sample.entity.ReceivedEvent
 import com.qingmei2.sample.manager.UserManager
+import com.uber.autodispose.autoDisposable
 import io.reactivex.Flowable
 
 @SuppressWarnings("checkResult")
@@ -53,8 +55,7 @@ class HomeViewModel(
 
     val error: MutableLiveData<Option<Throwable>> = MutableLiveData()
 
-    override fun onCreate(lifecycleOwner: LifecycleOwner) {
-        super.onCreate(lifecycleOwner)
+    init {
         initReceivedEvents()   // fetch API when fragment's onCreated()
     }
 
@@ -73,7 +74,7 @@ class HomeViewModel(
                 }
                 .toLiveData()
                 .toFlowable()
-                .bindLifecycle(this)
+                .autoDisposable(this)
                 .subscribe {
                     adapter.submitList(it)
                 }
@@ -124,9 +125,7 @@ class HomeViewModel(
         fun instance(activity: FragmentActivity, repo: HomeRepository): HomeViewModel =
                 ViewModelProviders
                         .of(activity, HomeViewModelFactory(repo))
-                        .get(HomeViewModel::class.java).apply {
-                            addLifecycle(activity)
-                        }
+                        .get(HomeViewModel::class.java)
     }
 }
 
