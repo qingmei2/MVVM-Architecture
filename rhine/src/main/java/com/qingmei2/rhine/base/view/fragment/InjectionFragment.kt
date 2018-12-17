@@ -1,12 +1,12 @@
-package com.qingmei2.rhine.base.view
+package com.qingmei2.rhine.base.view.fragment
 
 import androidx.fragment.app.Fragment
+import com.qingmei2.rhine.base.view.IView
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.kcontext
 
-abstract class BaseInjectFragment : Fragment(),
-        KodeinAware, IView {
+abstract class InjectionFragment : AutoDisposeFragment(), KodeinAware, IView {
 
     protected val parentKodein by closestKodein()
 

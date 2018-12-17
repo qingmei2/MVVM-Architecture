@@ -1,4 +1,4 @@
-package com.qingmei2.rhine.base.view
+package com.qingmei2.rhine.base.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
 
-abstract class BaseFragment<B : ViewDataBinding> : BaseInjectFragment() {
+abstract class BaseFragment<B : ViewDataBinding> : InjectionFragment() {
 
     private lateinit var mRootView: View
 

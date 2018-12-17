@@ -1,8 +1,7 @@
 package com.qingmei2.sample.ui.main
 
 import android.annotation.SuppressLint
-import androidx.fragment.app.FragmentManager
-import com.qingmei2.rhine.base.view.BaseFragment
+import com.qingmei2.rhine.base.view.fragment.BaseFragment
 import com.qingmei2.sample.R
 import com.qingmei2.sample.databinding.FragmentMainBinding
 import org.kodein.di.Kodein

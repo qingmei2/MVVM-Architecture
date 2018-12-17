@@ -1,6 +1,6 @@
 package com.qingmei2.sample.ui.main.profile
 
-import com.qingmei2.rhine.base.view.BaseFragment
+import com.qingmei2.rhine.base.view.fragment.BaseFragment
 import com.qingmei2.sample.R
 import com.qingmei2.sample.databinding.FragmentProfileBinding
 import org.kodein.di.Kodein

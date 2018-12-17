@@ -2,7 +2,7 @@ package com.qingmei2.sample.ui
 
 import android.content.Intent
 import androidx.navigation.findNavController
-import com.qingmei2.rhine.base.view.BaseActivity
+import com.qingmei2.rhine.base.view.activity.BaseActivity
 import com.qingmei2.sample.R
 import com.qingmei2.sample.databinding.ActivityMainBinding
 

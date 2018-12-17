@@ -1,11 +1,11 @@
-package com.qingmei2.rhine.base.view
+package com.qingmei2.rhine.base.view.activity
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.qingmei2.rhine.base.viewdelegate.IViewDelegate
 
-abstract class BaseActivity<B : ViewDataBinding> : BaseInjectActivity() {
+abstract class BaseActivity<B : ViewDataBinding> : InjectionActivity() {
 
     protected lateinit var binding: B
 

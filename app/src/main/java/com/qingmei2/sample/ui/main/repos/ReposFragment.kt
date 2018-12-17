@@ -1,8 +1,7 @@
 package com.qingmei2.sample.ui.main.repos
 
-import com.qingmei2.rhine.base.view.BaseFragment
+import com.qingmei2.rhine.base.view.fragment.BaseFragment
 import com.qingmei2.sample.R
-import com.qingmei2.sample.R.id.toolbar
 import com.qingmei2.sample.databinding.FragmentReposBinding
 import kotlinx.android.synthetic.main.fragment_repos.*
 import org.kodein.di.Kodein
