@@ -29,7 +29,6 @@ ext {
             rxkotlin             : '2.2.0',
             rxandroid            : '2.1.0',
             rxbinding            : '3.0.0-alpha1',
-            rxcache              : '1.8.3-2.x',
             autodispose          : '1.1.0',
 
             leakcanary           : '1.6.2',
@@ -94,7 +93,7 @@ ext {
             rxpermissions            : [group: 'com.github.tbruyelle', name: 'rxpermissions', version: '0.10.2'],
 
             rximagepicker            : [group: 'com.github.qingmei2', name: 'rximagepicker', version: '2.3.0-alpha03'],
-            rxweaver                 : [group: 'com.github.qingmei2.rxweaver', name: 'rxweaver', version: '0.2.1'],
+            rxweaver                 : [group: 'com.github.qingmei2.rxweaver', name: 'rxweaver', version: '0.3.0'],
 
             rxbinding                : [group: 'com.jakewharton.rxbinding3', name: 'rxbinding-core', version: versions.rxbinding],
             rxbinding_v7             : [group: 'com.jakewharton.rxbinding3', name: 'rxbinding-appcompat', version: versions.rxbinding],

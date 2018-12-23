@@ -1,6 +1,13 @@
 package com.qingmei2.rhine.base.viewdelegate
 
-import androidx.lifecycle.*
-import org.jetbrains.annotations.NotNull
+import androidx.lifecycle.DefaultLifecycleObserver
 
-interface IViewDelegate : DefaultLifecycleObserver
+interface IViewDelegate : DefaultLifecycleObserver {
+
+    companion object {
+
+        fun empty() = EmptyViewDelegate
+    }
+}
+
+object EmptyViewDelegate : IViewDelegate
