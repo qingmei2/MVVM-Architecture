@@ -72,6 +72,20 @@
 
 * [MVVM-Rhine-Template: Activity or Fragment code generation template for MVVM-Rhine.](https://github.com/qingmei2/MVVM-Rhine-Template)
 
+## Usage
+
+*  Fork this repo directly **(Recommend)**:
+
+```shell
+$ git clone https://github.com/qingmei2/MVVM-Rhine.git
+```
+
+* Or add dependencies by Gradle:
+
+```groovy
+compile 'com.github.qingmei2.rhine:rhine:$last_version'
+```
+
 ## Thanks to
 
 :art: The UI design of this project refers to [gitme](https://github.com/flutterchina/gitme).
