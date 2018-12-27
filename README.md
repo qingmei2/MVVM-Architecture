@@ -1,5 +1,7 @@
 # MVVM-Rhine
 
+[ ![Download](https://api.bintray.com/packages/mq2553299/maven/mvvm-rhine/images/download.svg) ](https://bintray.com/mq2553299/maven/mvvm-rhine/_latestVersion)
+
 **The MVVM using RxJava2 and Android Jetpack.**
 
 ## ScreenShots
@@ -80,7 +82,7 @@
 $ git clone https://github.com/qingmei2/MVVM-Rhine.git
 ```
 
-* Or add dependencies by Gradle:
+* Or add the framework code dependencies by Gradle [ ![Download](https://api.bintray.com/packages/mq2553299/maven/mvvm-rhine/images/download.svg) ](https://bintray.com/mq2553299/maven/mvvm-rhine/_latestVersion):
 
 ```groovy
 compile 'com.github.qingmei2.rhine:rhine:$last_version'
