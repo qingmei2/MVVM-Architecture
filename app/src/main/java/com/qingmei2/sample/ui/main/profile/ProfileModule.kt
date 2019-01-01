@@ -12,10 +12,6 @@ const val PROFILE_MODULE_TAG = "PROFILE_MODULE_TAG"
 
 val profileKodeinModule = Kodein.Module(PROFILE_MODULE_TAG) {
 
-    bind<ProfileViewDelegate>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
-        ProfileViewDelegate(instance())
-    }
-
     bind<ProfileViewModel>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         ProfileViewModel.instance(
                 activity = context.activity!!,

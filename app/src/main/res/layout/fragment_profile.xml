@@ -1,118 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
+	<data>
 
-        <variable
-            name="delegate"
-            type="com.qingmei2.sample.ui.main.profile.ProfileViewDelegate" />
-    </data>
+		<variable
+			name="fragment"
+			type="com.qingmei2.sample.ui.main.profile.ProfileFragment" />
+	</data>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clProfile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary">
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:id="@+id/clProfile"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@color/colorPrimary">
 
-            <ImageView
-                android:id="@+id/btnEdit"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="6dp"
-                android:padding="10dp"
-                android:src="@drawable/ic_edit_pencil"
-                app:bind_view_onClick="@{ () -> delegate.edit() }"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+			<ImageView
+				android:id="@+id/btnEdit"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				android:layout_marginTop="6dp"
+				android:layout_marginEnd="6dp"
+				android:padding="10dp"
+				android:src="@drawable/ic_edit_pencil"
+				app:bind_view_onClick="@{ () -> fragment.edit() }"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/ivAvatar"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="16dp"
-                app:bind_imageView_url_circle="@{ delegate.viewModel.user.avatarUrl }"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.3"
-                tools:src="@mipmap/ic_github" />
+			<ImageView
+				android:id="@+id/ivAvatar"
+				android:layout_width="80dp"
+				android:layout_height="80dp"
+				android:layout_marginTop="16dp"
+				app:bind_imageView_url_circle="@{ fragment.viewModel.user.avatarUrl }"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintVertical_bias="0.3"
+				tools:src="@mipmap/ic_github" />
 
-            <TextView
-                android:id="@+id/tvNickname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="80dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@{ delegate.viewModel.user.name }"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivAvatar"
-                tools:text="qingmei2" />
+			<TextView
+				android:id="@+id/tvNickname"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="80dp"
+				android:layout_marginTop="6dp"
+				android:layout_marginEnd="80dp"
+				android:ellipsize="end"
+				android:maxLines="1"
+				android:text="@{ fragment.viewModel.user.name }"
+				android:textColor="@color/white"
+				android:textSize="16sp"
+				android:textStyle="bold"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/ivAvatar"
+				tools:text="qingmei2" />
 
-            <TextView
-                android:id="@+id/tvBio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="80dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@{ delegate.viewModel.user.bio }"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvNickname"
-                tools:text="In programming we trust." />
+			<TextView
+				android:id="@+id/tvBio"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="80dp"
+				android:layout_marginTop="4dp"
+				android:layout_marginEnd="80dp"
+				android:ellipsize="end"
+				android:maxLines="1"
+				android:text="@{ fragment.viewModel.user.bio }"
+				android:textColor="@color/white"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/tvNickname"
+				tools:text="In programming we trust." />
 
-            <ImageView
-                android:id="@+id/icLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginBottom="16dp"
-                android:src="@drawable/ic_location_on_gray"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tvLocation"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvBio" />
+			<ImageView
+				android:id="@+id/icLocation"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="40dp"
+				android:layout_marginTop="4dp"
+				android:layout_marginEnd="2dp"
+				android:layout_marginBottom="16dp"
+				android:src="@drawable/ic_location_on_gray"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toStartOf="@+id/tvLocation"
+				app:layout_constraintHorizontal_chainStyle="packed"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/tvBio" />
 
-            <TextView
-                android:id="@+id/tvLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginEnd="40dp"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:singleLine="true"
-                android:text="@{ delegate.viewModel.user.location }"
-                android:textColor="@color/secondaryTextGray"
-                app:layout_constraintBottom_toBottomOf="@+id/icLocation"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/icLocation"
-                app:layout_constraintTop_toTopOf="@+id/icLocation"
-                tools:text="Chengdu, Sichuan, China" />
+			<TextView
+				android:id="@+id/tvLocation"
+				android:layout_width="wrap_content"
+				android:layout_height="0dp"
+				android:layout_marginEnd="40dp"
+				android:ellipsize="end"
+				android:gravity="center"
+				android:singleLine="true"
+				android:text="@{ fragment.viewModel.user.location }"
+				android:textColor="@color/secondaryTextGray"
+				app:layout_constraintBottom_toBottomOf="@+id/icLocation"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toEndOf="@+id/icLocation"
+				app:layout_constraintTop_toTopOf="@+id/icLocation"
+				tools:text="Chengdu, Sichuan, China" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+		</androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+	</LinearLayout>
 
 </layout>

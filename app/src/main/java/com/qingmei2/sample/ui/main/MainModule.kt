@@ -32,10 +32,6 @@ val mainKodeinModule = Module(MAIN_MODULE_TAG) {
         ProfileFragment()
     }
 
-    bind<MainNavigator>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
-        MainNavigator()
-    }
-
     bind<MainViewModel>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         ViewModelProviders.of(context, MainViewModelFactory())
                 .get(MainViewModel::class.java)
@@ -51,9 +47,5 @@ val mainKodeinModule = Module(MAIN_MODULE_TAG) {
 
     bind<List<Fragment>>(MAIN_LIST_FRAGMENT) with scoped<Fragment>(AndroidLifecycleScope).singleton {
         listOf<Fragment>(instance<HomeFragment>(), instance<ReposFragment>(), instance<ProfileFragment>())
-    }
-
-    bind<MainViewDelegate>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
-        MainViewDelegate(instance(), instance(), instance(MAIN_LIST_FRAGMENT), instance(), instance(), instance())
     }
 }

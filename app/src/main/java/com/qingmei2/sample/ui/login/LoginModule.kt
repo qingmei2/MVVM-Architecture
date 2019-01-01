@@ -14,22 +14,14 @@ const val LOGIN_MODULE_TAG = "LOGIN_MODULE_TAG"
 
 val loginKodeinModule = Kodein.Module(LOGIN_MODULE_TAG) {
 
-    bind<LoginNavigator>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
-        LoginNavigator(context.activity!!)
-    }
-
     bind<LoginViewModel>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         ViewModelProviders
                 .of((context).activity!!, LoginViewModelFactory(instance()))
                 .get(LoginViewModel::class.java)
     }
 
-    bind<LoginViewDelegate>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
-        LoginViewDelegate(
-                viewModel = instance(),
-                navigator = instance(),
-                loadingViewModel = CommonLoadingViewModel.instance()
-        )
+    bind<CommonLoadingViewModel>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
+        CommonLoadingViewModel.instance()
     }
 
     bind<LoginRemoteDataSource>() with scoped<Fragment>(AndroidLifecycleScope).singleton {

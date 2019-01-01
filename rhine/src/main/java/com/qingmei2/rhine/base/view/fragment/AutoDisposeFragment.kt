@@ -5,7 +5,7 @@ import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 
 open class AutoDisposeFragment : Fragment() {
 
-    val scopeProvider by lazy {
+    protected val scopeProvider by lazy {
         AndroidLifecycleScopeProvider.from(this)
     }
 }

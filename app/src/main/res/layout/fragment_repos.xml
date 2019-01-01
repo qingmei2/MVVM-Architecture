@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
+	<data>
 
-        <variable
-            name="delegate"
-            type="com.qingmei2.sample.ui.main.repos.ReposViewDelegate" />
-    </data>
+		<variable
+			name="fragment"
+			type="com.qingmei2.sample.ui.main.repos.ReposFragment" />
+	</data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintBg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/constraintBg"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical">
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:focusable="true"
+			android:focusableInTouchMode="true"
+			android:orientation="vertical">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@color/colorPrimary"
-                app:bind_menuClick="@{ menu -> delegate.onMenuSelected(menu) }"
-                app:title="@string/main_nav_repos"
-                app:titleTextColor="@color/white" />
+			<androidx.appcompat.widget.Toolbar
+				android:id="@+id/toolbar"
+				android:layout_width="match_parent"
+				android:layout_height="60dp"
+				android:background="@color/colorPrimary"
+				app:bind_menuClick="@{ menu -> fragment.onMenuSelected(menu) }"
+				app:title="@string/main_nav_repos"
+				app:titleTextColor="@color/white" />
 
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:onRefreshListener="@{ () -> delegate.viewModel.initReposList() }"
-                app:refreshing="@{ safeUnbox(delegate.viewModel.loading) }">
+			<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				app:onRefreshListener="@{ () -> fragment.viewModel.initReposList() }"
+				app:refreshing="@{ safeUnbox(fragment.viewModel.loading) }">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:bind_recyclerView_adapter="@{ delegate.viewModel.adapter }"
-                    app:bind_recyclerView_scrollStateChanges="@{ delegate.fabViewModel.stateChangesConsumer }"
-                    app:bind_recyclerView_scrollStateChanges_debounce="@{ 500 }"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_repos_repo" />
+				<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/recyclerView"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					app:bind_recyclerView_adapter="@{ fragment.viewModel.adapter }"
+					app:bind_recyclerView_scrollStateChanges="@{ fragment.fabViewModel.stateChangesConsumer }"
+					app:bind_recyclerView_scrollStateChanges_debounce="@{ 500 }"
+					app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+					tools:listitem="@layout/item_repos_repo" />
 
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+			</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        </LinearLayout>
+		</LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_keyboard_arrow_up_white_24dp"
-            app:bind_view_onClick="@{ () -> recyclerView.scrollToPosition(0) }"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/fabTop"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="16dp"
+			android:layout_marginBottom="16dp"
+			android:src="@drawable/ic_keyboard_arrow_up_white_24dp"
+			app:bind_view_onClick="@{ () -> recyclerView.scrollToPosition(0) }"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+	</androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

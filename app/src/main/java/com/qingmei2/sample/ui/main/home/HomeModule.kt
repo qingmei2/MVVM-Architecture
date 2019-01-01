@@ -3,7 +3,6 @@ package com.qingmei2.sample.ui.main.home
 import androidx.fragment.app.Fragment
 import com.qingmei2.sample.common.FabAnimateViewModel
 import com.qingmei2.sample.common.loadings.CommonLoadingViewModel
-import kotlinx.android.synthetic.main.fragment_home.*
 import org.kodein.di.Kodein
 import org.kodein.di.android.x.AndroidLifecycleScope
 import org.kodein.di.generic.bind
@@ -26,13 +25,8 @@ val homeKodeinModule = Kodein.Module(HOME_MODULE_TAG) {
         FabAnimateViewModel()
     }
 
-    bind<HomeViewDelegate>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
-        HomeViewDelegate(
-                homeViewModel = instance(),
-                fabViewModel = instance(),
-                fabTop = (context as HomeFragment).fabTop,
-                loadingDelegate = CommonLoadingViewModel.instance()
-        )
+    bind<CommonLoadingViewModel>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
+        CommonLoadingViewModel.instance()
     }
 
     bind<IRemoteHomeDataSource>() with scoped<Fragment>(AndroidLifecycleScope).singleton {

@@ -6,8 +6,8 @@
 	<data>
 
 		<variable
-			name="delegate"
-			type="com.qingmei2.sample.ui.main.home.HomeViewDelegate" />
+			name="fragment"
+			type="com.qingmei2.sample.ui.main.home.HomeFragment" />
 	</data>
 
 	<androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -34,8 +34,8 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			app:layout_behavior="@string/appbar_scrolling_view_behavior"
-			app:onRefreshListener="@{() -> delegate.homeViewModel.initReceivedEvents() }"
-			app:refreshing="@{ safeUnbox(delegate.homeViewModel.refreshing) }">
+			app:onRefreshListener="@{ () -> fragment.viewModel.initReceivedEvents() }"
+			app:refreshing="@{ safeUnbox(fragment.viewModel.refreshing) }">
 
 			<androidx.constraintlayout.widget.ConstraintLayout
 				android:layout_width="match_parent"
@@ -45,8 +45,8 @@
 					android:id="@+id/recyclerView"
 					android:layout_width="0dp"
 					android:layout_height="0dp"
-					app:bind_recyclerView_adapter="@{ delegate.homeViewModel.adapter }"
-					app:bind_recyclerView_scrollStateChanges="@{ delegate.fabViewModel.stateChangesConsumer }"
+					app:bind_recyclerView_adapter="@{ fragment.viewModel.adapter }"
+					app:bind_recyclerView_scrollStateChanges="@{ fragment.fabViewModel.stateChangesConsumer }"
 					app:bind_recyclerView_scrollStateChanges_debounce="@{ 500 }"
 					app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 					app:layout_constraintBottom_toBottomOf="parent"
@@ -59,7 +59,7 @@
 					layout="@layout/layout_placeholder_loading"
 					android:layout_width="0dp"
 					android:layout_height="0dp"
-					app:delegate="@{ delegate }"
+					app:delegate="@{ fragment.loadingViewModel }"
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintStart_toStartOf="parent"

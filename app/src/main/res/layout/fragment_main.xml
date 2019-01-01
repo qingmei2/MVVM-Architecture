@@ -5,8 +5,8 @@
 	<data>
 
 		<variable
-			name="delegate"
-			type="com.qingmei2.sample.ui.main.MainViewDelegate" />
+			name="fragment"
+			type="com.qingmei2.sample.ui.main.MainFragment" />
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -18,10 +18,10 @@
 			android:id="@+id/viewPager"
 			android:layout_width="0dp"
 			android:layout_height="0dp"
-			app:bind_viewPager_fragmentManager="@{ delegate.fragmentManager }"
-			app:bind_viewPager_fragments="@{ delegate.fragments }"
+			app:bind_viewPager_fragmentManager="@{ fragment.getChildFragmentManager() }"
+			app:bind_viewPager_fragments="@{ fragment.initFragments() }"
 			app:bind_viewPager_offScreenPageLimit="@{ 2 }"
-			app:bind_viewPager_onPageSelectedChanged="@{ (index) -> delegate.onPageSelectChanged(index) }"
+			app:bind_viewPager_onPageSelectedChanged="@{ (index) -> fragment.onPageSelectChanged(index) }"
 			app:layout_constraintBottom_toTopOf="@+id/navigation"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
 			android:id="@+id/navigation"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			app:bind_onNavigationBottomSelectedChanged="@{ (menuItem) -> delegate.onBottomNavigationSelectChanged(menuItem) }"
+			app:bind_onNavigationBottomSelectedChanged="@{ (menuItem) -> fragment.onBottomNavigationSelectChanged(menuItem) }"
 			app:itemBackground="@color/colorPrimary"
 			app:itemIconTint="@drawable/selector_main_bottom_nav_button"
 			app:itemTextColor="@drawable/selector_main_bottom_nav_button"

@@ -1,9 +1,16 @@
 package com.qingmei2.sample.ui.main
 
 import android.annotation.SuppressLint
+import android.view.MenuItem
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.qingmei2.rhine.base.view.fragment.BaseFragment
 import com.qingmei2.sample.R
 import com.qingmei2.sample.databinding.FragmentMainBinding
+import com.qingmei2.sample.ui.main.home.HomeFragment
+import com.qingmei2.sample.ui.main.profile.ProfileFragment
+import com.qingmei2.sample.ui.main.repos.ReposFragment
+import kotlinx.android.synthetic.main.fragment_main.*
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
@@ -14,14 +21,34 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     override val kodein: Kodein = Kodein.lazy {
         extend(parentKodein)
         import(mainKodeinModule)
-        bind<androidx.fragment.app.FragmentManager>() with instance(childFragmentManager)
+        bind<FragmentManager>() with instance(childFragmentManager)
     }
 
     override val layoutId: Int = R.layout.fragment_main
 
-    override val viewDelegate: MainViewDelegate by instance()
+    val viewModel: MainViewModel by instance()
 
-    override fun initView() {
-        binding.delegate = viewDelegate
+    fun initFragments(): List<Fragment> =
+            listOf(HomeFragment(), ReposFragment(), ProfileFragment())
+
+    fun onPageSelectChanged(index: Int) {
+        childFragmentManager
+        for (position in 0..index) {
+            navigation.menu.getItem(position).isChecked = index == position
+        }
+    }
+
+    fun onBottomNavigationSelectChanged(menuItem: MenuItem) {
+        when (menuItem.itemId) {
+            R.id.nav_home -> {
+                viewPager.currentItem = 0
+            }
+            R.id.nav_repos -> {
+                viewPager.currentItem = 1
+            }
+            R.id.nav_profile -> {
+                viewPager.currentItem = 2
+            }
+        }
     }
 }
