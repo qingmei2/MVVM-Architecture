@@ -11,7 +11,7 @@ import arrow.core.some
 import com.qingmei2.rhine.adapter.BasePagingDataBindingAdapter
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.jumpBrowser
-import com.qingmei2.rhine.ext.livedata.toFlowable
+import com.qingmei2.rhine.ext.livedata.toReactiveX
 import com.qingmei2.rhine.ext.paging.Paging
 import com.qingmei2.rhine.ext.paging.toLiveData
 import com.qingmei2.rhine.functional.Consumer
@@ -73,7 +73,7 @@ class HomeViewModel(
                     }
                 }
                 .toLiveData()
-                .toFlowable()
+                .toReactiveX()
                 .autoDisposable(this)
                 .subscribe {
                     adapter.submitList(it)

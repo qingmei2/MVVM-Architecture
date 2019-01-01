@@ -5,7 +5,7 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.qingmei2.rhine.base.viewdelegate.BaseViewDelegate
-import com.qingmei2.rhine.ext.livedata.toFlowable
+import com.qingmei2.rhine.ext.livedata.toReactiveX
 import com.qingmei2.sample.common.FabAnimateViewModel
 import com.qingmei2.sample.common.loadings.CommonLoadingState
 import com.qingmei2.sample.common.loadings.ILoadingDelegate
@@ -26,11 +26,11 @@ class HomeViewDelegate(
         Completable
                 .mergeArray(
                         fabViewModel.visibleState
-                                .toFlowable()
+                                .toReactiveX()
                                 .doOnNext { switchFabState(it) }
                                 .ignoreElements(),
                         homeViewModel.loadingLayout
-                                .toFlowable()
+                                .toReactiveX()
                                 .filter { it ->
                                     it != CommonLoadingState.LOADING    // Refreshing state not used
                                 }

@@ -6,7 +6,7 @@ import com.qingmei2.rhine.base.repository.ILocalDataSource
 import com.qingmei2.rhine.base.repository.IRemoteDataSource
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.Repo
-import com.qingmei2.sample.http.RxSchedulers
+import com.qingmei2.rhine.util.RxSchedulers
 import com.qingmei2.sample.http.globalHandleError
 import com.qingmei2.sample.http.service.ServiceManager
 import io.reactivex.Completable

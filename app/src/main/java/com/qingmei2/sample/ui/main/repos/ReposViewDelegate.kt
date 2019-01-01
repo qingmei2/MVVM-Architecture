@@ -5,7 +5,7 @@ import android.view.MenuItem
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.qingmei2.rhine.base.viewdelegate.BaseViewDelegate
-import com.qingmei2.rhine.ext.livedata.toFlowable
+import com.qingmei2.rhine.ext.livedata.toReactiveX
 import com.qingmei2.sample.R
 import com.qingmei2.sample.common.FabAnimateViewModel
 import com.uber.autodispose.autoDisposable
@@ -19,7 +19,7 @@ class ReposViewDelegate(
     override fun onCreate(lifecycleOwner: LifecycleOwner) {
         super.onCreate(lifecycleOwner)
         fabViewModel.visibleState
-                .toFlowable()
+                .toReactiveX()
                 .doOnNext { switchFabState(it) }
                 .autoDisposable(viewModel)
                 .subscribe()

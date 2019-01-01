@@ -1,6 +1,6 @@
 package com.qingmei2.sample.ui.login
 
-import com.qingmei2.rhine.ext.livedata.toFlowable
+import com.qingmei2.rhine.ext.livedata.toReactiveX
 import com.qingmei2.sample.base.viewdelegates.BaseLoadingViewDelegate
 import com.qingmei2.sample.common.loadings.CommonLoadingViewModel
 import com.uber.autodispose.autoDisposable
@@ -14,13 +14,13 @@ class LoginViewDelegate(
 
     init {
         viewModel.userInfo
-                .toFlowable()
+                .toReactiveX()
                 .doOnNext { navigator.toMain() }
                 .autoDisposable(viewModel)
                 .subscribe()
 
         viewModel.loadingLayout
-                .toFlowable()
+                .toReactiveX()
                 .doOnNext { applyState(it) }
                 .autoDisposable(loadingViewModel)
                 .subscribe()

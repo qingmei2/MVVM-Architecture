@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.qingmei2.rhine.adapter.BasePagingDataBindingAdapter
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.jumpBrowser
-import com.qingmei2.rhine.ext.livedata.toFlowable
+import com.qingmei2.rhine.ext.livedata.toReactiveX
 import com.qingmei2.rhine.ext.paging.Paging
 import com.qingmei2.rhine.ext.paging.toLiveData
 import com.qingmei2.rhine.functional.Consumer
@@ -48,7 +48,7 @@ class ReposViewModel(
     val error: MutableLiveData<Throwable> = MutableLiveData()
 
     init {
-        sort.toFlowable()
+        sort.toReactiveX()
                 .distinctUntilChanged()
                 .startWith(sortByLetter)
                 .autoDisposable(this)
@@ -73,7 +73,7 @@ class ReposViewModel(
                         enablePlaceholders = false,
                         pageSize = 15,
                         initialLoadSizeHint = 30
-                ).toFlowable()
+                ).toReactiveX()
                 .autoDisposable(this)
                 .subscribe { pagedList ->
                     adapter.submitList(pagedList)

@@ -9,7 +9,7 @@ import arrow.core.none
 import arrow.core.some
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.arrow.whenNotNull
-import com.qingmei2.rhine.ext.livedata.toFlowable
+import com.qingmei2.rhine.ext.livedata.toReactiveX
 import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.sample.common.loadings.CommonLoadingState
 import com.qingmei2.sample.db.LoginEntity
@@ -38,13 +38,13 @@ class LoginViewModel(
     private val autoLogin: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
-        autoLogin.toFlowable()
+        autoLogin.toReactiveX()
                 .filter { it }
                 .doOnNext { login() }
                 .autoDisposable(this)
                 .subscribe()
 
-        error.toFlowable()
+        error.toReactiveX()
                 .map { errorOpt ->
                     errorOpt.flatMap {
                         when (it) {

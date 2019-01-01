@@ -8,7 +8,7 @@ import com.qingmei2.sample.db.LoginEntity
 import com.qingmei2.sample.db.UserDatabase
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.LoginUser
-import com.qingmei2.sample.http.RxSchedulers
+import com.qingmei2.rhine.util.RxSchedulers
 import com.qingmei2.sample.http.service.ServiceManager
 import com.qingmei2.sample.manager.PrefsHelper
 import com.qingmei2.sample.manager.UserManager
