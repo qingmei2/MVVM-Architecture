@@ -48,6 +48,7 @@ dependencies {
     implementation libs.flexbox
 
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.cpacm:floatingmusicmenu:1.0.0'
 
     debugImplementation libs.leak_canary_debug
     debugImplementation libs.leak_canary_debug_support

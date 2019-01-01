@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<data>
+
+		<variable
+			name="fragment"
+			type="com.qingmei2.sample.ui.main.MainFragment" />
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/container"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<androidx.viewpager.widget.ViewPager
+			android:id="@+id/viewPager"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			app:bind_viewPager_fragmentManager="@{ fragment.getChildFragmentManager() }"
+			app:bind_viewPager_fragments="@{ fragment.initFragments() }"
+			app:bind_viewPager_offScreenPageLimit="@{ 2 }"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<com.cpacm.FloatingMusicMenu
+			android:id="@+id/fabMenu"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="16dp"
+			android:layout_marginBottom="16dp"
+			app:fmm_button_interval="2dp"
+			app:fmm_cover="@android:drawable/ic_menu_view"
+			app:fmm_floating_direction="up"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent">
+
+			<com.google.android.material.floatingactionbutton.FloatingActionButton
+				android:id="@+id/fabHome"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="16dp"
+				android:layout_marginBottom="16dp"
+				android:src="@mipmap/ic_nav_home_white"
+				app:bind_view_onClick="@{ () -> fragment.onPageSelectChangedLand(0) }"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toStartOf="parent" />
+
+			<com.google.android.material.floatingactionbutton.FloatingActionButton
+				android:id="@+id/fabRepo"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="16dp"
+				android:layout_marginBottom="16dp"
+				android:src="@mipmap/ic_nav_task_white"
+				app:bind_view_onClick="@{ () -> fragment.onPageSelectChangedLand(1) }"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toStartOf="parent" />
+
+			<com.google.android.material.floatingactionbutton.FloatingActionButton
+				android:id="@+id/fabProfile"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="16dp"
+				android:layout_marginBottom="16dp"
+				android:src="@mipmap/ic_nav_mine_white"
+				app:bind_view_onClick="@{ () -> fragment.onPageSelectChangedLand(2) }"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toStartOf="parent" />
+
+		</com.cpacm.FloatingMusicMenu>
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

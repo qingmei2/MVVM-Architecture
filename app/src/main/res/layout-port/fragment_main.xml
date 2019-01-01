@@ -21,7 +21,7 @@
 			app:bind_viewPager_fragmentManager="@{ fragment.getChildFragmentManager() }"
 			app:bind_viewPager_fragments="@{ fragment.initFragments() }"
 			app:bind_viewPager_offScreenPageLimit="@{ 2 }"
-			app:bind_viewPager_onPageSelectedChanged="@{ (index) -> fragment.onPageSelectChanged(index) }"
+			app:bind_viewPager_onPageSelectedChanged="@{ (index) -> fragment.onPageSelectChangedPort(index) }"
 			app:layout_constraintBottom_toTopOf="@+id/navigation"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
