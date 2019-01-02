@@ -16,7 +16,7 @@ val homeKodeinModule = Kodein.Module(HOME_MODULE_TAG) {
 
     bind<HomeViewModel>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         HomeViewModel.instance(
-                activity = context.activity!!,
+                fragment = context,
                 repo = instance()
         )
     }

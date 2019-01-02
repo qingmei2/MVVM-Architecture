@@ -1,6 +1,6 @@
 package com.qingmei2.sample.ui.main.profile
 
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -39,9 +39,9 @@ class ProfileViewModel(
 
     companion object {
 
-        fun instance(activity: FragmentActivity, repo: ProfileRepository): ProfileViewModel =
+        fun instance(fragment: Fragment, repo: ProfileRepository): ProfileViewModel =
                 ViewModelProviders
-                        .of(activity, ProfileViewModelFactory(repo))
+                        .of(fragment, ProfileViewModelFactory(repo))
                         .get(ProfileViewModel::class.java)
     }
 }

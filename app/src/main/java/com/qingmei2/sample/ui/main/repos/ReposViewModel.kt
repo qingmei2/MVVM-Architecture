@@ -1,5 +1,6 @@
 package com.qingmei2.sample.ui.main.repos
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -125,10 +126,10 @@ class ReposViewModel(
 
         const val sortByLetter: String = "full_name"
 
-        fun instance(activity: androidx.fragment.app.FragmentActivity,
+        fun instance(fragment: Fragment,
                      repo: ReposDataSource): ReposViewModel =
                 ViewModelProviders
-                        .of(activity, ReposViewModelFactory(repo))
+                        .of(fragment, ReposViewModelFactory(repo))
                         .get(ReposViewModel::class.java)
     }
 }

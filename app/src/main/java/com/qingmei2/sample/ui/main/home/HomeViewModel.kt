@@ -1,5 +1,6 @@
 package com.qingmei2.sample.ui.main.home
 
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -122,9 +123,9 @@ class HomeViewModel(
 
     companion object {
 
-        fun instance(activity: FragmentActivity, repo: HomeRepository): HomeViewModel =
+        fun instance(fragment: Fragment, repo: HomeRepository): HomeViewModel =
                 ViewModelProviders
-                        .of(activity, HomeViewModelFactory(repo))
+                        .of(fragment, HomeViewModelFactory(repo))
                         .get(HomeViewModel::class.java)
     }
 }

@@ -14,7 +14,7 @@ val profileKodeinModule = Kodein.Module(PROFILE_MODULE_TAG) {
 
     bind<ProfileViewModel>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         ProfileViewModel.instance(
-                activity = context.activity!!,
+                fragment = context,
                 repo = instance()
         )
     }
