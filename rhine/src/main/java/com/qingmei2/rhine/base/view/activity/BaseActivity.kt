@@ -21,6 +21,11 @@ abstract class BaseActivity<B : ViewDataBinding> : InjectionActivity() {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.unbind()
+    }
+
     private fun initBinding() {
         binding = DataBindingUtil.setContentView(this, layoutId)
         with(binding) {

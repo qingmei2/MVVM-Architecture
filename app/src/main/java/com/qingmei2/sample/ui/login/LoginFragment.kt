@@ -1,7 +1,7 @@
 package com.qingmei2.sample.ui.login
 
 import com.qingmei2.rhine.base.view.fragment.BaseFragment
-import com.qingmei2.rhine.ext.livedata.toReactiveX
+import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.sample.R
 import com.qingmei2.sample.common.loadings.CommonLoadingViewModel
 import com.qingmei2.sample.databinding.FragmentLoginBinding
@@ -25,13 +25,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     override fun initView() {
         viewModel.userInfo
-                .toReactiveX()
+                .toReactiveStream()
                 .doOnNext { toMain() }
                 .autoDisposable(scopeProvider)
                 .subscribe()
 
         viewModel.loadingLayout
-                .toReactiveX()
+                .toReactiveStream()
                 .doOnNext { loadingViewModel.applyState(it) }
                 .autoDisposable(scopeProvider)
                 .subscribe()

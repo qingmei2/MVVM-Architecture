@@ -41,7 +41,7 @@
 					android:id="@+id/recyclerView"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
-					app:bind_recyclerView_adapter="@{ fragment.viewModel.adapter }"
+					app:bind_recyclerView_adapter="@{ fragment.adapter }"
 					app:bind_recyclerView_scrollStateChanges="@{ fragment.fabViewModel.stateChangesConsumer }"
 					app:bind_recyclerView_scrollStateChanges_debounce="@{ 500 }"
 					app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

@@ -10,7 +10,7 @@ import com.qingmei2.rhine.BR
 
 abstract class BaseFragment<B : ViewDataBinding> : InjectionFragment() {
 
-    private lateinit var mRootView: View
+    private var mRootView: View? = null
 
     protected lateinit var binding: B
 
@@ -20,7 +20,7 @@ abstract class BaseFragment<B : ViewDataBinding> : InjectionFragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         mRootView = LayoutInflater.from(context).inflate(layoutId, container, false)
-        return mRootView
+        return mRootView!!
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,5 +39,11 @@ abstract class BaseFragment<B : ViewDataBinding> : InjectionFragment() {
             setVariable(BR.fragment, this@BaseFragment)
             setLifecycleOwner(this@BaseFragment)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mRootView = null
+        binding.unbind()
     }
 }

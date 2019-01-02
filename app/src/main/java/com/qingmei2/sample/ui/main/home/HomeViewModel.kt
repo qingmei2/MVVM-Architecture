@@ -1,26 +1,20 @@
 package com.qingmei2.sample.ui.main.home
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.paging.PagedList
 import arrow.core.Option
 import arrow.core.none
 import arrow.core.some
-import com.qingmei2.rhine.adapter.BasePagingDataBindingAdapter
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
-import com.qingmei2.rhine.ext.jumpBrowser
-import com.qingmei2.rhine.ext.livedata.toReactiveX
+import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.rhine.ext.paging.Paging
 import com.qingmei2.rhine.ext.paging.toLiveData
-import com.qingmei2.rhine.functional.Consumer
-import com.qingmei2.sample.R
-import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.sample.common.loadings.CommonLoadingState
-import com.qingmei2.sample.databinding.ItemHomeReceivedEventBinding
 import com.qingmei2.sample.entity.ReceivedEvent
 import com.qingmei2.sample.manager.UserManager
 import com.uber.autodispose.autoDisposable
@@ -33,22 +27,7 @@ class HomeViewModel(
 
     private val events: MutableLiveData<List<ReceivedEvent>> = MutableLiveData()
 
-    val adapter = BasePagingDataBindingAdapter<ReceivedEvent, ItemHomeReceivedEventBinding>(
-            layoutId = R.layout.item_home_received_event,
-            callback = { data, binding, _ ->
-                binding.data = data
-                binding.actorEvent = object : Consumer<String> {
-                    override fun accept(t: String) {
-                        BaseApplication.INSTANCE.jumpBrowser(t)
-                    }
-                }
-                binding.repoEvent = object : Consumer<String> {
-                    override fun accept(t: String) {
-                        BaseApplication.INSTANCE.jumpBrowser(t)
-                    }
-                }
-            }
-    )
+    val pagedList = MutableLiveData<PagedList<ReceivedEvent>>()
 
     val refreshing: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -74,11 +53,10 @@ class HomeViewModel(
                     }
                 }
                 .toLiveData()
-                .toReactiveX()
+                .toReactiveStream()
+                .doOnNext { pagedList.postValue(it) }
                 .autoDisposable(this)
-                .subscribe {
-                    adapter.submitList(it)
-                }
+                .subscribe()
     }
 
     private fun queryReceivedEventsAction(pageIndex: Int): Flowable<SimpleViewState<List<ReceivedEvent>>> =

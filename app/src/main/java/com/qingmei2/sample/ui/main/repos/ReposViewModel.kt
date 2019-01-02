@@ -5,17 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.qingmei2.rhine.adapter.BasePagingDataBindingAdapter
+import androidx.paging.PagedList
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
-import com.qingmei2.rhine.ext.jumpBrowser
-import com.qingmei2.rhine.ext.livedata.toReactiveX
+import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.rhine.ext.paging.Paging
 import com.qingmei2.rhine.ext.paging.toLiveData
-import com.qingmei2.rhine.functional.Consumer
-import com.qingmei2.sample.R
-import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.base.SimpleViewState
-import com.qingmei2.sample.databinding.ItemReposRepoBinding
 import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.manager.UserManager
 import com.uber.autodispose.autoDisposable
@@ -28,28 +23,16 @@ class ReposViewModel(
 
     private val events: MutableLiveData<List<Repo>> = MutableLiveData()
 
-    val adapter = BasePagingDataBindingAdapter<Repo, ItemReposRepoBinding>(
-            layoutId = R.layout.item_repos_repo,
-            callback = { repo, binding, _ ->
-                binding.apply {
-                    data = repo
-                    repoEvent = object : Consumer<String> {
-                        override fun accept(t: String) {
-                            BaseApplication.INSTANCE.jumpBrowser(t)
-                        }
-                    }
-                }
-            }
-    )
-
     val sort: MutableLiveData<String> = MutableLiveData()
 
     val loading: MutableLiveData<Boolean> = MutableLiveData()
 
     val error: MutableLiveData<Throwable> = MutableLiveData()
 
+    val pagedList = MutableLiveData<PagedList<Repo>>()
+
     init {
-        sort.toReactiveX()
+        sort.toReactiveStream()
                 .distinctUntilChanged()
                 .startWith(sortByLetter)
                 .autoDisposable(this)
@@ -74,11 +57,11 @@ class ReposViewModel(
                         enablePlaceholders = false,
                         pageSize = 15,
                         initialLoadSizeHint = 30
-                ).toReactiveX()
+                )
+                .toReactiveStream()
+                .doOnNext { pagedList.postValue(it) }
                 .autoDisposable(this)
-                .subscribe { pagedList ->
-                    adapter.submitList(pagedList)
-                }
+                .subscribe()
     }
 
     private fun queryReposAction(pageIndex: Int): Flowable<SimpleViewState<List<Repo>>> =

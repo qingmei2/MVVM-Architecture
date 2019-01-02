@@ -58,6 +58,7 @@ dependencies {
     // jetpack
     api libs.arch_comp_extension
     api libs.arch_comp_java8
+    api libs.arch_comp_livedata_rx
 
     api libs.arch_comp_room
     api libs.arch_comp_room_rxjava

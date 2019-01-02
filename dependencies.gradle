@@ -4,8 +4,8 @@ ext {
             compileSdkVersion: 28,
             minSdkVersion    : 19,
             targetSdkVersion : 28,
-            versionCode      : 5,
-            versionName      : '0.3.0'
+            versionCode      : 6,
+            versionName      : '0.4.0'
     ]
 
     versions = [
@@ -58,8 +58,9 @@ ext {
             arch_comp_extension      : [group: 'androidx.lifecycle', name: 'lifecycle-extensions', version: versions.arch_comp_lifecycle],
             arch_comp_java8          : [group: 'androidx.lifecycle', name: 'lifecycle-common-java8', version: versions.arch_comp_lifecycle],
             arch_comp_compiler       : [group: 'androidx.lifecycle', name: 'lifecycle-compiler', version: versions.arch_comp_lifecycle],
-            arch_comp_livedata       : [group: 'androidx.lifecycle', name: 'lifecycle-livedata', version: versions.arch_comp_lifecycle],
             arch_comp_viewmodel      : [group: 'androidx.lifecycle', name: 'lifecycle-viewmodel', version: versions.arch_comp_lifecycle],
+            arch_comp_livedata       : [group: 'androidx.lifecycle', name: 'lifecycle-livedata', version: versions.arch_comp_lifecycle],
+            arch_comp_livedata_rx    : [group: 'androidx.lifecycle', name: 'lifecycle-reactivestreams', version: versions.arch_comp_lifecycle],
 
             arch_comp_navigation     : [group: 'android.arch.navigation', name: 'navigation-fragment-ktx', version: versions.arch_comp_navigation],
             arch_comp_navigation_ui  : [group: 'android.arch.navigation', name: 'navigation-ui-ktx', version: versions.arch_comp_navigation],
