@@ -3,9 +3,9 @@ package com.qingmei2.rhine.base.view.activity
 import androidx.appcompat.app.AppCompatActivity
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 
-open class AutoDisposeActivity : AppCompatActivity() {
+abstract class AutoDisposeActivity : AppCompatActivity() {
 
-    protected val scopeProvider by lazy {
+    protected val scopeProvider: AndroidLifecycleScopeProvider by lazy {
         AndroidLifecycleScopeProvider.from(this)
     }
 }

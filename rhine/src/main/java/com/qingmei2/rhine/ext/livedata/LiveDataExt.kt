@@ -30,7 +30,7 @@ fun <T> LiveData<T>.toReactiveStream(
             }
         }, BackpressureStrategy.LATEST)
         .subscribeOn(RxSchedulers.ui)
-        .observeOn(RxSchedulers.ui)
+        .observeOn(observerScheduler)
 
 fun <X, Y> LiveData<X>.map(function: (X) -> Y): LiveData<Y> =
         Transformations.map(this, function)
