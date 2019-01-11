@@ -36,10 +36,15 @@ class HomeViewModel(
     val error: MutableLiveData<Option<Throwable>> = MutableLiveData()
 
     init {
-        initReceivedEvents()   // fetch API when fragment's onCreated()
+        refreshing.toReactiveStream()
+                .filter { it }
+                .startWith(true)
+                .doOnNext { initReceivedEvents() }
+                .autoDisposable(this)
+                .subscribe()
     }
 
-    fun initReceivedEvents() {
+    private fun initReceivedEvents() {
         Paging
                 .dataSource { pageIndex ->
                     when (pageIndex) {
@@ -76,8 +81,8 @@ class HomeViewModel(
                     .startWith(SimpleViewState.idle())
                     .doOnNext { state ->
                         when (state) {
-                            is SimpleViewState.Refreshing -> applyState(refreshing = true)
-                            is SimpleViewState.Idle -> applyState(refreshing = false)
+                            is SimpleViewState.Refreshing -> applyState()
+                            is SimpleViewState.Idle -> applyState()
                             is SimpleViewState.Error -> applyState(
                                     loadingLayout = CommonLoadingState.ERROR,
                                     error = state.error.some()
@@ -87,13 +92,12 @@ class HomeViewModel(
                             )
                         }
                     }
+                    .doFinally { refreshing.postValue(false) }
 
     private fun applyState(loadingLayout: CommonLoadingState = CommonLoadingState.IDLE,
-                           refreshing: Boolean = false,
                            events: Option<List<ReceivedEvent>> = none(),
                            error: Option<Throwable> = none()) {
         this.loadingLayout.postValue(loadingLayout)
-        this.refreshing.postValue(refreshing)
         this.error.postValue(error)
 
         this.events.postValue(events.orNull())

@@ -1,19 +1,42 @@
 package com.qingmei2.rhine.binding.support
 
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
-@BindingAdapter("refreshing")
-fun isSwipeRefreshLayoutRefreshing(swipeRefreshLayout: SwipeRefreshLayout,
-                                   newValue: Boolean) {
-    if (swipeRefreshLayout.isRefreshing != newValue)
-        swipeRefreshLayout.isRefreshing = newValue
-}
+object SwipeRefreshLayoutBinding {
 
-@BindingAdapter("onRefreshListener")
-fun setOnRefreshListener(swipeRefreshLayout: SwipeRefreshLayout,
-                         refreshListener: Runnable?) {
-    swipeRefreshLayout.setOnRefreshListener {
-        refreshListener?.run()
+    @JvmStatic
+    @BindingAdapter("app:bind_swipeRefreshLayout_refreshing")
+    fun setSwipeRefreshLayoutRefreshing(
+            swipeRefreshLayout: SwipeRefreshLayout,
+            newValue: Boolean
+    ) {
+        if (swipeRefreshLayout.isRefreshing != newValue)
+            swipeRefreshLayout.isRefreshing = newValue
+    }
+
+    @JvmStatic
+    @InverseBindingAdapter(
+            attribute = "app:bind_swipeRefreshLayout_refreshing",
+            event = "app:bind_swipeRefreshLayout_refreshingAttrChanged"
+    )
+    fun isSwipeRefreshLayoutRefreshing(swipeRefreshLayout: SwipeRefreshLayout): Boolean =
+            swipeRefreshLayout.isRefreshing
+
+    @JvmStatic
+    @BindingAdapter(
+            "app:bind_swipeRefreshLayout_refreshingAttrChanged",
+            requireAll = false
+    )
+    fun setOnRefreshListener(
+            swipeRefreshLayout: SwipeRefreshLayout,
+            bindingListener: InverseBindingListener?
+    ) {
+        if (bindingListener != null)
+            swipeRefreshLayout.setOnRefreshListener {
+                bindingListener.onChange()
+            }
     }
 }

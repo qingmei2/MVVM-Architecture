@@ -35,8 +35,7 @@
 	</declare-styleable>
 
 	<declare-styleable name="SwipeRefreshLayout">
-		<attr name="refreshListener" format="reference" />
-		<attr name="refreshing" format="boolean" />
+		<attr name="bind_swipeRefreshLayout_refreshing" format="boolean" />
 	</declare-styleable>
 
 	<declare-styleable name="TabLayout">

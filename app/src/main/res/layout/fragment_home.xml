@@ -33,9 +33,8 @@
 		<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			app:layout_behavior="@string/appbar_scrolling_view_behavior"
-			app:onRefreshListener="@{ () -> fragment.viewModel.initReceivedEvents() }"
-			app:refreshing="@{ safeUnbox(fragment.viewModel.refreshing) }">
+			app:bind_swipeRefreshLayout_refreshing="@={ fragment.viewModel.refreshing }"
+			app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 			<androidx.constraintlayout.widget.ConstraintLayout
 				android:layout_width="match_parent"

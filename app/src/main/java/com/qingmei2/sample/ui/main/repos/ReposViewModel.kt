@@ -25,23 +25,28 @@ class ReposViewModel(
 
     val sort: MutableLiveData<String> = MutableLiveData()
 
-    val loading: MutableLiveData<Boolean> = MutableLiveData()
+    val refreshing: MutableLiveData<Boolean> = MutableLiveData()
 
     val error: MutableLiveData<Throwable> = MutableLiveData()
 
     val pagedList = MutableLiveData<PagedList<Repo>>()
 
     init {
+        refreshing.toReactiveStream()
+                .filter { it }
+                .doOnNext { initReposList() }
+                .autoDisposable(this)
+                .subscribe()
+
         sort.toReactiveStream()
                 .distinctUntilChanged()
                 .startWith(sortByLetter)
+                .doOnNext { refreshing.postValue(true) }
                 .autoDisposable(this)
-                .subscribe {
-                    initReposList()
-                }
+                .subscribe()
     }
 
-    fun initReposList() {
+    private fun initReposList() {
         Paging
                 .dataSource { pageIndex ->
                     when (pageIndex) {
@@ -85,17 +90,16 @@ class ReposViewModel(
                     .startWith(SimpleViewState.idle())
                     .doOnNext { state ->
                         when (state) {
-                            is SimpleViewState.Refreshing -> applyState(isLoading = true)
+                            is SimpleViewState.Refreshing -> applyState()
                             is SimpleViewState.Idle -> applyState()
                             is SimpleViewState.Error -> applyState(error = state.error)
                             is SimpleViewState.Result -> applyState(events = state.result)
                         }
                     }
+                    .doFinally { refreshing.postValue(false) }
 
-    private fun applyState(isLoading: Boolean = false,
-                           events: List<Repo>? = null,
+    private fun applyState(events: List<Repo>? = null,
                            error: Throwable? = null) {
-        this.loading.postValue(isLoading)
         this.error.postValue(error)
 
         this.events.postValue(events)

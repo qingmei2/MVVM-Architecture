@@ -7,7 +7,10 @@ import com.jakewharton.rxbinding3.recyclerview.scrollStateChanges
 import java.util.concurrent.TimeUnit
 
 @BindingAdapter("bind_recyclerView_adapter")
-fun bindAdapter(recyclerView: RecyclerView, adapter: RecyclerView.Adapter<out androidx.recyclerview.widget.RecyclerView.ViewHolder>?) {
+fun bindAdapter(
+        recyclerView: RecyclerView,
+        adapter: RecyclerView.Adapter<out RecyclerView.ViewHolder>?
+) {
     adapter?.apply {
         recyclerView.adapter = adapter
     }
@@ -19,9 +22,11 @@ fun bindAdapter(recyclerView: RecyclerView, adapter: RecyclerView.Adapter<out an
         "bind_recyclerView_scrollStateChanges_debounce",
         requireAll = false
 )
-fun setScrollStateChanges(recyclerView: RecyclerView,
-                          listener: ScrollStateChangesListener,
-                          debounce: Long = 500) {
+fun setScrollStateChanges(
+        recyclerView: RecyclerView,
+        listener: ScrollStateChangesListener,
+        debounce: Long = 500
+) {
     recyclerView.scrollStateChanges()
             .debounce(debounce, TimeUnit.MILLISECONDS)
             .subscribe { state ->

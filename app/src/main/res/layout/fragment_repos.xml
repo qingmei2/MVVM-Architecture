@@ -34,8 +34,7 @@
 			<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				app:onRefreshListener="@{ () -> fragment.viewModel.initReposList() }"
-				app:refreshing="@{ safeUnbox(fragment.viewModel.loading) }">
+				app:bind_swipeRefreshLayout_refreshing="@={ fragment.viewModel.refreshing }">
 
 				<androidx.recyclerview.widget.RecyclerView
 					android:id="@+id/recyclerView"
