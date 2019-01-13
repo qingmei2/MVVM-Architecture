@@ -88,6 +88,17 @@ $ git clone https://github.com/qingmei2/MVVM-Rhine.git
 compile 'com.github.qingmei2.rhine:rhine:$last_version'
 ```
 
+## ChangeLog
+
+### Version：0.4.0 (Update: 2019/ 1/ 13)
+
+* **Remove** : the ViewDelegate layer and Navigator layer.
+* **Refactor**:  the `toFlowable()` function, see [Detail](https://github.com/qingmei2/MVVM-Rhine/commit/837ddfdd92377e1e7a12a51fcf0d35e4c5ef101d).
+* **Refactor**:  the `Paging` class，see [Detail](https://github.com/qingmei2/MVVM-Rhine/commit/71ae50736182af76df195c785cd16ccadd516a01).
+* Fix: the memory leak case with `DataBinding Library`.
+* Update: the sample code, add the land-mode screen code.
+* Update: make base classes abstract, see #8.
+
 ## Thanks to
 
 :art: The UI design of this project refers to [gitme](https://github.com/flutterchina/gitme).
