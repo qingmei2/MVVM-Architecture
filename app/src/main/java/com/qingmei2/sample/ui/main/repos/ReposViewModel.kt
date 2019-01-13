@@ -13,6 +13,7 @@ import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.manager.UserManager
 import com.uber.autodispose.autoDisposable
+import io.reactivex.Completable
 import io.reactivex.Flowable
 
 @SuppressWarnings("checkResult")
@@ -31,16 +32,18 @@ class ReposViewModel(
     val pagedList = MutableLiveData<PagedList<Repo>>()
 
     init {
-        refreshing.toReactiveStream()
-                .filter { it }
-                .doOnNext { initReposList() }
-                .autoDisposable(this)
-                .subscribe()
-
-        sort.toReactiveStream()
-                .distinctUntilChanged()
-                .startWith(sortByLetter)
-                .doOnNext { refreshing.postValue(true) }
+        Completable
+                .mergeArray(
+                        refreshing.toReactiveStream()
+                                .filter { it }
+                                .doOnNext { initReposList() }
+                                .ignoreElements(),
+                        sort.toReactiveStream()
+                                .distinctUntilChanged()
+                                .startWith(sortByLetter)
+                                .doOnNext { refreshing.postValue(true) }
+                                .ignoreElements()
+                )
                 .autoDisposable(this)
                 .subscribe()
     }
