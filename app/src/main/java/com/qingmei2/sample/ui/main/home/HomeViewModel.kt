@@ -12,7 +12,6 @@ import arrow.core.some
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.rhine.ext.paging.Paging
-import com.qingmei2.rhine.ext.paging.toLiveData
 import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.sample.common.loadings.CommonLoadingState
 import com.qingmei2.sample.entity.ReceivedEvent
@@ -46,19 +45,19 @@ class HomeViewModel(
 
     private fun initReceivedEvents() {
         Paging
-                .dataSource { pageIndex ->
-                    when (pageIndex) {
-                        1 -> queryReceivedEventsRefreshAction()
-                        else -> queryReceivedEventsAction(pageIndex)
-                    }.flatMap { state ->
-                        when (state) {
-                            is SimpleViewState.Result -> Flowable.just(state.result)
-                            else -> Flowable.empty()
+                .buildReactiveStream(
+                        dataSourceProvider = { pageIndex ->
+                            when (pageIndex) {
+                                1 -> queryReceivedEventsRefreshAction()
+                                else -> queryReceivedEventsAction(pageIndex)
+                            }.flatMap { state ->
+                                when (state) {
+                                    is SimpleViewState.Result -> Flowable.just(state.result)
+                                    else -> Flowable.empty()
+                                }
+                            }
                         }
-                    }
-                }
-                .toLiveData()
-                .toReactiveStream()
+                )
                 .doOnNext { pagedList.postValue(it) }
                 .autoDisposable(this)
                 .subscribe()

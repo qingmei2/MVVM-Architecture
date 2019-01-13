@@ -2,11 +2,13 @@ package com.qingmei2.rhine.adapter
 
 import android.annotation.SuppressLint
 import androidx.paging.PageKeyedDataSource
+import com.qingmei2.rhine.ext.paging.OnDataSourceFetchError
 import io.reactivex.Flowable
 
 @SuppressLint("CheckResult")
 class CommonLoadMoreDataSource<T>(
-        private val dataSourceProvider: (Int) -> Flowable<List<T>>
+        private val dataSourceProvider: (Int) -> Flowable<List<T>>,
+        private val onErrorAction: OnDataSourceFetchError
 ) : PageKeyedDataSource<Int, T>() {
 
     private var pageIndex = 1
@@ -33,8 +35,8 @@ class CommonLoadMoreDataSource<T>(
         dataSourceProvider(pageIndex)
                 .subscribe({ list ->
                     successCallback(list)
-                }, {
-                    // do nothing
+                }, { throwable ->
+                    onErrorAction(throwable)
                 })
     }
 }

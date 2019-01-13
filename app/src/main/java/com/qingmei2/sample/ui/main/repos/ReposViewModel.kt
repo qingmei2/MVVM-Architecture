@@ -9,7 +9,6 @@ import androidx.paging.PagedList
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.rhine.ext.paging.Paging
-import com.qingmei2.rhine.ext.paging.toLiveData
 import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.manager.UserManager
@@ -48,22 +47,19 @@ class ReposViewModel(
 
     private fun initReposList() {
         Paging
-                .dataSource { pageIndex ->
-                    when (pageIndex) {
-                        1 -> queryReposRefreshAction()
-                        else -> queryReposAction(pageIndex)
-                    }.flatMap { state ->
-                        when (state) {
-                            is SimpleViewState.Result -> Flowable.just(state.result)
-                            else -> Flowable.empty()
+                .buildReactiveStream(
+                        dataSourceProvider = { pageIndex ->
+                            when (pageIndex) {
+                                1 -> queryReposRefreshAction()
+                                else -> queryReposAction(pageIndex)
+                            }.flatMap { state ->
+                                when (state) {
+                                    is SimpleViewState.Result -> Flowable.just(state.result)
+                                    else -> Flowable.empty()
+                                }
+                            }
                         }
-                    }
-                }.toLiveData(
-                        enablePlaceholders = false,
-                        pageSize = 15,
-                        initialLoadSizeHint = 30
                 )
-                .toReactiveStream()
                 .doOnNext { pagedList.postValue(it) }
                 .autoDisposable(this)
                 .subscribe()
