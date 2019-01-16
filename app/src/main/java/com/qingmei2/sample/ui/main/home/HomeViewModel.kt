@@ -35,9 +35,9 @@ class HomeViewModel(
     val error: MutableLiveData<Option<Throwable>> = MutableLiveData()
 
     init {
+        refreshing.postValue(true)
         refreshing.toReactiveStream()
                 .filter { it }
-                .startWith(true)
                 .doOnNext { initReceivedEvents() }
                 .autoDisposable(this)
                 .subscribe()
