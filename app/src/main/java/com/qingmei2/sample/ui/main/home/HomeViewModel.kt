@@ -52,7 +52,8 @@ class HomeViewModel(
                                 else -> queryReceivedEventsAction(pageIndex)
                             }.flatMap { state ->
                                 when (state) {
-                                    is SimpleViewState.Result -> Flowable.just(state.result)
+                                    is SimpleViewState.Result ->
+                                        Flowable.just(state.result to (state.result.size == 15))
                                     else -> Flowable.empty()
                                 }
                             }

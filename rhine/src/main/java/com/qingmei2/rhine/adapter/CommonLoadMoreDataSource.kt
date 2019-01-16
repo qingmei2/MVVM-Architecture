@@ -7,34 +7,48 @@ import io.reactivex.Flowable
 
 @SuppressLint("CheckResult")
 class CommonLoadMoreDataSource<T>(
-        private val dataSourceProvider: (Int) -> Flowable<List<T>>,
+        private val dataSourceProvider: (Int) -> Flowable<Pair<List<T>, Boolean>>,
         private val onErrorAction: OnDataSourceFetchError
 ) : PageKeyedDataSource<Int, T>() {
 
     private var pageIndex = 1
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, T>) {
-        loadDataSourceInternal {
-            callback.onResult(it, pageIndex, pageIndex + 1)
-            pageIndex++
+        loadDataSourceInternal { pair ->
+            val (list, hasAdjacentPageKey) = pair
+            when (hasAdjacentPageKey) {
+                true -> {
+                    callback.onResult(list, pageIndex, ++pageIndex)
+                }
+                false -> {
+                    callback.onResult(list, pageIndex, null)
+                }
+            }
         }
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, T>) {
-        loadDataSourceInternal {
-            callback.onResult(it, pageIndex + 1)
-            pageIndex++
+        loadDataSourceInternal { pair ->
+            val (list, hasAdjacentPageKey) = pair
+            when (hasAdjacentPageKey) {
+                true -> {
+                    callback.onResult(list, ++pageIndex)
+                }
+                false -> {
+                    callback.onResult(list, null)
+                }
+            }
         }
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, T>) {
-
+        // do nothing
     }
 
-    private fun loadDataSourceInternal(successCallback: (List<T>) -> Unit) {
+    private fun loadDataSourceInternal(successCallback: (Pair<List<T>, Boolean>) -> Unit) {
         dataSourceProvider(pageIndex)
-                .subscribe({ list ->
-                    successCallback(list)
+                .subscribe({ pair ->
+                    successCallback(pair)
                 }, { throwable ->
                     onErrorAction(throwable)
                 })

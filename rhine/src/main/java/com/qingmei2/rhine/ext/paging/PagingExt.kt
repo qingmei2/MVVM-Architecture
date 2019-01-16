@@ -21,8 +21,8 @@ object Paging {
     ): LiveData<PagedList<T>> =
             buildLiveDataPageList(
                     buildDataSource(
-                            dataSourceProvider,
-                            onErrorAction
+                            dataSourceProvider = dataSourceProvider,
+                            onErrorAction = onErrorAction
                     ),
                     enablePlaceholders,
                     pageSize,
@@ -40,8 +40,8 @@ object Paging {
     ): Flowable<PagedList<T>> =
             buildRxJavaPagedList(
                     buildDataSource(
-                            dataSourceProvider,
-                            onErrorAction
+                            dataSourceProvider = dataSourceProvider,
+                            onErrorAction = onErrorAction
                     ),
                     enablePlaceholders,
                     pageSize,
@@ -103,6 +103,6 @@ object Paging {
     private const val DEFAULT_INITIAL_LOAD_SIZE_HINT = 30
 }
 
-typealias DataSourceProvider<T> = (Int) -> Flowable<List<T>>
+typealias DataSourceProvider<T> = (Int) -> Flowable<Pair<List<T>, Boolean>>
 
 typealias OnDataSourceFetchError = (Throwable) -> Unit
