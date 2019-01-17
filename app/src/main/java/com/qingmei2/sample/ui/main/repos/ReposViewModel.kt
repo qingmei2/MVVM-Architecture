@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.livedata.toReactiveStream
+import com.qingmei2.rhine.ext.paging.IntPageKeyedData
+import com.qingmei2.rhine.ext.paging.IntPageKeyedDataSource
 import com.qingmei2.rhine.ext.paging.Paging
 import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.sample.entity.Repo
@@ -51,27 +53,48 @@ class ReposViewModel(
     private fun initReposList() {
         Paging
                 .buildReactiveStream(
-                        dataSourceProvider = { pageIndex ->
-                            when (pageIndex) {
-                                1 -> queryReposRefreshAction()
-                                else -> queryReposAction(pageIndex)
-                            }.flatMap { state ->
-                                when (state) {
-                                    is SimpleViewState.Result -> Flowable.just(state.result to (state.result.size == 15))
-                                    else -> Flowable.empty()
+                        intPageKeyedDataSource = IntPageKeyedDataSource(
+                                loadInitial = {
+                                    queryReposRefreshAction(it.requestedLoadSize)
+                                            .flatMap { state ->
+                                                when (state) {
+                                                    is SimpleViewState.Result -> Flowable.just(
+                                                            IntPageKeyedData.build(
+                                                                    data = state.result,
+                                                                    pageIndex = 1,
+                                                                    hasAdjacentPageKey = state.result.size == it.requestedLoadSize
+                                                            )
+                                                    )
+                                                    else -> Flowable.empty()
+                                                }
+                                            }
+                                },
+                                loadAfter = { param ->
+                                    queryReposAction(param.key, param.requestedLoadSize)
+                                            .flatMap { state ->
+                                                when (state) {
+                                                    is SimpleViewState.Result -> Flowable.just(
+                                                            IntPageKeyedData.build(
+                                                                    data = state.result,
+                                                                    pageIndex = param.key,
+                                                                    hasAdjacentPageKey = state.result.size == param.requestedLoadSize
+                                                            )
+                                                    )
+                                                    else -> Flowable.empty()
+                                                }
+                                            }
                                 }
-                            }
-                        }
+                        )
                 )
                 .doOnNext { pagedList.postValue(it) }
                 .autoDisposable(this)
                 .subscribe()
     }
 
-    private fun queryReposAction(pageIndex: Int): Flowable<SimpleViewState<List<Repo>>> =
+    private fun queryReposAction(pageIndex: Int, pageSize: Int): Flowable<SimpleViewState<List<Repo>>> =
             repo.queryRepos(
                     UserManager.INSTANCE.login,
-                    pageIndex, 15,
+                    pageIndex, pageSize,
                     sort.value ?: sortByLetter
             )
                     .map { either ->
@@ -83,8 +106,8 @@ class ReposViewModel(
                     }
                     .onErrorReturn { it -> SimpleViewState.error(it) }
 
-    private fun queryReposRefreshAction(): Flowable<SimpleViewState<List<Repo>>> =
-            queryReposAction(1)
+    private fun queryReposRefreshAction(pageSize: Int): Flowable<SimpleViewState<List<Repo>>> =
+            queryReposAction(1, pageSize)
                     .startWith(SimpleViewState.loading())
                     .startWith(SimpleViewState.idle())
                     .doOnNext { state ->

@@ -11,6 +11,8 @@ import arrow.core.none
 import arrow.core.some
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.livedata.toReactiveStream
+import com.qingmei2.rhine.ext.paging.IntPageKeyedData
+import com.qingmei2.rhine.ext.paging.IntPageKeyedDataSource
 import com.qingmei2.rhine.ext.paging.Paging
 import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.sample.common.loadings.CommonLoadingState
@@ -46,18 +48,37 @@ class HomeViewModel(
     private fun initReceivedEvents() {
         Paging
                 .buildReactiveStream(
-                        dataSourceProvider = { pageIndex ->
-                            when (pageIndex) {
-                                1 -> queryReceivedEventsRefreshAction()
-                                else -> queryReceivedEventsAction(pageIndex)
-                            }.flatMap { state ->
-                                when (state) {
-                                    is SimpleViewState.Result ->
-                                        Flowable.just(state.result to (state.result.size == 15))
-                                    else -> Flowable.empty()
-                                }
-                            }
-                        }
+                        intPageKeyedDataSource = IntPageKeyedDataSource(
+                                loadInitial = {
+                                    queryReceivedEventsRefreshAction()
+                                            .flatMap { state ->
+                                                when (state) {
+                                                    is SimpleViewState.Result -> Flowable.just(
+                                                            IntPageKeyedData.build(
+                                                                    data = state.result,
+                                                                    pageIndex = 1,
+                                                                    hasAdjacentPageKey = state.result.isNotEmpty()
+                                                            )
+                                                    )
+                                                    else -> Flowable.empty()
+                                                }
+                                            }
+                                },
+                                loadAfter = { param ->
+                                    queryReceivedEventsAction(param.key)
+                                            .flatMap { state ->
+                                                when (state) {
+                                                    is SimpleViewState.Result -> Flowable.just(
+                                                            IntPageKeyedData.build(
+                                                                    data = state.result,
+                                                                    pageIndex = param.key,
+                                                                    hasAdjacentPageKey = state.result.isNotEmpty()
+                                                            )
+                                                    )
+                                                    else -> Flowable.empty()
+                                                }
+                                            }
+                                })
                 )
                 .doOnNext { pagedList.postValue(it) }
                 .autoDisposable(this)
