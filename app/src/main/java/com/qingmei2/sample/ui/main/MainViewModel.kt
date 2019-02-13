@@ -11,13 +11,13 @@ class MainViewModel : BaseViewModel() {
     companion object {
         fun instance(fragment: Fragment): MainViewModel =
                 ViewModelProviders
-                        .of(fragment, MainViewModelFactory())
+                        .of(fragment, MainViewModelFactory)
                         .get(MainViewModel::class.java)
     }
 }
 
 @Suppress("UNCHECKED_CAST")
-class MainViewModelFactory : ViewModelProvider.Factory {
+object MainViewModelFactory : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
             MainViewModel() as T

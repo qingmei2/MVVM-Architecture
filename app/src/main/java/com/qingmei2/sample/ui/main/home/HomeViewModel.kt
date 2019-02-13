@@ -14,6 +14,7 @@ import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.rhine.ext.paging.IntPageKeyedData
 import com.qingmei2.rhine.ext.paging.IntPageKeyedDataSource
 import com.qingmei2.rhine.ext.paging.Paging
+import com.qingmei2.rhine.util.SingletonHolderSingleArg
 import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.sample.common.loadings.CommonLoadingState
 import com.qingmei2.sample.entity.ReceivedEvent
@@ -128,7 +129,7 @@ class HomeViewModel(
 
         fun instance(fragment: Fragment, repo: HomeRepository): HomeViewModel =
                 ViewModelProviders
-                        .of(fragment, HomeViewModelFactory(repo))
+                        .of(fragment, HomeViewModelFactory.getInstance(repo))
                         .get(HomeViewModel::class.java)
     }
 }
@@ -141,4 +142,6 @@ class HomeViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return HomeViewModel(repo) as T
     }
+
+    companion object : SingletonHolderSingleArg<HomeViewModelFactory, HomeRepository>(::HomeViewModelFactory)
 }

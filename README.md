@@ -1,7 +1,5 @@
 # MVVM-Rhine
 
-[ ![Download](https://api.bintray.com/packages/mq2553299/maven/mvvm-rhine/images/download.svg) ](https://bintray.com/mq2553299/maven/mvvm-rhine/_latestVersion)
-
 **The MVVM using RxJava2 and Android Jetpack.**
 
 ## ScreenShots
@@ -76,7 +74,7 @@
 
 ## Usage
 
-*  Fork this repo directly **(Recommend)**:
+*  Fork this repo directly:
 
 ```shell
 $ git clone https://github.com/qingmei2/MVVM-Rhine.git

@@ -10,6 +10,7 @@ import arrow.core.none
 import arrow.core.toOption
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.arrow.whenNotNull
+import com.qingmei2.rhine.util.SingletonHolderSingleArg
 import com.qingmei2.sample.entity.LoginUser
 import com.qingmei2.sample.manager.UserManager
 
@@ -41,7 +42,7 @@ class ProfileViewModel(
 
         fun instance(fragment: Fragment, repo: ProfileRepository): ProfileViewModel =
                 ViewModelProviders
-                        .of(fragment, ProfileViewModelFactory(repo))
+                        .of(fragment, ProfileViewModelFactory.getInstance(repo))
                         .get(ProfileViewModel::class.java)
     }
 }
@@ -54,4 +55,6 @@ class ProfileViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return ProfileViewModel(repo) as T
     }
+
+    companion object : SingletonHolderSingleArg<ProfileViewModelFactory, ProfileRepository>(::ProfileViewModelFactory)
 }

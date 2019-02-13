@@ -16,7 +16,7 @@ val loginKodeinModule = Kodein.Module(LOGIN_MODULE_TAG) {
 
     bind<LoginViewModel>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         ViewModelProviders
-                .of((context).activity!!, LoginViewModelFactory(instance()))
+                .of((context).activity!!, LoginViewModelFactory.getInstance(instance()))
                 .get(LoginViewModel::class.java)
     }
 
@@ -24,15 +24,15 @@ val loginKodeinModule = Kodein.Module(LOGIN_MODULE_TAG) {
         CommonLoadingViewModel.instance()
     }
 
-    bind<LoginRemoteDataSource>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
+    bind<LoginRemoteDataSource>() with singleton {
         LoginRemoteDataSource(instance())
     }
 
-    bind<LoginLocalDataSource>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
+    bind<LoginLocalDataSource>() with singleton {
         LoginLocalDataSource(instance(), instance())
     }
 
-    bind<LoginDataSourceRepository>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
+    bind<LoginDataSourceRepository>() with singleton {
         LoginDataSourceRepository(instance(), instance())
     }
 }

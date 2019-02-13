@@ -10,6 +10,7 @@ import arrow.core.some
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.arrow.whenNotNull
 import com.qingmei2.rhine.ext.livedata.toReactiveStream
+import com.qingmei2.rhine.util.SingletonHolderSingleArg
 import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.sample.common.loadings.CommonLoadingState
 import com.qingmei2.sample.db.LoginEntity
@@ -144,4 +145,6 @@ class LoginViewModelFactory(
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
             LoginViewModel(repo) as T
+
+    companion object : SingletonHolderSingleArg<LoginViewModelFactory, LoginDataSourceRepository>(::LoginViewModelFactory)
 }

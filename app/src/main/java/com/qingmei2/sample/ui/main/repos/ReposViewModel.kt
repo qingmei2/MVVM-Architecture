@@ -11,6 +11,7 @@ import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.rhine.ext.paging.IntPageKeyedData
 import com.qingmei2.rhine.ext.paging.IntPageKeyedDataSource
 import com.qingmei2.rhine.ext.paging.Paging
+import com.qingmei2.rhine.util.SingletonHolderSingleArg
 import com.qingmei2.sample.base.SimpleViewState
 import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.manager.UserManager
@@ -138,7 +139,7 @@ class ReposViewModel(
         fun instance(fragment: Fragment,
                      repo: ReposDataSource): ReposViewModel =
                 ViewModelProviders
-                        .of(fragment, ReposViewModelFactory(repo))
+                        .of(fragment, ReposViewModelFactory.getInstance(repo))
                         .get(ReposViewModel::class.java)
     }
 }
@@ -151,4 +152,6 @@ class ReposViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return ReposViewModel(repo) as T
     }
+
+    companion object : SingletonHolderSingleArg<ReposViewModelFactory, ReposDataSource>(::ReposViewModelFactory)
 }

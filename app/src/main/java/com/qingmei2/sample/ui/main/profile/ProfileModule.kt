@@ -19,11 +19,11 @@ val profileKodeinModule = Kodein.Module(PROFILE_MODULE_TAG) {
         )
     }
 
-    bind<ProfileRemoteDataSource>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
+    bind<ProfileRemoteDataSource>() with singleton {
         ProfileRemoteDataSource(instance())
     }
 
-    bind<ProfileRepository>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
+    bind<ProfileRepository>() with singleton {
         ProfileRepository(instance())
     }
 }

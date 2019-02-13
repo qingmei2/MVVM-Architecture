@@ -1,6 +1,7 @@
 package com.qingmei2.sample.ui.main
 
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.qingmei2.sample.ui.main.home.HomeFragment
 import com.qingmei2.sample.ui.main.profile.ProfileFragment
@@ -39,7 +40,7 @@ val mainKodeinModule = Module(MAIN_MODULE_TAG) {
         (context as MainFragment).navigation
     }
 
-    bind<androidx.viewpager.widget.ViewPager>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
+    bind<ViewPager>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         (context as MainFragment).viewPager
     }
 

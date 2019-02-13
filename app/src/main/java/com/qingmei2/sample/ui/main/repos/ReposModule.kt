@@ -24,11 +24,11 @@ val reposKodeinModule = Kodein.Module(REPOS_MODULE_TAG) {
         )
     }
 
-    bind<ILocalReposDataSource>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
+    bind<ILocalReposDataSource>() with singleton {
         LocalReposDataSource()
     }
 
-    bind<IRemoteReposDataSource>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
+    bind<IRemoteReposDataSource>() with singleton {
         RemoteReposDataSource(instance())
     }
 
