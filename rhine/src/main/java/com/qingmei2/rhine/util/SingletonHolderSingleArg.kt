@@ -5,26 +5,15 @@ package com.qingmei2.rhine.util
  *
  * See https://medium.com/@BladeCoder/kotlin-singletons-with-argument-194ef06edd9e
  */
-open class SingletonHolderSingleArg<out T, in A>(creator: (A) -> T) {
-    private var creator: ((A) -> T)? = creator
+open class SingletonHolderSingleArg<out T, in A>(private val creator: (A) -> T) {
+
     @Volatile
     private var instance: T? = null
 
-    fun getInstance(arg: A): T {
-        val i = instance
-        if (i != null) {
-            return i
-        }
-
-        return synchronized(this) {
-            val i2 = instance
-            if (i2 != null) {
-                i2
-            } else {
-                val created = creator!!(arg)
-                instance = created
-                created
+    fun getInstance(arg: A): T =
+            instance ?: synchronized(this) {
+                instance ?: creator(arg).apply {
+                    instance = this
+                }
             }
-        }
-    }
 }
