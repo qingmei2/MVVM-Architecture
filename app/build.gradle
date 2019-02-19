@@ -38,7 +38,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(':rhine')
+    implementation project(':mvvm_rhine')
 
     // support
     implementation libs.support_v7

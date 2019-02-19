@@ -3,9 +3,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
-
 android {
     compileSdkVersion build_version.compileSdkVersion
 
@@ -112,79 +109,4 @@ dependencies {
 
     testImplementation libs.junit
     androidTestImplementation libs.espresso_core
-}
-
-version = build_version.versionName
-group = "com.github.qingmei2.rhine"
-def siteUrl = "https://github.com/qingmei2/MVVM-Rhine"
-def gitUrl = "https://github.com/qingmei2/MVVM-Rhine.git"
-def libName = "mvvm-rhine"
-def projectName = "MVVM-Rhine"
-
-install {
-    repositories.mavenInstaller {
-        pom {
-            project {
-                packaging 'aar'
-                name projectName
-                url siteUrl
-                licenses {
-                    license {
-                        name 'Apache license'
-                        url 'https://github.com/qingmei2/MVVM-Rhine#License'
-                    }
-                }
-                developers {
-                    developer {
-                        id 'qingmei2'
-                        name 'qingmei2'
-                        email 'mq2553299@qq.com'
-                    }
-                }
-                scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url siteUrl
-                }
-            }
-        }
-    }
-}
-
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    failOnError false
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
-
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
-    configurations = ['archives']
-    pkg {
-        repo = "maven"
-        name = libName
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        licenses = ["MIT"]
-        publish = true
-    }
 }

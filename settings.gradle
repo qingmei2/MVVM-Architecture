@@ -1,1 +1,1 @@
-include ':app', ':rhine'
+include ':app', ':mvvm_rhine'

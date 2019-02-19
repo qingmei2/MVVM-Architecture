@@ -84,7 +84,7 @@ $ git clone https://github.com/qingmei2/MVVM-Rhine.git
 
 :art: The UI design of this project refers to [gitme](https://github.com/flutterchina/gitme).
 
-:star: Thanks for [rx-mvvm-android](https://github.com/ffgiraldez/rx-mvvm-android)'s guidance during development.
+:star: This repo is inspired by [rx-mvvm-android](https://github.com/ffgiraldez/rx-mvvm-android) and uses some of its source code.
 
 ## License
 
