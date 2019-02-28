@@ -1,24 +1,34 @@
 # MVVM-Rhine
 
-#### English Documentation | [中文文档](https://github.com/qingmei2/MVVM-Rhine/blob/master/README_ZH.md)
+#### [English Documentation](https://github.com/qingmei2/MVVM-Rhine) | 中文文档
 
-**The MVVM using RxJava2 and Android Jetpack.**
+**Android端 MVVM + Jetpack 架构组件的Github客户端。**
 
-## ScreenShots
+## 通知
+
+关于项目的起源，请参考笔者的这篇文章：
+
+* [使用MVVM尝试开发Github客户端及对编程的一些思考](https://juejin.im/post/5be7bbd9f265da61797458cf)
+
+如果您依然不满意这个项目中的代码风格, 欢迎体验笔者关于 **状态管理** 的最新实践，更趋近我理想的设计， 更加 **函数式** 和 **响应式** :
+
+* [MVI-Rhine: 基于MVVM, 更加响应式&函数式的编程实践, 通过RxJava完成所有应用内部逻辑的串联调度和状态管理,  相比于MVVM，MVI站在更高层级的抽象维度，大幅降低了开发复杂界面时高昂的状态维护成本](https://github.com/qingmei2/MVI-Rhine)
+
+## 屏幕截图
 
 <div align:left;display:inline;>
-<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/login.png"/>
-<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/home.png"/>
+<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/login.png"/>
+<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/home.png"/>
 </div>
 
 <div align:left;display:inline;>
-<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/repos.png"/>
-<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/me.png"/>
+<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/repos.png"/>
+<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/me.png"/>
 </div>
 
-## Libraries
+## 三方组件
 
-### Android Jetpack
+### Android官方架构组件
 
 * [DataBinding: Declaratively bind observable data to UI elements.](https://developer.android.com/topic/libraries/data-binding/)
 
@@ -34,17 +44,17 @@
 
 * [Paging: Makes it easier for you to load data gradually and gracefully within your app's RecyclerView.](https://developer.android.com/topic/libraries/architecture/paging/)
 
-### Http
+### 网络请求
 
 * [Retrofit2: Type-safe HTTP client for Android and Java by Square, Inc.](https://github.com/square/retrofit)
 
 * [OkHttp: An HTTP+HTTP/2 client for Android and Java applications.](https://github.com/square/okhttp)
 
-### DI
+### 依赖注入
 
 * [Kodein-DI: Painless Kotlin Dependency Injection](https://github.com/Kodein-Framework/Kodein-DI)
 
-### ReactiveX
+### 响应式库
 
 * [RxKotlin: RxJava bindings for Kotlin](https://github.com/ReactiveX/RxKotlin)
 
@@ -60,33 +70,33 @@
 
 * [AutoDispose: Automatic binding+disposal of RxJava 2 streams.](https://github.com/uber/AutoDispose)
 
-### Functional
+### 函数式库
 
 * [Arrow: Functional companion to Kotlin's Standard Library.](https://arrow-kt.io/)
 
-### Others
+### 其它
 
 * [Glide: An image loading and caching library for Android focused on smooth scrolling](https://github.com/bumptech/glide)
 
 * [Timber: A logger with a small, extensible API which provides utility on top of Android's normal Log class.](https://github.com/JakeWharton/timber)
 
-### Tools
+### 工具/插件
 
 * [MVVM-Rhine-Template: Activity or Fragment code generation template for MVVM-Rhine.](https://github.com/qingmei2/MVVM-Rhine-Template)
 
-## Usage
+## 开始使用
 
-*  Fork this repo directly:
+*  直接通过git命令行进行clone:
 
 ```shell
 $ git clone https://github.com/qingmei2/MVVM-Rhine.git
 ```
 
-## Thanks to
+## 感谢
 
-:art: The UI design of this project refers to [gitme](https://github.com/flutterchina/gitme).
+:art: 项目中的UI设计部分参考了 [gitme](https://github.com/flutterchina/gitme).
 
-:star: This repo is inspired by [rx-mvvm-android](https://github.com/ffgiraldez/rx-mvvm-android) and uses some of its source code.
+:star: 项目参考了 [rx-mvvm-android](https://github.com/ffgiraldez/rx-mvvm-android) 并对其部分代码进行了引用.
 
 ## License
 
