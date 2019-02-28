@@ -1,19 +1,19 @@
 # MVVM-Rhine
 
-#### English Documentation | [中文文档](https://github.com/qingmei2/MVVM-Rhine/blob/master/README_ZH.md)
-
 **The MVVM using RxJava2 and Android Jetpack.**
+
+### English Documentation | [中文文档](https://github.com/qingmei2/MVVM-Rhine/blob/master/README_ZH.md)
 
 ## ScreenShots
 
 <div align:left;display:inline;>
-<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/login.png"/>
-<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/home.png"/>
+<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/login.png"/>
+<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/home.png"/>
 </div>
 
 <div align:left;display:inline;>
-<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/repos.png"/>
-<img width="300" height="540" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/me.png"/>
+<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/repos.png"/>
+<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/me.png"/>
 </div>
 
 ## Libraries

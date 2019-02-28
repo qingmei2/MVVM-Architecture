@@ -1,18 +1,18 @@
 # MVVM-Rhine
 
-#### [English Documentation](https://github.com/qingmei2/MVVM-Rhine) | 中文文档
-
 **Android端 MVVM + Jetpack 架构组件的Github客户端。**
+
+### [English Documentation](https://github.com/qingmei2/MVVM-Rhine) | 中文文档
 
 ## 通知
 
 关于项目的起源，请参考笔者的这篇文章：
 
-* [使用MVVM尝试开发Github客户端及对编程的一些思考](https://juejin.im/post/5be7bbd9f265da61797458cf)
+> [使用MVVM尝试开发Github客户端及对编程的一些思考](https://juejin.im/post/5be7bbd9f265da61797458cf)
 
-如果您依然不满意这个项目中的代码风格, 欢迎体验笔者关于 **状态管理** 的最新实践，更趋近我理想的设计， 更加 **函数式** 和 **响应式** :
+如果您依然不满意这个项目中的代码风格, 欢迎体验笔者关于**状态管理**的最新实践，更趋近于理想中的设计:
 
-* [MVI-Rhine: 基于MVVM, 更加响应式&函数式的编程实践, 通过RxJava完成所有应用内部逻辑的串联调度和状态管理,  相比于MVVM，MVI站在更高层级的抽象维度，大幅降低了开发复杂界面时高昂的状态维护成本](https://github.com/qingmei2/MVI-Rhine)
+> [MVI-Rhine: 基于Jetpack + MVVM, 更加响应式&函数式的编程实践](https://github.com/qingmei2/MVI-Rhine)
 
 ## 屏幕截图
 
