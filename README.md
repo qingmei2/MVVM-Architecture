@@ -9,9 +9,6 @@
 <div align:left;display:inline;>
 <img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/login.png"/>
 <img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/home.png"/>
-</div>
-
-<div align:left;display:inline;>
 <img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/repos.png"/>
 <img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/me.png"/>
 </div>
