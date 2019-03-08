@@ -10,10 +10,6 @@
 
 > [使用MVVM尝试开发Github客户端及对编程的一些思考](https://juejin.im/post/5be7bbd9f265da61797458cf)
 
-如果您依然不满意这个项目中的代码风格, 欢迎体验笔者关于**状态管理**的最新实践，更趋近于理想中的设计:
-
-> [MVI-Rhine: 基于Jetpack + MVVM, 更加响应式&函数式的编程实践](https://github.com/qingmei2/MVI-Rhine)
-
 ## 屏幕截图
 
 <div align:left;display:inline;>
@@ -88,6 +84,37 @@
 ```shell
 $ git clone https://github.com/qingmei2/MVVM-Rhine.git
 ```
+
+## 如何入手学习这个项目？
+
+如何使用`Android Jetpack`？
+
+>* [Android官方架构组件Lifecycle：生命周期组件详解&原理分析](https://juejin.im/post/5c53beaf51882562e27e5ad9)
+>* [Android官方架构组件LiveData: 观察者模式领域二三事](https://juejin.im/post/5c25753af265da61561f5335)
+>* [Android官方架构组件ViewModel:从前世今生到追本溯源](https://juejin.im/post/5c047fd3e51d45666017ff86)
+>* [Android官方架构组件Paging：分页库的设计美学](https://juejin.im/post/5c53ad9e6fb9a049eb3c5cfd)
+>* [Android官方架构组件Navigation：大巧不工的Fragment管理框架](https://juejin.im/post/5c53be3951882562d27416c6)
+>* [Android官方架构组件DataBinding双向绑定篇: 观察者模式的殊途同归](https://juejin.im/post/5c3e04b7f265da611b589574)
+
+如何使用`Kodein`进行依赖注入？
+
+> * [ 告别Dagger2，在Kotlin项目中使用Kodein进行依赖注入 ](https://www.jianshu.com/p/b0da805f7534)
+> * [【译】Android开发从Dagger2迁移至Kodein的感受  ](https://www.jianshu.com/p/e5eef49570b9)
+
+如何进阶学习`RxJava`？
+
+> * [ 理解RxJava（一）：基本流程源码分析 ](https://www.jianshu.com/p/7fce2955f2db)
+> * [ 理解RxJava（二）：操作符流程原理分析 ](https://www.jianshu.com/p/0a28428e734d)
+> * [ 理解RxJava（三）：线程调度原理分析 ](https://www.jianshu.com/p/9e3930fbcb26)
+> * [ 理解RxJava（四）Subject用法及原理分析 ](https://www.jianshu.com/p/d7efc29ec9d3)
+
+> * [ 解决RxJava内存泄漏（前篇）：RxLifecycle详解及原理分析 ](https://www.jianshu.com/p/8311410de676)
+> * [ 解决RxJava内存泄漏（后篇）：Android架构中添加AutoDispose解决RxJava内存泄漏 ](https://www.jianshu.com/p/8490d9383ba5)
+
+
+如果您依然不满意这个项目中的代码风格, 欢迎体验笔者关于**状态管理**的最新实践，个人而言更趋近于理想中的设计:
+
+> [MVI-Rhine: 基于Jetpack + MVVM, 更加响应式&函数式的编程实践](https://github.com/qingmei2/MVI-Rhine)
 
 ## 感谢
 
