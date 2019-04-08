@@ -139,6 +139,7 @@ class LoginViewModel(
     }
 }
 
+@Suppress("UNCHECKED_CAST")
 class LoginViewModelFactory(
         private val repo: LoginDataSourceRepository
 ) : ViewModelProvider.Factory {

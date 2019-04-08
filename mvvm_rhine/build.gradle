@@ -52,21 +52,23 @@ dependencies {
     api libs.kotlin_stdlib
     api libs.kotlin_coroutines
 
-    // jetpack
-    api libs.arch_comp_extension
-    api libs.arch_comp_java8
-    api libs.arch_comp_livedata_rx
+    api libs.jetpack_lifecycle_extensions
+    api libs.jetpack_lifecycle_java8
+    kapt libs.jetpack_lifecycle_compiler
 
-    api libs.arch_comp_room
-    api libs.arch_comp_room_rxjava
-    kapt libs.arch_comp_room_compiler
+    api libs.jetpack_viewmodel
+    api libs.jetpack_livedata
+    api libs.jetpack_livedata_rx
 
-    api libs.arch_comp_navigation
-    api libs.arch_comp_navigation_ui
-    kapt libs.arch_comp_compiler
+    api libs.jetpack_room
+    api libs.jetpack_room_rxjava
+    kapt libs.jetpack_room_compiler
 
-    api libs.arch_comp_paging
-    api libs.arch_comp_paging_rxjava
+    api libs.jetpack_navigation
+    api libs.jetpack_navigation_ui
+
+    api libs.jetpack_paging
+    api libs.jetpack_paging_rxjava
 
     // retrofit
     api libs.retrofit

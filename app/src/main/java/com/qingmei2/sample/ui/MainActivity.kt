@@ -1,7 +1,7 @@
 package com.qingmei2.sample.ui
 
 import android.content.Intent
-import androidx.navigation.findNavController
+import androidx.navigation.Navigation
 import com.qingmei2.rhine.base.view.activity.BaseActivity
 import com.qingmei2.sample.R
 import com.qingmei2.sample.databinding.ActivityMainBinding
@@ -11,7 +11,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override val layoutId = R.layout.activity_main
 
     override fun onSupportNavigateUp(): Boolean =
-            findNavController(R.id.navHostFragment).navigateUp()
+            Navigation.findNavController(this, R.id.navHostFragment).navigateUp()
 
     companion object {
 

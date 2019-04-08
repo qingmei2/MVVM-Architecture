@@ -40,7 +40,6 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':mvvm_rhine')
 
-    // support
     implementation libs.support_v7
     implementation libs.recyclerview
     implementation libs.design
@@ -55,8 +54,8 @@ dependencies {
     releaseImplementation libs.leak_canary_release
 
     kapt libs.glide_compiler
-    kapt libs.arch_comp_room_compiler
-    kapt libs.arch_comp_compiler
+    kapt libs.jetpack_room_compiler
+    kapt libs.jetpack_lifecycle_compiler
 
     testImplementation libs.junit
 
