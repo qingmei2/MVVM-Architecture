@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName
 data class ReceivedEvent(val id: String,
                          val type: Type,
                          val actor: Actor,
-//                         val payload: Payload,
                          val repo: ReceivedEventRepo,
                          val public: Boolean,
                          @SerializedName("created_at") val createdAt: String?)
@@ -20,10 +19,6 @@ data class Actor(val id: Int,
 data class ReceivedEventRepo(val id: String,
                              val name: String,
                              val url: String)
-
-data class Payload(val action: String?,
-                   val forkee: String?)
-
 
 enum class Type {
     WatchEvent,

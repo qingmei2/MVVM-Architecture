@@ -49,6 +49,8 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.cpacm:floatingmusicmenu:1.0.0'
 
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+
     debugImplementation libs.leak_canary_debug
     debugImplementation libs.leak_canary_debug_support
     releaseImplementation libs.leak_canary_release
