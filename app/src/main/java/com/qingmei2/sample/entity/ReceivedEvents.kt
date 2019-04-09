@@ -1,24 +1,54 @@
 package com.qingmei2.sample.entity
 
+import androidx.room.*
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 
-data class ReceivedEvent(val id: String,
-                         val type: Type,
-                         val actor: Actor,
-                         val repo: ReceivedEventRepo,
-                         val public: Boolean,
-                         @SerializedName("created_at") val createdAt: String?)
+@Entity(
+        tableName = "user_received_events"
+)
+@TypeConverters(
+        TypeEnumConverter::class,
+        ReceivedEventActorConverter::class,
+        ReceivedEventRepoConverter::class
+)
+data class ReceivedEvent(
+        @PrimaryKey
+        var id: Int,
+        @ColumnInfo(name = "type")
+        var type: Type,
+        @ColumnInfo(name = "actor")
+        var actor: Actor,
+        @ColumnInfo(name = "repo")
+        var repo: ReceivedEventRepo,
+        @ColumnInfo(name = "public")
+        var public: Boolean,
+        @SerializedName("created_at")
+        @ColumnInfo(name = "created_at")
+        var createdAt: String?
+) {
+    var indexInResponse: Int = -1
+}
 
-data class Actor(val id: Int,
-                 val login: String,
-                 @SerializedName("display_login") val displayLogin: String,
-                 @SerializedName("gravatar_id") val gravatarId: String,
-                 val url: String,
-                 @SerializedName("avatar_url") val avatarUrl: String)
+data class Actor(
+        @SerializedName("id")
+        val actorId: Int,
+        val login: String,
+        @SerializedName("display_login")
+        val displayLogin: String,
+        @SerializedName("gravatar_id")
+        val gravatarId: String,
+        val url: String,
+        @SerializedName("avatar_url")
+        val avatarUrl: String
+)
 
-data class ReceivedEventRepo(val id: String,
-                             val name: String,
-                             val url: String)
+data class ReceivedEventRepo(
+        @SerializedName("id")
+        val repoId: String,
+        val name: String,
+        val url: String
+)
 
 enum class Type {
     WatchEvent,
@@ -63,7 +93,7 @@ enum class Type {
     SecurityAdvisoryEvent,
     StatusEvent,
     TeamEvent,
-    TeamAddEvent,
+    TeamAddEvent
 }
 
 val DISPLAY_EVENT_TYPES: List<Type> = listOf(
@@ -72,3 +102,34 @@ val DISPLAY_EVENT_TYPES: List<Type> = listOf(
         Type.PushEvent,
         Type.CreateEvent
 )
+
+class TypeEnumConverter {
+
+    @TypeConverter
+    fun restoreEnum(enumName: String): Type = Type.valueOf(enumName)
+
+    @TypeConverter
+    fun saveEnumToString(enumType: Type) = enumType.name
+}
+
+class ReceivedEventActorConverter {
+
+    @TypeConverter
+    fun storeActorToString(data: Actor): String =
+            Gson().toJson(data)
+
+    @TypeConverter
+    fun storeStringToActor(value: String): Actor =
+            Gson().fromJson(value, Actor::class.java)
+}
+
+class ReceivedEventRepoConverter {
+
+    @TypeConverter
+    fun storeRepoToString(data: ReceivedEventRepo): String =
+            Gson().toJson(data)
+
+    @TypeConverter
+    fun storeStringToRepo(value: String): ReceivedEventRepo =
+            Gson().fromJson(value, ReceivedEventRepo::class.java)
+}

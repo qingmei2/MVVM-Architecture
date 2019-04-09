@@ -69,6 +69,7 @@ ext {
             jetpack_paging_rxjava       : [group: 'androidx.paging', name: 'paging-rxjava2', version: versions.arch_comp_paging],
 
             jetpack_room                : [group: 'androidx.room', name: 'room-runtime', version: versions.arch_comp_persistence],
+            jetpack_room_ktx            : [group: 'androidx.room', name: 'room-ktx', version: versions.arch_comp_persistence],
             jetpack_room_compiler       : [group: 'androidx.room', name: 'room-compiler', version: versions.arch_comp_persistence],
             jetpack_room_rxjava         : [group: 'androidx.room', name: 'room-rxjava2', version: versions.arch_comp_persistence],
             jetpack_room_test           : [group: 'androidx.room', name: 'room-testing', version: versions.arch_comp_persistence],

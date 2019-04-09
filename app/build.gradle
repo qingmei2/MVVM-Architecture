@@ -63,9 +63,3 @@ dependencies {
 
     androidTestImplementation libs.espresso_core
 }
-
-kapt {
-    arguments {
-        arg("room.schemaLocation", "$projectDir/schemas".toString())
-    }
-}

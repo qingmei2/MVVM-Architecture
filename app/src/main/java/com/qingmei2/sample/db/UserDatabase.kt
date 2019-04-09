@@ -2,12 +2,13 @@ package com.qingmei2.sample.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.qingmei2.sample.entity.ReceivedEvent
 
 @Database(
-        entities = [LoginEntity::class],
+        entities = [ReceivedEvent::class],
         version = 1
 )
 abstract class UserDatabase : RoomDatabase() {
 
-    abstract fun loginDao(): LoginDao
+    abstract fun userReceivedEventDao(): UserReceivedEventDao
 }

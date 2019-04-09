@@ -61,6 +61,7 @@ dependencies {
     api libs.jetpack_livedata_rx
 
     api libs.jetpack_room
+    api libs.jetpack_room_ktx
     api libs.jetpack_room_rxjava
     kapt libs.jetpack_room_compiler
 
