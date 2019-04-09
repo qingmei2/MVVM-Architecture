@@ -14,18 +14,19 @@ import com.google.gson.annotations.SerializedName
 )
 data class ReceivedEvent(
         @PrimaryKey
-        var id: Int,
+        val id: Int,
         @ColumnInfo(name = "type")
-        var type: Type,
+        val type: Type,
         @ColumnInfo(name = "actor")
-        var actor: Actor,
+        val actor: Actor,
         @ColumnInfo(name = "repo")
-        var repo: ReceivedEventRepo,
-        @ColumnInfo(name = "public")
-        var public: Boolean,
+        val repo: ReceivedEventRepo,
+        @SerializedName("public")
+        @ColumnInfo(name = "is_public")
+        val isPublic: Boolean,
         @SerializedName("created_at")
         @ColumnInfo(name = "created_at")
-        var createdAt: String?
+        val createdAt: String?
 ) {
     var indexInResponse: Int = -1
 }
