@@ -35,8 +35,7 @@ class HomeRepository(
             true -> remoteDataSource.fetchEventsByPage(username, pageIndex, perPage)
                     .flatMap { result ->
                         when (result is Result.Success) {
-                            true -> localDataSource.clearLocalEventData()
-                                    .andThen { localDataSource.insertNewEventData(result.data) }
+                            true -> localDataSource.clearOldAndInsertNewData(result.data)
                                     .andThen(Flowable.just(result))
                             else -> Flowable.just(result)
                         }
@@ -44,7 +43,7 @@ class HomeRepository(
             false -> remoteDataSource.fetchEventsByPage(username, pageIndex, perPage)
                     .flatMap { result ->
                         when (result is Result.Success) {
-                            true -> localDataSource.insertNewEventData(result.data)
+                            true -> localDataSource.insertNewPagedEventData(result.data)
                                     .andThen(Flowable.just(result))
                             else -> Flowable.just(result)
                         }
@@ -104,20 +103,16 @@ class HomeLocalDataSource(private val db: UserDatabase) : ILocalDataSource {
                 .toRxPagedList()
     }
 
-    fun clearLocalEventData(): Completable {
-        return Completable
-                .fromAction {
-                    db.runInTransaction {
-                        db.userReceivedEventDao().clearReceivedEvents()
-                    }
-                }
-                .subscribeOn(RxSchedulers.database)
+    fun clearOldAndInsertNewData(newPage: List<ReceivedEvent>): Completable {
+        db.runInTransaction {
+            db.userReceivedEventDao().clearReceivedEvents()
+        }
+        return insertNewPagedEventData(newPage)
     }
 
-    fun insertNewEventData(newPage: List<ReceivedEvent>): Completable {
+    fun insertNewPagedEventData(newPage: List<ReceivedEvent>): Completable {
         return Completable
                 .fromAction { insertDataInternal(newPage) }
-                .subscribeOn(RxSchedulers.database)
     }
 
     private fun insertDataInternal(newPage: List<ReceivedEvent>) {
