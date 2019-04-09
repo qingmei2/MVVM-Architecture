@@ -11,23 +11,19 @@ import arrow.core.none
 import arrow.core.some
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.livedata.toReactiveStream
-import com.qingmei2.rhine.ext.paging.IntPageKeyedData
-import com.qingmei2.rhine.ext.paging.IntPageKeyedDataSource
-import com.qingmei2.rhine.ext.paging.Paging
+import com.qingmei2.rhine.util.RxSchedulers
 import com.qingmei2.rhine.util.SingletonHolderSingleArg
-import com.qingmei2.sample.base.SimpleViewState
+import com.qingmei2.sample.base.Result
 import com.qingmei2.sample.common.loadings.CommonLoadingState
 import com.qingmei2.sample.entity.ReceivedEvent
 import com.qingmei2.sample.manager.UserManager
 import com.uber.autodispose.autoDisposable
-import io.reactivex.Flowable
+import io.reactivex.Completable
 
 @SuppressWarnings("checkResult")
 class HomeViewModel(
         private val repo: HomeRepository
 ) : BaseViewModel() {
-
-    private val events: MutableLiveData<List<ReceivedEvent>> = MutableLiveData()
 
     val pagedList = MutableLiveData<PagedList<ReceivedEvent>>()
 
@@ -38,91 +34,50 @@ class HomeViewModel(
     val error: MutableLiveData<Option<Throwable>> = MutableLiveData()
 
     init {
-        refreshing.postValue(true)
         refreshing.toReactiveStream()
+                .distinctUntilChanged()
                 .filter { it }
-                .doOnNext { initReceivedEvents() }
+                .flatMapCompletable { queryEventByPage(1) }
                 .autoDisposable(this)
                 .subscribe()
+
+        initReceivedEvents()
     }
 
     private fun initReceivedEvents() {
-        Paging
-                .buildReactiveStream(
-                        intPageKeyedDataSource = IntPageKeyedDataSource(
-                                loadInitial = {
-                                    queryReceivedEventsRefreshAction()
-                                            .flatMap { state ->
-                                                when (state) {
-                                                    is SimpleViewState.Result -> Flowable.just(
-                                                            IntPageKeyedData.build(
-                                                                    data = state.result,
-                                                                    pageIndex = 1,
-                                                                    hasAdjacentPageKey = state.result.isNotEmpty()
-                                                            )
-                                                    )
-                                                    else -> Flowable.empty()
-                                                }
-                                            }
-                                },
-                                loadAfter = { param ->
-                                    queryReceivedEventsAction(param.key)
-                                            .flatMap { state ->
-                                                when (state) {
-                                                    is SimpleViewState.Result -> Flowable.just(
-                                                            IntPageKeyedData.build(
-                                                                    data = state.result,
-                                                                    pageIndex = param.key,
-                                                                    hasAdjacentPageKey = state.result.isNotEmpty()
-                                                            )
-                                                    )
-                                                    else -> Flowable.empty()
-                                                }
-                                            }
-                                })
-                )
+        // fetch single actual data source from db and render them on screen.
+        refreshing.postValue(true)
+
+        repo.fetchPagedListFromDb()
+                .subscribeOn(RxSchedulers.database)
                 .doOnNext { pagedList.postValue(it) }
+                .flatMapCompletable { queryEventByPage(1) }
                 .autoDisposable(this)
                 .subscribe()
     }
 
-    private fun queryReceivedEventsAction(pageIndex: Int): Flowable<SimpleViewState<List<ReceivedEvent>>> =
-            repo.queryReceivedEvents(UserManager.INSTANCE.login, pageIndex = pageIndex, perPage = 15)
-                    .map { either ->
-                        either.fold({
-                            SimpleViewState.error<List<ReceivedEvent>>(it)
-                        }, {
-                            SimpleViewState.result(it)
-                        })
+    private fun queryEventByPage(pageIndex: Int): Completable {
+        val username = UserManager.INSTANCE.login
+        return repo.queryReceivedEventsFromRemote(username, pageIndex)
+                .observeOn(RxSchedulers.ui)
+                .doOnNext { result ->
+                    when (result) {
+                        is Result.Loading -> applyState()
+                        is Result.Idle -> applyState()
+                        is Result.Failure -> applyState(
+                                loadingLayout = CommonLoadingState.ERROR,
+                                error = result.error.some()
+                        )
                     }
-                    .onErrorReturn { it -> SimpleViewState.error(it) }
-
-    private fun queryReceivedEventsRefreshAction(): Flowable<SimpleViewState<List<ReceivedEvent>>> =
-            queryReceivedEventsAction(1)
-                    .startWith(SimpleViewState.loading())
-                    .startWith(SimpleViewState.idle())
-                    .doOnNext { state ->
-                        when (state) {
-                            is SimpleViewState.Refreshing -> applyState()
-                            is SimpleViewState.Idle -> applyState()
-                            is SimpleViewState.Error -> applyState(
-                                    loadingLayout = CommonLoadingState.ERROR,
-                                    error = state.error.some()
-                            )
-                            is SimpleViewState.Result -> applyState(
-                                    events = state.result.some()
-                            )
-                        }
-                    }
-                    .doFinally { refreshing.postValue(false) }
+                }
+                .doFinally { refreshing.postValue(false) }
+                .ignoreElements()
+    }
 
     private fun applyState(loadingLayout: CommonLoadingState = CommonLoadingState.IDLE,
-                           events: Option<List<ReceivedEvent>> = none(),
                            error: Option<Throwable> = none()) {
         this.loadingLayout.postValue(loadingLayout)
         this.error.postValue(error)
-
-        this.events.postValue(events.orNull())
     }
 
     companion object {

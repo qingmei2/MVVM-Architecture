@@ -66,7 +66,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         viewModel.loadingLayout
                                 .toReactiveStream()
                                 .filter { it ->
-                                    it != CommonLoadingState.LOADING    // Refreshing state not used
+                                    it != CommonLoadingState.LOADING    // Loading state not used
                                 }
                                 .doOnNext { loadingViewModel.applyState(it) }
                                 .ignoreElements(),

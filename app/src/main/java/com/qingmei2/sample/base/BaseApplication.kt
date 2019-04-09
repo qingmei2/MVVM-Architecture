@@ -40,7 +40,7 @@ open class BaseApplication : Application(), KodeinAware {
     }
 
     private fun initStetho() {
-        Stetho.initializeWithDefaults(this);
+        Stetho.initializeWithDefaults(this)
     }
 
     private fun initLeakCanary() {

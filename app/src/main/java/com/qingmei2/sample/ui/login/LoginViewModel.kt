@@ -11,7 +11,7 @@ import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.arrow.whenNotNull
 import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.rhine.util.SingletonHolderSingleArg
-import com.qingmei2.sample.base.SimpleViewState
+import com.qingmei2.sample.base.Result
 import com.qingmei2.sample.common.loadings.CommonLoadingState
 import com.qingmei2.sample.db.LoginEntity
 import com.qingmei2.sample.entity.Errors
@@ -52,8 +52,8 @@ class LoginViewModel(
                             is Errors.EmptyInputError -> "username or password can't be null.".some()
                             is HttpException ->
                                 when (it.code()) {
-                                    401 -> "username or password error.".some()
-                                    else -> "network error".some()
+                                    401 -> "username or password failure.".some()
+                                    else -> "network failure".some()
                                 }
                             else -> none()
                         }
@@ -101,21 +101,21 @@ class LoginViewModel(
                     .compose(globalHandleError())
                     .map { either ->
                         either.fold({
-                            SimpleViewState.error<LoginUser>(it)
+                            Result.failure<LoginUser>(it)
                         }, {
-                            SimpleViewState.result(it)
+                            Result.success(it)
                         })
                     }
-                    .startWith(SimpleViewState.loading())
-                    .startWith(SimpleViewState.idle())
-                    .onErrorReturn { it -> SimpleViewState.error(it) }
+                    .startWith(Result.loading())
+                    .startWith(Result.idle())
+                    .onErrorReturn { it -> Result.failure(it) }
                     .autoDisposable(this)
                     .subscribe { state ->
                         when (state) {
-                            is SimpleViewState.Refreshing -> applyState(loadingLayout = CommonLoadingState.LOADING)
-                            is SimpleViewState.Idle -> applyState()
-                            is SimpleViewState.Error -> applyState(loadingLayout = CommonLoadingState.ERROR, error = state.error.some())
-                            is SimpleViewState.Result -> applyState(user = state.result.some())
+                            is Result.Loading -> applyState(loadingLayout = CommonLoadingState.LOADING)
+                            is Result.Idle -> applyState()
+                            is Result.Failure -> applyState(loadingLayout = CommonLoadingState.ERROR, error = state.error.some())
+                            is Result.Success -> applyState(user = state.data.some())
                         }
                     }
         }

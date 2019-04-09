@@ -10,12 +10,12 @@ fun <T> globalHandleError(): GlobalErrorTransformer<T> = GlobalErrorTransformer(
                 is HttpException -> {
                     when (error.code()) {
                         401 -> toast { "401 Unauthorized" }
-                        404 -> toast { "404 error" }
-                        500 -> toast { "500 server error" }
-                        else -> toast { "network error" }
+                        404 -> toast { "404 failure" }
+                        500 -> toast { "500 server failure" }
+                        else -> toast { "network failure" }
                     }
                 }
-                else -> toast { "network error" }
+                else -> toast { "network failure" }
             }
         }
 )

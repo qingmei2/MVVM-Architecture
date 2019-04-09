@@ -12,7 +12,7 @@ import com.qingmei2.rhine.ext.paging.IntPageKeyedData
 import com.qingmei2.rhine.ext.paging.IntPageKeyedDataSource
 import com.qingmei2.rhine.ext.paging.Paging
 import com.qingmei2.rhine.util.SingletonHolderSingleArg
-import com.qingmei2.sample.base.SimpleViewState
+import com.qingmei2.sample.base.Result
 import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.manager.UserManager
 import com.uber.autodispose.autoDisposable
@@ -59,11 +59,11 @@ class ReposViewModel(
                                     queryReposRefreshAction(it.requestedLoadSize)
                                             .flatMap { state ->
                                                 when (state) {
-                                                    is SimpleViewState.Result -> Flowable.just(
+                                                    is Result.Success -> Flowable.just(
                                                             IntPageKeyedData.build(
-                                                                    data = state.result,
+                                                                    data = state.data,
                                                                     pageIndex = 1,
-                                                                    hasAdjacentPageKey = state.result.size == it.requestedLoadSize
+                                                                    hasAdjacentPageKey = state.data.size == it.requestedLoadSize
                                                             )
                                                     )
                                                     else -> Flowable.empty()
@@ -74,11 +74,11 @@ class ReposViewModel(
                                     queryReposAction(param.key, param.requestedLoadSize)
                                             .flatMap { state ->
                                                 when (state) {
-                                                    is SimpleViewState.Result -> Flowable.just(
+                                                    is Result.Success -> Flowable.just(
                                                             IntPageKeyedData.build(
-                                                                    data = state.result,
+                                                                    data = state.data,
                                                                     pageIndex = param.key,
-                                                                    hasAdjacentPageKey = state.result.size == param.requestedLoadSize
+                                                                    hasAdjacentPageKey = state.data.size == param.requestedLoadSize
                                                             )
                                                     )
                                                     else -> Flowable.empty()
@@ -92,7 +92,7 @@ class ReposViewModel(
                 .subscribe()
     }
 
-    private fun queryReposAction(pageIndex: Int, pageSize: Int): Flowable<SimpleViewState<List<Repo>>> =
+    private fun queryReposAction(pageIndex: Int, pageSize: Int): Flowable<Result<List<Repo>>> =
             repo.queryRepos(
                     UserManager.INSTANCE.login,
                     pageIndex, pageSize,
@@ -100,23 +100,23 @@ class ReposViewModel(
             )
                     .map { either ->
                         either.fold({
-                            SimpleViewState.error<List<Repo>>(it)
+                            Result.failure<List<Repo>>(it)
                         }, {
-                            SimpleViewState.result(it)
+                            Result.success(it)
                         })
                     }
-                    .onErrorReturn { it -> SimpleViewState.error(it) }
+                    .onErrorReturn { it -> Result.failure(it) }
 
-    private fun queryReposRefreshAction(pageSize: Int): Flowable<SimpleViewState<List<Repo>>> =
+    private fun queryReposRefreshAction(pageSize: Int): Flowable<Result<List<Repo>>> =
             queryReposAction(1, pageSize)
-                    .startWith(SimpleViewState.loading())
-                    .startWith(SimpleViewState.idle())
+                    .startWith(Result.loading())
+                    .startWith(Result.idle())
                     .doOnNext { state ->
                         when (state) {
-                            is SimpleViewState.Refreshing -> applyState()
-                            is SimpleViewState.Idle -> applyState()
-                            is SimpleViewState.Error -> applyState(error = state.error)
-                            is SimpleViewState.Result -> applyState(events = state.result)
+                            is Result.Loading -> applyState()
+                            is Result.Idle -> applyState()
+                            is Result.Failure -> applyState(error = state.error)
+                            is Result.Success-> applyState(events = state.data)
                         }
                     }
                     .doFinally { refreshing.postValue(false) }

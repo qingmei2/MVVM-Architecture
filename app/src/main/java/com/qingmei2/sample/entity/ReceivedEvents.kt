@@ -14,7 +14,7 @@ import com.google.gson.annotations.SerializedName
 )
 data class ReceivedEvent(
         @PrimaryKey
-        val id: Int,
+        val id: Long,
         @ColumnInfo(name = "type")
         val type: Type,
         @ColumnInfo(name = "actor")

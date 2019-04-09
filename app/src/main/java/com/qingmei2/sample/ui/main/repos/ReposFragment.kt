@@ -70,7 +70,7 @@ class ReposFragment : BaseFragment<FragmentReposBinding>() {
             R.id.menu_repos_letter -> ReposViewModel.sortByLetter
             R.id.menu_repos_update -> ReposViewModel.sortByUpdate
             R.id.menu_repos_created -> ReposViewModel.sortByCreated
-            else -> throw IllegalArgumentException("error menuItem id.")
+            else -> throw IllegalArgumentException("failure menuItem id.")
         }
     }
 

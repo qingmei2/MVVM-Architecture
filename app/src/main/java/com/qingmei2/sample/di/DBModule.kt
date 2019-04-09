@@ -12,6 +12,8 @@ private const val DB_MODULE_TAG = "DBModule"
 val dbModule = Kodein.Module(DB_MODULE_TAG) {
 
     bind<UserDatabase>() with singleton {
-        Room.databaseBuilder(BaseApplication.INSTANCE, UserDatabase::class.java, "user").build()
+        Room.databaseBuilder(BaseApplication.INSTANCE, UserDatabase::class.java, "user")
+                .fallbackToDestructiveMigration()
+                .build()
     }
 }

@@ -1,8 +1,6 @@
 package com.qingmei2.rhine.ext.paging
 
-import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
-import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.paging.RxPagedListBuilder
 import io.reactivex.BackpressureStrategy
@@ -10,27 +8,12 @@ import io.reactivex.Flowable
 
 object Paging {
 
-    fun <T> buildLiveData(
-            intPageKeyedDataSource: IntPageKeyedDataSource<T>,
-            enablePlaceholders: Boolean = false,
-            pageSize: Int = DEFAULT_PAGE_SIZE,
-            initialLoadSizeHint: Int = DEFAULT_INITIAL_LOAD_SIZE_HINT,
-            prefetchDistance: Int = DEFAULT_PREFETCH_DISTANCE
-    ): LiveData<PagedList<T>> =
-            buildLiveDataPageList(
-                    dataSourceFactory = intPageKeyedDataSource(dataSource = intPageKeyedDataSource),
-                    enablePlaceholders = enablePlaceholders,
-                    pageSize = pageSize,
-                    initialLoadSizeHint = initialLoadSizeHint,
-                    prefetchDistance = prefetchDistance
-            )
-
     fun <T> buildReactiveStream(
             intPageKeyedDataSource: IntPageKeyedDataSource<T>,
             enablePlaceholders: Boolean = false,
-            pageSize: Int = DEFAULT_PAGE_SIZE,
-            initialLoadSizeHint: Int = DEFAULT_INITIAL_LOAD_SIZE_HINT,
-            prefetchDistance: Int = DEFAULT_PREFETCH_DISTANCE
+            pageSize: Int = PAGING_DEFAULT_PAGE_SIZE,
+            initialLoadSizeHint: Int = PAGING_DEFAULT_INITIAL_LOAD_SIZE_HINT,
+            prefetchDistance: Int = PAGING_DEFAULT_PREFETCH_DISTANCE
     ): Flowable<PagedList<T>> =
             buildRxJavaPagedList(
                     dataSourceFactory = intPageKeyedDataSource(dataSource = intPageKeyedDataSource),
@@ -50,10 +33,10 @@ object Paging {
 
     private fun <T> buildRxJavaPagedList(
             dataSourceFactory: DataSource.Factory<Int, T>,
-            enablePlaceholders: Boolean = false,
-            pageSize: Int = DEFAULT_PAGE_SIZE,
-            initialLoadSizeHint: Int = DEFAULT_INITIAL_LOAD_SIZE_HINT,
-            prefetchDistance: Int = DEFAULT_PREFETCH_DISTANCE
+            enablePlaceholders: Boolean,
+            pageSize: Int,
+            initialLoadSizeHint: Int,
+            prefetchDistance: Int
     ): Flowable<PagedList<T>> =
             RxPagedListBuilder<Int, T>(
                     dataSourceFactory,
@@ -65,26 +48,21 @@ object Paging {
                             .setEnablePlaceholders(enablePlaceholders)
                             .build()
             ).buildFlowable(BackpressureStrategy.LATEST)
-
-    private fun <T> buildLiveDataPageList(
-            dataSourceFactory: DataSource.Factory<Int, T>,
-            enablePlaceholders: Boolean = false,
-            pageSize: Int = DEFAULT_PAGE_SIZE,
-            initialLoadSizeHint: Int = DEFAULT_INITIAL_LOAD_SIZE_HINT,
-            prefetchDistance: Int = DEFAULT_PREFETCH_DISTANCE
-    ): LiveData<PagedList<T>> =
-            LivePagedListBuilder<Int, T>(
-                    dataSourceFactory,
-                    PagedList.Config
-                            .Builder()
-                            .setInitialLoadSizeHint(initialLoadSizeHint)
-                            .setPageSize(pageSize)
-                            .setPrefetchDistance(prefetchDistance)
-                            .setEnablePlaceholders(enablePlaceholders)
-                            .build()
-            ).build()
-
-    private const val DEFAULT_PAGE_SIZE = 15
-    private const val DEFAULT_PREFETCH_DISTANCE = DEFAULT_PAGE_SIZE
-    private const val DEFAULT_INITIAL_LOAD_SIZE_HINT = 30
 }
+
+fun <T> DataSource.Factory<Int, T>.toRxPagedList(): Flowable<PagedList<T>> {
+    return RxPagedListBuilder<Int, T>(
+            this,
+            PagedList.Config
+                    .Builder()
+                    .setInitialLoadSizeHint(PAGING_DEFAULT_INITIAL_LOAD_SIZE_HINT)
+                    .setPageSize(PAGING_DEFAULT_PAGE_SIZE)
+                    .setPrefetchDistance(PAGING_DEFAULT_PREFETCH_DISTANCE)
+                    .setEnablePlaceholders(false)
+                    .build()
+    ).buildFlowable(BackpressureStrategy.LATEST)
+}
+
+const val PAGING_DEFAULT_PAGE_SIZE = 15
+const val PAGING_DEFAULT_PREFETCH_DISTANCE = 15
+const val PAGING_DEFAULT_INITIAL_LOAD_SIZE_HINT = 30
