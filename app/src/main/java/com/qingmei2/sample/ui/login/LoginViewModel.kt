@@ -32,6 +32,8 @@ class LoginViewModel(
 
     val error: MutableLiveData<Option<Throwable>> = MutableLiveData()
 
+    val loginIndicatorVisible: MutableLiveData<Boolean> = MutableLiveData()
+
     val userInfo: MutableLiveData<LoginUser> = MutableLiveData()
 
     private val autoLogin: MutableLiveData<Boolean> = MutableLiveData()
@@ -110,10 +112,10 @@ class LoginViewModel(
                     .autoDisposable(this)
                     .subscribe { state ->
                         when (state) {
-                            is Result.Loading -> applyState()
-                            is Result.Idle -> applyState()
-                            is Result.Failure -> applyState(error = state.error.some())
-                            is Result.Success -> applyState(user = state.data.some())
+                            is Result.Loading -> applyState(loginIndicator = true)
+                            is Result.Idle -> applyState(loginIndicator = false)
+                            is Result.Failure -> applyState(error = state.error.some(), loginIndicator = false)
+                            is Result.Success -> applyState(user = state.data.some(), loginIndicator = false)
                         }
                     }
         }
@@ -123,6 +125,7 @@ class LoginViewModel(
                            error: Option<Throwable> = none(),
                            username: Option<String> = none(),
                            password: Option<String> = none(),
+                           loginIndicator: Boolean? = null,
                            autoLogin: Boolean = false) {
         this.error.postValue(error)
 
@@ -130,6 +133,8 @@ class LoginViewModel(
 
         username.whenNotNull { this.username.value = it }
         password.whenNotNull { this.password.value = it }
+
+        loginIndicator?.apply(loginIndicatorVisible::postValue)
 
         this.autoLogin.postValue(autoLogin)
     }
