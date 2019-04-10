@@ -1,5 +1,6 @@
 package com.qingmei2.sample.ui.main.home
 
+import android.annotation.SuppressLint
 import androidx.paging.PagedList
 import com.qingmei2.rhine.base.repository.BaseRepositoryBoth
 import com.qingmei2.rhine.base.repository.ILocalDataSource
@@ -17,6 +18,7 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.processors.PublishProcessor
 
+@SuppressLint("CheckResult")
 class HomeRepository(
         remoteDataSource: HomeRemoteDataSource,
         localDataSource: HomeLocalDataSource
@@ -26,11 +28,11 @@ class HomeRepository(
             PublishProcessor.create()
 
     fun subscribeRemoteRequestState(): Flowable<Result<List<ReceivedEvent>>> {
-        return mRemoteRequestStateProcessor.distinctUntilChanged()
+        return mRemoteRequestStateProcessor
     }
 
     fun refreshDataSource() {
-        this.fetchEventByPage(1).subscribe(mRemoteRequestStateProcessor)
+        this.fetchEventByPage(1).subscribe { mRemoteRequestStateProcessor.onNext(it) }
     }
 
     fun fetchPagedListFromDb(): Flowable<PagedList<ReceivedEvent>> {
@@ -44,7 +46,7 @@ class HomeRepository(
                         val currentPageIndex = (itemAtEnd.indexInResponse / 30) + 1
                         val nextPageIndex = currentPageIndex + 1
                         this@HomeRepository.fetchEventByPage(nextPageIndex)
-                                .subscribe(mRemoteRequestStateProcessor)
+                                .subscribe { mRemoteRequestStateProcessor.onNext(it) }
                     }
                 }
         )

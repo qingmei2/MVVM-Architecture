@@ -62,7 +62,6 @@ class HomeViewModel(
                 .autoDisposable(this)
                 .subscribe()
 
-
         fetchPagedListFromDbCompletable()
                 .autoDisposable(this)
                 .subscribe()
@@ -70,7 +69,7 @@ class HomeViewModel(
 
     private fun fetchPagedListFromDbCompletable(): Completable {
         return repo.fetchPagedListFromDb()
-                .subscribeOn(RxSchedulers.database)
+                .subscribeOn(RxSchedulers.io)
                 .doOnNext { pagedList.postValue(it) }
                 .ignoreElements()
     }
