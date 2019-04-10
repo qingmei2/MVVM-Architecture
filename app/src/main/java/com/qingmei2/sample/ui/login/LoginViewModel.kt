@@ -25,7 +25,7 @@ import retrofit2.HttpException
 
 @SuppressWarnings("checkResult")
 class LoginViewModel(
-        private val repo: LoginDataSourceRepository
+        private val repo: LoginRepository
 ) : BaseViewModel() {
 
     val username: MutableLiveData<String> = MutableLiveData()
@@ -141,11 +141,11 @@ class LoginViewModel(
 
 @Suppress("UNCHECKED_CAST")
 class LoginViewModelFactory(
-        private val repo: LoginDataSourceRepository
+        private val repo: LoginRepository
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
             LoginViewModel(repo) as T
 
-    companion object : SingletonHolderSingleArg<LoginViewModelFactory, LoginDataSourceRepository>(::LoginViewModelFactory)
+    companion object : SingletonHolderSingleArg<LoginViewModelFactory, LoginRepository>(::LoginViewModelFactory)
 }
