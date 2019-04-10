@@ -6,43 +6,58 @@ import com.qingmei2.rhine.base.repository.ILocalDataSource
 import com.qingmei2.rhine.base.repository.IRemoteDataSource
 import com.qingmei2.rhine.ext.paging.toRxPagedList
 import com.qingmei2.rhine.util.RxSchedulers
+import com.qingmei2.sample.PAGING_REMOTE_PAGE_SIZE
 import com.qingmei2.sample.base.Result
 import com.qingmei2.sample.db.UserDatabase
-import com.qingmei2.sample.entity.DISPLAY_EVENT_TYPES
 import com.qingmei2.sample.entity.ReceivedEvent
 import com.qingmei2.sample.http.globalHandleError
 import com.qingmei2.sample.http.service.ServiceManager
+import com.qingmei2.sample.manager.UserManager
 import io.reactivex.Completable
 import io.reactivex.Flowable
-import io.reactivex.FlowableTransformer
+import io.reactivex.processors.PublishProcessor
 
 class HomeRepository(
         remoteDataSource: HomeRemoteDataSource,
         localDataSource: HomeLocalDataSource
 ) : BaseRepositoryBoth<HomeRemoteDataSource, HomeLocalDataSource>(remoteDataSource, localDataSource) {
 
+    private val mRemoteRequestStateProcessor: PublishProcessor<Result<List<ReceivedEvent>>> =
+            PublishProcessor.create()
+
+    fun subscribeRemoteRequestState(): Flowable<Result<List<ReceivedEvent>>> {
+        return mRemoteRequestStateProcessor.distinctUntilChanged()
+    }
+
+    fun refreshDataSource() {
+        this.fetchEventByPage(1).subscribe(mRemoteRequestStateProcessor)
+    }
+
     fun fetchPagedListFromDb(): Flowable<PagedList<ReceivedEvent>> {
         return localDataSource.fetchPagedListFromDb(
                 boundaryCallback = object : PagedList.BoundaryCallback<ReceivedEvent>() {
                     override fun onZeroItemsLoaded() {
-
+                        refreshDataSource()
                     }
 
                     override fun onItemAtEndLoaded(itemAtEnd: ReceivedEvent) {
-
+                        val currentPageIndex = (itemAtEnd.indexInResponse / 30) + 1
+                        val nextPageIndex = currentPageIndex + 1
+                        this@HomeRepository.fetchEventByPage(nextPageIndex)
+                                .subscribe(mRemoteRequestStateProcessor)
                     }
                 }
         )
     }
 
-    fun queryReceivedEventsFromRemote(
-            username: String,
+    private fun fetchEventByPage(
             pageIndex: Int,
-            perPage: Int = 15
+            remoteRequestPerPage: Int = PAGING_REMOTE_PAGE_SIZE
     ): Flowable<Result<List<ReceivedEvent>>> {
-        val isRefresh = pageIndex == 1
-        return when (isRefresh) {
-            true -> remoteDataSource.fetchEventsByPage(username, pageIndex, perPage)
+        val username: String = UserManager.INSTANCE.login
+        return when (pageIndex == 1) {
+            true -> remoteDataSource
+                    .fetchEventsByPage(username, 1, remoteRequestPerPage)
                     .flatMap { result ->
                         when (result is Result.Success) {
                             true -> localDataSource.clearOldAndInsertNewData(result.data)
@@ -50,14 +65,17 @@ class HomeRepository(
                             else -> Flowable.just(result)
                         }
                     }
-            false -> remoteDataSource.fetchEventsByPage(username, pageIndex, perPage)
-                    .flatMap { result ->
-                        when (result is Result.Success) {
-                            true -> localDataSource.insertNewPagedEventData(result.data)
-                                    .andThen(Flowable.just(result))
-                            else -> Flowable.just(result)
+            false -> {
+                remoteDataSource
+                        .fetchEventsByPage(username, pageIndex, remoteRequestPerPage)
+                        .flatMap { result ->
+                            when (result is Result.Success) {
+                                true -> localDataSource.insertNewPagedEventData(result.data)
+                                        .andThen(Flowable.just(result))
+                                else -> Flowable.just(result)
+                            }
                         }
-                    }
+            }
         }
     }
 }
@@ -95,14 +113,6 @@ class HomeRemoteDataSource(private val serviceManager: ServiceManager) : IRemote
                 .observeOn(RxSchedulers.io)
                 .subscribeOn(RxSchedulers.io)
     }
-
-    private fun filterEvents(): FlowableTransformer<List<ReceivedEvent>, List<ReceivedEvent>> =
-            FlowableTransformer { events ->
-                events.flatMap { Flowable.fromIterable(it) }
-                        .filter { DISPLAY_EVENT_TYPES.contains(it.type) }
-                        .toList()
-                        .toFlowable()
-            }
 }
 
 class HomeLocalDataSource(private val db: UserDatabase) : ILocalDataSource {

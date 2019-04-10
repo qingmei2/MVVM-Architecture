@@ -16,7 +16,6 @@ import com.qingmei2.rhine.util.SingletonHolderSingleArg
 import com.qingmei2.sample.base.Result
 import com.qingmei2.sample.common.loadings.CommonLoadingState
 import com.qingmei2.sample.entity.ReceivedEvent
-import com.qingmei2.sample.manager.UserManager
 import com.uber.autodispose.autoDisposable
 import io.reactivex.Completable
 
@@ -37,42 +36,47 @@ class HomeViewModel(
         refreshing.toReactiveStream()
                 .distinctUntilChanged()
                 .filter { it }
-                .flatMapCompletable { queryEventByPage(1) }
+                .startWith(true)        // auto refresh at Fragment's onCreated lifecycle.
                 .autoDisposable(this)
-                .subscribe()
+                .subscribe { refreshDataSource() }
 
-        initReceivedEvents()
-    }
-
-    private fun initReceivedEvents() {
-        // fetch single actual data source from db and render them on screen.
-        this.refreshing.postValue(true)
-
-        this.repo.fetchPagedListFromDb()
-                .subscribeOn(RxSchedulers.database)
-                .doOnNext { pagedList.postValue(it) }
-                .autoDisposable(this)
-                .subscribe()
-
-        this.queryEventByPage(1).autoDisposable(this).subscribe()
-    }
-
-    private fun queryEventByPage(pageIndex: Int): Completable {
-        val username = UserManager.INSTANCE.login
-        return repo.queryReceivedEventsFromRemote(username, pageIndex)
+        // only subscribe once in fragment scope
+        repo.subscribeRemoteRequestState()
                 .observeOn(RxSchedulers.ui)
                 .doOnNext { result ->
                     when (result) {
                         is Result.Loading -> applyState()
                         is Result.Idle -> applyState()
-                        is Result.Failure -> applyState(
-                                loadingLayout = CommonLoadingState.ERROR,
-                                error = result.error.some()
-                        )
+                        is Result.Failure -> {
+                            applyState(
+                                    loadingLayout = CommonLoadingState.ERROR,
+                                    error = result.error.some()
+                            )
+                            refreshing.postValue(false)
+                        }
+                        is Result.Success -> {
+                            refreshing.postValue(false)
+                        }
                     }
                 }
-                .doFinally { refreshing.postValue(false) }
+                .autoDisposable(this)
+                .subscribe()
+
+
+        fetchPagedListFromDbCompletable()
+                .autoDisposable(this)
+                .subscribe()
+    }
+
+    private fun fetchPagedListFromDbCompletable(): Completable {
+        return repo.fetchPagedListFromDb()
+                .subscribeOn(RxSchedulers.database)
+                .doOnNext { pagedList.postValue(it) }
                 .ignoreElements()
+    }
+
+    private fun refreshDataSource() {
+        repo.refreshDataSource()
     }
 
     private fun applyState(loadingLayout: CommonLoadingState = CommonLoadingState.IDLE,

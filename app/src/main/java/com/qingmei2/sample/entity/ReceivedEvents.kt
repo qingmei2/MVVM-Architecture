@@ -97,7 +97,7 @@ enum class Type {
     TeamAddEvent
 }
 
-val DISPLAY_EVENT_TYPES: List<Type> = listOf(
+val SUPPORT_EVENT_TYPES: List<Type> = listOf(
         Type.WatchEvent,
         Type.ForkEvent,
         Type.PushEvent,
