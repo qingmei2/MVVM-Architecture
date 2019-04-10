@@ -2,7 +2,6 @@ package com.qingmei2.sample.ui.login
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.qingmei2.sample.common.loadings.CommonLoadingViewModel
 import org.kodein.di.Kodein
 import org.kodein.di.android.x.AndroidLifecycleScope
 import org.kodein.di.generic.bind
@@ -18,10 +17,6 @@ val loginKodeinModule = Kodein.Module(LOGIN_MODULE_TAG) {
         ViewModelProviders
                 .of((context).activity!!, LoginViewModelFactory.getInstance(instance()))
                 .get(LoginViewModel::class.java)
-    }
-
-    bind<CommonLoadingViewModel>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
-        CommonLoadingViewModel.instance()
     }
 
     bind<LoginRemoteDataSource>() with singleton {

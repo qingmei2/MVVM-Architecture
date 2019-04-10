@@ -54,17 +54,6 @@
 					app:layout_constraintTop_toTopOf="parent"
 					tools:listitem="@layout/item_home_received_event" />
 
-				<include
-					layout="@layout/layout_placeholder_loading"
-					android:layout_width="0dp"
-					android:layout_height="0dp"
-					app:delegate="@{ fragment.loadingViewModel }"
-					app:layout_constraintBottom_toBottomOf="parent"
-					app:layout_constraintEnd_toEndOf="parent"
-					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toTopOf="parent"
-					tools:visibility="gone" />
-
 			</androidx.constraintlayout.widget.ConstraintLayout>
 
 		</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

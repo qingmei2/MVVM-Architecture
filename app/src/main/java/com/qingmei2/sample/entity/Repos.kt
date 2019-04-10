@@ -24,7 +24,7 @@ data class Repo(
         @SerializedName("html_url")
         @ColumnInfo(name = "html_url")
         val htmlUrl: String,
-        val description: String,
+        val description: String?,
         val fork: Boolean,
         val url: String,
         @SerializedName("forks_url")

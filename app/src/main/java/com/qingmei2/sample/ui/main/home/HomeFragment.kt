@@ -10,13 +10,10 @@ import com.qingmei2.rhine.functional.Consumer
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.common.FabAnimateViewModel
-import com.qingmei2.sample.common.loadings.CommonLoadingState
-import com.qingmei2.sample.common.loadings.CommonLoadingViewModel
 import com.qingmei2.sample.databinding.FragmentHomeBinding
 import com.qingmei2.sample.databinding.ItemHomeReceivedEventBinding
 import com.qingmei2.sample.entity.ReceivedEvent
 import com.uber.autodispose.autoDisposable
-import io.reactivex.Completable
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
@@ -31,7 +28,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     val viewModel: HomeViewModel by instance()
     val fabViewModel: FabAnimateViewModel by instance()
-    val loadingViewModel: CommonLoadingViewModel by instance()
 
     override val layoutId: Int = R.layout.fragment_home
 
@@ -57,26 +53,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             )
 
     override fun initView() {
-        Completable
-                .mergeArray(
-                        fabViewModel.visibleState
-                                .toReactiveStream()
-                                .doOnNext { switchFabState(it) }
-                                .ignoreElements(),
-                        viewModel.loadingLayout
-                                .toReactiveStream()
-                                .filter { it ->
-                                    it != CommonLoadingState.LOADING    // Loading state not used
-                                }
-                                .doOnNext { loadingViewModel.applyState(it) }
-                                .ignoreElements(),
-                        viewModel.pagedList
-                                .toReactiveStream()
-                                .doOnNext { adapter.submitList(it) }
-                                .ignoreElements()
-                )
+        fabViewModel.visibleState.toReactiveStream()
                 .autoDisposable(scopeProvider)
-                .subscribe()
+                .subscribe { switchFabState(it) }
+        viewModel.pagedList.toReactiveStream()
+                .autoDisposable(scopeProvider)
+                .subscribe { adapter.submitList(it) }
     }
 
     private fun switchFabState(show: Boolean) =

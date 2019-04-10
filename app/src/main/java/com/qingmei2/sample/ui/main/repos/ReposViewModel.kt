@@ -6,21 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
-import arrow.core.some
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.livedata.toReactiveStream
-import com.qingmei2.rhine.ext.paging.IntPageKeyedData
-import com.qingmei2.rhine.ext.paging.IntPageKeyedDataSource
-import com.qingmei2.rhine.ext.paging.Paging
 import com.qingmei2.rhine.util.RxSchedulers
 import com.qingmei2.rhine.util.SingletonHolderSingleArg
 import com.qingmei2.sample.base.Result
-import com.qingmei2.sample.common.loadings.CommonLoadingState
 import com.qingmei2.sample.entity.Repo
-import com.qingmei2.sample.manager.UserManager
 import com.uber.autodispose.autoDisposable
 import io.reactivex.Completable
-import io.reactivex.Flowable
 
 @SuppressWarnings("checkResult")
 class ReposViewModel(

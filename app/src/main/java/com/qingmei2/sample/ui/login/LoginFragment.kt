@@ -3,7 +3,6 @@ package com.qingmei2.sample.ui.login
 import com.qingmei2.rhine.base.view.fragment.BaseFragment
 import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.sample.R
-import com.qingmei2.sample.common.loadings.CommonLoadingViewModel
 import com.qingmei2.sample.databinding.FragmentLoginBinding
 import com.qingmei2.sample.ui.MainActivity
 import com.uber.autodispose.autoDisposable
@@ -21,20 +20,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     val viewModel: LoginViewModel by instance()
 
-    val loadingViewModel: CommonLoadingViewModel by instance()
-
     override fun initView() {
-        viewModel.userInfo
-                .toReactiveStream()
-                .doOnNext { toMain() }
+        viewModel.userInfo.toReactiveStream()
                 .autoDisposable(scopeProvider)
-                .subscribe()
-
-        viewModel.loadingLayout
-                .toReactiveStream()
-                .doOnNext { loadingViewModel.applyState(it) }
-                .autoDisposable(scopeProvider)
-                .subscribe()
+                .subscribe { toMain() }
     }
 
     fun login() = viewModel.login()

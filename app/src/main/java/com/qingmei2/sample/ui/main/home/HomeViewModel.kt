@@ -14,7 +14,6 @@ import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.rhine.util.RxSchedulers
 import com.qingmei2.rhine.util.SingletonHolderSingleArg
 import com.qingmei2.sample.base.Result
-import com.qingmei2.sample.common.loadings.CommonLoadingState
 import com.qingmei2.sample.entity.ReceivedEvent
 import com.uber.autodispose.autoDisposable
 import io.reactivex.Completable
@@ -27,8 +26,6 @@ class HomeViewModel(
     val pagedList = MutableLiveData<PagedList<ReceivedEvent>>()
 
     val refreshing: MutableLiveData<Boolean> = MutableLiveData()
-
-    val loadingLayout: MutableLiveData<CommonLoadingState> = MutableLiveData()
 
     val error: MutableLiveData<Option<Throwable>> = MutableLiveData()
 
@@ -48,10 +45,7 @@ class HomeViewModel(
                         is Result.Loading -> applyState()
                         is Result.Idle -> applyState()
                         is Result.Failure -> {
-                            applyState(
-                                    loadingLayout = CommonLoadingState.ERROR,
-                                    error = result.error.some()
-                            )
+                            applyState(error = result.error.some())
                             refreshing.postValue(false)
                         }
                         is Result.Success -> {
@@ -78,9 +72,7 @@ class HomeViewModel(
         repo.refreshDataSource()
     }
 
-    private fun applyState(loadingLayout: CommonLoadingState = CommonLoadingState.IDLE,
-                           error: Option<Throwable> = none()) {
-        this.loadingLayout.postValue(loadingLayout)
+    private fun applyState(error: Option<Throwable> = none()) {
         this.error.postValue(error)
     }
 
