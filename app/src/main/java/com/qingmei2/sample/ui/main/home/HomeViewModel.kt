@@ -46,14 +46,15 @@ class HomeViewModel(
 
     private fun initReceivedEvents() {
         // fetch single actual data source from db and render them on screen.
-        refreshing.postValue(true)
+        this.refreshing.postValue(true)
 
-        repo.fetchPagedListFromDb()
+        this.repo.fetchPagedListFromDb()
                 .subscribeOn(RxSchedulers.database)
                 .doOnNext { pagedList.postValue(it) }
-                .flatMapCompletable { queryEventByPage(1) }
                 .autoDisposable(this)
                 .subscribe()
+
+        this.queryEventByPage(1).autoDisposable(this).subscribe()
     }
 
     private fun queryEventByPage(pageIndex: Int): Completable {

@@ -29,15 +29,15 @@ val homeKodeinModule = Kodein.Module(HOME_MODULE_TAG) {
         CommonLoadingViewModel.instance()
     }
 
-    bind<HomeRemoteDataSource>() with singleton {
+    bind<HomeRemoteDataSource>()  with scoped<Fragment>(AndroidLifecycleScope).singleton {
         HomeRemoteDataSource(serviceManager = instance())
     }
 
-    bind<HomeLocalDataSource>() with singleton {
+    bind<HomeLocalDataSource>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         HomeLocalDataSource(db = instance())
     }
 
-    bind<HomeRepository>() with singleton {
+    bind<HomeRepository>()  with scoped<Fragment>(AndroidLifecycleScope).singleton {
         HomeRepository(remoteDataSource = instance(), localDataSource = instance())
     }
 }

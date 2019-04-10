@@ -2,7 +2,6 @@ package com.qingmei2.sample.ui.main.home
 
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
-import androidx.core.content.ContextCompat
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.method.LinkMovementMethod
@@ -11,6 +10,7 @@ import android.text.style.StyleSpan
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.qingmei2.rhine.functional.Consumer
 import com.qingmei2.sample.R
 import com.qingmei2.sample.entity.ReceivedEvent
@@ -30,8 +30,7 @@ object HomeUtils {
                     ContextCompat.getDrawable(view.context, R.mipmap.ic_star_yellow_light)
                 Type.CreateEvent, Type.ForkEvent, Type.PushEvent ->
                     ContextCompat.getDrawable(view.context, R.mipmap.ic_fork_green_light)
-                else ->
-                    throw RuntimeException("$eventType can't be displayed.")
+                else -> null
             }
 
     @JvmStatic
@@ -43,7 +42,7 @@ object HomeUtils {
             Type.CreateEvent -> "created"
             Type.ForkEvent -> "forked"
             Type.PushEvent -> "pushed"
-            else -> throw RuntimeException("${data.type} can't be displayed.")
+            else -> data.type.name
         }
         val repo = data.repo.name
 

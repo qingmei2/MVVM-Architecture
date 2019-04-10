@@ -22,7 +22,17 @@ class HomeRepository(
 ) : BaseRepositoryBoth<HomeRemoteDataSource, HomeLocalDataSource>(remoteDataSource, localDataSource) {
 
     fun fetchPagedListFromDb(): Flowable<PagedList<ReceivedEvent>> {
-        return localDataSource.fetchPagedListFromDb()
+        return localDataSource.fetchPagedListFromDb(
+                boundaryCallback = object : PagedList.BoundaryCallback<ReceivedEvent>() {
+                    override fun onZeroItemsLoaded() {
+
+                    }
+
+                    override fun onItemAtEndLoaded(itemAtEnd: ReceivedEvent) {
+
+                    }
+                }
+        )
     }
 
     fun queryReceivedEventsFromRemote(
@@ -84,12 +94,11 @@ class HomeRemoteDataSource(private val serviceManager: ServiceManager) : IRemote
                 .compose(globalHandleError())
                 .observeOn(RxSchedulers.io)
                 .subscribeOn(RxSchedulers.io)
-                .compose(filterEvents())        // except the MemberEvent
     }
 
     private fun filterEvents(): FlowableTransformer<List<ReceivedEvent>, List<ReceivedEvent>> =
-            FlowableTransformer { datas ->
-                datas.flatMap { Flowable.fromIterable(it) }
+            FlowableTransformer { events ->
+                events.flatMap { Flowable.fromIterable(it) }
                         .filter { DISPLAY_EVENT_TYPES.contains(it.type) }
                         .toList()
                         .toFlowable()
@@ -98,9 +107,14 @@ class HomeRemoteDataSource(private val serviceManager: ServiceManager) : IRemote
 
 class HomeLocalDataSource(private val db: UserDatabase) : ILocalDataSource {
 
-    fun fetchPagedListFromDb(): Flowable<PagedList<ReceivedEvent>> {
+    fun fetchPagedListFromDb(
+            boundaryCallback: PagedList.BoundaryCallback<ReceivedEvent>
+    ): Flowable<PagedList<ReceivedEvent>> {
         return db.userReceivedEventDao().queryEvents()
-                .toRxPagedList()
+                .toRxPagedList(
+                        boundaryCallback = boundaryCallback,
+                        fetchSchedulers = RxSchedulers.io
+                )
     }
 
     fun clearOldAndInsertNewData(newPage: List<ReceivedEvent>): Completable {
