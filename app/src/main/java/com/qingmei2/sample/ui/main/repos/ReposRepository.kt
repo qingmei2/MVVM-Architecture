@@ -4,35 +4,25 @@ import arrow.core.Either
 import com.qingmei2.rhine.base.repository.BaseRepositoryBoth
 import com.qingmei2.rhine.base.repository.ILocalDataSource
 import com.qingmei2.rhine.base.repository.IRemoteDataSource
+import com.qingmei2.rhine.util.RxSchedulers
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.Repo
-import com.qingmei2.rhine.util.RxSchedulers
 import com.qingmei2.sample.http.globalHandleError
 import com.qingmei2.sample.http.service.ServiceManager
 import io.reactivex.Completable
 import io.reactivex.Flowable
 
-interface IRemoteReposDataSource : IRemoteDataSource {
+class ReposRepository(
+        remote: RemoteReposDataSource,
+        local: LocalReposDataSource
+) : BaseRepositoryBoth<RemoteReposDataSource, LocalReposDataSource>(remote, local) {
 
-    fun queryRepos(username: String,
-                   pageIndex: Int,
-                   perPage: Int,
-                   sort: String): Flowable<Either<Errors, List<Repo>>>
-}
-
-interface ILocalReposDataSource : ILocalDataSource {
-
-    fun saveReposToLocal(repos: Either<Errors, List<Repo>>): Completable
-}
-
-class ReposDataSource(remote: IRemoteReposDataSource,
-                      local: ILocalReposDataSource) :
-        BaseRepositoryBoth<IRemoteReposDataSource, ILocalReposDataSource>(remote, local) {
-
-    fun queryRepos(username: String,
-                   pageIndex: Int,
-                   perPage: Int,
-                   sort: String): Flowable<Either<Errors, List<Repo>>> =
+    fun queryRepos(
+            username: String,
+            pageIndex: Int,
+            perPage: Int,
+            sort: String
+    ): Flowable<Either<Errors, List<Repo>>> =
             remoteDataSource.queryRepos(username, pageIndex, perPage, sort)
                     .flatMap { reposEither ->
                         localDataSource.saveReposToLocal(reposEither)
@@ -40,12 +30,12 @@ class ReposDataSource(remote: IRemoteReposDataSource,
                     }
 }
 
-class RemoteReposDataSource(private val serviceManager: ServiceManager) : IRemoteReposDataSource {
+class RemoteReposDataSource(private val serviceManager: ServiceManager) : IRemoteDataSource {
 
-    override fun queryRepos(username: String,
-                            pageIndex: Int,
-                            perPage: Int,
-                            sort: String): Flowable<Either<Errors, List<Repo>>> {
+    fun queryRepos(username: String,
+                   pageIndex: Int,
+                   perPage: Int,
+                   sort: String): Flowable<Either<Errors, List<Repo>>> {
         return serviceManager.userService
                 .queryRepos(username, pageIndex, perPage, sort)
                 .subscribeOn(RxSchedulers.io)
@@ -59,9 +49,9 @@ class RemoteReposDataSource(private val serviceManager: ServiceManager) : IRemot
     }
 }
 
-class LocalReposDataSource : ILocalReposDataSource {
+class LocalReposDataSource : ILocalDataSource {
 
-    override fun saveReposToLocal(repos: Either<Errors, List<Repo>>): Completable {
+    fun saveReposToLocal(repos: Either<Errors, List<Repo>>): Completable {
         return Completable.complete()
     }
 }

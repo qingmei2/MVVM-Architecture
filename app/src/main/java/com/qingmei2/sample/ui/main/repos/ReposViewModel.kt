@@ -21,7 +21,7 @@ import io.reactivex.Flowable
 
 @SuppressWarnings("checkResult")
 class ReposViewModel(
-        private val repo: ReposDataSource
+        private val repo: ReposRepository
 ) : BaseViewModel() {
 
     private val events: MutableLiveData<List<Repo>> = MutableLiveData()
@@ -137,7 +137,7 @@ class ReposViewModel(
         const val sortByLetter: String = "full_name"
 
         fun instance(fragment: Fragment,
-                     repo: ReposDataSource): ReposViewModel =
+                     repo: ReposRepository): ReposViewModel =
                 ViewModelProviders
                         .of(fragment, ReposViewModelFactory.getInstance(repo))
                         .get(ReposViewModel::class.java)
@@ -145,7 +145,7 @@ class ReposViewModel(
 }
 
 class ReposViewModelFactory(
-        private val repo: ReposDataSource
+        private val repo: ReposRepository
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
@@ -153,5 +153,5 @@ class ReposViewModelFactory(
         return ReposViewModel(repo) as T
     }
 
-    companion object : SingletonHolderSingleArg<ReposViewModelFactory, ReposDataSource>(::ReposViewModelFactory)
+    companion object : SingletonHolderSingleArg<ReposViewModelFactory, ReposRepository>(::ReposViewModelFactory)
 }
