@@ -24,7 +24,7 @@ data class Repo(
         @SerializedName("html_url")
         @ColumnInfo(name = "html_url")
         val htmlUrl: String,
-        val description: String,
+        val description: String?,
         val fork: Boolean,
         val url: String,
         @SerializedName("forks_url")
@@ -155,10 +155,10 @@ data class Repo(
         val cloneUrl: String,
         @SerializedName("svn_url")
         @ColumnInfo(name = "svn_url")
-        val svnUrl: String,
+        val svnUrl: String?,
         @SerializedName("homepage")
         @ColumnInfo(name = "homepage")
-        val homepage: String,
+        val homepage: String?,
         val size: Int,
         @SerializedName("stargazers_count")
         @ColumnInfo(name = "stargazers_count")
@@ -166,7 +166,7 @@ data class Repo(
         @SerializedName("watchers_count")
         @ColumnInfo(name = "watchers_count")
         val watchersCount: Int,
-        val language: String,
+        val language: String?,
         @SerializedName("has_issues")
         @ColumnInfo(name = "has_issues")
         val hasIssues: Boolean,
@@ -198,7 +198,7 @@ data class Repo(
         val openIssues: Int,
         val watchers: Int,
         @ColumnInfo(name = "default_branch")
-        val defaultBranch: String
+        val defaultBranch: String?
 ) {
 
     var indexInSortResponse: Int = -1   // persistent layer index
@@ -259,8 +259,8 @@ class ReposPersistentConverter {
 
     // License
     @TypeConverter
-    fun storeLicenseToString(data: License): String = data.toJson()
+    fun storeLicenseToString(data: License?): String = data.toJson()
 
     @TypeConverter
-    fun storeStringToLicense(value: String): License = value.fromJson()
+    fun storeStringToLicense(value: String): License? = value.fromJson()
 }
