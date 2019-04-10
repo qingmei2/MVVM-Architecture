@@ -4,7 +4,7 @@ import arrow.core.Either
 import com.qingmei2.rhine.base.repository.BaseRepositoryBoth
 import com.qingmei2.rhine.base.repository.ILocalDataSource
 import com.qingmei2.rhine.base.repository.IRemoteDataSource
-import com.qingmei2.sample.db.LoginEntity
+import com.qingmei2.sample.entity.LoginEntity
 import com.qingmei2.sample.db.UserDatabase
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.LoginUser

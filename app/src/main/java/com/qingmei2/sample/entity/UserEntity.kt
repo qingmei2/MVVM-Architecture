@@ -1,4 +1,4 @@
-package com.qingmei2.sample.db
+package com.qingmei2.sample.entity
 
 data class LoginEntity(
         var id: Int,

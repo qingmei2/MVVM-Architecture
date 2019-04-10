@@ -5,14 +5,8 @@ import com.google.gson.annotations.SerializedName
 import com.qingmei2.sample.utils.fromJson
 import com.qingmei2.sample.utils.toJson
 
-@Entity(
-        tableName = "user_received_events"
-)
-@TypeConverters(
-        TypeEnumConverter::class,
-        ReceivedEventActorConverter::class,
-        ReceivedEventRepoConverter::class
-)
+@TypeConverters(ReceivedEventsPersistentConverter::class)
+@Entity(tableName = "user_received_events")
 data class ReceivedEvent(
         @PrimaryKey
         val id: Long,
@@ -105,29 +99,26 @@ val SUPPORT_EVENT_TYPES: List<Type> = listOf(
         Type.CreateEvent
 )
 
-class TypeEnumConverter {
+class ReceivedEventsPersistentConverter {
 
-    @TypeConverter
-    fun restoreEnum(enumName: String): Type = Type.valueOf(enumName)
-
-    @TypeConverter
-    fun saveEnumToString(enumType: Type) = enumType.name
-}
-
-class ReceivedEventActorConverter {
-
+    // Actor
     @TypeConverter
     fun storeActorToString(data: Actor): String = data.toJson()
 
     @TypeConverter
     fun storeStringToActor(value: String): Actor = value.fromJson()
-}
 
-class ReceivedEventRepoConverter {
-
+    // ReceivedEventRepo
     @TypeConverter
     fun storeRepoToString(data: ReceivedEventRepo): String = data.toJson()
 
     @TypeConverter
     fun storeStringToRepo(value: String): ReceivedEventRepo = value.fromJson()
+
+    // Type
+    @TypeConverter
+    fun restoreEnum(enumName: String): Type = Type.valueOf(enumName)
+
+    @TypeConverter
+    fun saveEnumToString(enumType: Type) = enumType.name
 }

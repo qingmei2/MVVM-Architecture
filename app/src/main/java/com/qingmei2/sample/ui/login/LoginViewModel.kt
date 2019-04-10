@@ -13,7 +13,7 @@ import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.rhine.util.SingletonHolderSingleArg
 import com.qingmei2.sample.base.Result
 import com.qingmei2.sample.common.loadings.CommonLoadingState
-import com.qingmei2.sample.db.LoginEntity
+import com.qingmei2.sample.entity.LoginEntity
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.LoginUser
 import com.qingmei2.sample.http.globalHandleError
