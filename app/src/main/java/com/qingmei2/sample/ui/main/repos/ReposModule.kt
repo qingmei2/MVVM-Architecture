@@ -27,7 +27,7 @@ val reposKodeinModule = Kodein.Module(REPOS_MODULE_TAG) {
     bind<ReposRepository>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         ReposRepository(
                 remote = RemoteReposDataSource(serviceManager = instance()),
-                local = LocalReposDataSource()
+                local = LocalReposDataSource(db = instance())
         )
     }
 }

@@ -201,7 +201,7 @@ data class Repo(
         val defaultBranch: String
 ) {
 
-    var indexInResponse: Int = -1   // persistent layer index
+    var indexInSortResponse: Int = -1   // persistent layer index
 }
 
 data class RepoOwner(

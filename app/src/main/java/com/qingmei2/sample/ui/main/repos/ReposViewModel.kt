@@ -6,13 +6,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
+import arrow.core.some
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.rhine.ext.paging.IntPageKeyedData
 import com.qingmei2.rhine.ext.paging.IntPageKeyedDataSource
 import com.qingmei2.rhine.ext.paging.Paging
+import com.qingmei2.rhine.util.RxSchedulers
 import com.qingmei2.rhine.util.SingletonHolderSingleArg
 import com.qingmei2.sample.base.Result
+import com.qingmei2.sample.common.loadings.CommonLoadingState
 import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.manager.UserManager
 import com.uber.autodispose.autoDisposable
@@ -35,96 +38,58 @@ class ReposViewModel(
     val pagedList = MutableLiveData<PagedList<Repo>>()
 
     init {
-        Completable
-                .mergeArray(
-                        refreshing.toReactiveStream()
-                                .filter { it }
-                                .doOnNext { initReposList() }
-                                .ignoreElements(),
-                        sort.toReactiveStream()
-                                .distinctUntilChanged()
-                                .startWith(sortByLetter)
-                                .doOnNext { refreshing.postValue(true) }
-                                .ignoreElements()
-                )
+        refreshing.toReactiveStream()
+                .distinctUntilChanged()
+                .filter { it }
+                .autoDisposable(this)
+                .subscribe { refreshDataSource() }
+
+        // try auto refreshing page list when sort has changed
+        sort.toReactiveStream()
+                .startWith(sortByUpdate)
+                .distinctUntilChanged()
+                .doOnNext { refreshing.postValue(true) }
                 .autoDisposable(this)
                 .subscribe()
-    }
 
-    private fun initReposList() {
-        Paging
-                .buildReactiveStream(
-                        intPageKeyedDataSource = IntPageKeyedDataSource(
-                                loadInitial = {
-                                    queryReposRefreshAction(it.requestedLoadSize)
-                                            .flatMap { state ->
-                                                when (state) {
-                                                    is Result.Success -> Flowable.just(
-                                                            IntPageKeyedData.build(
-                                                                    data = state.data,
-                                                                    pageIndex = 1,
-                                                                    hasAdjacentPageKey = state.data.size == it.requestedLoadSize
-                                                            )
-                                                    )
-                                                    else -> Flowable.empty()
-                                                }
-                                            }
-                                },
-                                loadAfter = { param ->
-                                    queryReposAction(param.key, param.requestedLoadSize)
-                                            .flatMap { state ->
-                                                when (state) {
-                                                    is Result.Success -> Flowable.just(
-                                                            IntPageKeyedData.build(
-                                                                    data = state.data,
-                                                                    pageIndex = param.key,
-                                                                    hasAdjacentPageKey = state.data.size == param.requestedLoadSize
-                                                            )
-                                                    )
-                                                    else -> Flowable.empty()
-                                                }
-                                            }
-                                }
-                        )
-                )
-                .doOnNext { pagedList.postValue(it) }
-                .autoDisposable(this)
-                .subscribe()
-    }
-
-    private fun queryReposAction(pageIndex: Int, pageSize: Int): Flowable<Result<List<Repo>>> =
-            repo.queryRepos(
-                    UserManager.INSTANCE.login,
-                    pageIndex, pageSize,
-                    sort.value ?: sortByLetter
-            )
-                    .map { either ->
-                        either.fold({
-                            Result.failure<List<Repo>>(it)
-                        }, {
-                            Result.success(it)
-                        })
-                    }
-                    .onErrorReturn { it -> Result.failure(it) }
-
-    private fun queryReposRefreshAction(pageSize: Int): Flowable<Result<List<Repo>>> =
-            queryReposAction(1, pageSize)
-                    .startWith(Result.loading())
-                    .startWith(Result.idle())
-                    .doOnNext { state ->
-                        when (state) {
-                            is Result.Loading -> applyState()
-                            is Result.Idle -> applyState()
-                            is Result.Failure -> applyState(error = state.error)
-                            is Result.Success-> applyState(events = state.data)
+        // only subscribe once in fragment scope
+        repo.subscribeRemoteRequestState()
+                .observeOn(RxSchedulers.ui)
+                .doOnNext { result ->
+                    when (result) {
+                        is Result.Loading -> applyState()
+                        is Result.Idle -> applyState()
+                        is Result.Failure -> {
+                            applyState(error = result.error)
+                            refreshing.postValue(false)
+                        }
+                        is Result.Success -> {
+                            refreshing.postValue(false)
                         }
                     }
-                    .doFinally { refreshing.postValue(false) }
+                }
+                .autoDisposable(this)
+                .subscribe()
+
+        fetchPagedListFromDbCompletable()
+                .autoDisposable(this)
+                .subscribe()
+    }
+
+    private fun fetchPagedListFromDbCompletable(): Completable {
+        return repo.fetchPagedListFromDb(sort.value ?: sortByUpdate)
+                .subscribeOn(RxSchedulers.io)
+                .doOnNext { pagedList.postValue(it) }
+                .ignoreElements()
+    }
+
+    private fun refreshDataSource() {
+        repo.refreshDataSource(sort.value ?: sortByUpdate)
+    }
 
     private fun applyState(events: List<Repo>? = null,
                            error: Throwable? = null) {
         this.error.postValue(error)
-
         this.events.postValue(events)
     }
 
