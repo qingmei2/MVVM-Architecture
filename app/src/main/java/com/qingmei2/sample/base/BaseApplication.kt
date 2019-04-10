@@ -5,10 +5,7 @@ import android.content.Context
 import com.facebook.stetho.Stetho
 import com.qingmei2.rhine.logger.initLogger
 import com.qingmei2.sample.BuildConfig
-import com.qingmei2.sample.di.dbModule
-import com.qingmei2.sample.di.httpClientModule
-import com.qingmei2.sample.di.prefsModule
-import com.qingmei2.sample.di.serviceModule
+import com.qingmei2.sample.di.*
 import com.squareup.leakcanary.LeakCanary
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -27,6 +24,7 @@ open class BaseApplication : Application(), KodeinAware {
         import(serviceModule)
         import(dbModule)
         import(httpClientModule)
+        import(serializableModule)
         import(prefsModule)
     }
 

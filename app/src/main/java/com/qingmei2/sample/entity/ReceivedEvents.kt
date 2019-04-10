@@ -1,8 +1,9 @@
 package com.qingmei2.sample.entity
 
 import androidx.room.*
-import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
+import com.qingmei2.sample.utils.fromJson
+import com.qingmei2.sample.utils.toJson
 
 @Entity(
         tableName = "user_received_events"
@@ -116,21 +117,17 @@ class TypeEnumConverter {
 class ReceivedEventActorConverter {
 
     @TypeConverter
-    fun storeActorToString(data: Actor): String =
-            Gson().toJson(data)
+    fun storeActorToString(data: Actor): String = data.toJson()
 
     @TypeConverter
-    fun storeStringToActor(value: String): Actor =
-            Gson().fromJson(value, Actor::class.java)
+    fun storeStringToActor(value: String): Actor = value.fromJson()
 }
 
 class ReceivedEventRepoConverter {
 
     @TypeConverter
-    fun storeRepoToString(data: ReceivedEventRepo): String =
-            Gson().toJson(data)
+    fun storeRepoToString(data: ReceivedEventRepo): String = data.toJson()
 
     @TypeConverter
-    fun storeStringToRepo(value: String): ReceivedEventRepo =
-            Gson().fromJson(value, ReceivedEventRepo::class.java)
+    fun storeStringToRepo(value: String): ReceivedEventRepo = value.fromJson()
 }
