@@ -1,224 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
 
-    <data>
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/btnAvatar"
+		android:layout_width="0dp"
+		android:layout_height="20dp"
+		android:layout_marginLeft="16dp"
+		android:layout_marginTop="16dp"
+		android:layout_marginRight="16dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
 
-        <import
-            alias="utils"
-            type="com.qingmei2.sample.ui.main.repos.ReposUtil" />
+		<ImageView
+			android:id="@+id/ivAvatar"
+			android:layout_width="16dp"
+			android:layout_height="16dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:src="@mipmap/ic_github" />
 
-        <variable
-            name="data"
-            type="com.qingmei2.sample.entity.Repo" />
+		<TextView
+			android:id="@+id/tvOwnerName"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:ellipsize="end"
+			android:singleLine="true"
+			android:textColor="@color/primaryTextColor"
+			android:textSize="12sp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/ivAvatar"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:text="qingmei2" />
 
-        <variable
-            name="avatarEvent"
-            type="com.qingmei2.rhine.functional.Consumer&lt;String>" />
+		<de.hdodenhof.circleimageview.CircleImageView
+			android:id="@+id/ivLanguageColor"
+			android:layout_width="7dp"
+			android:layout_height="7dp"
+			android:layout_marginEnd="4dp"
+			app:layout_constraintBottom_toBottomOf="@+id/tvLanguage"
+			app:layout_constraintEnd_toStartOf="@+id/tvLanguage"
+			app:layout_constraintTop_toTopOf="@+id/tvLanguage"
+			tools:src="@color/color_language_kotlin" />
 
-        <variable
-            name="repoEvent"
-            type="com.qingmei2.rhine.functional.Consumer&lt;String>" />
-    </data>
+		<TextView
+			android:id="@+id/tvLanguage"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@color/secondaryTextBlueGray"
+			android:textSize="12sp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:text="Kotlin" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:bind_view_onClick="@{ () -> repoEvent.accept(data.htmlUrl) }">
+	</androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/btnAvatar"
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="16dp"
-            app:bind_view_onClick="@{ () -> repoEvent.accept(data.owner.htmlUrl) }"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+	<TextView
+		android:id="@+id/tvRepoName"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="16dp"
+		android:layout_marginTop="6dp"
+		android:layout_marginRight="16dp"
+		android:singleLine="true"
+		android:textColor="@color/primaryTextColor"
+		android:textSize="14sp"
+		android:textStyle="bold"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/btnAvatar"
+		tools:text="qingmei2/MVVM-Rhine" />
 
-            <ImageView
-                android:id="@+id/ivAvatar"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                app:bind_imageView_url_circle="@{ data.owner.avatarUrl }"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@mipmap/ic_github" />
+	<TextView
+		android:id="@+id/tvRepoDesc"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="16dp"
+		android:layout_marginTop="6dp"
+		android:layout_marginRight="16dp"
+		android:textColor="@color/secondaryTextGray"
+		android:textSize="12sp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/tvRepoName"
+		tools:text="The MVVM Architecture in Android（MVVM+Jetpack架构的Github客户端，开发中）." />
 
-            <TextView
-                android:id="@+id/tvOwnerName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:text="@{ data.owner.login }"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ivAvatar"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="qingmei2" />
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/clIcons"
+		android:layout_width="0dp"
+		android:layout_height="20dp"
+		android:layout_marginLeft="16dp"
+		android:layout_marginTop="6dp"
+		android:layout_marginRight="16dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/tvRepoDesc">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/ivLanguageColor"
-                android:layout_width="7dp"
-                android:layout_height="7dp"
-                android:layout_marginEnd="4dp"
-                android:src="@{ utils.transLanguageColor(ivLanguageColor, data.language) }"
-                app:bind_view_visibility="@{ data.language != null }"
-                app:layout_constraintBottom_toBottomOf="@+id/tvLanguage"
-                app:layout_constraintEnd_toStartOf="@+id/tvLanguage"
-                app:layout_constraintTop_toTopOf="@+id/tvLanguage"
-                tools:src="@color/color_language_kotlin" />
+		<ImageView
+			android:id="@+id/ivStar"
+			android:layout_width="13dp"
+			android:layout_height="13dp"
+			android:scaleType="fitCenter"
+			android:src="@mipmap/ic_star_gray"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvLanguage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{ data.language }"
-                android:textColor="@color/secondaryTextBlueGray"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Kotlin" />
+		<TextView
+			android:id="@+id/tvStar"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="2dp"
+			android:textColor="@color/secondaryTextGray"
+			android:textSize="12sp"
+			app:layout_constraintBottom_toBottomOf="@+id/ivStar"
+			app:layout_constraintStart_toEndOf="@+id/ivStar"
+			app:layout_constraintTop_toTopOf="@+id/ivStar"
+			tools:text="502" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+		<ImageView
+			android:id="@+id/ivIssue"
+			android:layout_width="13dp"
+			android:layout_height="13dp"
+			android:layout_marginStart="12dp"
+			android:paddingTop="1dp"
+			android:scaleType="fitCenter"
+			android:src="@mipmap/ic_issue_gray"
+			app:layout_constraintBottom_toBottomOf="@+id/tvStar"
+			app:layout_constraintStart_toEndOf="@+id/tvStar"
+			app:layout_constraintTop_toTopOf="@+id/tvStar" />
 
-        <TextView
-            android:id="@+id/tvRepoName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginRight="16dp"
-            android:singleLine="true"
-            android:text="@{ data.fullName }"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnAvatar"
-            tools:text="qingmei2/MVVM-Rhine" />
+		<TextView
+			android:id="@+id/tvIssue"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="2dp"
+			android:textColor="@color/secondaryTextGray"
+			android:textSize="12sp"
+			app:layout_constraintBottom_toBottomOf="@+id/ivIssue"
+			app:layout_constraintStart_toEndOf="@+id/ivIssue"
+			app:layout_constraintTop_toTopOf="@+id/ivIssue"
+			tools:text="6" />
 
-        <TextView
-            android:id="@+id/tvRepoDesc"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginRight="16dp"
-            android:text="@{ utils.transRepoDesc(data.description) }"
-            android:textColor="@color/secondaryTextGray"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvRepoName"
-            tools:text="The MVVM Architecture in Android（MVVM+Jetpack架构的Github客户端，开发中）." />
+		<ImageView
+			android:id="@+id/ivFork"
+			android:layout_width="13dp"
+			android:layout_height="13dp"
+			android:layout_marginStart="12dp"
+			android:paddingTop="1dp"
+			android:scaleType="fitCenter"
+			android:src="@mipmap/ic_fork_gray"
+			app:layout_constraintBottom_toBottomOf="@+id/tvIssue"
+			app:layout_constraintStart_toEndOf="@+id/tvIssue"
+			app:layout_constraintTop_toTopOf="@+id/tvIssue" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clIcons"
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginRight="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvRepoDesc">
+		<TextView
+			android:id="@+id/tvFork"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="2dp"
+			android:textColor="@color/secondaryTextGray"
+			android:textSize="12sp"
+			app:layout_constraintBottom_toBottomOf="@+id/ivFork"
+			app:layout_constraintStart_toEndOf="@+id/ivFork"
+			app:layout_constraintTop_toTopOf="@+id/ivFork"
+			tools:text="88" />
 
-            <ImageView
-                android:id="@+id/ivStar"
-                android:layout_width="13dp"
-                android:layout_height="13dp"
-                android:scaleType="fitCenter"
-                android:src="@mipmap/ic_star_gray"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+	</androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/tvStar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:text="@{ String.valueOf(data.stargazersCount) }"
-                android:textColor="@color/secondaryTextGray"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/ivStar"
-                app:layout_constraintStart_toEndOf="@+id/ivStar"
-                app:layout_constraintTop_toTopOf="@+id/ivStar"
-                tools:text="502" />
+	<View
+		android:id="@+id/divider"
+		android:layout_width="0dp"
+		android:layout_height="0.5dp"
+		android:layout_marginStart="12dp"
+		android:layout_marginTop="8dp"
+		android:background="@color/dividerColor"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/clIcons" />
 
-            <ImageView
-                android:id="@+id/ivIssue"
-                android:layout_width="13dp"
-                android:layout_height="13dp"
-                android:layout_marginStart="12dp"
-                android:paddingTop="1dp"
-                android:scaleType="fitCenter"
-                android:src="@mipmap/ic_issue_gray"
-                app:layout_constraintBottom_toBottomOf="@+id/tvStar"
-                app:layout_constraintStart_toEndOf="@+id/tvStar"
-                app:layout_constraintTop_toTopOf="@+id/tvStar" />
-
-            <TextView
-                android:id="@+id/tvIssue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:text="@{ String.valueOf(data.openIssuesCount) }"
-                android:textColor="@color/secondaryTextGray"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/ivIssue"
-                app:layout_constraintStart_toEndOf="@+id/ivIssue"
-                app:layout_constraintTop_toTopOf="@+id/ivIssue"
-                tools:text="6" />
-
-            <ImageView
-                android:id="@+id/ivFork"
-                android:layout_width="13dp"
-                android:layout_height="13dp"
-                android:layout_marginStart="12dp"
-                android:paddingTop="1dp"
-                android:scaleType="fitCenter"
-                android:src="@mipmap/ic_fork_gray"
-                app:layout_constraintBottom_toBottomOf="@+id/tvIssue"
-                app:layout_constraintStart_toEndOf="@+id/tvIssue"
-                app:layout_constraintTop_toTopOf="@+id/tvIssue" />
-
-            <TextView
-                android:id="@+id/tvFork"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:text="@{ String.valueOf(data.forksCount) }"
-                android:textColor="@color/secondaryTextGray"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/ivFork"
-                app:layout_constraintStart_toEndOf="@+id/ivFork"
-                app:layout_constraintTop_toTopOf="@+id/ivFork"
-                tools:text="88" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:id="@+id/divider"
-            android:layout_width="0dp"
-            android:layout_height="0.5dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/dividerColor"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clIcons" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

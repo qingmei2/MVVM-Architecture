@@ -1,102 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@color/white">
 
-    <data>
+	<ImageView
+		android:id="@+id/ivAvatar"
+		android:layout_width="40dp"
+		android:layout_height="40dp"
+		android:layout_marginStart="16dp"
+		android:layout_marginTop="16dp"
+		android:layout_marginBottom="16dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		tools:ignore="ContentDescription"
+		tools:src="@mipmap/ic_github" />
 
-        <import
-            alias="utils"
-            type="com.qingmei2.sample.ui.main.home.HomeUtils" />
+	<TextView
+		android:id="@+id/tvEventContent"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="16dp"
+		android:layout_marginTop="12dp"
+		android:layout_marginEnd="12dp"
+		android:layout_marginBottom="8dp"
+		android:ellipsize="end"
+		android:gravity="start"
+		android:maxLines="2"
+		android:textColor="@color/primaryTextColor"
+		android:textSize="14sp"
+		app:layout_constraintBottom_toTopOf="@+id/tvEventTime"
+		app:layout_constraintEnd_toStartOf="@+id/ivEventType"
+		app:layout_constraintStart_toEndOf="@+id/ivAvatar"
+		app:layout_constraintTop_toTopOf="parent"
+		tools:text="Anyone star qingmei2/RxImagePicker" />
 
-        <variable
-            name="data"
-            type="com.qingmei2.sample.entity.ReceivedEvent" />
+	<TextView
+		android:id="@+id/tvEventTime"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="8dp"
+		android:gravity="start"
+		android:textColor="@color/secondaryTextGray"
+		android:textSize="12sp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="@+id/tvEventContent"
+		app:layout_constraintStart_toStartOf="@+id/tvEventContent"
+		app:layout_constraintTop_toBottomOf="@+id/tvEventContent"
+		tools:text="2小时前" />
 
-        <variable
-            name="actorEvent"
-            type="com.qingmei2.rhine.functional.Consumer&lt;String>" />
+	<ImageView
+		android:id="@+id/ivEventType"
+		android:layout_width="20dp"
+		android:layout_height="20dp"
+		android:layout_marginEnd="16dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		tools:ignore="ContentDescription"
+		tools:src="@mipmap/ic_star_yellow_light" />
 
-        <variable
-            name="repoEvent"
-            type="com.qingmei2.rhine.functional.Consumer&lt;String>" />
-    </data>
+	<View
+		android:id="@+id/divider"
+		android:layout_width="0dp"
+		android:layout_height="0.5dp"
+		android:layout_marginStart="12dp"
+		android:background="@color/dividerColor"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
-
-        <ImageView
-            android:id="@+id/ivAvatar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            app:bind_imageView_url="@{ data.actor.avatarUrl }"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription"
-            tools:src="@mipmap/ic_github" />
-
-        <TextView
-            android:id="@+id/tvEventContent"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="8dp"
-            android:ellipsize="end"
-            android:gravity="start"
-            android:maxLines="2"
-            android:text="@{ utils.eventTitle(tvEventContent, data, actorEvent, repoEvent) }"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@+id/tvEventTime"
-            app:layout_constraintEnd_toStartOf="@+id/ivEventType"
-            app:layout_constraintStart_toEndOf="@+id/ivAvatar"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Anyone star qingmei2/RxImagePicker" />
-
-        <TextView
-            android:id="@+id/tvEventTime"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:gravity="start"
-            android:text="@{ utils.eventTimeToString(data.createdAt) }"
-            android:textColor="@color/secondaryTextGray"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/tvEventContent"
-            app:layout_constraintStart_toStartOf="@+id/tvEventContent"
-            app:layout_constraintTop_toBottomOf="@+id/tvEventContent"
-            tools:text="2小时前" />
-
-        <ImageView
-            android:id="@+id/ivEventType"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="16dp"
-            android:src="@{ utils.eventTypeToDrawable(ivEventType, data.type) }"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription"
-            tools:src="@mipmap/ic_star_yellow_light" />
-
-        <View
-            android:id="@+id/divider"
-            android:layout_width="0dp"
-            android:layout_height="0.5dp"
-            android:layout_marginStart="12dp"
-            android:background="@color/dividerColor"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>
