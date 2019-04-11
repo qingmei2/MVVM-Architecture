@@ -76,7 +76,7 @@ class ReposViewModel(
                 .ignoreElements()
     }
 
-    private fun refreshDataSource() {
+    fun refreshDataSource() {
         repo.refreshDataSource(sort.value ?: sortByUpdate)
     }
 

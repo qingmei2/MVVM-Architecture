@@ -1,36 +1,17 @@
 package com.qingmei2.sample.common
 
-import android.annotation.SuppressLint
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import arrow.core.left
 import arrow.core.right
-import com.qingmei2.rhine.base.viewmodel.BaseViewModel
-import com.qingmei2.sample.http.Errors
 import com.qingmei2.rhine.util.RxSchedulers
-import com.uber.autodispose.autoDisposable
+import com.qingmei2.sample.http.Errors
 import io.reactivex.Observable
+import io.reactivex.functions.Function
 import io.reactivex.rxkotlin.zipWith
-import io.reactivex.subjects.PublishSubject
 
-/**
- * Common ViewModel, see:
- * [com.qingmei2.sample.ui.main.home.HomeFragment]
- * [com.qingmei2.sample.ui.main.repos.ReposFragment]
- */
-@SuppressLint("CheckResult")
-class FabAnimateViewModel : BaseViewModel() {
-
-    val visibleState: MutableLiveData<Boolean> = MutableLiveData()
-
-    val stateChangesConsumer: (Int) -> Unit = {
-        scrollStateSubject.onNext(it)
-    }
-
-    private val scrollStateSubject: PublishSubject<Int> = PublishSubject.create()
-
-    init {
-        scrollStateSubject
+val listScrollChangeStateProcessor: Function<Int, Observable<Boolean>>
+    get() = Function { currentState ->
+        Observable.just(currentState)
                 .map { it == RecyclerView.SCROLL_STATE_IDLE }
                 .compose { upstream ->
                     upstream.zipWith(upstream.startWith(true)) { last, current ->
@@ -48,13 +29,4 @@ class FabAnimateViewModel : BaseViewModel() {
                     })
                 }
                 .observeOn(RxSchedulers.ui)
-                .autoDisposable(this)
-                .subscribe {
-                    applyState(visible = it)
-                }
     }
-
-    private fun applyState(visible: Boolean) {
-        visibleState.postValue(visible)
-    }
-}

@@ -68,7 +68,7 @@ class HomeViewModel(
                 .ignoreElements()
     }
 
-    private fun refreshDataSource() {
+    fun refreshDataSource() {
         repo.refreshDataSource()
     }
 

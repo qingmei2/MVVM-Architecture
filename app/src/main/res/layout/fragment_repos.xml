@@ -27,22 +27,18 @@
 				android:layout_width="match_parent"
 				android:layout_height="60dp"
 				android:background="@color/colorPrimary"
-				app:bind_menuClick="@{ menu -> fragment.onMenuSelected(menu) }"
 				app:title="@string/main_nav_repos"
 				app:titleTextColor="@color/white" />
 
 			<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+				android:id="@+id/mSwipeRefreshLayout"
 				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				app:bind_swipeRefreshLayout_refreshing="@={ fragment.viewModel.refreshing }">
+				android:layout_height="match_parent">
 
 				<androidx.recyclerview.widget.RecyclerView
-					android:id="@+id/recyclerView"
+					android:id="@+id/mRecyclerView"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
-					app:bind_recyclerView_adapter="@{ fragment.adapter }"
-					app:bind_recyclerView_scrollStateChanges="@{ fragment.fabViewModel.stateChangesConsumer }"
-					app:bind_recyclerView_scrollStateChanges_debounce="@{ 500 }"
 					app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 					tools:listitem="@layout/item_repos_repo" />
 
@@ -57,7 +53,6 @@
 			android:layout_marginEnd="16dp"
 			android:layout_marginBottom="16dp"
 			android:src="@drawable/ic_keyboard_arrow_up_white_24dp"
-			app:bind_view_onClick="@{ () -> recyclerView.scrollToPosition(0) }"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent" />
 

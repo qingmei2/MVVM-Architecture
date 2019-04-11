@@ -31,9 +31,9 @@
 		</com.google.android.material.appbar.AppBarLayout>
 
 		<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+			android:id="@+id/mSwipeRefreshLayout"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			app:bind_swipeRefreshLayout_refreshing="@={ fragment.viewModel.refreshing }"
 			app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 			<androidx.constraintlayout.widget.ConstraintLayout
@@ -41,12 +41,9 @@
 				android:layout_height="match_parent">
 
 				<androidx.recyclerview.widget.RecyclerView
-					android:id="@+id/recyclerView"
+					android:id="@+id/mRecyclerView"
 					android:layout_width="0dp"
 					android:layout_height="0dp"
-					app:bind_recyclerView_adapter="@{ fragment.adapter }"
-					app:bind_recyclerView_scrollStateChanges="@{ fragment.fabViewModel.stateChangesConsumer }"
-					app:bind_recyclerView_scrollStateChanges_debounce="@{ 500 }"
 					app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintEnd_toEndOf="parent"
@@ -65,8 +62,7 @@
 			android:layout_gravity="bottom|end"
 			android:layout_marginEnd="16dp"
 			android:layout_marginBottom="16dp"
-			android:src="@drawable/ic_keyboard_arrow_up_white_24dp"
-			app:bind_view_onClick="@{ () -> recyclerView.scrollToPosition(0) }" />
+			android:src="@drawable/ic_keyboard_arrow_up_white_24dp" />
 
 	</androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -97,8 +97,9 @@ ext {
             rxweaver                    : [group: 'com.github.qingmei2.rxweaver', name: 'rxweaver', version: '0.3.0'],
 
             rxbinding                   : [group: 'com.jakewharton.rxbinding3', name: 'rxbinding-core', version: versions.rxbinding],
-            rxbinding_v7                : [group: 'com.jakewharton.rxbinding3', name: 'rxbinding-appcompat', version: versions.rxbinding],
+            rxbinding_appcompat         : [group: 'com.jakewharton.rxbinding3', name: 'rxbinding-appcompat', version: versions.rxbinding],
             rxbinding_recyclerview      : [group: 'com.jakewharton.rxbinding3', name: 'rxbinding-recyclerview', version: versions.rxbinding],
+            rxbinding_swiperefresh      : [group: 'com.jakewharton.rxbinding3', name: 'rxbinding-swiperefreshlayout', version: versions.rxbinding],
 
             autodispose                 : [group: 'com.uber.autodispose', name: 'autodispose-android', version: versions.autodispose],
             autodispose_ktx             : [group: 'com.uber.autodispose', name: 'autodispose-ktx', version: versions.autodispose],

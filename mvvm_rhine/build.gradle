@@ -79,10 +79,12 @@ dependencies {
     // rx
     api libs.rxkotlin
     api libs.rxandroid
+
     api libs.rxbinding
-    api libs.rxbinding_v7
+    api libs.rxbinding_appcompat
     api libs.rxbinding_recyclerview
-    api libs.rxpermissions
+    api libs.rxbinding_swiperefresh
+
     api libs.rxweaver
 
     // autodispose

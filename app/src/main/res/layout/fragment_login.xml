@@ -98,7 +98,7 @@
 							android:hint="@string/login_hint_username"
 							android:maxLines="1"
 							android:singleLine="true"
-							android:text="@={ fragment.viewModel.username }" />
+							android:text="@={ fragment.mViewModel.username }" />
 
 					</com.google.android.material.textfield.TextInputLayout>
 
@@ -117,7 +117,7 @@
 							android:inputType="textPassword"
 							android:maxLines="1"
 							android:singleLine="true"
-							android:text="@={ fragment.viewModel.password }" />
+							android:text="@={ fragment.mViewModel.password }" />
 
 					</com.google.android.material.textfield.TextInputLayout>
 

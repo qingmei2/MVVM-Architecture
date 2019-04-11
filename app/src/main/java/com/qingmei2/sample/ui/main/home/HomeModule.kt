@@ -1,7 +1,6 @@
 package com.qingmei2.sample.ui.main.home
 
 import androidx.fragment.app.Fragment
-import com.qingmei2.sample.common.FabAnimateViewModel
 import org.kodein.di.Kodein
 import org.kodein.di.android.x.AndroidLifecycleScope
 import org.kodein.di.generic.bind
@@ -18,10 +17,6 @@ val homeKodeinModule = Kodein.Module(HOME_MODULE_TAG) {
                 fragment = context,
                 repo = instance()
         )
-    }
-
-    bind<FabAnimateViewModel>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
-        FabAnimateViewModel()
     }
 
     bind<HomeRemoteDataSource>()  with scoped<Fragment>(AndroidLifecycleScope).singleton {
