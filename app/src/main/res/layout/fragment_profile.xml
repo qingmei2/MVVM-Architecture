@@ -22,23 +22,21 @@
 			android:background="@color/colorPrimary">
 
 			<ImageView
-				android:id="@+id/btnEdit"
+				android:id="@+id/mBtnEdit"
 				android:layout_width="40dp"
 				android:layout_height="40dp"
 				android:layout_marginTop="6dp"
 				android:layout_marginEnd="6dp"
 				android:padding="10dp"
 				android:src="@drawable/ic_edit_pencil"
-				app:bind_view_onClick="@{ () -> fragment.edit() }"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintTop_toTopOf="parent" />
 
 			<ImageView
-				android:id="@+id/ivAvatar"
+				android:id="@+id/mIvAvatar"
 				android:layout_width="80dp"
 				android:layout_height="80dp"
 				android:layout_marginTop="16dp"
-				app:bind_imageView_url_circle="@{ fragment.viewModel.user.avatarUrl }"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +45,7 @@
 				tools:src="@mipmap/ic_github" />
 
 			<TextView
-				android:id="@+id/tvNickname"
+				android:id="@+id/mTvNickname"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginStart="80dp"
@@ -55,17 +53,16 @@
 				android:layout_marginEnd="80dp"
 				android:ellipsize="end"
 				android:maxLines="1"
-				android:text="@{ fragment.viewModel.user.name }"
 				android:textColor="@color/white"
 				android:textSize="16sp"
 				android:textStyle="bold"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/ivAvatar"
+				app:layout_constraintTop_toBottomOf="@+id/mIvAvatar"
 				tools:text="qingmei2" />
 
 			<TextView
-				android:id="@+id/tvBio"
+				android:id="@+id/mTvBio"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginStart="80dp"
@@ -73,11 +70,10 @@
 				android:layout_marginEnd="80dp"
 				android:ellipsize="end"
 				android:maxLines="1"
-				android:text="@{ fragment.viewModel.user.bio }"
 				android:textColor="@color/white"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/tvNickname"
+				app:layout_constraintTop_toBottomOf="@+id/mTvNickname"
 				tools:text="In programming we trust." />
 
 			<ImageView
@@ -90,20 +86,19 @@
 				android:layout_marginBottom="16dp"
 				android:src="@drawable/ic_location_on_gray"
 				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintEnd_toStartOf="@+id/tvLocation"
+				app:layout_constraintEnd_toStartOf="@+id/mTvLocation"
 				app:layout_constraintHorizontal_chainStyle="packed"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/tvBio" />
+				app:layout_constraintTop_toBottomOf="@+id/mTvBio" />
 
 			<TextView
-				android:id="@+id/tvLocation"
+				android:id="@+id/mTvLocation"
 				android:layout_width="wrap_content"
 				android:layout_height="0dp"
 				android:layout_marginEnd="40dp"
 				android:ellipsize="end"
 				android:gravity="center"
 				android:singleLine="true"
-				android:text="@{ fragment.viewModel.user.location }"
 				android:textColor="@color/secondaryTextGray"
 				app:layout_constraintBottom_toBottomOf="@+id/icLocation"
 				app:layout_constraintEnd_toEndOf="parent"

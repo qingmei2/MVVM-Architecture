@@ -7,8 +7,8 @@ import com.qingmei2.rhine.base.repository.ILocalDataSource
 import com.qingmei2.rhine.base.repository.IRemoteDataSource
 import com.qingmei2.rhine.util.RxSchedulers
 import com.qingmei2.sample.db.UserDatabase
-import com.qingmei2.sample.http.Errors
 import com.qingmei2.sample.entity.UserInfo
+import com.qingmei2.sample.http.Errors
 import com.qingmei2.sample.http.service.ServiceManager
 import com.qingmei2.sample.http.service.bean.LoginRequestModel
 import com.qingmei2.sample.manager.UserManager
@@ -55,11 +55,12 @@ class LoginRemoteDataSource(
     fun login(): Flowable<Either<Errors, UserInfo>> {
         val authObservable = serviceManager.loginService
                 .authorizations(LoginRequestModel.generate())
+
         val ownerInfoObservable = serviceManager.userService
                 .fetchUserOwner()
 
-        return authObservable
-                .flatMap { ownerInfoObservable }
+        return authObservable                       // 1.用户登录认证
+                .flatMap { ownerInfoObservable }    // 2.获取用户详细信息
                 .subscribeOn(RxSchedulers.io)
                 .map {
                     Either.right(it)

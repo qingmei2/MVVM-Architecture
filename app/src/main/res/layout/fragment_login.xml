@@ -122,7 +122,7 @@
 					</com.google.android.material.textfield.TextInputLayout>
 
 					<Button
-						android:id="@+id/email_sign_in_button"
+						android:id="@+id/mBtnSignIn"
 						android:layout_width="match_parent"
 						android:layout_height="50dp"
 						android:layout_marginLeft="@dimen/activity_horizontal_margin"
@@ -133,16 +133,15 @@
 						android:textAllCaps="false"
 						android:textColor="@color/white"
 						android:textSize="18sp"
-						android:textStyle="bold"
-						app:bind_view_onClick="@{ () -> fragment.login() }" />
+						android:textStyle="bold" />
 				</LinearLayout>
 
 			</ScrollView>
 
 			<ProgressBar
+				android:id="@+id/mProgressBar"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				app:bind_view_visibility="@{ safeUnbox(fragment.viewModel.loginIndicatorVisible) }"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"

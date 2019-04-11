@@ -10,7 +10,6 @@ import com.jakewharton.rxbinding3.view.longClicks
 import io.reactivex.functions.Consumer
 import java.util.concurrent.TimeUnit
 
-
 interface ViewClickConsumer : Consumer<View>
 
 const val DEFAULT_THROTTLE_TIME = 500L
@@ -23,18 +22,6 @@ const val DEFAULT_THROTTLE_TIME = 500L
 @BindingAdapter("bind_view_visibility")
 fun setVisible(view: View, visible: Boolean) {
     view.visibility = if (visible) View.VISIBLE else View.GONE
-}
-
-/**
- * [View]长按事件
- *
- * @param consumer 事件消费者
- */
-@SuppressLint("CheckResult")
-@BindingAdapter("bind_view_onLongClick")
-fun setOnLongClickEvent(view: View, consumer: ViewClickConsumer) {
-    view.longClicks()
-            .subscribe { consumer.accept(view) }
 }
 
 /**
