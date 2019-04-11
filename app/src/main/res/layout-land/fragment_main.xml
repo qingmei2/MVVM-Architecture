@@ -18,9 +18,6 @@
 			android:id="@+id/viewPager"
 			android:layout_width="0dp"
 			android:layout_height="0dp"
-			app:bind_viewPager_fragmentManager="@{ fragment.getChildFragmentManager() }"
-			app:bind_viewPager_fragments="@{ fragment.initFragments() }"
-			app:bind_viewPager_offScreenPageLimit="@{ 2 }"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +42,6 @@
 				android:layout_marginStart="16dp"
 				android:layout_marginBottom="16dp"
 				android:src="@mipmap/ic_nav_home_white"
-				app:bind_view_onClick="@{ () -> fragment.onPageSelectChangedLand(0) }"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintStart_toStartOf="parent" />
 
@@ -56,7 +52,6 @@
 				android:layout_marginStart="16dp"
 				android:layout_marginBottom="16dp"
 				android:src="@mipmap/ic_nav_task_white"
-				app:bind_view_onClick="@{ () -> fragment.onPageSelectChangedLand(1) }"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintStart_toStartOf="parent" />
 
@@ -67,7 +62,6 @@
 				android:layout_marginStart="16dp"
 				android:layout_marginBottom="16dp"
 				android:src="@mipmap/ic_nav_mine_white"
-				app:bind_view_onClick="@{ () -> fragment.onPageSelectChangedLand(2) }"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintStart_toStartOf="parent" />
 

@@ -21,7 +21,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         import(profileKodeinModule)
     }
 
-    val mViewModel: ProfileViewModel by instance()
+    private val mViewModel: ProfileViewModel by instance()
 
     override val layoutId: Int = R.layout.fragment_profile
 

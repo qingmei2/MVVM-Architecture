@@ -1,16 +1,21 @@
 package com.qingmei2.sample.ui.main
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import android.view.MenuItem
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.viewpager.widget.ViewPager
 import com.qingmei2.rhine.base.view.fragment.BaseFragment
+import com.qingmei2.rhine.binding.support.ViewPagerAdapter
+import com.qingmei2.rhine.ext.reactivex.clicksThrottleFirst
 import com.qingmei2.sample.R
 import com.qingmei2.sample.databinding.FragmentMainBinding
 import com.qingmei2.sample.ui.main.home.HomeFragment
 import com.qingmei2.sample.ui.main.profile.ProfileFragment
 import com.qingmei2.sample.ui.main.repos.ReposFragment
+import com.uber.autodispose.autoDisposable
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
@@ -28,21 +33,66 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     override val layoutId: Int = R.layout.fragment_main
 
-    val viewModel: MainViewModel by instance()
+    @Suppress("unused")
+    private val mViewModel: MainViewModel by instance()     // not used
 
-    fun initFragments(): List<Fragment> =
-            listOf(HomeFragment(), ReposFragment(), ProfileFragment())
+    private var isPortMode: Boolean = true
 
-    // port-mode only
-    fun onPageSelectChangedPort(index: Int) {
-        for (position in 0..index) {
-            if (navigation.visibility == View.VISIBLE)
-                navigation.menu.getItem(position).isChecked = index == position
+    override fun initView() {
+        isPortMode = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+
+        viewPager.adapter = ViewPagerAdapter(childFragmentManager,
+                listOf(HomeFragment(), ReposFragment(), ProfileFragment()))
+        viewPager.offscreenPageLimit = 2
+
+        if (isPortMode) {
+            viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) = Unit
+
+                override fun onPageSelected(position: Int) = onPageSelectChanged(position)
+
+
+                override fun onPageScrollStateChanged(state: Int) = Unit
+            })
+            navigation.setOnNavigationItemSelectedListener { menuItem ->
+                onBottomNavigationSelectChanged(menuItem)
+                true
+            }
+        }
+
+        binds()
+    }
+
+    private fun binds() {
+        Observable.mergeArray(
+                fabHome.clicksThrottleFirst().map { 0 },
+                fabRepo.clicksThrottleFirst().map { 1 },
+                fabProfile.clicksThrottleFirst().map { 2 }
+        )
+                .autoDisposable(scopeProvider)
+                .subscribe(this::onPageSelectChanged)
+    }
+
+    private fun onPageSelectChanged(index: Int) {
+        // port-mode
+        if (isPortMode) {
+            for (position in 0..index) {
+                if (navigation.visibility == View.VISIBLE)
+                    navigation.menu.getItem(position).isChecked = index == position
+            }
+        } else {
+            // land-mode
+            if (viewPager.currentItem != index) {
+                viewPager.currentItem = index
+                if (fabMenu != null && fabMenu.isExpanded)
+                    fabMenu.toggle()
+            }
         }
     }
 
     // port-mode only
-    fun onBottomNavigationSelectChanged(menuItem: MenuItem) {
+    private fun onBottomNavigationSelectChanged(menuItem: MenuItem) {
         when (menuItem.itemId) {
             R.id.nav_home -> {
                 viewPager.currentItem = 0
@@ -54,19 +104,5 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                 viewPager.currentItem = 2
             }
         }
-    }
-
-    // land-mode only
-    fun onPageSelectChangedLand(index: Int) {
-        if (viewPager.currentItem != index) {
-            viewPager.currentItem = index
-            closeFabMenuLand()
-        }
-    }
-
-    // land-mode only
-    private fun closeFabMenuLand() {
-        if (fabMenu != null && fabMenu.isExpanded)
-            fabMenu.toggle()
     }
 }
