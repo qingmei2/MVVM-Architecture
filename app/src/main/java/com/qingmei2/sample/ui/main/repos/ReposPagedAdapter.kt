@@ -106,9 +106,9 @@ class RepoPagedViewHolder(private val view: View) : AutoDisposeViewHolder(view) 
         tvRepoName.text = data.fullName
         tvRepoDesc.text = data.description ?: "(No description, website, or topics provided.)"
 
-        tvStar.text = "$data.stargazersCount"
-        tvIssue.text = "$data.openIssuesCount"
-        tvFork.text = "$data.forksCount"
+        tvStar.text = "${data.stargazersCount}"
+        tvIssue.text = "${data.openIssuesCount}"
+        tvFork.text = "${data.forksCount}"
 
         return clickSubject
     }

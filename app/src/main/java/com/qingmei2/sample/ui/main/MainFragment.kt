@@ -45,26 +45,29 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                 listOf(HomeFragment(), ReposFragment(), ProfileFragment()))
         viewPager.offscreenPageLimit = 2
 
-        if (isPortMode) {
-            viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-
-                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) = Unit
-
-                override fun onPageSelected(position: Int) = onPageSelectChanged(position)
-
-
-                override fun onPageScrollStateChanged(state: Int) = Unit
-            })
-            navigation.setOnNavigationItemSelectedListener { menuItem ->
-                onBottomNavigationSelectChanged(menuItem)
-                true
-            }
+        when (isPortMode) {
+            true -> bindsPortScreen()
+            false -> bindsLandScreen()
         }
-
-        binds()
     }
 
-    private fun binds() {
+    private fun bindsPortScreen() {
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) = Unit
+
+            override fun onPageSelected(position: Int) = onPageSelectChanged(position)
+
+
+            override fun onPageScrollStateChanged(state: Int) = Unit
+        })
+        navigation.setOnNavigationItemSelectedListener { menuItem ->
+            onBottomNavigationSelectChanged(menuItem)
+            true
+        }
+    }
+
+    private fun bindsLandScreen() {
         Observable.mergeArray(
                 fabHome.clicksThrottleFirst().map { 0 },
                 fabRepo.clicksThrottleFirst().map { 1 },

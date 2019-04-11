@@ -80,9 +80,8 @@ class HomePagedViewHolder(view: View) : AutoDisposeViewHolder(view) {
                 .apply(RequestOptions().circleCrop())
                 .into(ivAvatar)
 
-        renderTitle(data)
-
         tvEventTime.text = TimeConverter.tramsTimeAgo(data.createdAt)
+        tvEventContent.text = getTitle(data)
 
         ivEventType.setImageDrawable(
                 when (data.type) {
@@ -97,7 +96,7 @@ class HomePagedViewHolder(view: View) : AutoDisposeViewHolder(view) {
         return clickSubject
     }
 
-    private fun renderTitle(data: ReceivedEvent): CharSequence {
+    private fun getTitle(data: ReceivedEvent): CharSequence {
         val actor = data.actor.displayLogin
         val action = when (data.type) {
             Type.WatchEvent -> "starred"

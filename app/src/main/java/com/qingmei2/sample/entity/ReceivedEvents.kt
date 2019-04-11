@@ -21,7 +21,7 @@ data class ReceivedEvent(
         val isPublic: Boolean,
         @SerializedName("created_at")
         @ColumnInfo(name = "created_at")
-        val createdAt: String?
+        val createdAt: String
 ) {
     var indexInResponse: Int = -1
 }
