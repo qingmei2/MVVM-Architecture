@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import arrow.core.left
 import arrow.core.right
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
-import com.qingmei2.sample.entity.Errors
+import com.qingmei2.sample.http.Errors
 import com.qingmei2.rhine.util.RxSchedulers
 import com.uber.autodispose.autoDisposable
 import io.reactivex.Observable

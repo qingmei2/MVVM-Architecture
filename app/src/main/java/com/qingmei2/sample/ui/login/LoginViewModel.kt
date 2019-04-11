@@ -3,17 +3,13 @@ package com.qingmei2.sample.ui.login
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import arrow.core.Either
-import arrow.core.Option
-import arrow.core.none
-import arrow.core.some
+import arrow.core.*
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.arrow.whenNotNull
 import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.rhine.util.SingletonHolderSingleArg
 import com.qingmei2.sample.base.Result
-import com.qingmei2.sample.entity.Errors
-import com.qingmei2.sample.entity.LoginEntity
+import com.qingmei2.sample.http.Errors
 import com.qingmei2.sample.entity.UserInfo
 import com.qingmei2.sample.http.globalHandleError
 import com.qingmei2.sample.utils.toast
@@ -30,7 +26,7 @@ class LoginViewModel(
     val username: MutableLiveData<String> = MutableLiveData()
     val password: MutableLiveData<String> = MutableLiveData()
 
-    val error: MutableLiveData<Option<Throwable>> = MutableLiveData()
+    private val error: MutableLiveData<Option<Throwable>> = MutableLiveData()
 
     val loginIndicatorVisible: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -72,21 +68,17 @@ class LoginViewModel(
     }
 
     private fun initAutoLogin() =
-            Single
-                    .zip(
-                            repo.prefsUser().firstOrError(),
-                            repo.prefsAutoLogin(),
-                            BiFunction { either: Either<Errors, LoginEntity>, autoLogin: Boolean ->
-                                autoLogin to either
-                            }
-                    )
+            Single.zip(repo.prefsUser().firstOrError(), repo.prefsAutoLogin(),
+                    BiFunction { either: Either<Errors, Tuple2<String, String>>, autoLogin: Boolean ->
+                        autoLogin to either
+                    })
                     .doOnSuccess { pair ->
                         pair.second.fold({ error ->
                             applyState(error = error.some())
-                        }, { entity ->
+                        }, { tuple2 ->
                             applyState(
-                                    username = entity.username.some(),
-                                    password = entity.password.some(),
+                                    username = tuple2.a.some(),
+                                    password = tuple2.b.some(),
                                     autoLogin = pair.first
                             )
                         })
@@ -108,7 +100,7 @@ class LoginViewModel(
                     }
                     .startWith(Result.loading())
                     .startWith(Result.idle())
-                    .onErrorReturn { it -> Result.failure(it) }
+                    .onErrorReturn { Result.failure(it) }
                     .autoDisposable(this)
                     .subscribe { state ->
                         when (state) {

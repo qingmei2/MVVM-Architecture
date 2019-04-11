@@ -1,4 +1,4 @@
-package com.qingmei2.sample.entity
+package com.qingmei2.sample.http
 
 sealed class Errors : Throwable() {
     object NetworkError : Errors()
