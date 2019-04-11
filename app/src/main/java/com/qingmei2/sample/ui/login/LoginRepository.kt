@@ -8,8 +8,9 @@ import com.qingmei2.rhine.util.RxSchedulers
 import com.qingmei2.sample.db.UserDatabase
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.LoginEntity
-import com.qingmei2.sample.entity.LoginUser
+import com.qingmei2.sample.entity.UserInfo
 import com.qingmei2.sample.http.service.ServiceManager
+import com.qingmei2.sample.http.service.bean.LoginRequestModel
 import com.qingmei2.sample.manager.PrefsHelper
 import com.qingmei2.sample.manager.UserManager
 import io.reactivex.Completable
@@ -21,7 +22,7 @@ class LoginRepository(
         localDataSource: LoginLocalDataSource
 ) : BaseRepositoryBoth<LoginRemoteDataSource, LoginLocalDataSource>(remoteDataSource, localDataSource) {
 
-    fun login(username: String, password: String): Flowable<Either<Errors, LoginUser>> =
+    fun login(username: String, password: String): Flowable<Either<Errors, UserInfo>> =
             remoteDataSource.login(username, password)
                     .doOnNext { either ->
                         either.fold({
@@ -46,13 +47,19 @@ class LoginRemoteDataSource(
         private val serviceManager: ServiceManager
 ) : IRemoteDataSource {
 
-    fun login(username: String, password: String): Flowable<Either<Errors, LoginUser>> =
-            serviceManager.loginService
-                    .login(username, password)
-                    .subscribeOn(RxSchedulers.io)
-                    .map {
-                        Either.right(it)
-                    }
+    fun login(username: String, password: String): Flowable<Either<Errors, UserInfo>> {
+        val authObservable = serviceManager.loginService
+                .authorizations(LoginRequestModel.generate())
+        val ownerInfoObservable = serviceManager.userService
+                .fetchUserOwner()
+
+        return authObservable
+                .flatMap { ownerInfoObservable }
+                .subscribeOn(RxSchedulers.io)
+                .map {
+                    Either.right(it)
+                }
+    }
 }
 
 class LoginLocalDataSource(

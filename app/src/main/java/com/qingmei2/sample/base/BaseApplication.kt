@@ -25,7 +25,7 @@ open class BaseApplication : Application(), KodeinAware {
         import(dbModule)
         import(httpClientModule)
         import(serializableModule)
-        import(prefsModule)
+        import(globalRepositoryModule)
     }
 
     override fun onCreate() {

@@ -1,8 +1,8 @@
 package com.qingmei2.sample.manager
 
-import com.qingmei2.sample.entity.LoginUser
+import com.qingmei2.sample.entity.UserInfo
 
 object UserManager {
 
-    lateinit var INSTANCE: LoginUser
+    lateinit var INSTANCE: UserInfo
 }

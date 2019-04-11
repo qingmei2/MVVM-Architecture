@@ -14,7 +14,7 @@ import com.qingmei2.rhine.util.SingletonHolderSingleArg
 import com.qingmei2.sample.base.Result
 import com.qingmei2.sample.entity.Errors
 import com.qingmei2.sample.entity.LoginEntity
-import com.qingmei2.sample.entity.LoginUser
+import com.qingmei2.sample.entity.UserInfo
 import com.qingmei2.sample.http.globalHandleError
 import com.qingmei2.sample.utils.toast
 import com.uber.autodispose.autoDisposable
@@ -34,7 +34,7 @@ class LoginViewModel(
 
     val loginIndicatorVisible: MutableLiveData<Boolean> = MutableLiveData()
 
-    val userInfo: MutableLiveData<LoginUser> = MutableLiveData()
+    val userInfo: MutableLiveData<UserInfo> = MutableLiveData()
 
     private val autoLogin: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -101,7 +101,7 @@ class LoginViewModel(
                     .compose(globalHandleError())
                     .map { either ->
                         either.fold({
-                            Result.failure<LoginUser>(it)
+                            Result.failure<UserInfo>(it)
                         }, {
                             Result.success(it)
                         })
@@ -121,7 +121,7 @@ class LoginViewModel(
         }
     }
 
-    private fun applyState(user: Option<LoginUser> = none(),
+    private fun applyState(user: Option<UserInfo> = none(),
                            error: Option<Throwable> = none(),
                            username: Option<String> = none(),
                            password: Option<String> = none(),

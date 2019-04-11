@@ -2,7 +2,7 @@ package com.qingmei2.sample.entity
 
 import com.google.gson.annotations.SerializedName
 
-data class LoginUser(
+data class UserInfo(
         val login: String,
         val id: Int,
         @SerializedName("node_id") val nodeId: String,

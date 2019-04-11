@@ -1,6 +1,6 @@
 package com.qingmei2.sample.di
 
-import com.qingmei2.sample.http.service.LoginServiceImpl
+import com.qingmei2.sample.http.service.LoginService
 import com.qingmei2.sample.http.service.ServiceManager
 import com.qingmei2.sample.http.service.UserService
 
@@ -18,8 +18,8 @@ val serviceModule = Kodein.Module(SERVICE_MODULE_TAG) {
         instance<Retrofit>().create(UserService::class.java)
     }
 
-    bind<LoginServiceImpl>() with singleton {
-        LoginServiceImpl(instance(HTTP_CLIENT_MODULE_INTERCEPTOR_LOG_TAG))
+    bind<LoginService>() with singleton {
+        instance<Retrofit>().create(LoginService::class.java)
     }
 
     bind<ServiceManager>() with singleton {

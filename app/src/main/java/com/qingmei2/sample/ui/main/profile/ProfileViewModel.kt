@@ -11,7 +11,7 @@ import arrow.core.toOption
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.arrow.whenNotNull
 import com.qingmei2.rhine.util.SingletonHolderSingleArg
-import com.qingmei2.sample.entity.LoginUser
+import com.qingmei2.sample.entity.UserInfo
 import com.qingmei2.sample.manager.UserManager
 
 class ProfileViewModel(
@@ -21,14 +21,14 @@ class ProfileViewModel(
     val error: MutableLiveData<Option<Throwable>> = MutableLiveData()
     val loading: MutableLiveData<Boolean> = MutableLiveData()
 
-    val user: MutableLiveData<LoginUser> = MutableLiveData()
+    val user: MutableLiveData<UserInfo> = MutableLiveData()
 
     init {
         applyState(user = UserManager.INSTANCE.toOption())
     }
 
     private fun applyState(isLoading: Boolean = false,
-                           user: Option<LoginUser> = none(),
+                           user: Option<UserInfo> = none(),
                            error: Option<Throwable> = none()) {
         this.loading.postValue(isLoading)
         this.error.postValue(error)

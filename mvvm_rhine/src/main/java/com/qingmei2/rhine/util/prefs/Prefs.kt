@@ -50,7 +50,6 @@ fun SharedPreferences.boolean(key: String? = null, defValue: Boolean = false): R
     return delegate(key, defValue, SharedPreferences::getBoolean, Editor::putBoolean)
 }
 
-
 fun SharedPreferences.stringSet(key: String? = null, defValue: Set<String> = emptySet()): ReadWriteProperty<Any, Set<String>> {
     return delegate(key, defValue, SharedPreferences::getStringSet, Editor::putStringSet)
 }
