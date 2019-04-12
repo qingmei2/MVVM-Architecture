@@ -45,17 +45,13 @@ class ReposFragment : BaseFragment<FragmentReposBinding>() {
                 .debounce(500, TimeUnit.MILLISECONDS)
                 .flatMap(listScrollChangeStateProcessor)
                 .autoDisposable(scopeProvider)
-                .subscribe { switchFabState(it) }
+                .subscribe(::switchFabState)
 
         // 每当数据源更新，更新列表
         mViewModel.pagedList
                 .toReactiveStream()
                 .autoDisposable(scopeProvider)
-                .subscribe {
-                    mAdapter.submitList(null)
-                    mAdapter.submitList(it)
-                }
-
+                .subscribe(mAdapter::submitList)
         // 下拉刷新
         mSwipeRefreshLayout.refreshes()
                 .autoDisposable(scopeProvider)
@@ -69,8 +65,9 @@ class ReposFragment : BaseFragment<FragmentReposBinding>() {
 
         // 点击底部按钮，回到列表顶部
         fabTop.clicksThrottleFirst()
+                .map { 0 }
                 .autoDisposable(scopeProvider)
-                .subscribe { mRecyclerView.scrollToPosition(0) }
+                .subscribe(mRecyclerView::scrollToPosition)
 
         // 选择排序策略
         toolbar.setOnMenuItemClickListener {
@@ -81,7 +78,7 @@ class ReposFragment : BaseFragment<FragmentReposBinding>() {
         // 列表点击事件
         mAdapter.getItemClickEvent()
                 .autoDisposable(scopeProvider)
-                .subscribe { BaseApplication.INSTANCE.jumpBrowser(it) }
+                .subscribe(BaseApplication.INSTANCE::jumpBrowser)
     }
 
     private fun onMenuSelected(menuItem: MenuItem) {
@@ -93,12 +90,13 @@ class ReposFragment : BaseFragment<FragmentReposBinding>() {
         }
     }
 
-    private fun switchFabState(show: Boolean) =
-            when (show) {
-                false -> ObjectAnimator.ofFloat(fabTop, "translationX", 250f, 0f)
-                true -> ObjectAnimator.ofFloat(fabTop, "translationX", 0f, 250f)
-            }.apply {
-                duration = 300
-                start()
-            }
+    private fun switchFabState(show: Boolean) {
+        when (show) {
+            false -> ObjectAnimator.ofFloat(fabTop, "translationX", 250f, 0f)
+            true -> ObjectAnimator.ofFloat(fabTop, "translationX", 0f, 250f)
+        }.apply {
+            duration = 300
+            start()
+        }
+    }
 }

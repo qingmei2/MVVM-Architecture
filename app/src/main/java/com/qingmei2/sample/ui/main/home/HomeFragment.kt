@@ -44,12 +44,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 .debounce(500, TimeUnit.MILLISECONDS)
                 .flatMap(listScrollChangeStateProcessor)
                 .autoDisposable(scopeProvider)
-                .subscribe { switchFabState(it) }
+                .subscribe(::switchFabState)
 
         // 点击底部按钮，回到列表顶部
         fabTop.clicksThrottleFirst()
+                .map { 0 }
                 .autoDisposable(scopeProvider)
-                .subscribe { mRecyclerView.scrollToPosition(0) }
+                .subscribe(mRecyclerView::scrollToPosition)
 
         // 下拉刷新
         mSwipeRefreshLayout.refreshes()
@@ -65,15 +66,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         // 每当数据源更新，更新列表
         mViewModel.pagedList.toReactiveStream()
                 .autoDisposable(scopeProvider)
-                .subscribe {
-                    mAdapter.submitList(null)
-                    mAdapter.submitList(it)
-                }
+                .subscribe(mAdapter::submitList)
 
         // 列表点击事件
         mAdapter.getItemClickEvent()
                 .autoDisposable(scopeProvider)
-                .subscribe { BaseApplication.INSTANCE.jumpBrowser(it) }
+                .subscribe(BaseApplication.INSTANCE::jumpBrowser)
     }
 
     private fun switchFabState(show: Boolean) {
