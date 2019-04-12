@@ -30,7 +30,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override val layoutId: Int = R.layout.fragment_home
 
-    private val mAdapter: HomePagedAdapter = HomePagedAdapter(this)
+    private val mAdapter: HomePagedAdapter = HomePagedAdapter()
 
     override fun initView() {
         binds()
@@ -72,7 +72,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         // 列表点击事件
         mAdapter.getItemClickEvent()
-                .autoDisposable(mAdapter)
+                .autoDisposable(scopeProvider)
                 .subscribe { BaseApplication.INSTANCE.jumpBrowser(it) }
     }
 

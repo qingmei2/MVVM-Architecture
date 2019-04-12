@@ -11,11 +11,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.LifecycleOwner
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.request.RequestOptions
-import com.github.qingmei2.autodispose.recyclerview.AutoDisposeViewHolder
-import com.qingmei2.rhine.adapter.AutoDisposePagedListAdapter
+import com.qingmei2.rhine.adapter.AutoDisposeViewHolder
 import com.qingmei2.rhine.ext.reactivex.clicksThrottleFirst
 import com.qingmei2.rhine.image.GlideApp
 import com.qingmei2.sample.R
@@ -25,8 +24,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
-class ReposPagedAdapter(lifecycleOwner: LifecycleOwner) :
-        AutoDisposePagedListAdapter<Repo, RepoPagedViewHolder>(lifecycleOwner, diffCallback) {
+class ReposPagedAdapter : PagedListAdapter<Repo, RepoPagedViewHolder>(diffCallback) {
 
     private val parentSubject: PublishSubject<String> = PublishSubject.create()
 
@@ -37,8 +35,6 @@ class ReposPagedAdapter(lifecycleOwner: LifecycleOwner) :
     }
 
     override fun onBindViewHolder(holder: RepoPagedViewHolder, position: Int) {
-        super.onBindViewHolder(holder, position)
-
         holder.binds(getItem(position)!!, position)
                 .autoDisposable(holder)
                 .subscribe(parentSubject)

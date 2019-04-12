@@ -29,7 +29,7 @@ class ReposFragment : BaseFragment<FragmentReposBinding>() {
 
     override val layoutId: Int = R.layout.fragment_repos
 
-    private val mAdapter = ReposPagedAdapter(this)
+    private val mAdapter = ReposPagedAdapter()
 
     override fun initView() {
         toolbar.inflateMenu(R.menu.menu_repos_filter_type)
@@ -80,7 +80,7 @@ class ReposFragment : BaseFragment<FragmentReposBinding>() {
 
         // 列表点击事件
         mAdapter.getItemClickEvent()
-                .autoDisposable(mAdapter)
+                .autoDisposable(scopeProvider)
                 .subscribe { BaseApplication.INSTANCE.jumpBrowser(it) }
     }
 
