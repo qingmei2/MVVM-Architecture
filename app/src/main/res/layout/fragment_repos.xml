@@ -1,61 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools">
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/constraintBg"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
 
-	<data>
-
-		<variable
-			name="fragment"
-			type="com.qingmei2.sample.ui.main.repos.ReposFragment" />
-	</data>
-
-	<androidx.constraintlayout.widget.ConstraintLayout
-		android:id="@+id/constraintBg"
+	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+		android:layout_height="match_parent"
+		android:focusable="true"
+		android:focusableInTouchMode="true"
+		android:orientation="vertical">
 
-		<LinearLayout
+		<androidx.appcompat.widget.Toolbar
+			android:id="@+id/toolbar"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:focusable="true"
-			android:focusableInTouchMode="true"
-			android:orientation="vertical">
+			android:layout_height="60dp"
+			android:background="@color/colorPrimary"
+			app:title="@string/main_nav_repos"
+			app:titleTextColor="@color/white" />
 
-			<androidx.appcompat.widget.Toolbar
-				android:id="@+id/toolbar"
+		<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+			android:id="@+id/mSwipeRefreshLayout"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/mRecyclerView"
 				android:layout_width="match_parent"
-				android:layout_height="60dp"
-				android:background="@color/colorPrimary"
-				app:title="@string/main_nav_repos"
-				app:titleTextColor="@color/white" />
+				android:layout_height="match_parent"
+				app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+				tools:listitem="@layout/item_repos_repo" />
 
-			<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-				android:id="@+id/mSwipeRefreshLayout"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent">
+		</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-				<androidx.recyclerview.widget.RecyclerView
-					android:id="@+id/mRecyclerView"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-					tools:listitem="@layout/item_repos_repo" />
+	</LinearLayout>
 
-			</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
+		android:id="@+id/fabTop"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="16dp"
+		android:layout_marginBottom="16dp"
+		android:src="@drawable/ic_keyboard_arrow_up_white_24dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent" />
 
-		</LinearLayout>
-
-		<com.google.android.material.floatingactionbutton.FloatingActionButton
-			android:id="@+id/fabTop"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginEnd="16dp"
-			android:layout_marginBottom="16dp"
-			android:src="@drawable/ic_keyboard_arrow_up_white_24dp"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent" />
-
-	</androidx.constraintlayout.widget.ConstraintLayout>
-
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

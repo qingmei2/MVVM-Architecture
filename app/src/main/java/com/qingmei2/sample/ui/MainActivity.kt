@@ -4,9 +4,8 @@ import android.content.Intent
 import androidx.navigation.Navigation
 import com.qingmei2.rhine.base.view.activity.BaseActivity
 import com.qingmei2.sample.R
-import com.qingmei2.sample.databinding.ActivityMainBinding
 
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+class MainActivity : BaseActivity() {
 
     override val layoutId = R.layout.activity_main
 

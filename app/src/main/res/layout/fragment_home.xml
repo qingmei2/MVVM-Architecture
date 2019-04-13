@@ -1,69 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools">
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:focusable="true"
+	android:focusableInTouchMode="true">
 
-	<data>
+	<com.google.android.material.appbar.AppBarLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
 
-		<variable
-			name="fragment"
-			type="com.qingmei2.sample.ui.main.home.HomeFragment" />
-	</data>
+		<androidx.appcompat.widget.Toolbar
+			android:layout_width="match_parent"
+			android:layout_height="60dp"
+			android:background="@color/colorPrimary"
+			app:title="@string/main_nav_home"
+			app:titleTextColor="@color/white" />
 
-	<androidx.coordinatorlayout.widget.CoordinatorLayout
+	</com.google.android.material.appbar.AppBarLayout>
+
+	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+		android:id="@+id/mSwipeRefreshLayout"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:focusable="true"
-		android:focusableInTouchMode="true">
+		app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-		<com.google.android.material.appbar.AppBarLayout
+		<androidx.constraintlayout.widget.ConstraintLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:orientation="vertical">
+			android:layout_height="match_parent">
 
-			<androidx.appcompat.widget.Toolbar
-				android:layout_width="match_parent"
-				android:layout_height="60dp"
-				android:background="@color/colorPrimary"
-				app:title="@string/main_nav_home"
-				app:titleTextColor="@color/white" />
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/mRecyclerView"
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				tools:listitem="@layout/item_home_received_event" />
 
-		</com.google.android.material.appbar.AppBarLayout>
+		</androidx.constraintlayout.widget.ConstraintLayout>
 
-		<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-			android:id="@+id/mSwipeRefreshLayout"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			app:layout_behavior="@string/appbar_scrolling_view_behavior">
+	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-			<androidx.constraintlayout.widget.ConstraintLayout
-				android:layout_width="match_parent"
-				android:layout_height="match_parent">
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
+		android:id="@+id/fabTop"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="bottom|end"
+		android:layout_marginEnd="16dp"
+		android:layout_marginBottom="16dp"
+		android:src="@drawable/ic_keyboard_arrow_up_white_24dp" />
 
-				<androidx.recyclerview.widget.RecyclerView
-					android:id="@+id/mRecyclerView"
-					android:layout_width="0dp"
-					android:layout_height="0dp"
-					app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-					app:layout_constraintBottom_toBottomOf="parent"
-					app:layout_constraintEnd_toEndOf="parent"
-					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toTopOf="parent"
-					tools:listitem="@layout/item_home_received_event" />
-
-			</androidx.constraintlayout.widget.ConstraintLayout>
-
-		</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-		<com.google.android.material.floatingactionbutton.FloatingActionButton
-			android:id="@+id/fabTop"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="bottom|end"
-			android:layout_marginEnd="16dp"
-			android:layout_marginBottom="16dp"
-			android:src="@drawable/ic_keyboard_arrow_up_white_24dp" />
-
-	</androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-</layout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

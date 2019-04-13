@@ -1,36 +1,13 @@
 package com.qingmei2.rhine.base.view.activity
 
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
-import com.qingmei2.rhine.BR
 
-abstract class BaseActivity<B : ViewDataBinding> : InjectionActivity() {
-
-    protected lateinit var binding: B
+abstract class BaseActivity : InjectionActivity() {
 
     abstract val layoutId: Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initBinding()
-        initView()
-    }
-
-    open fun initView() {
-
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        binding.unbind()
-    }
-
-    private fun initBinding() {
-        binding = DataBindingUtil.setContentView(this, layoutId)
-        with(binding) {
-            setVariable(BR.activity, this@BaseActivity)
-            setLifecycleOwner(this@BaseActivity)
-        }
+        setContentView(layoutId)
     }
 }

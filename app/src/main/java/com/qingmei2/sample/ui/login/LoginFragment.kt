@@ -2,6 +2,8 @@ package com.qingmei2.sample.ui.login
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
+import com.jakewharton.rxbinding3.widget.textChanges
 import com.qingmei2.rhine.base.view.fragment.BaseFragment
 import com.qingmei2.rhine.ext.livedata.map
 import com.qingmei2.rhine.ext.livedata.toReactiveStream
@@ -35,6 +37,15 @@ class LoginFragment : BaseFragment() {
                 .toReactiveStream()
                 .autoDisposable(scopeProvider)
                 .subscribe { mProgressBar.visibility = it }
+        mViewModel.username.toReactiveStream()
+                .distinctUntilChanged()
+                .autoDisposable(scopeProvider)
+                .subscribe { tvUsername.setText(it, TextView.BufferType.EDITABLE) }
+        mViewModel.password.toReactiveStream()
+                .distinctUntilChanged()
+                .autoDisposable(scopeProvider)
+                .subscribe { tvPassword.setText(it, TextView.BufferType.EDITABLE) }
+
         mViewModel.userInfo
                 .toReactiveStream()
                 .autoDisposable(scopeProvider)
@@ -43,5 +54,12 @@ class LoginFragment : BaseFragment() {
         mBtnSignIn.clicksThrottleFirst()
                 .autoDisposable(scopeProvider)
                 .subscribe { mViewModel.login() }
+
+        tvUsername.textChanges()
+                .autoDisposable(scopeProvider)
+                .subscribe { mViewModel.username.postValue(it.toString()) }
+        tvPassword.textChanges()
+                .autoDisposable(scopeProvider)
+                .subscribe { mViewModel.password.postValue(it.toString()) }
     }
 }

@@ -1,41 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/container"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
 
-	<data>
+	<androidx.viewpager.widget.ViewPager
+		android:id="@+id/viewPager"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		app:layout_constraintBottom_toTopOf="@+id/navigation"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
 
-		<variable
-			name="fragment"
-			type="com.qingmei2.sample.ui.main.MainFragment" />
-	</data>
+	<com.google.android.material.bottomnavigation.BottomNavigationView
+		android:id="@+id/navigation"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		app:itemBackground="@color/colorPrimary"
+		app:itemIconTint="@drawable/selector_main_bottom_nav_button"
+		app:itemTextColor="@drawable/selector_main_bottom_nav_button"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/viewPager"
+		app:menu="@menu/menu_main_bottom_nav" />
 
-	<androidx.constraintlayout.widget.ConstraintLayout
-		android:id="@+id/container"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent">
-
-		<androidx.viewpager.widget.ViewPager
-			android:id="@+id/viewPager"
-			android:layout_width="0dp"
-			android:layout_height="0dp"
-			app:layout_constraintBottom_toTopOf="@+id/navigation"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent" />
-
-		<com.google.android.material.bottomnavigation.BottomNavigationView
-			android:id="@+id/navigation"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			app:itemBackground="@color/colorPrimary"
-			app:itemIconTint="@drawable/selector_main_bottom_nav_button"
-			app:itemTextColor="@drawable/selector_main_bottom_nav_button"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/viewPager"
-			app:menu="@menu/menu_main_bottom_nav" />
-
-	</androidx.constraintlayout.widget.ConstraintLayout>
-
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

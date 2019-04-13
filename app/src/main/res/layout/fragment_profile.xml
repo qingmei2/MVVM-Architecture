@@ -1,113 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools">
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/clProfile"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@color/colorPrimary">
 
-	<data>
+	<ImageView
+		android:id="@+id/mBtnEdit"
+		android:layout_width="40dp"
+		android:layout_height="40dp"
+		android:layout_marginTop="6dp"
+		android:layout_marginEnd="6dp"
+		android:padding="10dp"
+		android:src="@drawable/ic_edit_pencil"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
 
-		<variable
-			name="fragment"
-			type="com.qingmei2.sample.ui.main.profile.ProfileFragment" />
-	</data>
+	<ImageView
+		android:id="@+id/mIvAvatar"
+		android:layout_width="80dp"
+		android:layout_height="80dp"
+		android:layout_marginTop="16dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintVertical_bias="0.3"
+		tools:src="@mipmap/ic_github" />
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:orientation="vertical">
+	<TextView
+		android:id="@+id/mTvNickname"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="80dp"
+		android:layout_marginTop="6dp"
+		android:layout_marginEnd="80dp"
+		android:ellipsize="end"
+		android:maxLines="1"
+		android:textColor="@color/white"
+		android:textSize="16sp"
+		android:textStyle="bold"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/mIvAvatar"
+		tools:text="qingmei2" />
 
-		<androidx.constraintlayout.widget.ConstraintLayout
-			android:id="@+id/clProfile"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:background="@color/colorPrimary">
+	<TextView
+		android:id="@+id/mTvBio"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="80dp"
+		android:layout_marginTop="4dp"
+		android:layout_marginEnd="80dp"
+		android:ellipsize="end"
+		android:maxLines="1"
+		android:textColor="@color/white"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/mTvNickname"
+		tools:text="In programming we trust." />
 
-			<ImageView
-				android:id="@+id/mBtnEdit"
-				android:layout_width="40dp"
-				android:layout_height="40dp"
-				android:layout_marginTop="6dp"
-				android:layout_marginEnd="6dp"
-				android:padding="10dp"
-				android:src="@drawable/ic_edit_pencil"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintTop_toTopOf="parent" />
+	<ImageView
+		android:id="@+id/icLocation"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="40dp"
+		android:layout_marginTop="4dp"
+		android:layout_marginEnd="2dp"
+		android:layout_marginBottom="16dp"
+		android:src="@drawable/ic_location_on_gray"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/mTvLocation"
+		app:layout_constraintHorizontal_chainStyle="packed"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/mTvBio" />
 
-			<ImageView
-				android:id="@+id/mIvAvatar"
-				android:layout_width="80dp"
-				android:layout_height="80dp"
-				android:layout_marginTop="16dp"
-				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent"
-				app:layout_constraintVertical_bias="0.3"
-				tools:src="@mipmap/ic_github" />
+	<TextView
+		android:id="@+id/mTvLocation"
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_marginEnd="40dp"
+		android:ellipsize="end"
+		android:gravity="center"
+		android:singleLine="true"
+		android:textColor="@color/secondaryTextGray"
+		app:layout_constraintBottom_toBottomOf="@+id/icLocation"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toEndOf="@+id/icLocation"
+		app:layout_constraintTop_toTopOf="@+id/icLocation"
+		tools:text="Chengdu, Sichuan, China" />
 
-			<TextView
-				android:id="@+id/mTvNickname"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="80dp"
-				android:layout_marginTop="6dp"
-				android:layout_marginEnd="80dp"
-				android:ellipsize="end"
-				android:maxLines="1"
-				android:textColor="@color/white"
-				android:textSize="16sp"
-				android:textStyle="bold"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/mIvAvatar"
-				tools:text="qingmei2" />
-
-			<TextView
-				android:id="@+id/mTvBio"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="80dp"
-				android:layout_marginTop="4dp"
-				android:layout_marginEnd="80dp"
-				android:ellipsize="end"
-				android:maxLines="1"
-				android:textColor="@color/white"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/mTvNickname"
-				tools:text="In programming we trust." />
-
-			<ImageView
-				android:id="@+id/icLocation"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="40dp"
-				android:layout_marginTop="4dp"
-				android:layout_marginEnd="2dp"
-				android:layout_marginBottom="16dp"
-				android:src="@drawable/ic_location_on_gray"
-				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintEnd_toStartOf="@+id/mTvLocation"
-				app:layout_constraintHorizontal_chainStyle="packed"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/mTvBio" />
-
-			<TextView
-				android:id="@+id/mTvLocation"
-				android:layout_width="wrap_content"
-				android:layout_height="0dp"
-				android:layout_marginEnd="40dp"
-				android:ellipsize="end"
-				android:gravity="center"
-				android:singleLine="true"
-				android:textColor="@color/secondaryTextGray"
-				app:layout_constraintBottom_toBottomOf="@+id/icLocation"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintStart_toEndOf="@+id/icLocation"
-				app:layout_constraintTop_toTopOf="@+id/icLocation"
-				tools:text="Chengdu, Sichuan, China" />
-
-		</androidx.constraintlayout.widget.ConstraintLayout>
-
-	</LinearLayout>
-
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>
