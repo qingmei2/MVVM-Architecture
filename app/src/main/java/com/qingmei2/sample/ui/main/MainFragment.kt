@@ -2,6 +2,7 @@ package com.qingmei2.sample.ui.main
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.FragmentManager
@@ -10,7 +11,6 @@ import com.qingmei2.rhine.base.view.fragment.BaseFragment
 import com.qingmei2.rhine.binding.support.ViewPagerAdapter
 import com.qingmei2.rhine.ext.reactivex.clicksThrottleFirst
 import com.qingmei2.sample.R
-import com.qingmei2.sample.databinding.FragmentMainBinding
 import com.qingmei2.sample.ui.main.home.HomeFragment
 import com.qingmei2.sample.ui.main.profile.ProfileFragment
 import com.qingmei2.sample.ui.main.repos.ReposFragment
@@ -23,7 +23,7 @@ import org.kodein.di.generic.instance
 
 @Suppress("PLUGIN_WARNING")
 @SuppressLint("CheckResult")
-class MainFragment : BaseFragment<FragmentMainBinding>() {
+class MainFragment : BaseFragment() {
 
     override val kodein: Kodein = Kodein.lazy {
         extend(parentKodein)
@@ -38,7 +38,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     private var isPortMode: Boolean = true
 
-    override fun initView() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         isPortMode = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
 
         viewPager.adapter = ViewPagerAdapter(childFragmentManager,

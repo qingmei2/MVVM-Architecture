@@ -1,7 +1,8 @@
 package com.qingmei2.sample.ui.main.home
 
 import android.animation.ObjectAnimator
-import android.annotation.SuppressLint
+import android.os.Bundle
+import android.view.View
 import com.jakewharton.rxbinding3.recyclerview.scrollStateChanges
 import com.jakewharton.rxbinding3.swiperefreshlayout.refreshes
 import com.qingmei2.rhine.base.view.fragment.BaseFragment
@@ -11,15 +12,13 @@ import com.qingmei2.rhine.ext.reactivex.clicksThrottleFirst
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.common.listScrollChangeStateProcessor
-import com.qingmei2.sample.databinding.FragmentHomeBinding
 import com.uber.autodispose.autoDisposable
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
 import java.util.concurrent.TimeUnit
 
-@SuppressLint("CheckResult")
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseFragment() {
 
     override val kodein: Kodein = Kodein.lazy {
         extend(parentKodein)
@@ -32,7 +31,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val mAdapter: HomePagedAdapter = HomePagedAdapter()
 
-    override fun initView() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binds()
 
         mRecyclerView.adapter = mAdapter
@@ -42,7 +42,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         // 列表滑动，底部按钮动态显示/隐藏
         mRecyclerView.scrollStateChanges()
                 .debounce(500, TimeUnit.MILLISECONDS)
-                .flatMap(listScrollChangeStateProcessor)
+                .compose(listScrollChangeStateProcessor)
                 .autoDisposable(scopeProvider)
                 .subscribe(::switchFabState)
 

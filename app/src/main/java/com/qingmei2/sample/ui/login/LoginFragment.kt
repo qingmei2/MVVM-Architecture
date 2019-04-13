@@ -1,19 +1,19 @@
 package com.qingmei2.sample.ui.login
 
+import android.os.Bundle
 import android.view.View
 import com.qingmei2.rhine.base.view.fragment.BaseFragment
 import com.qingmei2.rhine.ext.livedata.map
 import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.rhine.ext.reactivex.clicksThrottleFirst
 import com.qingmei2.sample.R
-import com.qingmei2.sample.databinding.FragmentLoginBinding
 import com.qingmei2.sample.ui.MainActivity
 import com.uber.autodispose.autoDisposable
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
 
-class LoginFragment : BaseFragment<FragmentLoginBinding>() {
+class LoginFragment : BaseFragment() {
 
     override val kodein: Kodein = Kodein.lazy {
         extend(parentKodein)
@@ -24,7 +24,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     val mViewModel: LoginViewModel by instance()
 
-    override fun initView() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binds()
     }
 

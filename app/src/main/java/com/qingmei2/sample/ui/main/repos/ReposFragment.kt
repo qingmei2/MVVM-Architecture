@@ -1,7 +1,9 @@
 package com.qingmei2.sample.ui.main.repos
 
 import android.animation.ObjectAnimator
+import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import com.jakewharton.rxbinding3.recyclerview.scrollStateChanges
 import com.jakewharton.rxbinding3.swiperefreshlayout.refreshes
 import com.qingmei2.rhine.base.view.fragment.BaseFragment
@@ -18,7 +20,7 @@ import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
 import java.util.concurrent.TimeUnit
 
-class ReposFragment : BaseFragment<FragmentReposBinding>() {
+class ReposFragment : BaseFragment() {
 
     override val kodein: Kodein = Kodein.lazy {
         extend(parentKodein)
@@ -31,7 +33,8 @@ class ReposFragment : BaseFragment<FragmentReposBinding>() {
 
     private val mAdapter = ReposPagedAdapter()
 
-    override fun initView() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         toolbar.inflateMenu(R.menu.menu_repos_filter_type)
 
         mRecyclerView.adapter = mAdapter
@@ -43,7 +46,7 @@ class ReposFragment : BaseFragment<FragmentReposBinding>() {
         // 列表滑动，底部按钮动态显示/隐藏
         mRecyclerView.scrollStateChanges()
                 .debounce(500, TimeUnit.MILLISECONDS)
-                .flatMap(listScrollChangeStateProcessor)
+                .compose(listScrollChangeStateProcessor)
                 .autoDisposable(scopeProvider)
                 .subscribe(::switchFabState)
 

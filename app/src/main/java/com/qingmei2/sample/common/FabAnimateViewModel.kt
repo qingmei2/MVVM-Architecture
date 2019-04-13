@@ -6,13 +6,12 @@ import arrow.core.right
 import com.qingmei2.rhine.util.RxSchedulers
 import com.qingmei2.sample.http.Errors
 import io.reactivex.Observable
-import io.reactivex.functions.Function
+import io.reactivex.ObservableTransformer
 import io.reactivex.rxkotlin.zipWith
 
-val listScrollChangeStateProcessor: Function<Int, Observable<Boolean>>
-    get() = Function { currentState ->
-        Observable.just(currentState)
-                .map { it == RecyclerView.SCROLL_STATE_IDLE }
+val listScrollChangeStateProcessor: ObservableTransformer<Int, Boolean>
+    get() = ObservableTransformer { obs ->
+        obs.map { it == RecyclerView.SCROLL_STATE_IDLE }
                 .compose { upstream ->
                     upstream.zipWith(upstream.startWith(true)) { last, current ->
                         when (last == current) {
