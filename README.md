@@ -71,10 +71,27 @@
 
 ## Usage
 
-*  Fork this repo directly:
+Step1: Fork this repo directly:
 
 ```shell
 $ git clone https://github.com/qingmei2/MVVM-Rhine.git
+```
+
+Step2: [Register](https://github.com/settings/applications/new) OAuth Application.
+
+<div align:left;display:inline;>
+<img width="480" height="480" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/regist_step1.png"/>
+</div>
+
+Step3: Put the `Client ID` and the `Client Secret` into `local.properties`:
+
+<div align:left;display:inline;>
+<img width="550" height="384" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/regist_step2.png"/>
+</div>
+
+```groovy
+CLIENT_ID = "xxxxxx"
+CLIENT_SECRET = "xxxxxx"
 ```
 
 ## Thanks to

@@ -89,11 +89,15 @@ $ git clone https://github.com/qingmei2/MVVM-Rhine.git
 
 首先打开[这个链接](https://github.com/settings/applications/new),注册属于你的`OAuth Application`：
 
-![](https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/regist_step1.png)
+<div align:left;display:inline;>
+<img width="480" height="480" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/regist_step1.png"/>
+</div>
 
 注册完成后，记住下面的`Client ID`和`Client Secret`,并配置到你的项目根目录的`local.properties`文件中：
 
-![](https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/regist_step2.png)
+<div align:left;display:inline;>
+<img width="550" height="384" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/regist_step2.png"/>
+</div>
 
 ```groovy
 CLIENT_ID = "xxxxxx"
