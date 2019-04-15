@@ -1,7 +1,6 @@
 package com.qingmei2.sample.ui.login
 
 import arrow.core.Either
-import arrow.core.Tuple2
 import com.qingmei2.rhine.base.repository.BaseRepositoryBoth
 import com.qingmei2.rhine.base.repository.ILocalDataSource
 import com.qingmei2.rhine.base.repository.IRemoteDataSource
@@ -15,7 +14,6 @@ import com.qingmei2.sample.manager.UserManager
 import com.qingmei2.sample.repository.UserInfoRepository
 import io.reactivex.Completable
 import io.reactivex.Flowable
-import io.reactivex.Single
 
 class LoginRepository(
         remoteDataSource: LoginRemoteDataSource,
@@ -39,12 +37,8 @@ class LoginRepository(
                 .doOnError { localDataSource.clearPrefsUser() }
     }
 
-    fun prefsUser(): Flowable<Either<Errors, Tuple2<String, String>>> {
-        return localDataSource.fetchPrefsUser()
-    }
-
-    fun prefsAutoLogin(): Single<Boolean> {
-        return localDataSource.isAutoLogin()
+    fun fetchAutoLogin(): Flowable<AutoLoginEvent> {
+        return localDataSource.fetchAutoLogin()
     }
 }
 
@@ -73,10 +67,6 @@ class LoginLocalDataSource(
         private val userRepository: UserInfoRepository
 ) : ILocalDataSource {
 
-    fun isAutoLogin(): Single<Boolean> {
-        return Single.just(userRepository.isAutoLogin)
-    }
-
     fun savePrefsUser(username: String, password: String): Completable {
         return Completable.fromAction {
             userRepository.username = username
@@ -91,11 +81,19 @@ class LoginLocalDataSource(
         }
     }
 
-    fun fetchPrefsUser(): Flowable<Either<Errors, Tuple2<String, String>>> =
-            Flowable.just(userRepository).map {
-                when (it.username.isNotEmpty() && it.password.isNotEmpty()) {
-                    true -> Either.right(Tuple2(it.username, it.password))
-                    false -> Either.left(Errors.EmptyResultsError)
-                }
-            }
+    fun fetchAutoLogin(): Flowable<AutoLoginEvent> {
+        val username = userRepository.username
+        val password = userRepository.password
+        val isAutoLogin = userRepository.isAutoLogin
+        return Flowable.just(when (username.isNotEmpty() && password.isNotEmpty() && isAutoLogin) {
+            true -> AutoLoginEvent(true, username, password)
+            false -> AutoLoginEvent(false, "", "")
+        })
+    }
 }
+
+data class AutoLoginEvent(
+        val autoLogin: Boolean,
+        val username: String,
+        val password: String
+)

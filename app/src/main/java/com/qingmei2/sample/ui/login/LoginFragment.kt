@@ -8,6 +8,7 @@ import com.qingmei2.rhine.base.view.fragment.BaseFragment
 import com.qingmei2.rhine.ext.livedata.map
 import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.rhine.ext.reactivex.clicksThrottleFirst
+import com.qingmei2.rhine.util.RxSchedulers
 import com.qingmei2.sample.R
 import com.qingmei2.sample.ui.MainActivity
 import com.uber.autodispose.autoDisposable
@@ -24,7 +25,7 @@ class LoginFragment : BaseFragment() {
 
     override val layoutId: Int = R.layout.fragment_login
 
-    val mViewModel: LoginViewModel by instance()
+    private val mViewModel: LoginViewModel by instance()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,11 +39,13 @@ class LoginFragment : BaseFragment() {
                 .autoDisposable(scopeProvider)
                 .subscribe { mProgressBar.visibility = it }
         mViewModel.username.toReactiveStream()
-                .distinctUntilChanged()
+                .observeOn(RxSchedulers.ui)
+                .filter { it != tvUsername.text.toString() }
                 .autoDisposable(scopeProvider)
                 .subscribe { tvUsername.setText(it, TextView.BufferType.EDITABLE) }
         mViewModel.password.toReactiveStream()
-                .distinctUntilChanged()
+                .observeOn(RxSchedulers.ui)
+                .filter { it != tvPassword.text.toString() }
                 .autoDisposable(scopeProvider)
                 .subscribe { tvPassword.setText(it, TextView.BufferType.EDITABLE) }
 
@@ -53,7 +56,7 @@ class LoginFragment : BaseFragment() {
 
         mBtnSignIn.clicksThrottleFirst()
                 .autoDisposable(scopeProvider)
-                .subscribe { mViewModel.login() }
+                .subscribe { mViewModel.login(tvUsername.text.toString(), tvPassword.text.toString()) }
 
         tvUsername.textChanges()
                 .autoDisposable(scopeProvider)

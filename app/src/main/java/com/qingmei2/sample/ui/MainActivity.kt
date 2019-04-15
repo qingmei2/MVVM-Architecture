@@ -1,6 +1,7 @@
 package com.qingmei2.sample.ui
 
 import android.content.Intent
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.Navigation
 import com.qingmei2.rhine.base.view.activity.BaseActivity
 import com.qingmei2.sample.R
@@ -14,7 +15,7 @@ class MainActivity : BaseActivity() {
 
     companion object {
 
-        fun launch(activity: androidx.fragment.app.FragmentActivity) =
+        fun launch(activity: FragmentActivity) =
                 activity.apply {
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()

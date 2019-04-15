@@ -3,19 +3,20 @@ package com.qingmei2.sample.ui.login
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import arrow.core.*
+import arrow.core.Option
+import arrow.core.none
+import arrow.core.some
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.arrow.whenNotNull
 import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.rhine.util.SingletonHolderSingleArg
 import com.qingmei2.sample.base.Result
-import com.qingmei2.sample.http.Errors
 import com.qingmei2.sample.entity.UserInfo
+import com.qingmei2.sample.http.Errors
 import com.qingmei2.sample.http.globalHandleError
 import com.qingmei2.sample.utils.toast
 import com.uber.autodispose.autoDisposable
 import io.reactivex.Single
-import io.reactivex.functions.BiFunction
 import retrofit2.HttpException
 
 @SuppressWarnings("checkResult")
@@ -32,12 +33,12 @@ class LoginViewModel(
 
     val userInfo: MutableLiveData<UserInfo> = MutableLiveData()
 
-    private val autoLogin: MutableLiveData<Boolean> = MutableLiveData()
+    private val autoLogin: MutableLiveData<AutoLoginEvent> = MutableLiveData()
 
     init {
         autoLogin.toReactiveStream()
-                .filter { it }
-                .doOnNext { login() }
+                .filter { it.autoLogin }
+                .doOnNext { login(it.username, it.password) }
                 .autoDisposable(this)
                 .subscribe()
 
@@ -67,29 +68,20 @@ class LoginViewModel(
                 .subscribe()
     }
 
-    private fun initAutoLogin() =
-            Single.zip(repo.prefsUser().firstOrError(), repo.prefsAutoLogin(),
-                    BiFunction { either: Either<Errors, Tuple2<String, String>>, autoLogin: Boolean ->
-                        autoLogin to either
-                    })
-                    .doOnSuccess { pair ->
-                        pair.second.fold({ error ->
-                            applyState(error = error.some())
-                        }, { tuple2 ->
-                            applyState(
-                                    username = tuple2.a.some(),
-                                    password = tuple2.b.some(),
-                                    autoLogin = pair.first
-                            )
-                        })
-                    }
+    private fun initAutoLogin(): Single<AutoLoginEvent> {
+        return repo.fetchAutoLogin()
+                .singleOrError()
+                .onErrorReturn { AutoLoginEvent(false, "", "") }
+                .doOnSuccess { event ->
+                    applyState(autoLogin = event, loginIndicator = false)
+                }
+    }
 
-
-    fun login() {
-        when (username.value.isNullOrEmpty() || password.value.isNullOrEmpty()) {
+    fun login(username: String?, password: String?) {
+        when (username.isNullOrEmpty() || password.isNullOrEmpty()) {
             true -> applyState(error = Errors.EmptyInputError.some())
             false -> repo
-                    .login(username.value!!, password.value!!)
+                    .login(username, password)
                     .compose(globalHandleError())
                     .map { either ->
                         either.fold({
@@ -115,20 +107,18 @@ class LoginViewModel(
 
     private fun applyState(user: Option<UserInfo> = none(),
                            error: Option<Throwable> = none(),
-                           username: Option<String> = none(),
-                           password: Option<String> = none(),
                            loginIndicator: Boolean? = null,
-                           autoLogin: Boolean = false) {
+                           autoLogin: AutoLoginEvent? = null) {
         this.error.postValue(error)
-
         this.userInfo.postValue(user.orNull())
-
-        username.whenNotNull { this.username.value = it }
-        password.whenNotNull { this.password.value = it }
 
         loginIndicator?.apply(loginIndicatorVisible::postValue)
 
-        this.autoLogin.postValue(autoLogin)
+        autoLogin?.let {
+            this.username.postValue(it.username)
+            this.password.postValue(it.password)
+            this.autoLogin.postValue(autoLogin)
+        }
     }
 }
 
