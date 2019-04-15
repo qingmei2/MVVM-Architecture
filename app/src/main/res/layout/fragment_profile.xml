@@ -4,7 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/clProfile"
 	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
+	android:layout_height="match_parent"
 	android:background="@color/colorPrimary">
 
 	<ImageView
@@ -20,8 +20,8 @@
 
 	<ImageView
 		android:id="@+id/mIvAvatar"
-		android:layout_width="80dp"
-		android:layout_height="80dp"
+		android:layout_width="90dp"
+		android:layout_height="90dp"
 		android:layout_marginTop="16dp"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="80dp"
-		android:layout_marginTop="6dp"
+		android:layout_marginTop="26dp"
 		android:layout_marginEnd="80dp"
 		android:ellipsize="end"
 		android:maxLines="1"
@@ -52,7 +52,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="80dp"
-		android:layout_marginTop="4dp"
+		android:layout_marginTop="24dp"
 		android:layout_marginEnd="80dp"
 		android:ellipsize="end"
 		android:maxLines="1"
@@ -67,11 +67,10 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="40dp"
-		android:layout_marginTop="4dp"
+		android:layout_marginTop="24dp"
 		android:layout_marginEnd="2dp"
 		android:layout_marginBottom="16dp"
 		android:src="@drawable/ic_location_on_gray"
-		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toStartOf="@+id/mTvLocation"
 		app:layout_constraintHorizontal_chainStyle="packed"
 		app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +79,7 @@
 	<TextView
 		android:id="@+id/mTvLocation"
 		android:layout_width="wrap_content"
-		android:layout_height="0dp"
+		android:layout_height="wrap_content"
 		android:layout_marginEnd="40dp"
 		android:ellipsize="end"
 		android:gravity="center"
