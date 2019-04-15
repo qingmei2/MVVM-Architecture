@@ -77,11 +77,30 @@
 
 ## 开始使用
 
-*  直接通过git命令行进行clone:
+* 1.直接通过git命令行进行clone:
 
 ```shell
 $ git clone https://github.com/qingmei2/MVVM-Rhine.git
 ```
+
+* 2.注册你的GithubApp
+
+> 最新版本的代码，需要开发者注册一个自己的`OAuth Application`，注册后，`Github`的API访问次数就能达到5000次/小时（之前的版本只有60次/小时），很多朋友反应在Debug过程中不够用，断点打了几次就被限制请求了，因此最新版本添加了这个配置的步骤，虽然麻烦了一小步，但是对于学习效率的提升，这点配置时间可以忽略不计。
+
+首先打开[这个链接](https://github.com/settings/applications/new),注册属于你的`OAuth Application`：
+
+![](https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/regist_step1.png)
+
+注册完成后，记住下面的`Client ID`和`Client Secret`,并配置到你的项目根目录的`local.properties`文件中：
+
+![](https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/regist_step2.png)
+
+```groovy
+CLIENT_ID = "xxxxxx"
+CLIENT_SECRET = "xxxxxx"
+```
+
+大功告成，接下来点击编译并运行即可。:tada: :tada: :tada:
 
 ## 如何入手学习这个项目？
 
