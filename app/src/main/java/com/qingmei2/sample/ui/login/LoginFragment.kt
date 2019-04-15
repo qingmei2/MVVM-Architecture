@@ -3,12 +3,10 @@ package com.qingmei2.sample.ui.login
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import com.jakewharton.rxbinding3.widget.textChanges
 import com.qingmei2.rhine.base.view.fragment.BaseFragment
 import com.qingmei2.rhine.ext.livedata.map
 import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.rhine.ext.reactivex.clicksThrottleFirst
-import com.qingmei2.rhine.util.RxSchedulers
 import com.qingmei2.sample.R
 import com.qingmei2.sample.ui.MainActivity
 import com.uber.autodispose.autoDisposable
@@ -38,31 +36,20 @@ class LoginFragment : BaseFragment() {
                 .toReactiveStream()
                 .autoDisposable(scopeProvider)
                 .subscribe { mProgressBar.visibility = it }
-        mViewModel.username.toReactiveStream()
-                .observeOn(RxSchedulers.ui)
-                .filter { it != tvUsername.text.toString() }
-                .autoDisposable(scopeProvider)
-                .subscribe { tvUsername.setText(it, TextView.BufferType.EDITABLE) }
-        mViewModel.password.toReactiveStream()
-                .observeOn(RxSchedulers.ui)
-                .filter { it != tvPassword.text.toString() }
-                .autoDisposable(scopeProvider)
-                .subscribe { tvPassword.setText(it, TextView.BufferType.EDITABLE) }
-
         mViewModel.userInfo
                 .toReactiveStream()
                 .autoDisposable(scopeProvider)
                 .subscribe { MainActivity.launch(activity!!) }
+        mViewModel.autoLogin
+                .toReactiveStream()
+                .autoDisposable(scopeProvider)
+                .subscribe {
+                    tvUsername.setText(it.username, TextView.BufferType.EDITABLE)
+                    tvPassword.setText(it.password, TextView.BufferType.EDITABLE)
+                }
 
         mBtnSignIn.clicksThrottleFirst()
                 .autoDisposable(scopeProvider)
                 .subscribe { mViewModel.login(tvUsername.text.toString(), tvPassword.text.toString()) }
-
-        tvUsername.textChanges()
-                .autoDisposable(scopeProvider)
-                .subscribe { mViewModel.username.postValue(it.toString()) }
-        tvPassword.textChanges()
-                .autoDisposable(scopeProvider)
-                .subscribe { mViewModel.password.postValue(it.toString()) }
     }
 }

@@ -24,16 +24,13 @@ class LoginViewModel(
         private val repo: LoginRepository
 ) : BaseViewModel() {
 
-    val username: MutableLiveData<String> = MutableLiveData()
-    val password: MutableLiveData<String> = MutableLiveData()
-
     private val error: MutableLiveData<Option<Throwable>> = MutableLiveData()
 
     val loginIndicatorVisible: MutableLiveData<Boolean> = MutableLiveData()
 
     val userInfo: MutableLiveData<UserInfo> = MutableLiveData()
 
-    private val autoLogin: MutableLiveData<AutoLoginEvent> = MutableLiveData()
+    val autoLogin: MutableLiveData<AutoLoginEvent> = MutableLiveData()
 
     init {
         autoLogin.toReactiveStream()
@@ -115,8 +112,6 @@ class LoginViewModel(
         loginIndicator?.apply(loginIndicatorVisible::postValue)
 
         autoLogin?.let {
-            this.username.postValue(it.username)
-            this.password.postValue(it.password)
             this.autoLogin.postValue(autoLogin)
         }
     }
