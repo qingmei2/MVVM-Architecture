@@ -2,17 +2,18 @@
 
 **Android端 MVVM + Jetpack 架构组件的Github客户端。**
 
+> [使用MVVM尝试开发Github客户端及对编程的一些思考](https://juejin.im/post/5be7bbd9f265da61797458cf)
+
 ### [English Document](https://github.com/qingmei2/MVVM-Rhine/blob/master/README_EN.md) | 中文文档
 
 ## 通知
 
-关于项目的起源，请参考笔者的这篇文章：
-
-> [使用MVVM尝试开发Github客户端及对编程的一些思考](https://juejin.im/post/5be7bbd9f265da61797458cf)
-
-如果编译遇到如下图的错误，请先参考下方[【开始使用】](https://github.com/qingmei2/MVVM-Rhine/blob/master/README.md#usage)，对项目进行配置：
+* 如果编译遇到如下图的错误，请先参考下方[【开始使用】](https://github.com/qingmei2/MVVM-Rhine/blob/master/README.md#usage)，对项目进行配置：
 
 ![](https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/compile_error.png)
+
+> 出现这个问题的原因，最新版本的代码，需要开发者注册一个自己的`OAuth Application`，注册后，`Github`的API访问次数就能达到5000次/小时（之前的版本只有60次/小时），之前很多朋友反应在Debug过程中不够用，断点打了几次就被限制请求了，因此最新版本添加了这个配置的步骤，虽然麻烦了一小步，但是对于学习效率的提升，这点配置时间可以忽略不计。
+
 
 ## 屏幕截图
 
@@ -90,8 +91,6 @@ $ git clone https://github.com/qingmei2/MVVM-Rhine.git
 ```
 
 * 2.注册你的GithubApp
-
-> 最新版本的代码，需要开发者注册一个自己的`OAuth Application`，注册后，`Github`的API访问次数就能达到5000次/小时（之前的版本只有60次/小时），很多朋友反应在Debug过程中不够用，断点打了几次就被限制请求了，因此最新版本添加了这个配置的步骤，虽然麻烦了一小步，但是对于学习效率的提升，这点配置时间可以忽略不计。
 
 首先打开[这个链接](https://github.com/settings/applications/new),注册属于你的`OAuth Application`：
 
