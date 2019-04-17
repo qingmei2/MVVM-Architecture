@@ -1,16 +1,10 @@
 # MVVM-Rhine
 
-**Android端 MVVM + Jetpack 架构组件的Github客户端。**
+**The MVVM using RxJava2 and Android Jetpack.**
 
-### [English Documentation](https://github.com/qingmei2/MVVM-Rhine) | 中文文档
+### English Documentation | [中文文档](https://github.com/qingmei2/MVVM-Rhine)
 
-## 通知
-
-关于项目的起源，请参考笔者的这篇文章：
-
-> [使用MVVM尝试开发Github客户端及对编程的一些思考](https://juejin.im/post/5be7bbd9f265da61797458cf)
-
-## 屏幕截图
+## ScreenShots
 
 <div align:left;display:inline;>
 <img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/login.png"/>
@@ -19,9 +13,9 @@
 <img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/me.png"/>
 </div>
 
-## 三方组件
+## Libraries
 
-### Android官方架构组件
+### Android Jetpack
 
 * [Lifecycle: Create a UI that automatically responds to lifecycle events.](https://developer.android.com/topic/libraries/architecture/lifecycle)
 
@@ -35,17 +29,17 @@
 
 * [Paging: Makes it easier for you to load data gradually and gracefully within your app's RecyclerView.](https://developer.android.com/topic/libraries/architecture/paging/)
 
-### 网络请求
+### Http
 
 * [Retrofit2: Type-safe HTTP client for Android and Java by Square, Inc.](https://github.com/square/retrofit)
 
 * [OkHttp: An HTTP+HTTP/2 client for Android and Java applications.](https://github.com/square/okhttp)
 
-### 依赖注入
+### DI
 
 * [Kodein-DI: Painless Kotlin Dependency Injection](https://github.com/Kodein-Framework/Kodein-DI)
 
-### 响应式库
+### ReactiveX
 
 * [RxKotlin: RxJava bindings for Kotlin](https://github.com/ReactiveX/RxKotlin)
 
@@ -61,39 +55,35 @@
 
 * [AutoDispose: Automatic binding+disposal of RxJava 2 streams.](https://github.com/uber/AutoDispose)
 
-### 函数式库
+### Functional
 
 * [Arrow: Functional companion to Kotlin's Standard Library.](https://arrow-kt.io/)
 
-### 其它
+### Others
 
 * [Glide: An image loading and caching library for Android focused on smooth scrolling](https://github.com/bumptech/glide)
 
 * [Timber: A logger with a small, extensible API which provides utility on top of Android's normal Log class.](https://github.com/JakeWharton/timber)
 
-### 工具/插件
+### Tools
 
 * [MVVM-Rhine-Template: Activity or Fragment code generation template for MVVM-Rhine.](https://github.com/qingmei2/MVVM-Rhine-Template)
 
-## 开始使用
+## Usage
 
-* 1.直接通过git命令行进行clone:
+Step1: Fork this repo directly:
 
 ```shell
 $ git clone https://github.com/qingmei2/MVVM-Rhine.git
 ```
 
-* 2.注册你的GithubApp
-
-> 最新版本的代码，需要开发者注册一个自己的`OAuth Application`，注册后，`Github`的API访问次数就能达到5000次/小时（之前的版本只有60次/小时），很多朋友反应在Debug过程中不够用，断点打了几次就被限制请求了，因此最新版本添加了这个配置的步骤，虽然麻烦了一小步，但是对于学习效率的提升，这点配置时间可以忽略不计。
-
-首先打开[这个链接](https://github.com/settings/applications/new),注册属于你的`OAuth Application`：
+Step2: [Register](https://github.com/settings/applications/new) OAuth Application.
 
 <div align:left;display:inline;>
 <img width="480" height="480" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/regist_step1.png"/>
 </div>
 
-注册完成后，记住下面的`Client ID`和`Client Secret`,并配置到你的项目根目录的`local.properties`文件中：
+Step3: Put the `Client ID` and the `Client Secret` into `local.properties`:
 
 <div align:left;display:inline;>
 <img width="550" height="384" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/regist_step2.png"/>
@@ -104,44 +94,11 @@ CLIENT_ID = "xxxxxx"
 CLIENT_SECRET = "xxxxxx"
 ```
 
-大功告成，接下来点击编译并运行即可。:tada: :tada: :tada:
+## Thanks to
 
-## 如何入手学习这个项目？
+:art: The UI design of this project refers to [gitme](https://github.com/flutterchina/gitme).
 
-如何使用`Android Jetpack`？
-
->* [Android官方架构组件Lifecycle：生命周期组件详解&原理分析](https://juejin.im/post/5c53beaf51882562e27e5ad9)
->* [Android官方架构组件LiveData: 观察者模式领域二三事](https://juejin.im/post/5c25753af265da61561f5335)
->* [Android官方架构组件ViewModel:从前世今生到追本溯源](https://juejin.im/post/5c047fd3e51d45666017ff86)
->* [Android官方架构组件Paging：分页库的设计美学](https://juejin.im/post/5c53ad9e6fb9a049eb3c5cfd)
->* [Android官方架构组件Navigation：大巧不工的Fragment管理框架](https://juejin.im/post/5c53be3951882562d27416c6)
->* [Android官方架构组件DataBinding双向绑定篇: 观察者模式的殊途同归](https://juejin.im/post/5c3e04b7f265da611b589574)
-
-如何使用`Kodein`进行依赖注入？
-
-> * [ 告别Dagger2，在Kotlin项目中使用Kodein进行依赖注入 ](https://www.jianshu.com/p/b0da805f7534)
-> * [【译】Android开发从Dagger2迁移至Kodein的感受  ](https://www.jianshu.com/p/e5eef49570b9)
-
-如何进阶学习`RxJava`？
-
-> * [ 理解RxJava（一）：基本流程源码分析 ](https://www.jianshu.com/p/7fce2955f2db)
-> * [ 理解RxJava（二）：操作符流程原理分析 ](https://www.jianshu.com/p/0a28428e734d)
-> * [ 理解RxJava（三）：线程调度原理分析 ](https://www.jianshu.com/p/9e3930fbcb26)
-> * [ 理解RxJava（四）Subject用法及原理分析 ](https://www.jianshu.com/p/d7efc29ec9d3)
-
-> * [ 解决RxJava内存泄漏（前篇）：RxLifecycle详解及原理分析 ](https://www.jianshu.com/p/8311410de676)
-> * [ 解决RxJava内存泄漏（后篇）：Android架构中添加AutoDispose解决RxJava内存泄漏 ](https://www.jianshu.com/p/8490d9383ba5)
-
-
-如果您依然不满意这个项目中的代码风格, 欢迎体验笔者关于**状态管理**的最新实践，个人而言更趋近于理想中的设计:
-
-> [MVI-Rhine: 基于Jetpack + MVVM, 更加响应式&函数式的编程实践](https://github.com/qingmei2/MVI-Rhine)
-
-## 感谢
-
-:art: 项目中的UI设计部分参考了 [gitme](https://github.com/flutterchina/gitme).
-
-:star: 项目参考了 [rx-mvvm-android](https://github.com/ffgiraldez/rx-mvvm-android) 并对其部分代码进行了引用.
+:star: This repo is inspired by [rx-mvvm-android](https://github.com/ffgiraldez/rx-mvvm-android) and uses some of its source code.
 
 ## License
 
