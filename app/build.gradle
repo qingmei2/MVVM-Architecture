@@ -42,7 +42,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':mvvm_rhine')
 
-    implementation libs.support_v7
+    implementation libs.appcompat
     implementation libs.recyclerview
     implementation libs.design
     implementation libs.constraint

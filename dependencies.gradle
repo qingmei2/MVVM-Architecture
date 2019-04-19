@@ -9,8 +9,8 @@ ext {
     ]
 
     versions = [
-            android_plugin       : '3.3.2',
-            kotlin               : '1.3.21',
+            android_plugin       : '3.4.0',
+            kotlin               : '1.3.30',
             kotlin_coroutines    : '1.0.0',
 
             support              : '1.0.0',
@@ -45,7 +45,7 @@ ext {
 
     libs = [
             support_v4                  : [group: 'androidx.legacy', name: 'legacy-support-v4', version: versions.support],
-            support_v7                  : [group: 'androidx.appcompat', name: 'appcompat', version: versions.support],
+            appcompat                   : [group: 'androidx.appcompat', name: 'appcompat', version: versions.support],
             support_v13                 : [group: 'androidx.legacy', name: 'legacy-support-v13', version: versions.support],
             design                      : [group: 'com.google.android.material', name: 'material', version: '1.0.0-rc01'],
             recyclerview                : [group: 'androidx.recyclerview', name: 'recyclerview', version: versions.support],
