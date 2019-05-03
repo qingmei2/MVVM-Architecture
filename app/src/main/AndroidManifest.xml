@@ -12,11 +12,6 @@
 		android:theme="@style/AppTheme"
 		tools:ignore="GoogleAppIndexingWarning"
 		tools:replace="android:icon">
-		<service
-			android:name=".MainService"
-			android:enabled="true"
-			android:exported="true"></service>
-
 		<activity
 			android:name=".ui.login.LoginActivity"
 			android:launchMode="singleTop">
