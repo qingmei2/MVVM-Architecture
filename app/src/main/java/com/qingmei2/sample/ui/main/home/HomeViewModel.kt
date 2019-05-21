@@ -27,13 +27,12 @@ class HomeViewModel(
 
     val refreshing: MutableLiveData<Boolean> = MutableLiveData()
 
-    val error: MutableLiveData<Option<Throwable>> = MutableLiveData()
+    private val error: MutableLiveData<Option<Throwable>> = MutableLiveData()
 
     init {
         refreshing.toReactiveStream()
                 .distinctUntilChanged()
                 .filter { it }
-                .startWith(true)        // auto refresh at Fragment's onCreated lifecycle.
                 .autoDisposable(this)
                 .subscribe { refreshDataSource() }
 
@@ -61,19 +60,25 @@ class HomeViewModel(
                 .subscribe()
     }
 
+    fun refreshDataSource() {
+        repo.refreshPagedList()
+    }
+
     private fun fetchPagedListFromDbCompletable(): Completable {
-        return repo.fetchPagedListFromDb()
-                .subscribeOn(RxSchedulers.io)
+        return repo.initPagedListFromDb()
                 .doOnNext { pagedList.postValue(it) }
                 .ignoreElements()
     }
 
-    fun refreshDataSource() {
-        repo.refreshDataSource()
-    }
-
     private fun applyState(error: Option<Throwable> = none()) {
         this.error.postValue(error)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
+        repo.mAutoDisposeObserver.onNext(Unit)
+        repo.mAutoDisposeObserver.onComplete()
     }
 
     companion object {

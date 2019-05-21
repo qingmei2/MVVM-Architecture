@@ -16,36 +16,54 @@ import com.qingmei2.sample.http.service.ServiceManager
 import com.qingmei2.sample.manager.UserManager
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.processors.AsyncProcessor
 import io.reactivex.processors.PublishProcessor
+import io.reactivex.processors.UnicastProcessor
 
 @SuppressLint("CheckResult")
 class HomeRepository(
         remoteDataSource: HomeRemoteDataSource,
-        localDataSource: HomeLocalDataSource
+        localDataSource: HomeLocalDataSource,
+        val mAutoDisposeObserver: AsyncProcessor<Unit> = AsyncProcessor.create()
 ) : BaseRepositoryBoth<HomeRemoteDataSource, HomeLocalDataSource>(remoteDataSource, localDataSource) {
 
     private val mRemoteRequestStateProcessor: PublishProcessor<Result<List<ReceivedEvent>>> =
             PublishProcessor.create()
 
     fun subscribeRemoteRequestState(): Flowable<Result<List<ReceivedEvent>>> {
-        return mRemoteRequestStateProcessor
+        // hide()方法保证 hot observable 的安全性
+        return mRemoteRequestStateProcessor.hide()
     }
 
-    fun refreshDataSource() {
-        this.fetchEventByPage(1).subscribe { mRemoteRequestStateProcessor.onNext(it) }
+    /**
+     * 重新请求首页数据，请求成功后更新数据库.
+     */
+    fun refreshPagedList() {
+        fetchEventByPage(1)
+                .takeUntil(mAutoDisposeObserver)
+                .subscribe { mRemoteRequestStateProcessor.onNext(it) }
     }
 
-    fun fetchPagedListFromDb(): Flowable<PagedList<ReceivedEvent>> {
+    /**
+     * 初始化分页列表.
+     *
+     * 保证该方法只调用一次.
+     */
+    fun initPagedListFromDb(): Flowable<PagedList<ReceivedEvent>> {
         return localDataSource.fetchPagedListFromDb(
                 boundaryCallback = object : PagedList.BoundaryCallback<ReceivedEvent>() {
                     override fun onZeroItemsLoaded() {
-                        refreshDataSource()
+                        fetchEventByPage(1)
+                                .takeUntil(mAutoDisposeObserver)
+                                .subscribe { mRemoteRequestStateProcessor.onNext(it) }
                     }
 
                     override fun onItemAtEndLoaded(itemAtEnd: ReceivedEvent) {
                         val currentPageIndex = (itemAtEnd.indexInResponse / 30) + 1
                         val nextPageIndex = currentPageIndex + 1
+
                         this@HomeRepository.fetchEventByPage(nextPageIndex)
+                                .takeUntil(mAutoDisposeObserver)
                                 .subscribe { mRemoteRequestStateProcessor.onNext(it) }
                     }
                 }
@@ -67,17 +85,15 @@ class HomeRepository(
                             else -> Flowable.just(result)
                         }
                     }
-            false -> {
-                remoteDataSource
-                        .fetchEventsByPage(username, pageIndex, remoteRequestPerPage)
-                        .flatMap { result ->
-                            when (result is Result.Success) {
-                                true -> localDataSource.insertNewPagedEventData(result.data)
-                                        .andThen(Flowable.just(result))
-                                else -> Flowable.just(result)
-                            }
+            false -> remoteDataSource
+                    .fetchEventsByPage(username, pageIndex, remoteRequestPerPage)
+                    .flatMap { result ->
+                        when (result is Result.Success) {
+                            true -> localDataSource.insertNewPagedEventData(result.data)
+                                    .andThen(Flowable.just(result))
+                            else -> Flowable.just(result)
                         }
-            }
+                    }
         }
     }
 }
@@ -130,25 +146,26 @@ class HomeLocalDataSource(private val db: UserDatabase) : ILocalDataSource {
     }
 
     fun clearOldAndInsertNewData(newPage: List<ReceivedEvent>): Completable {
-        db.runInTransaction {
-            db.userReceivedEventDao().clearReceivedEvents()
+        return Completable.fromAction {
+            db.runInTransaction {
+                db.userReceivedEventDao().clearReceivedEvents()
+                insertDataInternal(newPage)
+            }
         }
-        return insertNewPagedEventData(newPage)
     }
 
     fun insertNewPagedEventData(newPage: List<ReceivedEvent>): Completable {
-        return Completable
-                .fromAction { insertDataInternal(newPage) }
+        return Completable.fromAction {
+            db.runInTransaction { insertDataInternal(newPage) }
+        }
     }
 
     private fun insertDataInternal(newPage: List<ReceivedEvent>) {
-        db.runInTransaction {
-            val start = db.userReceivedEventDao().getNextIndexInReceivedEvents()
-            val items = newPage.mapIndexed { index, child ->
-                child.indexInResponse = start + index
-                child
-            }
-            db.userReceivedEventDao().insert(items)
+        val start = db.userReceivedEventDao().getNextIndexInReceivedEvents()
+        val items = newPage.mapIndexed { index, child ->
+            child.indexInResponse = start + index
+            child
         }
+        db.userReceivedEventDao().insert(items)
     }
 }
