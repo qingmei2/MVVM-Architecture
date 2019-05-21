@@ -16,23 +16,27 @@ import com.qingmei2.sample.http.service.ServiceManager
 import com.qingmei2.sample.manager.UserManager
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.processors.AsyncProcessor
 import io.reactivex.processors.PublishProcessor
 
 @SuppressLint("CheckResult")
 class ReposRepository(
         remote: RemoteReposDataSource,
-        local: LocalReposDataSource
+        local: LocalReposDataSource,
+        val mAutoDisposeObserver: AsyncProcessor<Unit> = AsyncProcessor.create()
 ) : BaseRepositoryBoth<RemoteReposDataSource, LocalReposDataSource>(remote, local) {
 
     private val mRemoteRequestStateProcessor: PublishProcessor<Result<List<Repo>>> =
             PublishProcessor.create()
 
     fun subscribeRemoteRequestState(): Flowable<Result<List<Repo>>> {
-        return mRemoteRequestStateProcessor
+        return mRemoteRequestStateProcessor.hide()
     }
 
     fun refreshDataSource(sort: String) {
-        this.fetchRepoByPage(sort, 1).subscribe { mRemoteRequestStateProcessor.onNext(it) }
+        this.fetchRepoByPage(sort, 1)
+                .takeUntil(mAutoDisposeObserver)
+                .subscribe { mRemoteRequestStateProcessor.onNext(it) }
     }
 
     fun fetchPagedListFromDb(sort: String): Flowable<PagedList<Repo>> {
@@ -46,6 +50,7 @@ class ReposRepository(
                         val currentPageIndex = (itemAtEnd.indexInSortResponse / 30) + 1
                         val nextPageIndex = currentPageIndex + 1
                         this@ReposRepository.fetchRepoByPage(sort, nextPageIndex)
+                                .takeUntil(mAutoDisposeObserver)
                                 .subscribe { mRemoteRequestStateProcessor.onNext(it) }
                     }
                 }
@@ -135,25 +140,26 @@ class LocalReposDataSource(
     }
 
     fun clearOldAndInsertNewData(newPage: List<Repo>): Completable {
-        db.runInTransaction {
-            db.userReposDao().deleteAllRepos()
-        }
-        return insertNewPageData(newPage)
+        return Completable.fromAction {
+            db.runInTransaction {
+                db.userReposDao().deleteAllRepos()
+                insertDataInternal(newPage)
+            }
+        }.subscribeOn(RxSchedulers.io)
     }
 
     fun insertNewPageData(newPage: List<Repo>): Completable {
-        return Completable
-                .fromAction { insertDataInternal(newPage) }
+        return Completable.fromAction {
+            db.runInTransaction { insertDataInternal(newPage) }
+        }.subscribeOn(RxSchedulers.io)
     }
 
     private fun insertDataInternal(newPage: List<Repo>) {
-        db.runInTransaction {
-            val start = db.userReposDao().getNextIndexInRepos()
-            val items = newPage.mapIndexed { index, child ->
-                child.indexInSortResponse = start + index
-                child
-            }
-            db.userReposDao().insert(items)
+        val start = db.userReposDao().getNextIndexInRepos()
+        val items = newPage.mapIndexed { index, child ->
+            child.indexInSortResponse = start + index
+            child
         }
+        db.userReposDao().insert(items)
     }
 }

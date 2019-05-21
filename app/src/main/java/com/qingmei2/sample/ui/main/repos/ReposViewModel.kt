@@ -80,6 +80,13 @@ class ReposViewModel(
         repo.refreshDataSource(sort.value ?: sortByUpdate)
     }
 
+    override fun onCleared() {
+        super.onCleared()
+
+        repo.mAutoDisposeObserver.onNext(Unit)
+        repo.mAutoDisposeObserver.onComplete()
+    }
+
     private fun applyState(events: List<Repo>? = null,
                            error: Throwable? = null) {
         this.error.postValue(error)
