@@ -79,7 +79,7 @@
 
 ### 工具/插件
 
-* [MVVM-Rhine-Template: Activity or Fragment code generation template for MVVM-Rhine.](https://github.com/qingmei2/MVVM-Rhine-Template)
+* [MVVM-Rhine-Template: 代码模板插件，一键生成MVVM所有kt模板代码](https://github.com/qingmei2/MVVM-Rhine-Template)
 
 <a id="usage"></a>
 
@@ -117,11 +117,13 @@ CLIENT_SECRET = "xxxxxx"
 如何使用`Android Jetpack`？
 
 >* [Android官方架构组件Lifecycle：生命周期组件详解&原理分析](https://juejin.im/post/5c53beaf51882562e27e5ad9)
->* [Android官方架构组件LiveData: 观察者模式领域二三事](https://juejin.im/post/5c25753af265da61561f5335)
 >* [Android官方架构组件ViewModel:从前世今生到追本溯源](https://juejin.im/post/5c047fd3e51d45666017ff86)
 >* [Android官方架构组件Paging：分页库的设计美学](https://juejin.im/post/5c53ad9e6fb9a049eb3c5cfd)
+>* [Android官方架构组件Paging-Ex：为分页列表添加Header和Footer](https://juejin.im/post/5caa0052f265da24ea7d3c2c)
+>* [Android官方架构组件Paging-Ex：列表状态的响应式管理](https://juejin.im/post/5ce6ba09e51d4555e372a562)
 >* [Android官方架构组件Navigation：大巧不工的Fragment管理框架](https://juejin.im/post/5c53be3951882562d27416c6)
->* [Android官方架构组件DataBinding双向绑定篇: 观察者模式的殊途同归](https://juejin.im/post/5c3e04b7f265da611b589574)
+>* [Android官方架构组件LiveData: 观察者模式领域二三事（*）](https://juejin.im/post/5c25753af265da61561f5335)
+>* [Android官方架构组件DataBinding-Ex:双向绑定篇（*）](https://juejin.im/post/5c3e04b7f265da611b589574)  
 
 如何使用`Kodein`进行依赖注入？
 
@@ -133,21 +135,21 @@ CLIENT_SECRET = "xxxxxx"
 > * [ 理解RxJava（一）：基本流程源码分析 ](https://www.jianshu.com/p/7fce2955f2db)
 > * [ 理解RxJava（二）：操作符流程原理分析 ](https://www.jianshu.com/p/0a28428e734d)
 > * [ 理解RxJava（三）：线程调度原理分析 ](https://www.jianshu.com/p/9e3930fbcb26)
-> * [ 理解RxJava（四）Subject用法及原理分析 ](https://www.jianshu.com/p/d7efc29ec9d3)
-
+> * [ 理解RxJava（四）：Subject用法及原理分析 ](https://www.jianshu.com/p/d7efc29ec9d3)
 > * [ 解决RxJava内存泄漏（前篇）：RxLifecycle详解及原理分析 ](https://www.jianshu.com/p/8311410de676)
 > * [ 解决RxJava内存泄漏（后篇）：Android架构中添加AutoDispose解决RxJava内存泄漏 ](https://www.jianshu.com/p/8490d9383ba5)
-
-
-如果您依然不满意这个项目中的代码风格, 欢迎体验笔者关于**状态管理**的最新实践，个人而言更趋近于理想中的设计:
-
-> [MVI-Rhine: 基于Jetpack + MVVM, 更加响应式&函数式的编程实践](https://github.com/qingmei2/MVI-Rhine)
 
 ## 感谢
 
 :art: 项目中的UI设计部分参考了 [gitme](https://github.com/flutterchina/gitme).
 
 :star: 项目参考了 [rx-mvvm-android](https://github.com/ffgiraldez/rx-mvvm-android) 并对其部分代码进行了引用.
+
+## 其他开源项目
+
+> [MVI-Rhine: 基于Jetpack + MVVM, 更加响应式&函数式的编程实践](https://github.com/qingmei2/MVI-Rhine)
+
+> [RxImagePicker: 灵活的Android图片选择器，提供了知乎和微信主题的支持](https://github.com/qingmei2/RxImagePicker)
 
 ## License
 
