@@ -54,8 +54,6 @@ dependencies {
     kapt libs.jetpack_lifecycle_compiler
 
     api libs.jetpack_viewmodel
-    api libs.jetpack_livedata
-    api libs.jetpack_livedata_rx
 
     api libs.jetpack_room
     api libs.jetpack_room_ktx
