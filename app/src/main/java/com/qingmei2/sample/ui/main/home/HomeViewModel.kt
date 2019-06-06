@@ -1,7 +1,6 @@
 package com.qingmei2.sample.ui.main.home
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -10,27 +9,26 @@ import arrow.core.Option
 import arrow.core.none
 import arrow.core.some
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
-import com.qingmei2.rhine.ext.livedata.toReactiveStream
-import com.qingmei2.rhine.util.RxSchedulers
+import com.qingmei2.rhine.ext.arrow.whenNotNull
 import com.qingmei2.rhine.util.SingletonHolderSingleArg
 import com.qingmei2.sample.base.Result
 import com.qingmei2.sample.entity.ReceivedEvent
 import com.uber.autodispose.autoDisposable
 import io.reactivex.Completable
+import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.PublishSubject
 
 @SuppressWarnings("checkResult")
 class HomeViewModel(
         private val repo: HomeRepository
 ) : BaseViewModel() {
 
-    val pagedList = MutableLiveData<PagedList<ReceivedEvent>>()
-
-    val refreshing: MutableLiveData<Boolean> = MutableLiveData()
-
-    private val error: MutableLiveData<Option<Throwable>> = MutableLiveData()
+    val pagedListEventSubject = BehaviorSubject.create<PagedList<ReceivedEvent>>()
+    val refreshStateChangedEventSubject = BehaviorSubject.create<Boolean>()
+    private val mErrorEventSubject = BehaviorSubject.create<Throwable>()
 
     init {
-        refreshing.toReactiveStream()
+        refreshStateChangedEventSubject
                 .distinctUntilChanged()
                 .filter { it }
                 .autoDisposable(this)
@@ -38,17 +36,16 @@ class HomeViewModel(
 
         // only subscribe once in fragment scope
         repo.subscribeRemoteRequestState()
-                .observeOn(RxSchedulers.ui)
                 .doOnNext { result ->
                     when (result) {
                         is Result.Loading -> applyState()
                         is Result.Idle -> applyState()
                         is Result.Failure -> {
                             applyState(error = result.error.some())
-                            refreshing.postValue(false)
+                            refreshStateChangedEventSubject.onNext(false)
                         }
                         is Result.Success -> {
-                            refreshing.postValue(false)
+                            refreshStateChangedEventSubject.onNext(false)
                         }
                     }
                 }
@@ -66,12 +63,12 @@ class HomeViewModel(
 
     private fun fetchPagedListFromDbCompletable(): Completable {
         return repo.initPagedListFromDb()
-                .doOnNext { pagedList.postValue(it) }
+                .doOnNext { pagedListEventSubject.onNext(it) }
                 .ignoreElements()
     }
 
     private fun applyState(error: Option<Throwable> = none()) {
-        this.error.postValue(error)
+        error.whenNotNull { this.mErrorEventSubject.onNext(it) }
     }
 
     override fun onCleared() {

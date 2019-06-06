@@ -8,8 +8,8 @@ import com.jakewharton.rxbinding3.recyclerview.scrollStateChanges
 import com.jakewharton.rxbinding3.swiperefreshlayout.refreshes
 import com.qingmei2.rhine.base.view.fragment.BaseFragment
 import com.qingmei2.rhine.ext.jumpBrowser
-import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.rhine.ext.reactivex.clicksThrottleFirst
+import com.qingmei2.rhine.util.RxSchedulers
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.common.listScrollChangeStateProcessor
@@ -50,8 +50,8 @@ class ReposFragment : BaseFragment() {
                 .subscribe(::switchFabState)
 
         // 每当数据源更新，更新列表
-        mViewModel.pagedList
-                .toReactiveStream()
+        mViewModel.pagedListEventSubject
+                .observeOn(RxSchedulers.ui)
                 .autoDisposable(scopeProvider)
                 .subscribe(mAdapter::submitList)
         // 下拉刷新
@@ -60,7 +60,8 @@ class ReposFragment : BaseFragment() {
                 .subscribe { mViewModel.refreshDataSource() }
 
         // 刷新状态恢复
-        mViewModel.refreshing.toReactiveStream()
+        mViewModel.refreshStateChangedSubject
+                .observeOn(RxSchedulers.ui)
                 .filter { it != mSwipeRefreshLayout.isRefreshing }
                 .autoDisposable(scopeProvider)
                 .subscribe { mSwipeRefreshLayout.isRefreshing = it }
@@ -84,12 +85,14 @@ class ReposFragment : BaseFragment() {
     }
 
     private fun onMenuSelected(menuItem: MenuItem) {
-        mViewModel.sort.value = when (menuItem.itemId) {
-            R.id.menu_repos_letter -> ReposViewModel.sortByLetter
-            R.id.menu_repos_update -> ReposViewModel.sortByUpdate
-            R.id.menu_repos_created -> ReposViewModel.sortByCreated
-            else -> throw IllegalArgumentException("failure menuItem id.")
-        }
+        mViewModel.sortChangedEventSubject.onNext(
+                when (menuItem.itemId) {
+                    R.id.menu_repos_letter -> ReposViewModel.sortByLetter
+                    R.id.menu_repos_update -> ReposViewModel.sortByUpdate
+                    R.id.menu_repos_created -> ReposViewModel.sortByCreated
+                    else -> throw IllegalArgumentException("failure menuItem id.")
+                }
+        )
     }
 
     private fun switchFabState(show: Boolean) {

@@ -4,9 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import com.qingmei2.rhine.base.view.fragment.BaseFragment
-import com.qingmei2.rhine.ext.livedata.map
-import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.rhine.ext.reactivex.clicksThrottleFirst
+import com.qingmei2.rhine.util.RxSchedulers
 import com.qingmei2.sample.R
 import com.qingmei2.sample.ui.MainActivity
 import com.uber.autodispose.autoDisposable
@@ -31,17 +30,17 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun binds() {
-        mViewModel.loginIndicatorVisible
+        mViewModel.loginIndicatorVisibleSubject
                 .map { if (it) View.VISIBLE else View.GONE }
-                .toReactiveStream()
+                .observeOn(RxSchedulers.ui)
                 .autoDisposable(scopeProvider)
                 .subscribe { mProgressBar.visibility = it }
-        mViewModel.userInfo
-                .toReactiveStream()
+        mViewModel.userInfoSubject
+                .observeOn(RxSchedulers.ui)
                 .autoDisposable(scopeProvider)
                 .subscribe { MainActivity.launch(activity!!) }
-        mViewModel.autoLogin
-                .toReactiveStream()
+        mViewModel.autoLoginEventSubject
+                .observeOn(RxSchedulers.ui)
                 .autoDisposable(scopeProvider)
                 .subscribe {
                     tvUsername.setText(it.username, TextView.BufferType.EDITABLE)

@@ -7,8 +7,8 @@ import com.jakewharton.rxbinding3.recyclerview.scrollStateChanges
 import com.jakewharton.rxbinding3.swiperefreshlayout.refreshes
 import com.qingmei2.rhine.base.view.fragment.BaseFragment
 import com.qingmei2.rhine.ext.jumpBrowser
-import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.rhine.ext.reactivex.clicksThrottleFirst
+import com.qingmei2.rhine.util.RxSchedulers
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.common.listScrollChangeStateProcessor
@@ -58,13 +58,15 @@ class HomeFragment : BaseFragment() {
                 .subscribe { mViewModel.refreshDataSource() }
 
         // 刷新状态恢复
-        mViewModel.refreshing.toReactiveStream()
+        mViewModel.refreshStateChangedEventSubject
                 .filter { it != mSwipeRefreshLayout.isRefreshing }
+                .observeOn(RxSchedulers.ui)
                 .autoDisposable(scopeProvider)
                 .subscribe { mSwipeRefreshLayout.isRefreshing = it }
 
         // 每当数据源更新，更新列表
-        mViewModel.pagedList.toReactiveStream()
+        mViewModel.pagedListEventSubject
+                .observeOn(RxSchedulers.ui)
                 .autoDisposable(scopeProvider)
                 .subscribe(mAdapter::submitList)
 

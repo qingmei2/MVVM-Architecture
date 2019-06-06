@@ -1,6 +1,5 @@
 package com.qingmei2.sample.ui.login
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import arrow.core.Option
@@ -8,7 +7,7 @@ import arrow.core.none
 import arrow.core.some
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.ext.arrow.whenNotNull
-import com.qingmei2.rhine.ext.livedata.toReactiveStream
+import com.qingmei2.rhine.util.RxSchedulers
 import com.qingmei2.rhine.util.SingletonHolderSingleArg
 import com.qingmei2.sample.base.Result
 import com.qingmei2.sample.entity.UserInfo
@@ -17,6 +16,7 @@ import com.qingmei2.sample.http.globalHandleError
 import com.qingmei2.sample.utils.toast
 import com.uber.autodispose.autoDisposable
 import io.reactivex.Single
+import io.reactivex.subjects.BehaviorSubject
 import retrofit2.HttpException
 
 @SuppressWarnings("checkResult")
@@ -24,39 +24,34 @@ class LoginViewModel(
         private val repo: LoginRepository
 ) : BaseViewModel() {
 
-    private val error: MutableLiveData<Option<Throwable>> = MutableLiveData()
-
-    val loginIndicatorVisible: MutableLiveData<Boolean> = MutableLiveData()
-
-    val userInfo: MutableLiveData<UserInfo> = MutableLiveData()
-
-    val autoLogin: MutableLiveData<AutoLoginEvent> = MutableLiveData()
+    private val mErrorSubject = BehaviorSubject.create<Throwable>()
+    val loginIndicatorVisibleSubject = BehaviorSubject.create<Boolean>()
+    val userInfoSubject = BehaviorSubject.create<UserInfo>()
+    val autoLoginEventSubject = BehaviorSubject.create<AutoLoginEvent>()
 
     init {
-        autoLogin.toReactiveStream()
-                .filter { it.autoLogin }
+        autoLoginEventSubject.filter { it.autoLogin }
                 .doOnNext { login(it.username, it.password) }
                 .autoDisposable(this)
                 .subscribe()
 
-        error.toReactiveStream()
-                .map { errorOpt ->
-                    errorOpt.flatMap {
-                        when (it) {
-                            is Errors.EmptyInputError -> "username or password can't be null.".some()
-                            is HttpException ->
-                                when (it.code()) {
-                                    401 -> "username or password failure.".some()
-                                    else -> "network failure".some()
-                                }
-                            else -> none()
-                        }
+        mErrorSubject
+                .map { error ->
+                    when (error) {
+                        is Errors.EmptyInputError -> "username or password can't be null."
+                        is HttpException ->
+                            when (error.code()) {
+                                401 -> "username or password failure."
+                                else -> "network failure"
+                            }
+                        else -> ""
                     }
                 }
+                .observeOn(RxSchedulers.ui)
                 .autoDisposable(this)
                 .subscribe { errorMsg ->
-                    errorMsg.whenNotNull {
-                        toast { it }
+                    if (errorMsg != "") {
+                        toast { errorMsg }
                     }
                 }
 
@@ -106,14 +101,12 @@ class LoginViewModel(
                            error: Option<Throwable> = none(),
                            loginIndicator: Boolean? = null,
                            autoLogin: AutoLoginEvent? = null) {
-        this.error.postValue(error)
-        this.userInfo.postValue(user.orNull())
+        error.whenNotNull { this.mErrorSubject.onNext(it) }
+        user.whenNotNull { this.userInfoSubject.onNext(it) }
 
-        loginIndicator?.apply(loginIndicatorVisible::postValue)
+        loginIndicator?.apply(loginIndicatorVisibleSubject::onNext)
 
-        autoLogin?.let {
-            this.autoLogin.postValue(autoLogin)
-        }
+        autoLogin?.let { this.autoLoginEventSubject.onNext(autoLogin) }
     }
 }
 

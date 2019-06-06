@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.request.RequestOptions
 import com.qingmei2.rhine.base.view.fragment.BaseFragment
-import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.rhine.ext.reactivex.clicksThrottleFirst
 import com.qingmei2.rhine.image.GlideApp
+import com.qingmei2.rhine.util.RxSchedulers
 import com.qingmei2.sample.R
 import com.qingmei2.sample.entity.UserInfo
 import com.qingmei2.sample.utils.toast
@@ -32,14 +32,14 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun binds() {
-        mViewModel.user.toReactiveStream()
+        mViewModel.userInfoSubject
+                .observeOn(RxSchedulers.ui)
                 .autoDisposable(scopeProvider)
                 .subscribe { renderUserOwner(it) }
 
         mBtnEdit.clicksThrottleFirst()
                 .autoDisposable(scopeProvider)
                 .subscribe { toast { "coming soon..." } }
-
     }
 
     private fun renderUserOwner(userInfo: UserInfo) {

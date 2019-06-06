@@ -1,51 +1,59 @@
 package com.qingmei2.sample.ui.main.repos
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
-import com.qingmei2.rhine.ext.livedata.toReactiveStream
 import com.qingmei2.rhine.util.RxSchedulers
 import com.qingmei2.rhine.util.SingletonHolderSingleArg
 import com.qingmei2.sample.base.Result
 import com.qingmei2.sample.entity.Repo
 import com.uber.autodispose.autoDisposable
-import io.reactivex.Completable
+import io.reactivex.Flowable
+import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.PublishSubject
 
 @SuppressWarnings("checkResult")
 class ReposViewModel(
         private val repo: ReposRepository
 ) : BaseViewModel() {
 
-    private val events: MutableLiveData<List<Repo>> = MutableLiveData()
-
-    val sort: MutableLiveData<String> = MutableLiveData()
-
-    val refreshing: MutableLiveData<Boolean> = MutableLiveData()
-
-    val error: MutableLiveData<Throwable> = MutableLiveData()
-
-    val pagedList = MutableLiveData<PagedList<Repo>>()
+    // 排序条件的状态，每当该属性发生变化，页面会响应刷新事件
+    val sortChangedEventSubject = BehaviorSubject.createDefault(sortByUpdate)
+    // 刷新状态
+    val refreshStateChangedSubject = PublishSubject.create<Boolean>()
+    // PagedList
+    val pagedListEventSubject = PublishSubject.create<PagedList<Repo>>()
+    // 错误事件
+    private val mErrorEventSubject = PublishSubject.create<Throwable>()
+    // TODO 没有用到，实际业务场景中，每当分页数据被拉取，还有其他需求
+    private val mReposPagedListEventSubject = PublishSubject.create<List<Repo>>()
 
     init {
-        refreshing.toReactiveStream()
+        refreshStateChangedSubject
                 .distinctUntilChanged()
                 .filter { it }
                 .autoDisposable(this)
                 .subscribe { refreshDataSource() }
 
-        // try auto refreshing page list when sort has changed
-        sort.toReactiveStream()
+        sortChangedEventSubject
                 .startWith(sortByUpdate)
                 .distinctUntilChanged()
-                .doOnNext { refreshing.postValue(true) }
                 .autoDisposable(this)
-                .subscribe()
+                .subscribe({
+                    // onNext
+                    refreshStateChangedSubject.onNext(true)
+                }, {
+                    // onError
+                }, {
+                    // onComplete
+                }, {
+                    // onSubscribe
+                    refreshStateChangedSubject.onNext(true)
+                })
 
-        // only subscribe once in fragment scope
         repo.subscribeRemoteRequestState()
                 .observeOn(RxSchedulers.ui)
                 .doOnNext { result ->
@@ -54,10 +62,10 @@ class ReposViewModel(
                         is Result.Idle -> applyState()
                         is Result.Failure -> {
                             applyState(error = result.error)
-                            refreshing.postValue(false)
+                            refreshStateChangedSubject.onNext(false)
                         }
                         is Result.Success -> {
-                            refreshing.postValue(false)
+                            refreshStateChangedSubject.onNext(false)
                         }
                     }
                 }
@@ -65,19 +73,18 @@ class ReposViewModel(
                 .subscribe()
 
         fetchPagedListFromDbCompletable()
+                .toObservable()
                 .autoDisposable(this)
-                .subscribe()
+                .subscribe(pagedListEventSubject)
     }
 
-    private fun fetchPagedListFromDbCompletable(): Completable {
-        return repo.fetchPagedListFromDb(sort.value ?: sortByUpdate)
+    private fun fetchPagedListFromDbCompletable(): Flowable<PagedList<Repo>> {
+        return repo.fetchPagedListFromDb(sortChangedEventSubject.value ?: sortByUpdate)
                 .subscribeOn(RxSchedulers.io)
-                .doOnNext { pagedList.postValue(it) }
-                .ignoreElements()
     }
 
     fun refreshDataSource() {
-        repo.refreshDataSource(sort.value ?: sortByUpdate)
+        repo.refreshDataSource(sortChangedEventSubject.value ?: sortByUpdate)
     }
 
     override fun onCleared() {
@@ -89,8 +96,8 @@ class ReposViewModel(
 
     private fun applyState(events: List<Repo>? = null,
                            error: Throwable? = null) {
-        this.error.postValue(error)
-        this.events.postValue(events)
+        error?.apply { mErrorEventSubject.onNext(this) }
+        events?.apply { mReposPagedListEventSubject.onNext(this) }
     }
 
     companion object {
