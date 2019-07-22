@@ -39,17 +39,17 @@ class ReposRepository(
                 .subscribe { mRemoteRequestStateProcessor.onNext(it) }
     }
 
-    fun fetchPagedListFromDb(sort: String): Flowable<PagedList<Repo>> {
+    fun fetchPagedListFromDb(sort: () -> String): Flowable<PagedList<Repo>> {
         return localDataSource.fetchPagedListFromDb(
                 boundaryCallback = object : PagedList.BoundaryCallback<Repo>() {
                     override fun onZeroItemsLoaded() {
-                        refreshDataSource(sort)
+                        refreshDataSource(sort())
                     }
 
                     override fun onItemAtEndLoaded(itemAtEnd: Repo) {
                         val currentPageIndex = (itemAtEnd.indexInSortResponse / 30) + 1
                         val nextPageIndex = currentPageIndex + 1
-                        this@ReposRepository.fetchRepoByPage(sort, nextPageIndex)
+                        this@ReposRepository.fetchRepoByPage(sort(), nextPageIndex)
                                 .takeUntil(mAutoDisposeObserver)
                                 .subscribe { mRemoteRequestStateProcessor.onNext(it) }
                     }
@@ -100,8 +100,6 @@ class RemoteReposDataSource(private val serviceManager: ServiceManager) : IRemot
             1 -> fetchReposByPageInternal(username, pageIndex, perPage, sort)
                     .map { Result.success(it) }
                     .onErrorReturn { Result.failure(it) }
-                    .startWith(Result.loading())   // step 2.show loading indicator
-                    .startWith(Result.idle())      // step 1.reset loading indicator state
             else -> {
                 fetchReposByPageInternal(username, pageIndex, perPage, sort)
                         .map { Result.success(it) }

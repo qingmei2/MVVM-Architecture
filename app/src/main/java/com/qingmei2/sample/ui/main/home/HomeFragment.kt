@@ -47,7 +47,7 @@ class HomeFragment : BaseFragment() {
                 .autoDisposable(scopeProvider)
                 .subscribe(::switchFabState)
 
-        // when button was clicked, list scroll to top.
+        // when button was clicked, scrolling list to top.
         fabTop.clicksThrottleFirst()
                 .map { 0 }
                 .autoDisposable(scopeProvider)
