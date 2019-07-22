@@ -8,7 +8,6 @@ import com.qingmei2.rhine.ext.reactivex.clicksThrottleFirst
 import com.qingmei2.rhine.image.GlideApp
 import com.qingmei2.rhine.util.RxSchedulers
 import com.qingmei2.sample.R
-import com.qingmei2.sample.entity.UserInfo
 import com.qingmei2.sample.utils.toast
 import com.uber.autodispose.autoDisposable
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -32,24 +31,30 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun binds() {
-        mViewModel.userInfoSubject
+        mViewModel.observeViewState()
                 .observeOn(RxSchedulers.ui)
                 .autoDisposable(scopeProvider)
-                .subscribe { renderUserOwner(it) }
+                .subscribe(::onNewState)
 
         mBtnEdit.clicksThrottleFirst()
                 .autoDisposable(scopeProvider)
                 .subscribe { toast { "coming soon..." } }
     }
 
-    private fun renderUserOwner(userInfo: UserInfo) {
-        GlideApp.with(context!!)
-                .load(userInfo.avatarUrl)
-                .apply(RequestOptions().circleCrop())
-                .into(mIvAvatar)
+    private fun onNewState(state: ProfileViewState) {
+        if (state.throwable != null) {
+            // handle throwable.
+        }
 
-        mTvNickname.text = userInfo.name
-        mTvBio.text = userInfo.bio
-        mTvLocation.text = userInfo.location
+        if (state.userInfo != null) {
+            GlideApp.with(context!!)
+                    .load(state.userInfo.avatarUrl)
+                    .apply(RequestOptions().circleCrop())
+                    .into(mIvAvatar)
+
+            mTvNickname.text = state.userInfo.name
+            mTvBio.text = state.userInfo.bio
+            mTvLocation.text = state.userInfo.location
+        }
     }
 }

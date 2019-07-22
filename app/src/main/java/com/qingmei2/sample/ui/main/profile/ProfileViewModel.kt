@@ -6,28 +6,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
 import com.qingmei2.rhine.util.SingletonHolderSingleArg
-import com.qingmei2.sample.entity.UserInfo
-import com.qingmei2.sample.manager.UserManager
+import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 
 class ProfileViewModel(
         private val repo: ProfileRepository
 ) : BaseViewModel() {
 
-    private val mErrorEventSubject = BehaviorSubject.create<Throwable>()
-    private val loadingStateChangedEventSubject = BehaviorSubject.create<Boolean>()
-    val userInfoSubject = BehaviorSubject.create<UserInfo>()
+    private val mViewStateSubject: BehaviorSubject<ProfileViewState> =
+            BehaviorSubject.createDefault(ProfileViewState.initial())
 
-    init {
-        applyState(user = UserManager.INSTANCE)
-    }
-
-    private fun applyState(isLoading: Boolean = false,
-                           user: UserInfo? = null,
-                           error: Throwable? = null) {
-        this.loadingStateChangedEventSubject.onNext(isLoading)
-        error?.apply { mErrorEventSubject.onNext(this) }
-        user?.apply { userInfoSubject.onNext(this) }
+    fun observeViewState(): Observable<ProfileViewState> {
+        return mViewStateSubject.hide().distinctUntilChanged()
     }
 
     companion object {
