@@ -5,18 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
-import arrow.core.Option
-import arrow.core.none
-import arrow.core.some
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
-import com.qingmei2.rhine.ext.arrow.whenNotNull
+import com.qingmei2.rhine.ext.reactivex.copyMap
 import com.qingmei2.rhine.util.SingletonHolderSingleArg
 import com.qingmei2.sample.base.Result
 import com.qingmei2.sample.entity.ReceivedEvent
 import com.uber.autodispose.autoDisposable
-import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
-import io.reactivex.subjects.PublishSubject
 
 @SuppressWarnings("checkResult")
 class HomeViewModel(
@@ -27,6 +23,9 @@ class HomeViewModel(
     val refreshStateChangedEventSubject = BehaviorSubject.create<Boolean>()
     private val mErrorEventSubject = BehaviorSubject.create<Throwable>()
 
+    private val mHomeViewStateSubject: BehaviorSubject<HomeViewState> =
+            BehaviorSubject.createDefault(HomeViewState.initial())
+
     init {
         refreshStateChangedEventSubject
                 .distinctUntilChanged()
@@ -36,39 +35,41 @@ class HomeViewModel(
 
         // only subscribe once in fragment scope
         repo.subscribeRemoteRequestState()
-                .doOnNext { result ->
+                .autoDisposable(this)
+                .subscribe { result ->
                     when (result) {
-                        is Result.Loading -> applyState()
-                        is Result.Idle -> applyState()
-                        is Result.Failure -> {
-                            applyState(error = result.error.some())
-                            refreshStateChangedEventSubject.onNext(false)
+                        is Result.Loading -> mHomeViewStateSubject.copyMap { viewState ->
+                            viewState.copy(isLoading = true, throwable = null)
                         }
-                        is Result.Success -> {
-                            refreshStateChangedEventSubject.onNext(false)
+                        is Result.Idle -> mHomeViewStateSubject.copyMap { viewState ->
+                            viewState.copy(isLoading = false, throwable = null)
                         }
+                        is Result.Failure ->
+                            mHomeViewStateSubject.copyMap { viewState ->
+                                viewState.copy(isLoading = false, throwable = result.error)
+                            }
+                        is Result.Success ->
+                            mHomeViewStateSubject.copyMap { viewState ->
+                                viewState.copy(isLoading = false, throwable = null)
+                            }
                     }
                 }
-                .autoDisposable(this)
-                .subscribe()
 
-        fetchPagedListFromDbCompletable()
+        repo.initPagedListFromDb()
                 .autoDisposable(this)
-                .subscribe()
+                .subscribe { pagedList ->
+                    mHomeViewStateSubject.copyMap { state ->
+                        state.copy(isLoading = false, throwable = null, pagedList = pagedList)
+                    }
+                }
+    }
+
+    fun observeViewState(): Observable<HomeViewState> {
+        return mHomeViewStateSubject.hide().distinctUntilChanged()
     }
 
     fun refreshDataSource() {
         repo.refreshPagedList()
-    }
-
-    private fun fetchPagedListFromDbCompletable(): Completable {
-        return repo.initPagedListFromDb()
-                .doOnNext { pagedListEventSubject.onNext(it) }
-                .ignoreElements()
-    }
-
-    private fun applyState(error: Option<Throwable> = none()) {
-        error.whenNotNull { this.mErrorEventSubject.onNext(it) }
     }
 
     override fun onCleared() {

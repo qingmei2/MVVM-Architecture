@@ -31,12 +31,12 @@ class HomeRepository(
             PublishProcessor.create()
 
     fun subscribeRemoteRequestState(): Flowable<Result<List<ReceivedEvent>>> {
-        // hide()方法保证 hot observable 的安全性
+        // hide() ensure subject's security.
         return mRemoteRequestStateProcessor.hide()
     }
 
     /**
-     * 重新请求首页数据，请求成功后更新数据库.
+     * refresh home page list, and update local repository(db) after success.
      */
     fun refreshPagedList() {
         fetchEventByPage(1)
@@ -45,9 +45,9 @@ class HomeRepository(
     }
 
     /**
-     * 初始化分页列表.
+     * initial page list.
      *
-     * 保证该方法只调用一次.
+     * ensure this function be call one time only.
      */
     fun initPagedListFromDb(): Flowable<PagedList<ReceivedEvent>> {
         return localDataSource.fetchPagedListFromDb(
