@@ -2,76 +2,53 @@ package com.qingmei2.sample.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import arrow.core.Option
-import arrow.core.none
-import arrow.core.some
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
-import com.qingmei2.rhine.ext.arrow.whenNotNull
-import com.qingmei2.rhine.util.RxSchedulers
+import com.qingmei2.rhine.ext.reactivex.copyMap
 import com.qingmei2.rhine.util.SingletonHolderSingleArg
 import com.qingmei2.sample.base.Result
 import com.qingmei2.sample.entity.UserInfo
 import com.qingmei2.sample.http.Errors
 import com.qingmei2.sample.http.globalHandleError
-import com.qingmei2.sample.utils.toast
 import com.uber.autodispose.autoDisposable
-import io.reactivex.Single
+import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
-import retrofit2.HttpException
 
 @SuppressWarnings("checkResult")
 class LoginViewModel(
         private val repo: LoginRepository
 ) : BaseViewModel() {
 
-    private val mErrorSubject = BehaviorSubject.create<Throwable>()
-    val loginIndicatorVisibleSubject = BehaviorSubject.create<Boolean>()
-    val userInfoSubject = BehaviorSubject.create<UserInfo>()
-    val autoLoginEventSubject = BehaviorSubject.create<AutoLoginEvent>()
+    private val mViewStateSubject: BehaviorSubject<LoginViewState> =
+            BehaviorSubject.createDefault(LoginViewState.initial())
 
     init {
-        autoLoginEventSubject.filter { it.autoLogin }
-                .doOnNext { login(it.username, it.password) }
+        this.observeViewState()
+                .filter { it.autoLoginEvent != null }
                 .autoDisposable(this)
-                .subscribe()
-
-        mErrorSubject
-                .map { error ->
-                    when (error) {
-                        is Errors.EmptyInputError -> "username or password can't be null."
-                        is HttpException ->
-                            when (error.code()) {
-                                401 -> "username or password failure."
-                                else -> "network failure"
-                            }
-                        else -> ""
-                    }
-                }
-                .observeOn(RxSchedulers.ui)
-                .autoDisposable(this)
-                .subscribe { errorMsg ->
-                    if (errorMsg != "") {
-                        toast { errorMsg }
-                    }
+                .subscribe {
+                    login(it.autoLoginEvent!!.username, it.autoLoginEvent.password)
                 }
 
-        initAutoLogin()
+        repo.fetchAutoLogin().singleOrError()
+                .onErrorReturn { AutoLoginEvent(false, "", "") }
                 .autoDisposable(this)
-                .subscribe()
+                .subscribe { event ->
+                    mViewStateSubject.copyMap { state ->
+                        state.copy(isLoading = false, throwable = null, autoLoginEvent = event, loginInfo = null)
+                    }
+                }
     }
 
-    private fun initAutoLogin(): Single<AutoLoginEvent> {
-        return repo.fetchAutoLogin()
-                .singleOrError()
-                .onErrorReturn { AutoLoginEvent(false, "", "") }
-                .doOnSuccess { event ->
-                    applyState(autoLogin = event, loginIndicator = false)
-                }
+    fun observeViewState(): Observable<LoginViewState> {
+        return mViewStateSubject.hide().distinctUntilChanged()
     }
 
     fun login(username: String?, password: String?) {
         when (username.isNullOrEmpty() || password.isNullOrEmpty()) {
-            true -> applyState(error = Errors.EmptyInputError.some())
+            true -> mViewStateSubject.copyMap { state ->
+                state.copy(isLoading = false, throwable = Errors.EmptyInputError,
+                        loginInfo = null, autoLoginEvent = null)
+            }
             false -> repo
                     .login(username, password)
                     .compose(globalHandleError())
@@ -88,25 +65,21 @@ class LoginViewModel(
                     .autoDisposable(this)
                     .subscribe { state ->
                         when (state) {
-                            is Result.Loading -> applyState(loginIndicator = true)
-                            is Result.Idle -> applyState(loginIndicator = false)
-                            is Result.Failure -> applyState(error = state.error.some(), loginIndicator = false)
-                            is Result.Success -> applyState(user = state.data.some(), loginIndicator = false)
+                            is Result.Loading -> mViewStateSubject.copyMap {
+                                it.copy(isLoading = true, throwable = null, loginInfo = null, autoLoginEvent = null)
+                            }
+                            is Result.Idle -> mViewStateSubject.copyMap {
+                                it.copy(isLoading = false, throwable = null, loginInfo = null, autoLoginEvent = null)
+                            }
+                            is Result.Failure -> mViewStateSubject.copyMap {
+                                it.copy(isLoading = true, throwable = state.error, loginInfo = null, autoLoginEvent = null)
+                            }
+                            is Result.Success -> mViewStateSubject.copyMap {
+                                it.copy(isLoading = true, throwable = null, loginInfo = state.data, autoLoginEvent = null)
+                            }
                         }
                     }
         }
-    }
-
-    private fun applyState(user: Option<UserInfo> = none(),
-                           error: Option<Throwable> = none(),
-                           loginIndicator: Boolean? = null,
-                           autoLogin: AutoLoginEvent? = null) {
-        error.whenNotNull { this.mErrorSubject.onNext(it) }
-        user.whenNotNull { this.userInfoSubject.onNext(it) }
-
-        loginIndicator?.apply(loginIndicatorVisibleSubject::onNext)
-
-        autoLogin?.let { this.autoLoginEventSubject.onNext(autoLogin) }
     }
 }
 

@@ -7,11 +7,14 @@ import com.qingmei2.rhine.base.view.fragment.BaseFragment
 import com.qingmei2.rhine.ext.reactivex.clicksThrottleFirst
 import com.qingmei2.rhine.util.RxSchedulers
 import com.qingmei2.sample.R
+import com.qingmei2.sample.http.Errors
 import com.qingmei2.sample.ui.MainActivity
+import com.qingmei2.sample.utils.toast
 import com.uber.autodispose.autoDisposable
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
+import retrofit2.HttpException
 
 class LoginFragment : BaseFragment() {
 
@@ -30,25 +33,40 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun binds() {
-        mViewModel.loginIndicatorVisibleSubject
-                .map { if (it) View.VISIBLE else View.GONE }
-                .observeOn(RxSchedulers.ui)
-                .autoDisposable(scopeProvider)
-                .subscribe { mProgressBar.visibility = it }
-        mViewModel.userInfoSubject
-                .observeOn(RxSchedulers.ui)
-                .autoDisposable(scopeProvider)
-                .subscribe { MainActivity.launch(activity!!) }
-        mViewModel.autoLoginEventSubject
-                .observeOn(RxSchedulers.ui)
-                .autoDisposable(scopeProvider)
-                .subscribe {
-                    tvUsername.setText(it.username, TextView.BufferType.EDITABLE)
-                    tvPassword.setText(it.password, TextView.BufferType.EDITABLE)
-                }
-
         mBtnSignIn.clicksThrottleFirst()
                 .autoDisposable(scopeProvider)
                 .subscribe { mViewModel.login(tvUsername.text.toString(), tvPassword.text.toString()) }
+
+        mViewModel.observeViewState()
+                .observeOn(RxSchedulers.ui)
+                .autoDisposable(scopeProvider)
+                .subscribe(this::onNewState)
+    }
+
+    private fun onNewState(state: LoginViewState) {
+        if (state.throwable != null) {
+            when (state.throwable) {
+                is Errors.EmptyInputError -> "username or password can't be null."
+                is HttpException ->
+                    when (state.throwable.code()) {
+                        401 -> "username or password failure."
+                        else -> "network failure"
+                    }
+                else -> ""
+            }.also { str ->
+                if (str != "") toast { str }
+            }
+        }
+
+        mProgressBar.visibility = if (state.isLoading) View.VISIBLE else View.GONE
+
+        if (state.autoLoginEvent != null) {
+            tvUsername.setText(state.autoLoginEvent.username, TextView.BufferType.EDITABLE)
+            tvPassword.setText(state.autoLoginEvent.password, TextView.BufferType.EDITABLE)
+        }
+
+        if (state.loginInfo != null) {
+            MainActivity.launch(activity!!)
+        }
     }
 }
