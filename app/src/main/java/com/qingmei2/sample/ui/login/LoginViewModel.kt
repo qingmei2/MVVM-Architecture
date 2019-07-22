@@ -43,6 +43,12 @@ class LoginViewModel(
         return mViewStateSubject.hide().distinctUntilChanged()
     }
 
+    fun onAutoLoginEventUsed() {
+        mViewStateSubject.copyMap { state ->
+            state.copy(isLoading = false, throwable = null, useAutoLoginEvent = false, loginInfo = null)
+        }
+    }
+
     fun login(username: String?, password: String?) {
         when (username.isNullOrEmpty() || password.isNullOrEmpty()) {
             true -> mViewStateSubject.copyMap { state ->
@@ -66,16 +72,16 @@ class LoginViewModel(
                     .subscribe { state ->
                         when (state) {
                             is Result.Loading -> mViewStateSubject.copyMap {
-                                it.copy(isLoading = true, throwable = null, loginInfo = null, autoLoginEvent = null)
+                                it.copy(isLoading = true, throwable = null, loginInfo = null)
                             }
                             is Result.Idle -> mViewStateSubject.copyMap {
-                                it.copy(isLoading = false, throwable = null, loginInfo = null, autoLoginEvent = null)
+                                it.copy(isLoading = false, throwable = null, loginInfo = null)
                             }
                             is Result.Failure -> mViewStateSubject.copyMap {
-                                it.copy(isLoading = true, throwable = state.error, loginInfo = null, autoLoginEvent = null)
+                                it.copy(isLoading = true, throwable = state.error, loginInfo = null)
                             }
                             is Result.Success -> mViewStateSubject.copyMap {
-                                it.copy(isLoading = true, throwable = null, loginInfo = state.data, autoLoginEvent = null)
+                                it.copy(isLoading = true, throwable = null, loginInfo = state.data)
                             }
                         }
                     }

@@ -52,17 +52,18 @@ class LoginFragment : BaseFragment() {
                         401 -> "username or password failure."
                         else -> "network failure"
                     }
-                else -> ""
+                else -> "network failure"
             }.also { str ->
-                if (str != "") toast { str }
+                toast { str }
             }
         }
 
         mProgressBar.visibility = if (state.isLoading) View.VISIBLE else View.GONE
 
-        if (state.autoLoginEvent != null) {
+        if (state.autoLoginEvent != null && state.useAutoLoginEvent) {
             tvUsername.setText(state.autoLoginEvent.username, TextView.BufferType.EDITABLE)
             tvPassword.setText(state.autoLoginEvent.password, TextView.BufferType.EDITABLE)
+            mViewModel.onAutoLoginEventUsed()
         }
 
         if (state.loginInfo != null) {

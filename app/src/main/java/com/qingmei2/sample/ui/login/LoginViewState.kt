@@ -6,7 +6,8 @@ data class LoginViewState(
         val isLoading: Boolean,
         val throwable: Throwable?,
         val loginInfo: UserInfo?,
-        val autoLoginEvent: AutoLoginEvent?
+        val autoLoginEvent: AutoLoginEvent?,
+        val useAutoLoginEvent: Boolean      // the flag ensure login info display one time.
 ) {
 
     companion object {
@@ -16,7 +17,8 @@ data class LoginViewState(
                     isLoading = false,
                     throwable = null,
                     loginInfo = null,
-                    autoLoginEvent = null
+                    autoLoginEvent = null,
+                    useAutoLoginEvent = true
             )
         }
     }
@@ -31,6 +33,7 @@ data class LoginViewState(
         if (throwable != other.throwable) return false
         if (loginInfo != other.loginInfo) return false
         if (autoLoginEvent != other.autoLoginEvent) return false
+        if (useAutoLoginEvent != other.useAutoLoginEvent) return false
 
         return true
     }
@@ -40,6 +43,7 @@ data class LoginViewState(
         result = 31 * result + (throwable?.hashCode() ?: 0)
         result = 31 * result + (loginInfo?.hashCode() ?: 0)
         result = 31 * result + (autoLoginEvent?.hashCode() ?: 0)
+        result = 31 * result + useAutoLoginEvent.hashCode()
         return result
     }
 }
