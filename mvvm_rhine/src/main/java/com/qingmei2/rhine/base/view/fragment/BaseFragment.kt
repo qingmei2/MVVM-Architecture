@@ -14,7 +14,7 @@ abstract class BaseFragment : InjectionFragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        mRootView = LayoutInflater.from(context).inflate(layoutId, container, false)
+        mRootView = inflater.inflate(layoutId, container, false)
         return mRootView!!
     }
 
