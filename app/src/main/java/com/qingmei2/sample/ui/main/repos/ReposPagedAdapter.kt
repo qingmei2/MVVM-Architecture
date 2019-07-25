@@ -22,6 +22,7 @@ import com.qingmei2.sample.entity.Repo
 import com.uber.autodispose.autoDisposable
 import de.hdodenhof.circleimageview.CircleImageView
 import io.reactivex.Observable
+import io.reactivex.Observer
 import io.reactivex.subjects.PublishSubject
 
 class ReposPagedAdapter : PagedListAdapter<Repo, RepoPagedViewHolder>(diffCallback) {
@@ -35,9 +36,7 @@ class ReposPagedAdapter : PagedListAdapter<Repo, RepoPagedViewHolder>(diffCallba
     }
 
     override fun onBindViewHolder(holder: RepoPagedViewHolder, position: Int) {
-        holder.binds(getItem(position)!!, position)
-                .autoDisposable(holder)
-                .subscribe(parentSubject)
+        holder.binds(getItem(position)!!, position, parentSubject)
     }
 
     fun getItemClickEvent(): Observable<String> {
@@ -62,8 +61,6 @@ class ReposPagedAdapter : PagedListAdapter<Repo, RepoPagedViewHolder>(diffCallba
 
 class RepoPagedViewHolder(private val view: View) : AutoDisposeViewHolder(view) {
 
-    private val clickSubject: PublishSubject<String> = PublishSubject.create()
-
     private val ivAvatar: ImageView = view.findViewById(R.id.ivAvatar)
     private val btnAvatar: ConstraintLayout = view.findViewById(R.id.btnAvatar)
 
@@ -78,7 +75,7 @@ class RepoPagedViewHolder(private val view: View) : AutoDisposeViewHolder(view) 
     private val tvFork: TextView = view.findViewById(R.id.tvFork)
 
     @SuppressLint("SetTextI18n")
-    fun binds(data: Repo, position: Int): Observable<String> {
+    fun binds(data: Repo, position: Int, observer: Observer<String>) {
         GlideApp.with(ivAvatar.context)
                 .load(data.owner.avatarUrl)
                 .apply(RequestOptions().circleCrop())
@@ -87,11 +84,15 @@ class RepoPagedViewHolder(private val view: View) : AutoDisposeViewHolder(view) 
         view.clicksThrottleFirst()
                 .map { data.htmlUrl }
                 .autoDisposable(this)
-                .subscribe(clickSubject)
+                .subscribe { url ->
+                    observer.onNext(url)
+                }
         btnAvatar.clicksThrottleFirst()
                 .map { data.owner.htmlUrl }
                 .autoDisposable(this)
-                .subscribe(clickSubject)
+                .subscribe { url ->
+                    observer.onNext(url)
+                }
 
         tvOwnerName.text = data.owner.login
 
@@ -105,8 +106,6 @@ class RepoPagedViewHolder(private val view: View) : AutoDisposeViewHolder(view) 
         tvStar.text = "${data.stargazersCount}"
         tvIssue.text = "${data.openIssuesCount}"
         tvFork.text = "${data.forksCount}"
-
-        return clickSubject
     }
 
     private fun getLanguageColor(language: String?): Drawable {

@@ -21,8 +21,8 @@ import com.qingmei2.sample.R
 import com.qingmei2.sample.entity.ReceivedEvent
 import com.qingmei2.sample.entity.Type
 import com.qingmei2.sample.utils.TimeConverter
-import com.uber.autodispose.autoDisposable
 import io.reactivex.Observable
+import io.reactivex.Observer
 import io.reactivex.subjects.PublishSubject
 
 class HomePagedAdapter : PagedListAdapter<ReceivedEvent, HomePagedViewHolder>(diffCallback) {
@@ -36,9 +36,7 @@ class HomePagedAdapter : PagedListAdapter<ReceivedEvent, HomePagedViewHolder>(di
     }
 
     override fun onBindViewHolder(holder: HomePagedViewHolder, position: Int) {
-        holder.binds(getItem(position)!!, position)
-                .autoDisposable(holder)
-                .subscribe(parentSubject)
+        holder.binds(getItem(position)!!, position, parentSubject)
     }
 
     fun getItemClickEvent(): Observable<String> {
@@ -63,21 +61,19 @@ class HomePagedAdapter : PagedListAdapter<ReceivedEvent, HomePagedViewHolder>(di
 
 class HomePagedViewHolder(view: View) : AutoDisposeViewHolder(view) {
 
-    private val clickSubject: PublishSubject<String> = PublishSubject.create()
-
     private val tvEventContent: TextView = view.findViewById(R.id.tvEventContent)
     private val tvEventTime: TextView = view.findViewById(R.id.tvEventTime)
     private val ivAvatar: ImageView = view.findViewById(R.id.ivAvatar)
     private val ivEventType: ImageView = view.findViewById(R.id.ivEventType)
 
-    fun binds(data: ReceivedEvent, position: Int): Observable<String> {
+    fun binds(data: ReceivedEvent, position: Int, observer: Observer<String>) {
         GlideApp.with(ivAvatar.context)
                 .load(data.actor.avatarUrl)
                 .apply(RequestOptions().circleCrop())
                 .into(ivAvatar)
 
         tvEventTime.text = TimeConverter.tramsTimeAgo(data.createdAt)
-        tvEventContent.text = getTitle(data)
+        tvEventContent.text = getTitle(data, observer)
 
         ivEventType.setImageDrawable(
                 when (data.type) {
@@ -88,11 +84,9 @@ class HomePagedViewHolder(view: View) : AutoDisposeViewHolder(view) {
                     else -> null
                 }
         )
-
-        return clickSubject
     }
 
-    private fun getTitle(data: ReceivedEvent): CharSequence {
+    private fun getTitle(data: ReceivedEvent, observer: Observer<String>): CharSequence {
         val actor = data.actor.displayLogin
         val action = when (data.type) {
             Type.WatchEvent -> "starred"
@@ -105,12 +99,12 @@ class HomePagedViewHolder(view: View) : AutoDisposeViewHolder(view) {
 
         val actorSpan = object : ClickableSpan() {
             override fun onClick(widget: View?) {
-                clickSubject.onNext(data.actor.url)
+                observer.onNext(data.actor.url)
             }
         }
         val repoSpan = object : ClickableSpan() {
             override fun onClick(widget: View?) {
-                clickSubject.onNext(data.repo.url)
+                observer.onNext(data.repo.url)
             }
         }
         val styleSpan = StyleSpan(Typeface.BOLD)
