@@ -60,10 +60,15 @@ class LoginFragment : BaseFragment() {
 
         mProgressBar.visibility = if (state.isLoading) View.VISIBLE else View.GONE
 
-        if (state.autoLoginEvent != null && state.useAutoLoginEvent) {
+        if (state.autoLoginEvent != null                // has auto login info
+                && state.autoLoginEvent.autoLogin       // allow auto login by user
+                && state.useAutoLoginEvent              // ensure auto login info be used one time
+        ) {
             tvUsername.setText(state.autoLoginEvent.username, TextView.BufferType.EDITABLE)
             tvPassword.setText(state.autoLoginEvent.password, TextView.BufferType.EDITABLE)
+
             mViewModel.onAutoLoginEventUsed()
+            mViewModel.login(state.autoLoginEvent.username, state.autoLoginEvent.password)
         }
 
         if (state.loginInfo != null) {

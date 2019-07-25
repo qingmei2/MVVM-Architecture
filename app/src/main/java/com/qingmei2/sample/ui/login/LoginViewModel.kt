@@ -22,13 +22,6 @@ class LoginViewModel(
             BehaviorSubject.createDefault(LoginViewState.initial())
 
     init {
-        this.observeViewState()
-                .filter { it.autoLoginEvent != null }
-                .autoDisposable(this)
-                .subscribe {
-                    login(it.autoLoginEvent!!.username, it.autoLoginEvent.password)
-                }
-
         repo.fetchAutoLogin().singleOrError()
                 .onErrorReturn { AutoLoginEvent(false, "", "") }
                 .autoDisposable(this)
