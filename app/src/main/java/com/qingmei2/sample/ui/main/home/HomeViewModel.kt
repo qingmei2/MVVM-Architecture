@@ -83,7 +83,7 @@ class HomeViewModel(
 
         fun instance(fragment: Fragment, repo: HomeRepository): HomeViewModel =
                 ViewModelProviders
-                        .of(fragment, HomeViewModelFactory.getInstance(repo))
+                        .of(fragment, HomeViewModelFactory(repo))
                         .get(HomeViewModel::class.java)
     }
 }
@@ -96,6 +96,4 @@ class HomeViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return HomeViewModel(repo) as T
     }
-
-    companion object : SingletonHolderSingleArg<HomeViewModelFactory, HomeRepository>(::HomeViewModelFactory)
 }

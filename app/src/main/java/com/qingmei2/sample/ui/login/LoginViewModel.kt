@@ -89,6 +89,4 @@ class LoginViewModelFactory(
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
             LoginViewModel(repo) as T
-
-    companion object : SingletonHolderSingleArg<LoginViewModelFactory, LoginRepository>(::LoginViewModelFactory)
 }

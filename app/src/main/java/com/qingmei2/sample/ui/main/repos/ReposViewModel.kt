@@ -91,7 +91,7 @@ class ReposViewModel(
         fun instance(fragment: Fragment,
                      repo: ReposRepository): ReposViewModel =
                 ViewModelProviders
-                        .of(fragment, ReposViewModelFactory.getInstance(repo))
+                        .of(fragment, ReposViewModelFactory(repo))
                         .get(ReposViewModel::class.java)
     }
 }
@@ -104,6 +104,4 @@ class ReposViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return ReposViewModel(repo) as T
     }
-
-    companion object : SingletonHolderSingleArg<ReposViewModelFactory, ReposRepository>(::ReposViewModelFactory)
 }
