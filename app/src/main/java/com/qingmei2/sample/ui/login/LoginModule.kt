@@ -15,7 +15,7 @@ val loginKodeinModule = Kodein.Module(LOGIN_MODULE_TAG) {
 
     bind<LoginViewModel>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         ViewModelProviders
-                .of((context).activity!!, LoginViewModelFactory.getInstance(instance()))
+                .of((context).activity!!, LoginViewModelFactory(instance()))
                 .get(LoginViewModel::class.java)
     }
 

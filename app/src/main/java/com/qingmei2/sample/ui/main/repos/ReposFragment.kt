@@ -52,9 +52,8 @@ class ReposFragment : BaseFragment() {
 
         // swipe refresh event.
         mSwipeRefreshLayout.refreshes()
-                .flatMapCompletable { mViewModel.refreshDataSource() }
                 .autoDisposable(scopeProvider)
-                .subscribe()
+                .subscribe { mViewModel.refreshDataSource() }
 
         // when button was clicked, scrolling list to top.
         fabTop.clicksThrottleFirst()

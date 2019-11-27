@@ -24,7 +24,7 @@ class ProfileViewModel(
 
         fun instance(fragment: Fragment, repo: ProfileRepository): ProfileViewModel =
                 ViewModelProviders
-                        .of(fragment, ProfileViewModelFactory.getInstance(repo))
+                        .of(fragment, ProfileViewModelFactory(repo))
                         .get(ProfileViewModel::class.java)
     }
 }
@@ -37,6 +37,4 @@ class ProfileViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return ProfileViewModel(repo) as T
     }
-
-    companion object : SingletonHolderSingleArg<ProfileViewModelFactory, ProfileRepository>(::ProfileViewModelFactory)
 }

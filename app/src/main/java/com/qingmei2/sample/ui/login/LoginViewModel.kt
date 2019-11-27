@@ -3,7 +3,7 @@ package com.qingmei2.sample.ui.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.qingmei2.rhine.base.viewmodel.BaseViewModel
-import com.qingmei2.rhine.ext.reactivex.copyMap
+import com.qingmei2.rhine.ext.reactivex.onNextWithLast
 import com.qingmei2.rhine.util.SingletonHolderSingleArg
 import com.qingmei2.sample.base.Result
 import com.qingmei2.sample.entity.UserInfo
@@ -26,7 +26,7 @@ class LoginViewModel(
                 .onErrorReturn { AutoLoginEvent(false, "", "") }
                 .autoDisposable(this)
                 .subscribe { event ->
-                    mViewStateSubject.copyMap { state ->
+                    mViewStateSubject.onNextWithLast { state ->
                         state.copy(isLoading = false, throwable = null, autoLoginEvent = event, loginInfo = null)
                     }
                 }
@@ -37,14 +37,14 @@ class LoginViewModel(
     }
 
     fun onAutoLoginEventUsed() {
-        mViewStateSubject.copyMap { state ->
+        mViewStateSubject.onNextWithLast { state ->
             state.copy(isLoading = false, throwable = null, useAutoLoginEvent = false, loginInfo = null)
         }
     }
 
     fun login(username: String?, password: String?) {
         when (username.isNullOrEmpty() || password.isNullOrEmpty()) {
-            true -> mViewStateSubject.copyMap { state ->
+            true -> mViewStateSubject.onNextWithLast { state ->
                 state.copy(isLoading = false, throwable = Errors.EmptyInputError,
                         loginInfo = null, autoLoginEvent = null)
             }
@@ -64,16 +64,16 @@ class LoginViewModel(
                     .autoDisposable(this)
                     .subscribe { state ->
                         when (state) {
-                            is Result.Loading -> mViewStateSubject.copyMap {
+                            is Result.Loading -> mViewStateSubject.onNextWithLast {
                                 it.copy(isLoading = true, throwable = null, loginInfo = null)
                             }
-                            is Result.Idle -> mViewStateSubject.copyMap {
+                            is Result.Idle -> mViewStateSubject.onNextWithLast {
                                 it.copy(isLoading = false, throwable = null, loginInfo = null)
                             }
-                            is Result.Failure -> mViewStateSubject.copyMap {
+                            is Result.Failure -> mViewStateSubject.onNextWithLast {
                                 it.copy(isLoading = true, throwable = state.error, loginInfo = null)
                             }
-                            is Result.Success -> mViewStateSubject.copyMap {
+                            is Result.Success -> mViewStateSubject.onNextWithLast {
                                 it.copy(isLoading = true, throwable = null, loginInfo = state.data)
                             }
                         }
@@ -89,6 +89,4 @@ class LoginViewModelFactory(
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
             LoginViewModel(repo) as T
-
-    companion object : SingletonHolderSingleArg<LoginViewModelFactory, LoginRepository>(::LoginViewModelFactory)
 }

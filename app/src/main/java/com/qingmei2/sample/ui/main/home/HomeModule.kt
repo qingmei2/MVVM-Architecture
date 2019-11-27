@@ -13,13 +13,10 @@ const val HOME_MODULE_TAG = "HOME_MODULE_TAG"
 val homeKodeinModule = Kodein.Module(HOME_MODULE_TAG) {
 
     bind<HomeViewModel>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
-        HomeViewModel.instance(
-                fragment = context,
-                repo = instance()
-        )
+        HomeViewModel.instance(fragment = context, repo = instance())
     }
 
-    bind<HomeRemoteDataSource>()  with scoped<Fragment>(AndroidLifecycleScope).singleton {
+    bind<HomeRemoteDataSource>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         HomeRemoteDataSource(serviceManager = instance())
     }
 
@@ -27,7 +24,7 @@ val homeKodeinModule = Kodein.Module(HOME_MODULE_TAG) {
         HomeLocalDataSource(db = instance())
     }
 
-    bind<HomeRepository>()  with scoped<Fragment>(AndroidLifecycleScope).singleton {
+    bind<HomeRepository>() with scoped<Fragment>(AndroidLifecycleScope).singleton {
         HomeRepository(remoteDataSource = instance(), localDataSource = instance())
     }
 }
