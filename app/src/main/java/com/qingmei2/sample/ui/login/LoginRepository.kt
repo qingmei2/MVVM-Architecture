@@ -1,10 +1,10 @@
 package com.qingmei2.sample.ui.login
 
 import arrow.core.Either
-import com.qingmei2.rhine.base.repository.BaseRepositoryBoth
-import com.qingmei2.rhine.base.repository.ILocalDataSource
-import com.qingmei2.rhine.base.repository.IRemoteDataSource
-import com.qingmei2.rhine.util.RxSchedulers
+import com.qingmei2.architecture.core.base.repository.BaseRepositoryBoth
+import com.qingmei2.architecture.core.base.repository.ILocalDataSource
+import com.qingmei2.architecture.core.base.repository.IRemoteDataSource
+import com.qingmei2.architecture.core.util.RxSchedulers
 import com.qingmei2.sample.db.UserDatabase
 import com.qingmei2.sample.entity.UserInfo
 import com.qingmei2.sample.http.Errors

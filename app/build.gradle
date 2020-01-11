@@ -40,7 +40,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(':mvvm_rhine')
+    implementation project(':architecture-core')
 
     implementation libs.appcompat
     implementation libs.recyclerview

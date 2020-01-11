@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
-import com.qingmei2.rhine.base.viewmodel.BaseViewModel
-import com.qingmei2.rhine.ext.paging.PagingRequestHelper
-import com.qingmei2.rhine.ext.paging.toRxPagedList
-import com.qingmei2.rhine.ext.reactivex.onNextWithLast
-import com.qingmei2.rhine.util.RxSchedulers
+import com.qingmei2.architecture.core.base.viewmodel.BaseViewModel
+import com.qingmei2.architecture.core.ext.paging.PagingRequestHelper
+import com.qingmei2.architecture.core.ext.paging.toRxPagedList
+import com.qingmei2.architecture.core.ext.reactivex.onNextWithLast
+import com.qingmei2.architecture.core.util.RxSchedulers
 import com.qingmei2.sample.base.Result
 import com.qingmei2.sample.entity.ReceivedEvent
 import com.uber.autodispose.autoDisposable

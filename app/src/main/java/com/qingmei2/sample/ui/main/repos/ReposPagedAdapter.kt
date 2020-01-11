@@ -14,9 +14,9 @@ import androidx.core.content.ContextCompat
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.request.RequestOptions
-import com.qingmei2.rhine.adapter.AutoDisposeViewHolder
-import com.qingmei2.rhine.ext.reactivex.clicksThrottleFirst
-import com.qingmei2.rhine.image.GlideApp
+import com.qingmei2.architecture.core.adapter.AutoDisposeViewHolder
+import com.qingmei2.architecture.core.ext.reactivex.clicksThrottleFirst
+import com.qingmei2.architecture.core.image.GlideApp
 import com.qingmei2.sample.R
 import com.qingmei2.sample.entity.Repo
 import com.uber.autodispose.autoDisposable

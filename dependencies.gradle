@@ -1,17 +1,17 @@
 ext {
 
     build_version = [
-            compileSdkVersion: 28,
-            minSdkVersion    : 19,
-            targetSdkVersion : 28,
-            versionCode      : 7,
-            versionName      : '0.5.0'
+            compileSdkVersion: 29,
+            minSdkVersion    : 21,
+            targetSdkVersion : 29,
+            versionCode      : 8,
+            versionName      : '0.6.0'
     ]
 
     versions = [
-            android_plugin       : '3.4.0',
-            kotlin               : '1.3.30',
-            kotlin_coroutines    : '1.0.0',
+            android_plugin       : '3.5.2',
+            kotlin               : '1.3.61',
+            kotlin_coroutines    : '1.3.3',
 
             support              : '1.0.0',
             arch_comp_lifecycle  : '2.0.0',
@@ -19,7 +19,7 @@ ext {
             arch_comp_navigation : '2.1.0-alpha02',
             arch_comp_paging     : '2.1.0',
 
-            retrofit             : '2.4.0',
+            retrofit             : '2.6.0',
             okhttp               : '3.11.0',
             kodein               : '6.0.1',
             glide                : '4.8.0',
@@ -92,9 +92,6 @@ ext {
             rxkotlin                    : [group: 'io.reactivex.rxjava2', name: 'rxkotlin', version: versions.rxkotlin],
             rxandroid                   : [group: 'io.reactivex.rxjava2', name: 'rxandroid', version: versions.rxandroid],
             rxpermissions               : [group: 'com.github.tbruyelle', name: 'rxpermissions', version: '0.10.2'],
-
-            rximagepicker               : [group: 'com.github.qingmei2', name: 'rximagepicker', version: '2.3.0-alpha03'],
-            rxweaver                    : [group: 'com.github.qingmei2.rxweaver', name: 'rxweaver', version: '0.3.0'],
 
             rxbinding                   : [group: 'com.jakewharton.rxbinding3', name: 'rxbinding-core', version: versions.rxbinding],
             rxbinding_appcompat         : [group: 'com.jakewharton.rxbinding3', name: 'rxbinding-appcompat', version: versions.rxbinding],

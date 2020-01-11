@@ -3,7 +3,7 @@ package com.qingmei2.sample.common
 import androidx.recyclerview.widget.RecyclerView
 import arrow.core.left
 import arrow.core.right
-import com.qingmei2.rhine.util.RxSchedulers
+import com.qingmei2.architecture.core.util.RxSchedulers
 import com.qingmei2.sample.http.Errors
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer

@@ -3,7 +3,7 @@ package com.qingmei2.sample.ui
 import android.content.Intent
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.Navigation
-import com.qingmei2.rhine.base.view.activity.BaseActivity
+import com.qingmei2.architecture.core.base.view.activity.BaseActivity
 import com.qingmei2.sample.R
 
 class MainActivity : BaseActivity() {

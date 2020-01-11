@@ -3,7 +3,7 @@ package com.qingmei2.sample.base
 import android.app.Application
 import android.content.Context
 import com.facebook.stetho.Stetho
-import com.qingmei2.rhine.logger.initLogger
+import com.qingmei2.architecture.core.logger.initLogger
 import com.qingmei2.sample.BuildConfig
 import com.qingmei2.sample.di.*
 import com.squareup.leakcanary.LeakCanary

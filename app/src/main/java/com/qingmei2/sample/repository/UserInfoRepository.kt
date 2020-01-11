@@ -1,9 +1,9 @@
 package com.qingmei2.sample.repository
 
 import android.content.SharedPreferences
-import com.qingmei2.rhine.util.SingletonHolderSingleArg
-import com.qingmei2.rhine.util.prefs.boolean
-import com.qingmei2.rhine.util.prefs.string
+import com.qingmei2.architecture.core.util.SingletonHolderSingleArg
+import com.qingmei2.architecture.core.util.prefs.boolean
+import com.qingmei2.architecture.core.util.prefs.string
 
 class UserInfoRepository(prefs: SharedPreferences) {
 

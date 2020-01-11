@@ -1,6 +1,6 @@
 package com.qingmei2.sample.base
 
-import com.qingmei2.rhine.base.viewstate.IViewState
+import com.qingmei2.architecture.core.base.viewstate.IViewState
 
 sealed class Result<out T> : IViewState {
 

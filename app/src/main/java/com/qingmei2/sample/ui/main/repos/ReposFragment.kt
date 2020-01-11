@@ -6,10 +6,10 @@ import android.view.MenuItem
 import android.view.View
 import com.jakewharton.rxbinding3.recyclerview.scrollStateChanges
 import com.jakewharton.rxbinding3.swiperefreshlayout.refreshes
-import com.qingmei2.rhine.base.view.fragment.BaseFragment
-import com.qingmei2.rhine.ext.jumpBrowser
-import com.qingmei2.rhine.ext.reactivex.clicksThrottleFirst
-import com.qingmei2.rhine.util.RxSchedulers
+import com.qingmei2.architecture.core.base.view.fragment.BaseFragment
+import com.qingmei2.architecture.core.ext.jumpBrowser
+import com.qingmei2.architecture.core.ext.reactivex.clicksThrottleFirst
+import com.qingmei2.architecture.core.util.RxSchedulers
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.common.listScrollChangeStateProcessor

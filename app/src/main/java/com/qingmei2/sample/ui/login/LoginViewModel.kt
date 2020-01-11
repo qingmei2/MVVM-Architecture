@@ -2,13 +2,11 @@ package com.qingmei2.sample.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.qingmei2.rhine.base.viewmodel.BaseViewModel
-import com.qingmei2.rhine.ext.reactivex.onNextWithLast
-import com.qingmei2.rhine.util.SingletonHolderSingleArg
+import com.qingmei2.architecture.core.base.viewmodel.BaseViewModel
+import com.qingmei2.architecture.core.ext.reactivex.onNextWithLast
 import com.qingmei2.sample.base.Result
 import com.qingmei2.sample.entity.UserInfo
 import com.qingmei2.sample.http.Errors
-import com.qingmei2.sample.http.globalHandleError
 import com.uber.autodispose.autoDisposable
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
@@ -50,7 +48,6 @@ class LoginViewModel(
             }
             false -> repo
                     .login(username, password)
-                    .compose(globalHandleError())
                     .map { either ->
                         either.fold({
                             Result.failure<UserInfo>(it)

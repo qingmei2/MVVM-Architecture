@@ -3,10 +3,10 @@ package com.qingmei2.sample.ui.main.profile
 import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.request.RequestOptions
-import com.qingmei2.rhine.base.view.fragment.BaseFragment
-import com.qingmei2.rhine.ext.reactivex.clicksThrottleFirst
-import com.qingmei2.rhine.image.GlideApp
-import com.qingmei2.rhine.util.RxSchedulers
+import com.qingmei2.architecture.core.base.view.fragment.BaseFragment
+import com.qingmei2.architecture.core.ext.reactivex.clicksThrottleFirst
+import com.qingmei2.architecture.core.image.GlideApp
+import com.qingmei2.architecture.core.util.RxSchedulers
 import com.qingmei2.sample.R
 import com.qingmei2.sample.utils.toast
 import com.uber.autodispose.autoDisposable

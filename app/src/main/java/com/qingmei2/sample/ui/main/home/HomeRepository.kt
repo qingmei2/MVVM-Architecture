@@ -4,15 +4,14 @@ import android.annotation.SuppressLint
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.paging.DataSource
-import com.qingmei2.rhine.base.repository.BaseRepositoryBoth
-import com.qingmei2.rhine.base.repository.ILocalDataSource
-import com.qingmei2.rhine.base.repository.IRemoteDataSource
-import com.qingmei2.rhine.util.RxSchedulers
+import com.qingmei2.architecture.core.base.repository.BaseRepositoryBoth
+import com.qingmei2.architecture.core.base.repository.ILocalDataSource
+import com.qingmei2.architecture.core.base.repository.IRemoteDataSource
+import com.qingmei2.architecture.core.util.RxSchedulers
 import com.qingmei2.sample.PAGING_REMOTE_PAGE_SIZE
 import com.qingmei2.sample.base.Result
 import com.qingmei2.sample.db.UserDatabase
 import com.qingmei2.sample.entity.ReceivedEvent
-import com.qingmei2.sample.http.globalHandleError
 import com.qingmei2.sample.http.service.ServiceManager
 import com.qingmei2.sample.manager.UserManager
 import io.reactivex.Flowable
@@ -76,7 +75,6 @@ class HomeRemoteDataSource(private val serviceManager: ServiceManager) : IRemote
     ): Flowable<List<ReceivedEvent>> {
         return serviceManager.userService
                 .queryReceivedEvents(username, pageIndex, perPage)
-                .compose(globalHandleError())
                 .subscribeOn(RxSchedulers.io)
     }
 }

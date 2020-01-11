@@ -7,9 +7,9 @@ import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
-import com.qingmei2.rhine.adapter.ViewPagerAdapter
-import com.qingmei2.rhine.base.view.fragment.BaseFragment
-import com.qingmei2.rhine.ext.reactivex.clicksThrottleFirst
+import com.qingmei2.architecture.core.adapter.ViewPagerAdapter
+import com.qingmei2.architecture.core.base.view.fragment.BaseFragment
+import com.qingmei2.architecture.core.ext.reactivex.clicksThrottleFirst
 import com.qingmei2.sample.R
 import com.qingmei2.sample.ui.main.home.HomeFragment
 import com.qingmei2.sample.ui.main.profile.ProfileFragment

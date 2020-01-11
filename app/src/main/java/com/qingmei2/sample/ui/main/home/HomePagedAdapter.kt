@@ -15,8 +15,8 @@ import androidx.core.content.ContextCompat
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.request.RequestOptions
-import com.qingmei2.rhine.adapter.AutoDisposeViewHolder
-import com.qingmei2.rhine.image.GlideApp
+import com.qingmei2.architecture.core.adapter.AutoDisposeViewHolder
+import com.qingmei2.architecture.core.image.GlideApp
 import com.qingmei2.sample.R
 import com.qingmei2.sample.entity.ReceivedEvent
 import com.qingmei2.sample.entity.Type
@@ -98,12 +98,12 @@ class HomePagedViewHolder(view: View) : AutoDisposeViewHolder(view) {
         val repo = data.repo.name
 
         val actorSpan = object : ClickableSpan() {
-            override fun onClick(widget: View?) {
+            override fun onClick(widget: View) {
                 observer.onNext(data.actor.url)
             }
         }
         val repoSpan = object : ClickableSpan() {
-            override fun onClick(widget: View?) {
+            override fun onClick(widget: View) {
                 observer.onNext(data.repo.url)
             }
         }
