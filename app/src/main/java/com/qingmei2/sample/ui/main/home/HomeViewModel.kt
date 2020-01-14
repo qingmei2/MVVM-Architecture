@@ -4,7 +4,6 @@ import androidx.annotation.WorkerThread
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
 import com.qingmei2.architecture.core.base.viewmodel.BaseViewModel
 import com.qingmei2.architecture.core.ext.paging.PagingRequestHelper
@@ -106,9 +105,7 @@ class HomeViewModel(
     companion object {
 
         fun instance(fragment: Fragment, repo: HomeRepository): HomeViewModel =
-                ViewModelProviders
-                        .of(fragment, HomeViewModelFactory(repo))
-                        .get(HomeViewModel::class.java)
+                ViewModelProvider(fragment, HomeViewModelFactory(repo)).get(HomeViewModel::class.java)
     }
 
     inner class HomeBoundaryCallback(

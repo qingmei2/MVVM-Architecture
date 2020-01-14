@@ -27,5 +27,4 @@ val listScrollChangeStateProcessor: ObservableTransformer<Int, Boolean>
                         Observable.just(it)
                     })
                 }
-                .observeOn(RxSchedulers.ui)
     }

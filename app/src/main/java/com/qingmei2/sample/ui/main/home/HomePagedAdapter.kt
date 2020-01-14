@@ -12,6 +12,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.request.RequestOptions
@@ -21,13 +23,10 @@ import com.qingmei2.sample.R
 import com.qingmei2.sample.entity.ReceivedEvent
 import com.qingmei2.sample.entity.Type
 import com.qingmei2.sample.utils.TimeConverter
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.subjects.PublishSubject
 
 class HomePagedAdapter : PagedListAdapter<ReceivedEvent, HomePagedViewHolder>(diffCallback) {
 
-    private val parentSubject: PublishSubject<String> = PublishSubject.create()
+    private val itemEventObservable: MutableLiveData<String> = MutableLiveData()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomePagedViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -36,11 +35,11 @@ class HomePagedAdapter : PagedListAdapter<ReceivedEvent, HomePagedViewHolder>(di
     }
 
     override fun onBindViewHolder(holder: HomePagedViewHolder, position: Int) {
-        holder.binds(getItem(position)!!, position, parentSubject)
+        holder.binds(getItem(position)!!, position, itemEventObservable)
     }
 
-    fun getItemClickEvent(): Observable<String> {
-        return parentSubject
+    fun observeItemEvent(): LiveData<String> {
+        return itemEventObservable
     }
 
     companion object {
@@ -66,14 +65,14 @@ class HomePagedViewHolder(view: View) : AutoDisposeViewHolder(view) {
     private val ivAvatar: ImageView = view.findViewById(R.id.ivAvatar)
     private val ivEventType: ImageView = view.findViewById(R.id.ivEventType)
 
-    fun binds(data: ReceivedEvent, position: Int, observer: Observer<String>) {
+    fun binds(data: ReceivedEvent, position: Int, liveData: MutableLiveData<String>) {
         GlideApp.with(ivAvatar.context)
                 .load(data.actor.avatarUrl)
                 .apply(RequestOptions().circleCrop())
                 .into(ivAvatar)
 
         tvEventTime.text = TimeConverter.tramsTimeAgo(data.createdAt)
-        tvEventContent.text = getTitle(data, observer)
+        tvEventContent.text = getTitle(data, liveData)
 
         ivEventType.setImageDrawable(
                 when (data.type) {
@@ -86,7 +85,7 @@ class HomePagedViewHolder(view: View) : AutoDisposeViewHolder(view) {
         )
     }
 
-    private fun getTitle(data: ReceivedEvent, observer: Observer<String>): CharSequence {
+    private fun getTitle(data: ReceivedEvent, liveData: MutableLiveData<String>): CharSequence {
         val actor = data.actor.displayLogin
         val action = when (data.type) {
             Type.WatchEvent -> "starred"
@@ -99,12 +98,12 @@ class HomePagedViewHolder(view: View) : AutoDisposeViewHolder(view) {
 
         val actorSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                observer.onNext(data.actor.url)
+                liveData.postValue(data.actor.url)
             }
         }
         val repoSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                observer.onNext(data.repo.url)
+                liveData.postValue(data.repo.url)
             }
         }
         val styleSpan = StyleSpan(Typeface.BOLD)

@@ -4,6 +4,7 @@ import com.qingmei2.sample.entity.ReceivedEvent
 import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.entity.UserInfo
 import io.reactivex.Flowable
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -11,7 +12,7 @@ import retrofit2.http.Query
 interface UserService {
 
     @GET("user")
-    fun fetchUserOwner(): Flowable<UserInfo>
+    suspend fun fetchUserOwner(): Response<UserInfo>
 
     @GET("users/{username}/received_events?")
     fun queryReceivedEvents(@Path("username") username: String,

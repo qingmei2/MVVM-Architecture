@@ -51,9 +51,13 @@ dependencies {
 
     api libs.jetpack_lifecycle_extensions
     api libs.jetpack_lifecycle_java8
+    api libs.jetpack_lifecycle_ktx
     kapt libs.jetpack_lifecycle_compiler
 
+    api libs.jetpack_livedata_ktx
+
     api libs.jetpack_viewmodel
+    api libs.jetpack_viewmodel_ktx
 
     api libs.jetpack_room
     api libs.jetpack_room_ktx

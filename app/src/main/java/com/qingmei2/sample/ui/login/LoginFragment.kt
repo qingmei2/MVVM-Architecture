@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import com.qingmei2.architecture.core.base.view.fragment.BaseFragment
-import com.qingmei2.architecture.core.ext.reactivex.clicksThrottleFirst
-import com.qingmei2.architecture.core.util.RxSchedulers
+import com.qingmei2.architecture.core.ext.observe
 import com.qingmei2.sample.R
 import com.qingmei2.sample.http.Errors
 import com.qingmei2.sample.ui.MainActivity
 import com.qingmei2.sample.utils.toast
-import com.uber.autodispose.autoDisposable
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
@@ -33,14 +31,11 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun binds() {
-        mBtnSignIn.clicksThrottleFirst()
-                .autoDisposable(scopeProvider)
-                .subscribe { mViewModel.login(tvUsername.text.toString(), tvPassword.text.toString()) }
+        mBtnSignIn.setOnClickListener {
+            mViewModel.login(tvUsername.text.toString(), tvPassword.text.toString())
+        }
 
-        mViewModel.observeViewState()
-                .observeOn(RxSchedulers.ui)
-                .autoDisposable(scopeProvider)
-                .subscribe(this::onNewState)
+        observe(mViewModel.stateLiveData, this::onNewState)
     }
 
     private fun onNewState(state: LoginViewState) {

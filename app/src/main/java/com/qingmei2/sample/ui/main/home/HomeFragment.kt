@@ -4,10 +4,9 @@ import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.View
 import com.jakewharton.rxbinding3.recyclerview.scrollStateChanges
-import com.jakewharton.rxbinding3.swiperefreshlayout.refreshes
 import com.qingmei2.architecture.core.base.view.fragment.BaseFragment
 import com.qingmei2.architecture.core.ext.jumpBrowser
-import com.qingmei2.architecture.core.ext.reactivex.clicksThrottleFirst
+import com.qingmei2.architecture.core.ext.observe
 import com.qingmei2.architecture.core.util.RxSchedulers
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
@@ -48,20 +47,17 @@ class HomeFragment : BaseFragment() {
                 .subscribe(::switchFabState)
 
         // when button was clicked, scrolling list to top.
-        fabTop.clicksThrottleFirst()
-                .map { 0 }
-                .autoDisposable(scopeProvider)
-                .subscribe(mRecyclerView::scrollToPosition)
+        fabTop.setOnClickListener {
+            mRecyclerView.scrollToPosition(0)
+        }
 
         // swipe refresh event.
-        mSwipeRefreshLayout.refreshes()
-                .autoDisposable(scopeProvider)
-                .subscribe { mViewModel.refreshDataSource() }
+        mSwipeRefreshLayout.setOnRefreshListener {
+            mViewModel.refreshDataSource()
+        }
 
         // list item clicked event.
-        mAdapter.getItemClickEvent()
-                .autoDisposable(scopeProvider)
-                .subscribe(BaseApplication.INSTANCE::jumpBrowser)
+        observe(mAdapter.observeItemEvent(), BaseApplication.INSTANCE::jumpBrowser)
 
         mViewModel.observeViewState()
                 .observeOn(RxSchedulers.ui)

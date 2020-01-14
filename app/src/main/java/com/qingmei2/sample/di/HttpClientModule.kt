@@ -58,8 +58,8 @@ val httpClientModule = Kodein.Module(HTTP_CLIENT_MODULE_TAG) {
                 .readTimeout(
                         TIME_OUT_SECONDS.toLong(),
                         TimeUnit.SECONDS)
-                .addInterceptor(instance(HTTP_CLIENT_MODULE_INTERCEPTOR_LOG_TAG))
-                .addInterceptor(instance(HTTP_CLIENT_MODULE_INTERCEPTOR_AUTH_TAG))
+                .addInterceptor(instance<Interceptor>(HTTP_CLIENT_MODULE_INTERCEPTOR_LOG_TAG))
+                .addInterceptor(instance<Interceptor>(HTTP_CLIENT_MODULE_INTERCEPTOR_AUTH_TAG))
                 .build()
     }
 }

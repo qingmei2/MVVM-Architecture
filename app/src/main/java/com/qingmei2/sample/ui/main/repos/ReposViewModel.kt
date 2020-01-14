@@ -4,7 +4,6 @@ import androidx.annotation.WorkerThread
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
 import com.qingmei2.architecture.core.base.viewmodel.BaseViewModel
 import com.qingmei2.architecture.core.ext.paging.PagingRequestHelper
@@ -121,11 +120,8 @@ class ReposViewModel(
 
         const val sortByLetter: String = "full_name"
 
-        fun instance(fragment: Fragment,
-                     repo: ReposRepository): ReposViewModel =
-                ViewModelProviders
-                        .of(fragment, ReposViewModelFactory(repo))
-                        .get(ReposViewModel::class.java)
+        fun instance(fragment: Fragment, repo: ReposRepository): ReposViewModel =
+                ViewModelProvider(fragment, ReposViewModelFactory(repo)).get(ReposViewModel::class.java)
     }
 
     inner class RepoBoundaryCallback(

@@ -3,7 +3,6 @@ package com.qingmei2.sample.ui.main.profile
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.qingmei2.architecture.core.base.viewmodel.BaseViewModel
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
@@ -22,9 +21,7 @@ class ProfileViewModel(
     companion object {
 
         fun instance(fragment: Fragment, repo: ProfileRepository): ProfileViewModel =
-                ViewModelProviders
-                        .of(fragment, ProfileViewModelFactory(repo))
-                        .get(ProfileViewModel::class.java)
+                ViewModelProvider(fragment, ProfileViewModelFactory(repo)).get(ProfileViewModel::class.java)
     }
 }
 
