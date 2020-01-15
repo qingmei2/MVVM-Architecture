@@ -2,13 +2,13 @@
 
 **Android端 Mvvm + 协程 + Jetpack 架构组件的Github客户端。**
 
-### [English Document](https://github.com/qingmei2/MVVM-Rhine/blob/master/README_EN.md) | 中文文档
+* [English Document](https://github.com/qingmei2/MVVM-Rhine/blob/master/README_EN.md) | 中文文档
 
 ## 通知
 
-* 这个项目采用了2种 `Mvvm` 的实现方式，你可以参考任意一种你感兴趣的进行学习：[Jetpack + 协程](https://github.com/qingmei2/MVVM-Rhine) 或者 [Jetpack + RxJava](https://github.com/qingmei2/MVVM-Rhine/tree/branch_rxjava) 。
+* 这个项目采用了2种 `Mvvm` 的实现方式，你可以参考任意感兴趣的进行了解：[Jetpack + 协程](https://github.com/qingmei2/MVVM-Rhine) 或者 [Jetpack + RxJava](https://github.com/qingmei2/MVVM-Rhine/tree/branch_rxjava) 。
 
-* 最新版本中我移除了`DataBinding`，缘由请参考 [这里](https://github.com/qingmei2/MVVM-Rhine/issues/15)。
+* 项目中并未使用 `DataBinding`，我个人对 `Mvvm` 的见解，请参考 [这里](https://github.com/qingmei2/MVVM-Rhine/issues/15)。
 
 ## 屏幕截图
 

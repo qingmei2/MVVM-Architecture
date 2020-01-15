@@ -1,5 +1,6 @@
 package com.qingmei2.sample.ui.main.repos
 
+import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
@@ -8,6 +9,7 @@ import com.qingmei2.architecture.core.base.viewmodel.BaseViewModel
 import com.qingmei2.architecture.core.ext.paging.PagingRequestHelper
 import com.qingmei2.architecture.core.ext.paging.toLiveDataPagedList
 import com.qingmei2.architecture.core.ext.postNext
+import com.qingmei2.architecture.core.ext.setNext
 import com.qingmei2.sample.base.Results
 import com.qingmei2.sample.entity.Repo
 import kotlinx.coroutines.launch
@@ -52,20 +54,28 @@ class ReposViewModel(
         }
     }
 
+    @MainThread
     fun onSortChanged(sort: String) {
-        if (sort != fetchCurrentSort())
-            _viewStateLiveData.postNext { last ->
-                // 'isLoading = true' will trigger refresh action.
-                last.copy(isLoading = true, throwable = null, pagedList = null, nextPageData = null, sort = sort)
-            }
+        if (sort != fetchCurrentSort()) {
+            refreshDataSource(sort = sort)
+        }
     }
 
     private fun fetchCurrentSort(): String {
         // sort is always exist by BehaviorSubject.createDefault(initValue).
-        return _viewStateLiveData.value?.sort ?: sortByCreated
+        return _viewStateLiveData.value!!.sort
     }
 
-    fun refreshDataSource() {
+    @MainThread
+    fun refreshDataSource(sort: String? = null) {
+        if (sort != null) {
+            // state sync.
+            // use [LiveData.setNext] instead of [LiveData.postNext].
+            _viewStateLiveData.setNext { last ->
+                last.copy(isLoading = true, throwable = null, pagedList = null, nextPageData = null, sort = sort)
+            }
+        }
+
         viewModelScope.launch {
             when (val result = repository.fetchRepoByPage(fetchCurrentSort(), 1)) {
                 is Results.Success -> {
@@ -87,7 +97,7 @@ class ReposViewModel(
 
         const val sortByCreated: String = "created"
 
-        const val sortByUpdate: String = "updated"
+        const val sortByUpdate: String = "updated"      // default
 
         const val sortByLetter: String = "full_name"
 

@@ -2,7 +2,9 @@
 
 **The Mvvm arch using Coroutine and Android Jetpack.**
 
-### English Documentation | [中文文档](https://github.com/qingmei2/MVVM-Rhine)
+* English Documentation | [中文文档](https://github.com/qingmei2/MVVM-Rhine)
+
+This repo provides two `Mvvm` architecture implementation, see [Coroutine + Jetpack](https://github.com/qingmei2/MVVM-Rhine) or [RxJava + Jetpack](https://github.com/qingmei2/MVVM-Rhine/tree/branch_rxjava).
 
 ## ScreenShots
 
