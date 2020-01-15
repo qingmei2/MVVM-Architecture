@@ -67,12 +67,7 @@ class RemoteReposDataSource(private val serviceManager: ServiceManager) : IRemot
             sort: String
     ): Results<List<Repo>> {
         val response = serviceManager.userService.queryRepos(username, pageIndex, perPage, sort)
-        val either = processApiResponse(response)
-        return either.fold({
-            Results.failure(it)
-        }, {
-            Results.success(it)
-        })
+        return processApiResponse(response)
     }
 }
 

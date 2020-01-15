@@ -65,11 +65,6 @@ class HomeRemoteDataSource(private val serviceManager: ServiceManager) : IRemote
         val eventsResponse = serviceManager.userService
                 .queryReceivedEvents(username, pageIndex, perPage)
         return processApiResponse(eventsResponse)
-                .fold({
-                    Results.failure(it)
-                }, {
-                    Results.success(it)
-                })
     }
 }
 

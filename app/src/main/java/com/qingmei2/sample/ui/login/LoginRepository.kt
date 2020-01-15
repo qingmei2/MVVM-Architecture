@@ -1,6 +1,5 @@
 package com.qingmei2.sample.ui.login
 
-import arrow.core.flatMap
 import com.qingmei2.architecture.core.base.repository.BaseRepositoryBoth
 import com.qingmei2.architecture.core.base.repository.ILocalDataSource
 import com.qingmei2.architecture.core.base.repository.IRemoteDataSource
@@ -44,17 +43,14 @@ class LoginRemoteDataSource(
         // 1.用户登录认证
         val userAccessTokenResponse =
                 serviceManager.loginService.authorizations(LoginRequestModel.generate())
-        val responseEither = processApiResponse(userAccessTokenResponse)
-
-        responseEither.flatMap { _ ->
-            // 2.获取用户详细信息
-            val userInfoResponse = serviceManager.userService.fetchUserOwner()
-            processApiResponse(userInfoResponse)
-        }.fold({ error ->
-            return Results.failure(error)
-        }, { userInfo ->
-            return Results.success(userInfo)
-        })
+        return when (val results1 = processApiResponse(userAccessTokenResponse)) {
+            is Results.Success -> {
+                // 2.获取用户详细信息
+                val userInfoResponse = serviceManager.userService.fetchUserOwner()
+                processApiResponse(userInfoResponse)
+            }
+            is Results.Failure -> results1
+        }
     }
 }
 
