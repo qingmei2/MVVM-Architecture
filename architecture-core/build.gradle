@@ -52,7 +52,6 @@ dependencies {
     api libs.jetpack_lifecycle_extensions
     api libs.jetpack_lifecycle_java8
     api libs.jetpack_lifecycle_ktx
-    kapt libs.jetpack_lifecycle_compiler
 
     api libs.jetpack_livedata_ktx
 
@@ -61,7 +60,6 @@ dependencies {
 
     api libs.jetpack_room
     api libs.jetpack_room_ktx
-    kapt libs.jetpack_room_compiler
 
     api libs.jetpack_navigation
     api libs.jetpack_navigation_ui
@@ -76,9 +74,6 @@ dependencies {
     api libs.kodein
     api libs.kodein_android
     api libs.kodein_androidx
-
-    // arrow
-    api libs.arrow
 
     // okhttp
     api libs.okhttp
