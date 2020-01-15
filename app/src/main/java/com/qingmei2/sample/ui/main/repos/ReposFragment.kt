@@ -5,11 +5,9 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import com.jakewharton.rxbinding3.recyclerview.scrollStateChanges
-import com.jakewharton.rxbinding3.swiperefreshlayout.refreshes
 import com.qingmei2.architecture.core.base.view.fragment.BaseFragment
 import com.qingmei2.architecture.core.ext.jumpBrowser
-import com.qingmei2.architecture.core.ext.reactivex.clicksThrottleFirst
-import com.qingmei2.architecture.core.util.RxSchedulers
+import com.qingmei2.architecture.core.ext.observe
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.common.listScrollChangeStateProcessor
@@ -51,15 +49,14 @@ class ReposFragment : BaseFragment() {
                 .subscribe(::switchFabState)
 
         // swipe refresh event.
-        mSwipeRefreshLayout.refreshes()
-                .autoDisposable(scopeProvider)
-                .subscribe { mViewModel.refreshDataSource() }
+        mSwipeRefreshLayout.setOnRefreshListener {
+            mViewModel.refreshDataSource()
+        }
 
         // when button was clicked, scrolling list to top.
-        fabTop.clicksThrottleFirst()
-                .map { 0 }
-                .autoDisposable(scopeProvider)
-                .subscribe(mRecyclerView::scrollToPosition)
+        fabTop.setOnClickListener {
+            mRecyclerView.scrollToPosition(0)
+        }
 
         // menu item clicked event.
         toolbar.setOnMenuItemClickListener {
@@ -68,14 +65,9 @@ class ReposFragment : BaseFragment() {
         }
 
         // list item clicked event.
-        mAdapter.getItemClickEvent()
-                .autoDisposable(scopeProvider)
-                .subscribe(BaseApplication.INSTANCE::jumpBrowser)
+        observe(mAdapter.getItemClickEvent(), BaseApplication.INSTANCE::jumpBrowser)
 
-        mViewModel.observeViewState()
-                .observeOn(RxSchedulers.ui)
-                .autoDisposable(scopeProvider)
-                .subscribe(::onNewState)
+        observe(mViewModel.viewStateLiveData, this::onNewState)
     }
 
     private fun onNewState(state: ReposViewState) {

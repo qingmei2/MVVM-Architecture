@@ -7,7 +7,6 @@ import com.jakewharton.rxbinding3.recyclerview.scrollStateChanges
 import com.qingmei2.architecture.core.base.view.fragment.BaseFragment
 import com.qingmei2.architecture.core.ext.jumpBrowser
 import com.qingmei2.architecture.core.ext.observe
-import com.qingmei2.architecture.core.util.RxSchedulers
 import com.qingmei2.sample.R
 import com.qingmei2.sample.base.BaseApplication
 import com.qingmei2.sample.common.listScrollChangeStateProcessor
@@ -59,10 +58,8 @@ class HomeFragment : BaseFragment() {
         // list item clicked event.
         observe(mAdapter.observeItemEvent(), BaseApplication.INSTANCE::jumpBrowser)
 
-        mViewModel.observeViewState()
-                .observeOn(RxSchedulers.ui)
-                .autoDisposable(scopeProvider)
-                .subscribe(this::onStateArrived)
+        // 订阅UI状态的变更
+        observe(mViewModel.viewStateLiveData, this::onStateArrived)
     }
 
     private fun onStateArrived(state: HomeViewState) {

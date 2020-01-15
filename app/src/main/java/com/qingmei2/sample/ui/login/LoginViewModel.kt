@@ -2,8 +2,8 @@ package com.qingmei2.sample.ui.login
 
 import androidx.lifecycle.*
 import com.qingmei2.architecture.core.base.viewmodel.BaseViewModel
-import com.qingmei2.architecture.core.ext.scanNext
-import com.qingmei2.sample.entity.Resource
+import com.qingmei2.architecture.core.ext.postNext
+import com.qingmei2.sample.base.Results
 import com.qingmei2.sample.http.Errors
 import kotlinx.coroutines.launch
 
@@ -19,7 +19,7 @@ class LoginViewModel(
     init {
         viewModelScope.launch {
             val autoLoginEvent = repo.fetchAutoLogin()
-            _stateLiveData.scanNext { state ->
+            _stateLiveData.postNext { state ->
                 state.copy(
                         isLoading = false,
                         throwable = null,
@@ -31,26 +31,26 @@ class LoginViewModel(
     }
 
     fun onAutoLoginEventUsed() {
-        _stateLiveData.scanNext { state ->
+        _stateLiveData.postNext { state ->
             state.copy(isLoading = false, throwable = null, useAutoLoginEvent = false, loginInfo = null)
         }
     }
 
     fun login(username: String?, password: String?) {
         when (username.isNullOrEmpty() || password.isNullOrEmpty()) {
-            true -> _stateLiveData.scanNext { state ->
+            true -> _stateLiveData.postNext { state ->
                 state.copy(isLoading = false, throwable = Errors.EmptyInputError,
                         loginInfo = null, autoLoginEvent = null)
             }
             false -> viewModelScope.launch {
-                _stateLiveData.scanNext {
+                _stateLiveData.postNext {
                     it.copy(isLoading = true, throwable = null, loginInfo = null)
                 }
                 when (val result = repo.login(username, password)) {
-                    is Resource.DataError -> _stateLiveData.scanNext {
+                    is Results.Failure -> _stateLiveData.postNext {
                         it.copy(isLoading = false, throwable = result.error, loginInfo = null)
                     }
-                    is Resource.Success -> _stateLiveData.scanNext {
+                    is Results.Success -> _stateLiveData.postNext {
                         it.copy(isLoading = false, throwable = null, loginInfo = result.data)
                     }
                 }

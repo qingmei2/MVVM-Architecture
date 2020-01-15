@@ -2,21 +2,15 @@ package com.qingmei2.sample.ui.main.repos
 
 import androidx.annotation.WorkerThread
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import androidx.paging.PagedList
 import com.qingmei2.architecture.core.base.viewmodel.BaseViewModel
 import com.qingmei2.architecture.core.ext.paging.PagingRequestHelper
-import com.qingmei2.architecture.core.ext.paging.toRxPagedList
-import com.qingmei2.architecture.core.ext.reactivex.onNextWithLast
-import com.qingmei2.architecture.core.util.RxSchedulers
-import com.qingmei2.sample.base.Result
+import com.qingmei2.architecture.core.ext.paging.toLiveDataPagedList
+import com.qingmei2.architecture.core.ext.postNext
+import com.qingmei2.sample.base.Results
 import com.qingmei2.sample.entity.Repo
-import com.uber.autodispose.autoDisposable
-import io.reactivex.Observable
-import io.reactivex.disposables.Disposable
-import io.reactivex.processors.PublishProcessor
-import io.reactivex.subjects.BehaviorSubject
+import kotlinx.coroutines.launch
 import java.util.concurrent.Executors
 
 @SuppressWarnings("checkResult")
@@ -24,66 +18,43 @@ class ReposViewModel(
         private val repository: ReposRepository
 ) : BaseViewModel() {
 
-    private val mResultList: PublishProcessor<Result<List<Repo>>> =
-            PublishProcessor.create()
-    private val mViewStateSubject: BehaviorSubject<ReposViewState> =
-            BehaviorSubject.createDefault(ReposViewState.initial())
+    private val _viewStateLiveData: MutableLiveData<ReposViewState> = MutableLiveData(ReposViewState.initial())
+    val viewStateLiveData: LiveData<ReposViewState> = _viewStateLiveData
 
     private val mBoundaryCallback = RepoBoundaryCallback { result, pageIndex ->
-        if (result is Result.Success) {
-            when (pageIndex == 1) {
-                true -> repository.clearAndInsertNewData(result.data)
-                false -> repository.insertNewPageData(result.data)
+        // Paging 预加载分页的结果，不需要对Error或者Refresh进行展示
+        // 这会给用户一种无限加载列表的效果
+        viewModelScope.launch {
+            if (result is Results.Success) {
+                when (pageIndex == 1) {
+                    true -> repository.clearAndInsertNewData(result.data)
+                    false -> repository.insertNewPageData(result.data)
+                }
             }
         }
-        mResultList.onNext(result)
     }
 
     init {
-        subscribePagedListFlowable()
-
-        mResultList
-                .observeOn(RxSchedulers.ui)
-                .autoDisposable(this)
-                .subscribe { result ->
-                    when (result) {
-                        is Result.Failure ->
-                            mViewStateSubject.onNextWithLast { last ->
-                                last.copy(isLoading = false, throwable = result.error, pagedList = null, nextPageData = null)
-                            }
-                        is Result.Success ->
-                            mViewStateSubject.onNextWithLast { last ->
-                                last.copy(isLoading = false, throwable = null, pagedList = null, nextPageData = result.data)
-                            }
-                    }
-                }
-
-        observeViewState()
-                .map { it.isLoading }
-                .distinctUntilChanged()
-                .filter { it }
-                .autoDisposable(this)
-                .subscribe { refreshDataSource() }
+        initPagedList()
     }
 
-    private fun subscribePagedListFlowable(): Disposable {
-        return repository
-                .fetchRepoDataSourceFactory()
-                .toRxPagedList(
-                        boundaryCallback = mBoundaryCallback,
-                        fetchSchedulers = RxSchedulers.io
-                )
-                .autoDisposable(this)
-                .subscribe { pagedList ->
-                    mViewStateSubject.onNextWithLast { state ->
-                        state.copy(isLoading = false, throwable = null, pagedList = pagedList)
+    private fun initPagedList() {
+        // TODO leak memory.
+        viewModelScope.launch {
+            repository
+                    .fetchRepoDataSourceFactory()
+                    .toLiveDataPagedList(boundaryCallback = mBoundaryCallback)
+                    .observeForever { pagedList ->
+                        _viewStateLiveData.postNext { state ->
+                            state.copy(isLoading = false, throwable = null, pagedList = pagedList)
+                        }
                     }
-                }
+        }
     }
 
     fun onSortChanged(sort: String) {
         if (sort != fetchCurrentSort())
-            mViewStateSubject.onNextWithLast { last ->
+            _viewStateLiveData.postNext { last ->
                 // 'isLoading = true' will trigger refresh action.
                 last.copy(isLoading = true, throwable = null, pagedList = null, nextPageData = null, sort = sort)
             }
@@ -91,25 +62,25 @@ class ReposViewModel(
 
     private fun fetchCurrentSort(): String {
         // sort is always exist by BehaviorSubject.createDefault(initValue).
-        return mViewStateSubject.value?.sort!!
-    }
-
-    fun observeViewState(): Observable<ReposViewState> {
-        return mViewStateSubject.hide().distinctUntilChanged()
+        return _viewStateLiveData.value?.sort ?: sortByCreated
     }
 
     fun refreshDataSource() {
-        repository
-                .fetchRepoByPage(fetchCurrentSort(), 1)
-                .autoDisposable(this)
-                .subscribe { result ->
-                    // notify paging update.
-                    if (result is Result.Success) {
-                        repository.clearAndInsertNewData(result.data)
+        viewModelScope.launch {
+            when (val result = repository.fetchRepoByPage(fetchCurrentSort(), 1)) {
+                is Results.Success -> {
+                    repository.clearAndInsertNewData(result.data)
+                    _viewStateLiveData.postNext { last ->
+                        last.copy(isLoading = false, throwable = null, pagedList = null, nextPageData = result.data)
                     }
-                    // notify Refresh state update.
-                    mResultList.onNext(result)
                 }
+                is Results.Failure -> {
+                    _viewStateLiveData.postNext { last ->
+                        last.copy(isLoading = false, throwable = result.error, pagedList = null, nextPageData = null)
+                    }
+                }
+            }
+        }
     }
 
     companion object {
@@ -125,7 +96,7 @@ class ReposViewModel(
     }
 
     inner class RepoBoundaryCallback(
-            @WorkerThread private val handleResponse: (Result<List<Repo>>, Int) -> Unit
+            @WorkerThread private val handleResponse: (Results<List<Repo>>, Int) -> Unit
     ) : PagedList.BoundaryCallback<Repo>() {
 
         private val mExecutor = Executors.newSingleThreadExecutor()
@@ -133,10 +104,11 @@ class ReposViewModel(
 
         override fun onZeroItemsLoaded() {
             mHelper.runIfNotRunning(PagingRequestHelper.RequestType.INITIAL) { callback ->
-                repository.fetchRepoByPage(fetchCurrentSort(), 1)
-                        .doFinally { callback.recordSuccess() }
-                        .autoDisposable(this@ReposViewModel)
-                        .subscribe { handleResponse(it, 1) }
+                viewModelScope.launch {
+                    val result = repository.fetchRepoByPage(fetchCurrentSort(), 1)
+                    handleResponse(result, 1)
+                    callback.recordSuccess()
+                }
             }
         }
 
@@ -144,11 +116,11 @@ class ReposViewModel(
             mHelper.runIfNotRunning(PagingRequestHelper.RequestType.AFTER) { callback ->
                 val currentPageIndex = (itemAtEnd.indexInSortResponse / 30) + 1
                 val nextPageIndex = currentPageIndex + 1
-
-                repository.fetchRepoByPage(fetchCurrentSort(), nextPageIndex)
-                        .doFinally { callback.recordSuccess() }
-                        .autoDisposable(this@ReposViewModel)
-                        .subscribe { handleResponse(it, nextPageIndex) }
+                viewModelScope.launch {
+                    val result = repository.fetchRepoByPage(fetchCurrentSort(), nextPageIndex)
+                    handleResponse(result, nextPageIndex)
+                    callback.recordSuccess()
+                }
             }
         }
     }

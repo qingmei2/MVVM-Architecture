@@ -1,19 +1,15 @@
 package com.qingmei2.architecture.core.ext.paging
 
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
+import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import androidx.paging.RxPagedListBuilder
-import com.qingmei2.architecture.core.util.RxSchedulers
-import io.reactivex.BackpressureStrategy
-import io.reactivex.Flowable
-import io.reactivex.Scheduler
 
-fun <Key, Value> DataSource.Factory<Key, Value>.toRxPagedList(
+fun <Key, Value> DataSource.Factory<Key, Value>.toLiveDataPagedList(
         config: PagedList.Config? = null,
-        boundaryCallback: PagedList.BoundaryCallback<Value>? = null,
-        fetchSchedulers: Scheduler = RxSchedulers.io
-): Flowable<PagedList<Value>> {
-    return RxPagedListBuilder<Key, Value>(
+        boundaryCallback: PagedList.BoundaryCallback<Value>? = null
+): LiveData<PagedList<Value>> {
+    return LivePagedListBuilder<Key, Value>(
             this, config ?: PagedList.Config.Builder()
             .setInitialLoadSizeHint(PAGING_DEFAULT_INITIAL_LOAD_SIZE_HINT)
             .setPageSize(PAGING_DEFAULT_PAGE_SIZE)
@@ -22,8 +18,7 @@ fun <Key, Value> DataSource.Factory<Key, Value>.toRxPagedList(
             .build()
     )
             .setBoundaryCallback(boundaryCallback)
-            .setFetchScheduler(fetchSchedulers)
-            .buildFlowable(BackpressureStrategy.LATEST)
+            .build()
 }
 
 private const val PAGING_DEFAULT_PAGE_SIZE = 15
