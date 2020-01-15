@@ -1,8 +1,10 @@
-# MVVM-Rhine
+# Mvvm-Architecture
 
-**The MVVM using RxJava2 and Android Jetpack.**
+**The Mvvm arch using Coroutine and Android Jetpack.**
 
-### English Documentation | [中文文档](https://github.com/qingmei2/MVVM-Rhine)
+* English Documentation | [中文文档](https://github.com/qingmei2/MVVM-Rhine)
+
+This repo provides two `Mvvm` architecture implementation, see [Coroutine + Jetpack](https://github.com/qingmei2/MVVM-Rhine) or [RxJava + Jetpack](https://github.com/qingmei2/MVVM-Rhine/tree/branch_rxjava).
 
 ## ScreenShots
 
@@ -39,35 +41,11 @@
 
 * [Kodein-DI: Painless Kotlin Dependency Injection](https://github.com/Kodein-Framework/Kodein-DI)
 
-### ReactiveX
-
-* [RxKotlin: RxJava bindings for Kotlin](https://github.com/ReactiveX/RxKotlin)
-
-* [RxJava2: A library for composing asynchronous and event-based programs using observable sequences for the Java VM](https://github.com/ReactiveX/RxJava)
-
-* [RxAndroid: RxJava bindings for Android](https://github.com/ReactiveX/RxAndroid)
-
-* [RxBinding: RxJava binding APIs for Android's UI widgets.](https://github.com/JakeWharton/RxBinding)
-
-* [RxPermissions: Android runtime permissions powered by RxJava2.](https://github.com/tbruyelle/RxPermissions)
-
-* [RxWeaver: A lightweight and flexible error handler tools for RxJava2.](https://github.com/qingmei2/RxWeaver)
-
-* [AutoDispose: Automatic binding+disposal of RxJava 2 streams.](https://github.com/uber/AutoDispose)
-
-### Functional
-
-* [Arrow: Functional companion to Kotlin's Standard Library.](https://arrow-kt.io/)
-
 ### Others
 
 * [Glide: An image loading and caching library for Android focused on smooth scrolling](https://github.com/bumptech/glide)
 
 * [Timber: A logger with a small, extensible API which provides utility on top of Android's normal Log class.](https://github.com/JakeWharton/timber)
-
-### Tools
-
-* [MVVM-Rhine-Template: Activity or Fragment code generation template for MVVM-Rhine.](https://github.com/qingmei2/MVVM-Rhine-Template)
 
 ## Usage
 

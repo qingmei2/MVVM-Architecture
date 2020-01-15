@@ -1,20 +1,14 @@
-# MVVM-Rhine
+# Mvvm-Architecture
 
-**Android端 MVVM + Jetpack 架构组件的Github客户端。**
+**Android端 Mvvm + 协程 + Jetpack 架构组件的Github客户端。**
 
-> [使用MVVM尝试开发Github客户端及对编程的一些思考](https://juejin.im/post/5be7bbd9f265da61797458cf)
-
-### [English Document](https://github.com/qingmei2/MVVM-Rhine/blob/master/README_EN.md) | 中文文档
+* [English Document](https://github.com/qingmei2/MVVM-Rhine/blob/master/README_EN.md) | 中文文档
 
 ## 通知
 
-* 如果编译遇到如下图的错误，请先参考下方[【开始使用】](https://github.com/qingmei2/MVVM-Rhine/blob/master/README.md#usage)，对项目进行配置：
+* 这个项目采用了2种 `Mvvm` 的实现方式，你可以参考任意感兴趣的进行了解：[Jetpack + 协程](https://github.com/qingmei2/MVVM-Rhine) 或者 [Jetpack + RxJava](https://github.com/qingmei2/MVVM-Rhine/tree/branch_rxjava) 。
 
-![](https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/compile_error.png)
-
-> 出现这个问题的原因，最新版本的代码，需要开发者注册一个自己的`OAuth Application`，注册后，`Github`的API访问次数就能达到5000次/小时（之前的版本只有60次/小时），之前很多朋友反应在Debug过程中不够用，断点打了几次就被限制请求了，因此最新版本添加了这个配置的步骤，虽然麻烦了一小步，但是对于学习效率的提升，这点配置时间可以忽略不计。
-
-* 最新版本中我移除了`DataBinding`，缘由请参考 [这里](https://github.com/qingmei2/MVVM-Rhine/issues/15)。
+* 项目中并未使用 `DataBinding`，我个人对 `Mvvm` 的见解，请参考 [这里](https://github.com/qingmei2/MVVM-Rhine/issues/15)。
 
 ## 屏幕截图
 
@@ -27,7 +21,7 @@
 
 ## 三方组件
 
-### Android官方架构组件
+### Android Jetpack 组件
 
 * [Lifecycle: Create a UI that automatically responds to lifecycle events.](https://developer.android.com/topic/libraries/architecture/lifecycle)
 
@@ -51,39 +45,21 @@
 
 * [Kodein-DI: Painless Kotlin Dependency Injection](https://github.com/Kodein-Framework/Kodein-DI)
 
-### 响应式库
-
-* [RxKotlin: RxJava bindings for Kotlin](https://github.com/ReactiveX/RxKotlin)
-
-* [RxJava2: A library for composing asynchronous and event-based programs using observable sequences for the Java VM](https://github.com/ReactiveX/RxJava)
-
-* [RxAndroid: RxJava bindings for Android](https://github.com/ReactiveX/RxAndroid)
-
-* [RxBinding: RxJava binding APIs for Android's UI widgets.](https://github.com/JakeWharton/RxBinding)
-
-* [RxPermissions: Android runtime permissions powered by RxJava2.](https://github.com/tbruyelle/RxPermissions)
-
-* [RxWeaver: A lightweight and flexible error handler tools for RxJava2.](https://github.com/qingmei2/RxWeaver)
-
-* [AutoDispose: Automatic binding+disposal of RxJava 2 streams.](https://github.com/uber/AutoDispose)
-
-### 函数式库
-
-* [Arrow: Functional companion to Kotlin's Standard Library.](https://arrow-kt.io/)
-
 ### 其它
 
 * [Glide: An image loading and caching library for Android focused on smooth scrolling](https://github.com/bumptech/glide)
 
 * [Timber: A logger with a small, extensible API which provides utility on top of Android's normal Log class.](https://github.com/JakeWharton/timber)
 
-### 工具/插件
-
-* [MVVM-Rhine-Template: 代码模板插件，一键生成MVVM所有kt模板代码](https://github.com/qingmei2/MVVM-Rhine-Template)
-
 <a id="usage"></a>
 
 ## 开始使用
+
+如果编译遇到如下图的错误：
+
+![](https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/compile_error.png)
+
+> 出现这个问题的原因，最新版本的代码，需要开发者注册一个自己的`OAuth Application`，注册后，`Github`的API访问次数就能达到5000次/小时（之前的版本只有60次/小时），之前很多朋友反应在Debug过程中不够用，断点打了几次就被限制请求了，因此最新版本添加了这个配置的步骤，虽然麻烦了一小步，但是对于学习效率的提升，这点配置时间可以忽略不计。
 
 * 1.直接通过git命令行进行clone:
 
@@ -128,16 +104,7 @@ CLIENT_SECRET = "xxxxxx"
 如何使用`Kodein`进行依赖注入？
 
 > * [ 告别Dagger2，在Kotlin项目中使用Kodein进行依赖注入 ](https://www.jianshu.com/p/b0da805f7534)
-> * [【译】Android开发从Dagger2迁移至Kodein的感受  ](https://www.jianshu.com/p/e5eef49570b9)
-
-如何进阶学习`RxJava`？
-
-> * [ 理解RxJava（一）：基本流程源码分析 ](https://www.jianshu.com/p/7fce2955f2db)
-> * [ 理解RxJava（二）：操作符流程原理分析 ](https://www.jianshu.com/p/0a28428e734d)
-> * [ 理解RxJava（三）：线程调度原理分析 ](https://www.jianshu.com/p/9e3930fbcb26)
-> * [ 理解RxJava（四）：Subject用法及原理分析 ](https://www.jianshu.com/p/d7efc29ec9d3)
-> * [ 解决RxJava内存泄漏（前篇）：RxLifecycle详解及原理分析 ](https://www.jianshu.com/p/8311410de676)
-> * [ 解决RxJava内存泄漏（后篇）：Android架构中添加AutoDispose解决RxJava内存泄漏 ](https://www.jianshu.com/p/8490d9383ba5)
+> * [ Android开发从Dagger2迁移至Kodein的感受  ](https://www.jianshu.com/p/e5eef49570b9)
 
 ## 感谢
 

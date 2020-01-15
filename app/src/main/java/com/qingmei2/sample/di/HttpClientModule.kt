@@ -11,7 +11,6 @@ import org.kodein.di.generic.instance
 import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
@@ -32,7 +31,6 @@ val httpClientModule = Kodein.Module(HTTP_CLIENT_MODULE_TAG) {
         instance<Retrofit.Builder>()
                 .baseUrl(BASE_URL)
                 .client(instance())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
     }
@@ -58,8 +56,8 @@ val httpClientModule = Kodein.Module(HTTP_CLIENT_MODULE_TAG) {
                 .readTimeout(
                         TIME_OUT_SECONDS.toLong(),
                         TimeUnit.SECONDS)
-                .addInterceptor(instance(HTTP_CLIENT_MODULE_INTERCEPTOR_LOG_TAG))
-                .addInterceptor(instance(HTTP_CLIENT_MODULE_INTERCEPTOR_AUTH_TAG))
+                .addInterceptor(instance<Interceptor>(HTTP_CLIENT_MODULE_INTERCEPTOR_LOG_TAG))
+                .addInterceptor(instance<Interceptor>(HTTP_CLIENT_MODULE_INTERCEPTOR_AUTH_TAG))
                 .build()
     }
 }

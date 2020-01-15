@@ -1,83 +1,62 @@
 package com.qingmei2.sample.ui.login
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.qingmei2.rhine.base.viewmodel.BaseViewModel
-import com.qingmei2.rhine.ext.reactivex.onNextWithLast
-import com.qingmei2.rhine.util.SingletonHolderSingleArg
-import com.qingmei2.sample.base.Result
-import com.qingmei2.sample.entity.UserInfo
+import androidx.lifecycle.*
+import com.qingmei2.architecture.core.base.viewmodel.BaseViewModel
+import com.qingmei2.architecture.core.ext.postNext
+import com.qingmei2.sample.base.Results
 import com.qingmei2.sample.http.Errors
-import com.qingmei2.sample.http.globalHandleError
-import com.uber.autodispose.autoDisposable
-import io.reactivex.Observable
-import io.reactivex.subjects.BehaviorSubject
+import kotlinx.coroutines.launch
 
 @SuppressWarnings("checkResult")
 class LoginViewModel(
         private val repo: LoginRepository
 ) : BaseViewModel() {
 
-    private val mViewStateSubject: BehaviorSubject<LoginViewState> =
-            BehaviorSubject.createDefault(LoginViewState.initial())
+    private val _stateLiveData: MutableLiveData<LoginViewState> = MutableLiveData(LoginViewState.initial())
+
+    val stateLiveData: LiveData<LoginViewState> = _stateLiveData
 
     init {
-        repo.fetchAutoLogin().singleOrError()
-                .onErrorReturn { AutoLoginEvent(false, "", "") }
-                .autoDisposable(this)
-                .subscribe { event ->
-                    mViewStateSubject.onNextWithLast { state ->
-                        state.copy(isLoading = false, throwable = null, autoLoginEvent = event, loginInfo = null)
-                    }
-                }
-    }
-
-    fun observeViewState(): Observable<LoginViewState> {
-        return mViewStateSubject.hide().distinctUntilChanged()
+        viewModelScope.launch {
+            val autoLoginEvent = repo.fetchAutoLogin()
+            _stateLiveData.postNext { state ->
+                state.copy(
+                        isLoading = false,
+                        throwable = null,
+                        autoLoginEvent = autoLoginEvent,
+                        useAutoLoginEvent = true,
+                        loginInfo = null
+                )
+            }
+        }
     }
 
     fun onAutoLoginEventUsed() {
-        mViewStateSubject.onNextWithLast { state ->
-            state.copy(isLoading = false, throwable = null, useAutoLoginEvent = false, loginInfo = null)
+        _stateLiveData.postNext { state ->
+            state.copy(isLoading = false, throwable = null,
+                    autoLoginEvent = null, useAutoLoginEvent = false, loginInfo = null)
         }
     }
 
     fun login(username: String?, password: String?) {
         when (username.isNullOrEmpty() || password.isNullOrEmpty()) {
-            true -> mViewStateSubject.onNextWithLast { state ->
+            true -> _stateLiveData.postNext { state ->
                 state.copy(isLoading = false, throwable = Errors.EmptyInputError,
                         loginInfo = null, autoLoginEvent = null)
             }
-            false -> repo
-                    .login(username, password)
-                    .compose(globalHandleError())
-                    .map { either ->
-                        either.fold({
-                            Result.failure<UserInfo>(it)
-                        }, {
-                            Result.success(it)
-                        })
+            false -> viewModelScope.launch {
+                _stateLiveData.postNext {
+                    it.copy(isLoading = true, throwable = null, loginInfo = null, autoLoginEvent = null)
+                }
+                when (val result = repo.login(username, password)) {
+                    is Results.Failure -> _stateLiveData.postNext {
+                        it.copy(isLoading = false, throwable = result.error, loginInfo = null, autoLoginEvent = null)
                     }
-                    .startWith(Result.loading())
-                    .startWith(Result.idle())
-                    .onErrorReturn { Result.failure(it) }
-                    .autoDisposable(this)
-                    .subscribe { state ->
-                        when (state) {
-                            is Result.Loading -> mViewStateSubject.onNextWithLast {
-                                it.copy(isLoading = true, throwable = null, loginInfo = null)
-                            }
-                            is Result.Idle -> mViewStateSubject.onNextWithLast {
-                                it.copy(isLoading = false, throwable = null, loginInfo = null)
-                            }
-                            is Result.Failure -> mViewStateSubject.onNextWithLast {
-                                it.copy(isLoading = true, throwable = state.error, loginInfo = null)
-                            }
-                            is Result.Success -> mViewStateSubject.onNextWithLast {
-                                it.copy(isLoading = true, throwable = null, loginInfo = state.data)
-                            }
-                        }
+                    is Results.Success -> _stateLiveData.postNext {
+                        it.copy(isLoading = false, throwable = null, loginInfo = result.data, autoLoginEvent = null)
                     }
+                }
+            }
         }
     }
 }

@@ -2,22 +2,15 @@ package com.qingmei2.sample.ui.main.home
 
 import androidx.annotation.WorkerThread
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.*
 import androidx.paging.PagedList
-import com.qingmei2.rhine.base.viewmodel.BaseViewModel
-import com.qingmei2.rhine.ext.paging.PagingRequestHelper
-import com.qingmei2.rhine.ext.paging.toRxPagedList
-import com.qingmei2.rhine.ext.reactivex.onNextWithLast
-import com.qingmei2.rhine.util.RxSchedulers
-import com.qingmei2.sample.base.Result
+import com.qingmei2.architecture.core.base.viewmodel.BaseViewModel
+import com.qingmei2.architecture.core.ext.paging.PagingRequestHelper
+import com.qingmei2.architecture.core.ext.paging.toLiveDataPagedList
+import com.qingmei2.architecture.core.ext.postNext
+import com.qingmei2.sample.base.Results
 import com.qingmei2.sample.entity.ReceivedEvent
-import com.uber.autodispose.autoDisposable
-import io.reactivex.Observable
-import io.reactivex.disposables.Disposable
-import io.reactivex.processors.PublishProcessor
-import io.reactivex.subjects.BehaviorSubject
+import kotlinx.coroutines.launch
 import java.util.concurrent.Executors
 
 @SuppressWarnings("checkResult")
@@ -25,94 +18,75 @@ class HomeViewModel(
         private val repository: HomeRepository
 ) : BaseViewModel() {
 
-    private val mResultList: PublishProcessor<Result<List<ReceivedEvent>>> =
-            PublishProcessor.create()
-    private val mViewStateSubject: BehaviorSubject<HomeViewState> =
-            BehaviorSubject.createDefault(HomeViewState.initial())
+    private val _viewStateLiveData: MutableLiveData<HomeViewState> = MutableLiveData(HomeViewState.initial())
+
+    val viewStateLiveData: LiveData<HomeViewState> = _viewStateLiveData
 
     private val mBoundaryCallback = HomeBoundaryCallback { result, pageIndex ->
-        if (result is Result.Success) {
-            when (pageIndex == 1) {
-                true -> repository.clearAndInsertNewData(result.data)
-                false -> repository.insertNewPageData(result.data)
+        viewModelScope.launch {
+            // Paging 预加载分页的结果，不需要对Error或者Refresh进行展示
+            // 这会给用户一种无限加载列表的效果
+            when (result) {
+                is Results.Success -> when (pageIndex == 1) {
+                    true -> repository.clearAndInsertNewData(result.data)
+                    false -> repository.insertNewPageData(result.data)
+                }
+                else -> Unit    // do nothing
             }
         }
-        mResultList.onNext(result)
     }
 
     init {
-        subscribePagedListFlowable()
-
-        // only subscribe once in fragment scope
-        mResultList
-                .autoDisposable(this)
-                .subscribe { result ->
-                    when (result) {
-                        is Result.Loading ->
-                            mViewStateSubject.onNextWithLast { last ->
-                                last.copy(isLoading = true, throwable = null)
-                            }
-                        is Result.Idle ->
-                            mViewStateSubject.onNextWithLast { last ->
-                                last.copy(isLoading = false, throwable = null)
-                            }
-                        is Result.Failure ->
-                            mViewStateSubject.onNextWithLast { last ->
-                                last.copy(isLoading = false, throwable = result.error)
-                            }
-                        is Result.Success ->
-                            mViewStateSubject.onNextWithLast { last ->
-                                last.copy(isLoading = false, throwable = null)
-                            }
-                    }
-                }
+        subscribePagedList()
     }
 
-    private fun subscribePagedListFlowable(): Disposable {
-        return repository
+    private fun subscribePagedList() {
+        // TODO leak memory.
+        repository
                 .fetchEventDataSourceFactory()
-                .toRxPagedList(
-                        boundaryCallback = mBoundaryCallback,
-                        fetchSchedulers = RxSchedulers.io
-                )
-                .autoDisposable(this)
-                .subscribe { pagedList ->
-                    mViewStateSubject.onNextWithLast { state ->
+                .toLiveDataPagedList(boundaryCallback = mBoundaryCallback)
+                .observeForever { pagedList ->
+                    _viewStateLiveData.postNext { state ->
                         state.copy(isLoading = false, throwable = null, pagedList = pagedList)
                     }
                 }
-    }
-
-    fun observeViewState(): Observable<HomeViewState> {
-        return mViewStateSubject.hide().distinctUntilChanged()
     }
 
     /**
      * Refresh event list action.
      */
     fun refreshDataSource() {
-        repository.fetchEventByPage(1)
-                .autoDisposable(this)
-                .subscribe { result ->
-                    // notify paging update.
-                    if (result is Result.Success) {
-                        repository.clearAndInsertNewData(result.data)
+        viewModelScope.launch {
+            // 1.显示刷新状态
+            _viewStateLiveData.postNext { last ->
+                last.copy(isLoading = true, throwable = null)
+            }
+            when (val result = repository.fetchEventByPage(1)) {
+                // 2.1 成功后，对数据库进行清空，并插入第一页的数据，取消刷新
+                is Results.Success -> {
+                    repository.clearAndInsertNewData(result.data)
+                    _viewStateLiveData.postNext { last ->
+                        last.copy(isLoading = false, throwable = null)
                     }
-                    // notify Refresh state update.
-                    mResultList.onNext(result)
                 }
+                // 2.2 失败后，取消刷新
+                is Results.Failure -> {
+                    _viewStateLiveData.postNext { last ->
+                        last.copy(isLoading = false, throwable = result.error)
+                    }
+                }
+            }
+        }
     }
 
     companion object {
 
         fun instance(fragment: Fragment, repo: HomeRepository): HomeViewModel =
-                ViewModelProviders
-                        .of(fragment, HomeViewModelFactory(repo))
-                        .get(HomeViewModel::class.java)
+                ViewModelProvider(fragment, HomeViewModelFactory(repo)).get(HomeViewModel::class.java)
     }
 
     inner class HomeBoundaryCallback(
-            @WorkerThread private val handleResponse: (Result<List<ReceivedEvent>>, Int) -> Unit
+            @WorkerThread private val handleResponse: (Results<List<ReceivedEvent>>, Int) -> Unit
     ) : PagedList.BoundaryCallback<ReceivedEvent>() {
 
         private val mExecutor = Executors.newSingleThreadExecutor()
@@ -120,10 +94,11 @@ class HomeViewModel(
 
         override fun onZeroItemsLoaded() {
             mHelper.runIfNotRunning(PagingRequestHelper.RequestType.INITIAL) { callback ->
-                repository.fetchEventByPage(1)
-                        .doFinally { callback.recordSuccess() }
-                        .autoDisposable(this@HomeViewModel)
-                        .subscribe { handleResponse(it, 1) }
+                viewModelScope.launch {
+                    val result = repository.fetchEventByPage(1)
+                    handleResponse(result, 1)
+                    callback.recordSuccess()
+                }
             }
         }
 
@@ -132,10 +107,11 @@ class HomeViewModel(
                 val currentPageIndex = (itemAtEnd.indexInResponse / 30) + 1
                 val nextPageIndex = currentPageIndex + 1
 
-                repository.fetchEventByPage(nextPageIndex)
-                        .doFinally { callback.recordSuccess() }
-                        .autoDisposable(this@HomeViewModel)
-                        .subscribe { handleResponse(it, nextPageIndex) }
+                viewModelScope.launch {
+                    val result = repository.fetchEventByPage(nextPageIndex)
+                    handleResponse(result, nextPageIndex)
+                    callback.recordSuccess()
+                }
             }
         }
     }

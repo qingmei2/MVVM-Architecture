@@ -11,23 +11,20 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
-import com.qingmei2.rhine.adapter.AutoDisposeViewHolder
-import com.qingmei2.rhine.ext.reactivex.clicksThrottleFirst
-import com.qingmei2.rhine.image.GlideApp
+import com.qingmei2.architecture.core.image.GlideApp
 import com.qingmei2.sample.R
 import com.qingmei2.sample.entity.Repo
-import com.uber.autodispose.autoDisposable
 import de.hdodenhof.circleimageview.CircleImageView
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.subjects.PublishSubject
 
 class ReposPagedAdapter : PagedListAdapter<Repo, RepoPagedViewHolder>(diffCallback) {
 
-    private val parentSubject: PublishSubject<String> = PublishSubject.create()
+    private val liveData: MutableLiveData<String> = MutableLiveData()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoPagedViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -36,11 +33,11 @@ class ReposPagedAdapter : PagedListAdapter<Repo, RepoPagedViewHolder>(diffCallba
     }
 
     override fun onBindViewHolder(holder: RepoPagedViewHolder, position: Int) {
-        holder.binds(getItem(position)!!, position, parentSubject)
+        holder.binds(getItem(position)!!, position, liveData)
     }
 
-    fun getItemClickEvent(): Observable<String> {
-        return parentSubject
+    fun getItemClickEvent(): LiveData<String> {
+        return liveData
     }
 
     companion object {
@@ -59,7 +56,7 @@ class ReposPagedAdapter : PagedListAdapter<Repo, RepoPagedViewHolder>(diffCallba
     }
 }
 
-class RepoPagedViewHolder(private val view: View) : AutoDisposeViewHolder(view) {
+class RepoPagedViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
     private val ivAvatar: ImageView = view.findViewById(R.id.ivAvatar)
     private val btnAvatar: ConstraintLayout = view.findViewById(R.id.btnAvatar)
@@ -75,24 +72,18 @@ class RepoPagedViewHolder(private val view: View) : AutoDisposeViewHolder(view) 
     private val tvFork: TextView = view.findViewById(R.id.tvFork)
 
     @SuppressLint("SetTextI18n")
-    fun binds(data: Repo, position: Int, observer: Observer<String>) {
+    fun binds(data: Repo, position: Int, observer: MutableLiveData<String>) {
         GlideApp.with(ivAvatar.context)
                 .load(data.owner.avatarUrl)
                 .apply(RequestOptions().circleCrop())
                 .into(ivAvatar)
 
-        view.clicksThrottleFirst()
-                .map { data.htmlUrl }
-                .autoDisposable(this)
-                .subscribe { url ->
-                    observer.onNext(url)
-                }
-        btnAvatar.clicksThrottleFirst()
-                .map { data.owner.htmlUrl }
-                .autoDisposable(this)
-                .subscribe { url ->
-                    observer.onNext(url)
-                }
+        view.setOnClickListener {
+            observer.postValue(data.htmlUrl)
+        }
+        btnAvatar.setOnClickListener {
+            observer.postValue(data.owner.htmlUrl)
+        }
 
         tvOwnerName.text = data.owner.login
 
