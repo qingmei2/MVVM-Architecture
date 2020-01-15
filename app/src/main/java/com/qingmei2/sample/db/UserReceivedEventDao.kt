@@ -25,5 +25,5 @@ interface UserReceivedEventDao {
 
     @WorkerThread
     @Query("SELECT MAX(indexInResponse) + 1 FROM user_received_events")
-    suspend fun getNextIndexInReceivedEvents(): Int
+    suspend fun getNextIndexInReceivedEvents(): Int?
 }

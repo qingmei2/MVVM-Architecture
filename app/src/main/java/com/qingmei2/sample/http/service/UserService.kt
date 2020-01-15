@@ -14,13 +14,13 @@ interface UserService {
     suspend fun fetchUserOwner(): Response<UserInfo>
 
     @GET("users/{username}/received_events?")
-    fun queryReceivedEvents(@Path("username") username: String,
-                                    @Query("page") pageIndex: Int,
-                                    @Query("per_page") perPage: Int): Response<List<ReceivedEvent>>
+    suspend fun queryReceivedEvents(@Path("username") username: String,
+                            @Query("page") pageIndex: Int,
+                            @Query("per_page") perPage: Int): Response<List<ReceivedEvent>>
 
     @GET("users/{username}/repos?")
-    fun queryRepos(@Path("username") username: String,
-                           @Query("page") pageIndex: Int,
-                           @Query("per_page") perPage: Int,
-                           @Query("sort") sort: String): Response<List<Repo>>
+    suspend fun queryRepos(@Path("username") username: String,
+                   @Query("page") pageIndex: Int,
+                   @Query("per_page") perPage: Int,
+                   @Query("sort") sort: String): Response<List<Repo>>
 }

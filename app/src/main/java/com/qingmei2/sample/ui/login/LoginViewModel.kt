@@ -24,6 +24,7 @@ class LoginViewModel(
                         isLoading = false,
                         throwable = null,
                         autoLoginEvent = autoLoginEvent,
+                        useAutoLoginEvent = true,
                         loginInfo = null
                 )
             }
@@ -32,7 +33,8 @@ class LoginViewModel(
 
     fun onAutoLoginEventUsed() {
         _stateLiveData.postNext { state ->
-            state.copy(isLoading = false, throwable = null, useAutoLoginEvent = false, loginInfo = null)
+            state.copy(isLoading = false, throwable = null,
+                    autoLoginEvent = null, useAutoLoginEvent = false, loginInfo = null)
         }
     }
 
@@ -44,14 +46,14 @@ class LoginViewModel(
             }
             false -> viewModelScope.launch {
                 _stateLiveData.postNext {
-                    it.copy(isLoading = true, throwable = null, loginInfo = null)
+                    it.copy(isLoading = true, throwable = null, loginInfo = null, autoLoginEvent = null)
                 }
                 when (val result = repo.login(username, password)) {
                     is Results.Failure -> _stateLiveData.postNext {
-                        it.copy(isLoading = false, throwable = result.error, loginInfo = null)
+                        it.copy(isLoading = false, throwable = result.error, loginInfo = null, autoLoginEvent = null)
                     }
                     is Results.Success -> _stateLiveData.postNext {
-                        it.copy(isLoading = false, throwable = null, loginInfo = result.data)
+                        it.copy(isLoading = false, throwable = null, loginInfo = result.data, autoLoginEvent = null)
                     }
                 }
             }

@@ -20,5 +20,5 @@ interface UserReposDao {
     suspend fun deleteAllRepos()
 
     @Query("SELECT MAX(indexInSortResponse) + 1 FROM user_repos")
-    suspend fun getNextIndexInRepos(): Int
+    suspend fun getNextIndexInRepos(): Int?
 }

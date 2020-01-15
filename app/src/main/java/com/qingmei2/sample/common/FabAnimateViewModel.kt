@@ -3,10 +3,10 @@ package com.qingmei2.sample.common
 import androidx.recyclerview.widget.RecyclerView
 import arrow.core.left
 import arrow.core.right
-import com.qingmei2.architecture.core.util.RxSchedulers
 import com.qingmei2.sample.http.Errors
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.zipWith
 
 val listScrollChangeStateProcessor: ObservableTransformer<Int, Boolean>
@@ -27,4 +27,5 @@ val listScrollChangeStateProcessor: ObservableTransformer<Int, Boolean>
                         Observable.just(it)
                     })
                 }
+                .observeOn(AndroidSchedulers.mainThread())
     }

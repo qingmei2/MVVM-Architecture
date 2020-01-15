@@ -24,7 +24,7 @@ class ReposRepository(
 ) : BaseRepositoryBoth<RemoteReposDataSource, LocalReposDataSource>(remote, local) {
 
     @MainThread
-    fun fetchRepoByPage(
+    suspend fun fetchRepoByPage(
             sort: String,
             pageIndex: Int,
             remoteRequestPerPage: Int = PAGING_REMOTE_PAGE_SIZE
@@ -51,7 +51,7 @@ class ReposRepository(
 
 class RemoteReposDataSource(private val serviceManager: ServiceManager) : IRemoteDataSource {
 
-    fun queryRepos(
+    suspend fun queryRepos(
             username: String,
             pageIndex: Int,
             perPage: Int,
@@ -60,7 +60,7 @@ class RemoteReposDataSource(private val serviceManager: ServiceManager) : IRemot
         return fetchReposByPageInternal(username, pageIndex, perPage, sort)
     }
 
-    private fun fetchReposByPageInternal(
+    private suspend fun fetchReposByPageInternal(
             username: String,
             pageIndex: Int,
             perPage: Int,
@@ -100,7 +100,7 @@ class LocalReposDataSource(
 
     @AnyThread
     private suspend fun insertDataInternal(newPage: List<Repo>) {
-        val start = db.userReposDao().getNextIndexInRepos()
+        val start = db.userReposDao().getNextIndexInRepos() ?: 0
         val items = newPage.mapIndexed { index, child ->
             child.indexInSortResponse = start + index
             child

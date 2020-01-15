@@ -3,9 +3,7 @@ package com.qingmei2.sample.ui.main.home
 import android.annotation.SuppressLint
 import androidx.annotation.AnyThread
 import androidx.annotation.MainThread
-import androidx.annotation.WorkerThread
 import androidx.paging.DataSource
-import androidx.room.Transaction
 import androidx.room.withTransaction
 import com.qingmei2.architecture.core.base.repository.BaseRepositoryBoth
 import com.qingmei2.architecture.core.base.repository.ILocalDataSource
@@ -25,7 +23,7 @@ class HomeRepository(
 ) : BaseRepositoryBoth<HomeRemoteDataSource, HomeLocalDataSource>(remoteDataSource, localDataSource) {
 
     @MainThread
-    fun fetchEventByPage(
+    suspend fun fetchEventByPage(
             pageIndex: Int,
             remoteRequestPerPage: Int = PAGING_REMOTE_PAGE_SIZE
     ): Results<List<ReceivedEvent>> {
@@ -51,7 +49,7 @@ class HomeRepository(
 
 class HomeRemoteDataSource(private val serviceManager: ServiceManager) : IRemoteDataSource {
 
-    fun fetchEventsByPage(
+    suspend fun fetchEventsByPage(
             username: String,
             pageIndex: Int,
             perPage: Int
@@ -59,7 +57,7 @@ class HomeRemoteDataSource(private val serviceManager: ServiceManager) : IRemote
         return fetchEventsByPageInternal(username, pageIndex, perPage)
     }
 
-    private fun fetchEventsByPageInternal(
+    private suspend fun fetchEventsByPageInternal(
             username: String,
             pageIndex: Int,
             perPage: Int
@@ -100,7 +98,7 @@ class HomeLocalDataSource(private val db: UserDatabase) : ILocalDataSource {
     }
 
     private suspend fun insertDataInternal(newPage: List<ReceivedEvent>) {
-        val start = db.userReceivedEventDao().getNextIndexInReceivedEvents()
+        val start = db.userReceivedEventDao().getNextIndexInReceivedEvents() ?: 0
         val items = newPage.mapIndexed { index, child ->
             child.indexInResponse = start + index
             child
