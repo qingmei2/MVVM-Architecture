@@ -61,34 +61,16 @@ dependencies {
 
     api libs.jetpack_room
     api libs.jetpack_room_ktx
-    api libs.jetpack_room_rxjava
     kapt libs.jetpack_room_compiler
 
     api libs.jetpack_navigation
     api libs.jetpack_navigation_ui
 
     api libs.jetpack_paging
-    api libs.jetpack_paging_rxjava
 
     // retrofit
     api libs.retrofit
     api libs.retrofit_gson
-    api libs.retrofit_rxjava
-
-    // rx
-    api libs.rxkotlin
-    api libs.rxandroid
-
-    api libs.rxbinding
-    api libs.rxbinding_appcompat
-    api libs.rxbinding_recyclerview
-    api libs.rxbinding_swiperefresh
-
-    // autodispose
-    api libs.autodispose
-    api libs.autodispose_ktx
-    api libs.autodispose_android_ktx
-    api libs.autodispose_archs_ktx
 
     // kodein
     api libs.kodein

@@ -16,8 +16,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
-import com.qingmei2.architecture.core.adapter.AutoDisposeViewHolder
 import com.qingmei2.architecture.core.image.GlideApp
 import com.qingmei2.sample.R
 import com.qingmei2.sample.entity.ReceivedEvent
@@ -58,7 +58,7 @@ class HomePagedAdapter : PagedListAdapter<ReceivedEvent, HomePagedViewHolder>(di
     }
 }
 
-class HomePagedViewHolder(view: View) : AutoDisposeViewHolder(view) {
+class HomePagedViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val tvEventContent: TextView = view.findViewById(R.id.tvEventContent)
     private val tvEventTime: TextView = view.findViewById(R.id.tvEventTime)

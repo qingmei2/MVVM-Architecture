@@ -1,22 +1,18 @@
 package com.qingmei2.sample.ui.main.profile
 
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.qingmei2.architecture.core.base.viewmodel.BaseViewModel
-import io.reactivex.Observable
-import io.reactivex.subjects.BehaviorSubject
 
 class ProfileViewModel(
         private val repo: ProfileRepository
 ) : BaseViewModel() {
 
-    private val mViewStateSubject: BehaviorSubject<ProfileViewState> =
-            BehaviorSubject.createDefault(ProfileViewState.initial())
-
-    fun observeViewState(): Observable<ProfileViewState> {
-        return mViewStateSubject.hide().distinctUntilChanged()
-    }
+    private val _viewStateLiveData: MutableLiveData<ProfileViewState> = MutableLiveData(ProfileViewState.initial())
+    val viewStateLiveData: LiveData<ProfileViewState> = _viewStateLiveData
 
     companion object {
 

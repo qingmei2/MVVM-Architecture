@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.request.RequestOptions
 import com.qingmei2.architecture.core.base.view.fragment.BaseFragment
-import com.qingmei2.architecture.core.ext.reactivex.clicksThrottleFirst
+import com.qingmei2.architecture.core.ext.observe
 import com.qingmei2.architecture.core.image.GlideApp
-import com.qingmei2.architecture.core.util.RxSchedulers
 import com.qingmei2.sample.R
 import com.qingmei2.sample.utils.toast
-import com.uber.autodispose.autoDisposable
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
@@ -31,14 +29,9 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun binds() {
-        mViewModel.observeViewState()
-                .observeOn(RxSchedulers.ui)
-                .autoDisposable(scopeProvider)
-                .subscribe(::onNewState)
+        observe(mViewModel.viewStateLiveData, this::onNewState)
 
-        mBtnEdit.clicksThrottleFirst()
-                .autoDisposable(scopeProvider)
-                .subscribe { toast { "coming soon..." } }
+        mBtnEdit.setOnClickListener { toast { "coming soon..." } }
     }
 
     private fun onNewState(state: ProfileViewState) {

@@ -15,13 +15,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
-import com.qingmei2.architecture.core.adapter.AutoDisposeViewHolder
-import com.qingmei2.architecture.core.ext.reactivex.clicksThrottleFirst
 import com.qingmei2.architecture.core.image.GlideApp
 import com.qingmei2.sample.R
 import com.qingmei2.sample.entity.Repo
-import com.uber.autodispose.autoDisposable
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ReposPagedAdapter : PagedListAdapter<Repo, RepoPagedViewHolder>(diffCallback) {
@@ -58,7 +56,7 @@ class ReposPagedAdapter : PagedListAdapter<Repo, RepoPagedViewHolder>(diffCallba
     }
 }
 
-class RepoPagedViewHolder(private val view: View) : AutoDisposeViewHolder(view) {
+class RepoPagedViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
     private val ivAvatar: ImageView = view.findViewById(R.id.ivAvatar)
     private val btnAvatar: ConstraintLayout = view.findViewById(R.id.btnAvatar)
@@ -80,18 +78,12 @@ class RepoPagedViewHolder(private val view: View) : AutoDisposeViewHolder(view) 
                 .apply(RequestOptions().circleCrop())
                 .into(ivAvatar)
 
-        view.clicksThrottleFirst()
-                .map { data.htmlUrl }
-                .autoDisposable(this)
-                .subscribe { url ->
-                    observer.postValue(url)
-                }
-        btnAvatar.clicksThrottleFirst()
-                .map { data.owner.htmlUrl }
-                .autoDisposable(this)
-                .subscribe { url ->
-                    observer.postValue(url)
-                }
+        view.setOnClickListener {
+            observer.postValue(data.htmlUrl)
+        }
+        btnAvatar.setOnClickListener {
+            observer.postValue(data.owner.htmlUrl)
+        }
 
         tvOwnerName.text = data.owner.login
 

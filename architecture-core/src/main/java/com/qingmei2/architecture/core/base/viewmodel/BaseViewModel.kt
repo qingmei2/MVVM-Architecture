@@ -1,3 +1,5 @@
 package com.qingmei2.architecture.core.base.viewmodel
 
-open class BaseViewModel : AutoDisposeViewModel()
+import androidx.lifecycle.ViewModel
+
+open class BaseViewModel : ViewModel()

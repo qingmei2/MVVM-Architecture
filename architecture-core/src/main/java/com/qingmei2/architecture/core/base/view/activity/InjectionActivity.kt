@@ -9,7 +9,7 @@ import org.kodein.di.android.closestKodein
 import org.kodein.di.android.retainedKodein
 import org.kodein.di.generic.kcontext
 
-abstract class InjectionActivity : AutoDisposeActivity(), KodeinAware, IView {
+abstract class InjectionActivity : AppCompatActivity(), KodeinAware, IView {
 
     protected val parentKodein by closestKodein()
 

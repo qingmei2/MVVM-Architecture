@@ -47,6 +47,7 @@ dependencies {
     implementation libs.design
     implementation libs.constraint
     implementation libs.flexbox
+    implementation libs.swiperefreshlayout
 
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.cpacm:floatingmusicmenu:1.0.0'

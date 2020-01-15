@@ -2,8 +2,6 @@
 
 **Android端 MVVM + Jetpack 架构组件的Github客户端。**
 
-> [使用MVVM尝试开发Github客户端及对编程的一些思考](https://juejin.im/post/5be7bbd9f265da61797458cf)
-
 ### [English Document](https://github.com/qingmei2/MVVM-Rhine/blob/master/README_EN.md) | 中文文档
 
 ## 通知

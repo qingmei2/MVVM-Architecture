@@ -1,22 +1,16 @@
 package com.qingmei2.sample.ui.main.repos
 
-import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import com.jakewharton.rxbinding3.recyclerview.scrollStateChanges
 import com.qingmei2.architecture.core.base.view.fragment.BaseFragment
 import com.qingmei2.architecture.core.ext.jumpBrowser
 import com.qingmei2.architecture.core.ext.observe
 import com.qingmei2.sample.R
-import com.qingmei2.sample.base.BaseApplication
-import com.qingmei2.sample.common.listScrollChangeStateProcessor
 import com.qingmei2.sample.utils.toast
-import com.uber.autodispose.autoDisposable
 import kotlinx.android.synthetic.main.fragment_repos.*
 import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
-import java.util.concurrent.TimeUnit
 
 class ReposFragment : BaseFragment() {
 
@@ -41,13 +35,6 @@ class ReposFragment : BaseFragment() {
     }
 
     private fun binds() {
-        // when list scrolling start or stop, then switch bottom button visible state.
-        mRecyclerView.scrollStateChanges()
-                .debounce(500, TimeUnit.MILLISECONDS)
-                .compose(listScrollChangeStateProcessor)
-                .autoDisposable(scopeProvider)
-                .subscribe(::switchFabState)
-
         // swipe refresh event.
         mSwipeRefreshLayout.setOnRefreshListener {
             mViewModel.refreshDataSource()
@@ -65,7 +52,7 @@ class ReposFragment : BaseFragment() {
         }
 
         // list item clicked event.
-        observe(mAdapter.getItemClickEvent(), BaseApplication.INSTANCE::jumpBrowser)
+        observe(mAdapter.getItemClickEvent(), requireActivity()::jumpBrowser)
 
         observe(mViewModel.viewStateLiveData, this::onNewState)
     }
@@ -94,15 +81,5 @@ class ReposFragment : BaseFragment() {
                     else -> throw IllegalArgumentException("failure menuItem id.")
                 }
         )
-    }
-
-    private fun switchFabState(show: Boolean) {
-        when (show) {
-            false -> ObjectAnimator.ofFloat(fabTop, "translationX", 250f, 0f)
-            true -> ObjectAnimator.ofFloat(fabTop, "translationX", 0f, 250f)
-        }.apply {
-            duration = 300
-            start()
-        }
     }
 }

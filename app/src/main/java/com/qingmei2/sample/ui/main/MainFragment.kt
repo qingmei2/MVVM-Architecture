@@ -9,13 +9,10 @@ import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
 import com.qingmei2.architecture.core.adapter.ViewPagerAdapter
 import com.qingmei2.architecture.core.base.view.fragment.BaseFragment
-import com.qingmei2.architecture.core.ext.reactivex.clicksThrottleFirst
 import com.qingmei2.sample.R
 import com.qingmei2.sample.ui.main.home.HomeFragment
 import com.qingmei2.sample.ui.main.profile.ProfileFragment
 import com.qingmei2.sample.ui.main.repos.ReposFragment
-import com.uber.autodispose.autoDisposable
-import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
@@ -69,13 +66,9 @@ class MainFragment : BaseFragment() {
     }
 
     private fun bindsLandScreen() {
-        Observable.mergeArray(
-                fabHome.clicksThrottleFirst().map { 0 },
-                fabRepo.clicksThrottleFirst().map { 1 },
-                fabProfile.clicksThrottleFirst().map { 2 }
-        )
-                .autoDisposable(scopeProvider)
-                .subscribe(this::onPageSelectChanged)
+        fabHome.setOnClickListener { onPageSelectChanged(0) }
+        fabRepo.setOnClickListener { onPageSelectChanged(1) }
+        fabProfile.setOnClickListener { onPageSelectChanged(2) }
     }
 
     private fun onPageSelectChanged(index: Int) {
