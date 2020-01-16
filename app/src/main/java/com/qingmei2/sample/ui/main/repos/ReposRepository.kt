@@ -34,7 +34,7 @@ class ReposRepository(
     }
 
     @MainThread
-    suspend fun fetchRepoDataSourceFactory(): DataSource.Factory<Int, Repo> {
+    fun fetchRepoDataSourceFactory(): DataSource.Factory<Int, Repo> {
         return localDataSource.fetchRepoDataSourceFactory()
     }
 
@@ -76,7 +76,7 @@ class LocalReposDataSource(
 ) : ILocalDataSource {
 
     @AnyThread
-    suspend fun fetchRepoDataSourceFactory(): DataSource.Factory<Int, Repo> {
+    fun fetchRepoDataSourceFactory(): DataSource.Factory<Int, Repo> {
         return db.userReposDao().queryRepos()
     }
 
