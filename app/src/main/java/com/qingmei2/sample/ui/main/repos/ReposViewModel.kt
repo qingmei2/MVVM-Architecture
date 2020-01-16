@@ -23,6 +23,11 @@ class ReposViewModel(
     private val _viewStateLiveData: MutableLiveData<ReposViewState> = MutableLiveData(ReposViewState.initial())
     val viewStateLiveData: LiveData<ReposViewState> = _viewStateLiveData
 
+    val pagedListLiveData: LiveData<PagedList<Repo>>
+        get() = repository
+                .fetchRepoDataSourceFactory()
+                .toLiveDataPagedList(boundaryCallback = mBoundaryCallback)
+
     private val mBoundaryCallback = RepoBoundaryCallback { result, pageIndex ->
         // Paging 预加载分页的结果，不需要对Error或者Refresh进行展示
         // 这会给用户一种无限加载列表的效果
@@ -33,24 +38,6 @@ class ReposViewModel(
                     false -> repository.insertNewPageData(result.data)
                 }
             }
-        }
-    }
-
-    init {
-        initPagedList()
-    }
-
-    private fun initPagedList() {
-        // TODO leak memory.
-        viewModelScope.launch {
-            repository
-                    .fetchRepoDataSourceFactory()
-                    .toLiveDataPagedList(boundaryCallback = mBoundaryCallback)
-                    .observeForever { pagedList ->
-                        _viewStateLiveData.postNext { state ->
-                            state.copy(isLoading = false, throwable = null, pagedList = pagedList)
-                        }
-                    }
         }
     }
 

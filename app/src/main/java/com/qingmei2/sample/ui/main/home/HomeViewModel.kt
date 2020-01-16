@@ -20,6 +20,11 @@ class HomeViewModel(
 
     private val _viewStateLiveData: MutableLiveData<HomeViewState> = MutableLiveData(HomeViewState.initial())
 
+    val pagedListLiveData: LiveData<PagedList<ReceivedEvent>>
+        get() = repository
+                .fetchEventDataSourceFactory()
+                .toLiveDataPagedList(boundaryCallback = mBoundaryCallback)
+
     val viewStateLiveData: LiveData<HomeViewState> = _viewStateLiveData
 
     private val mBoundaryCallback = HomeBoundaryCallback { result, pageIndex ->
@@ -34,22 +39,6 @@ class HomeViewModel(
                 else -> Unit    // do nothing
             }
         }
-    }
-
-    init {
-        subscribePagedList()
-    }
-
-    private fun subscribePagedList() {
-        // TODO leak memory.
-        repository
-                .fetchEventDataSourceFactory()
-                .toLiveDataPagedList(boundaryCallback = mBoundaryCallback)
-                .observeForever { pagedList ->
-                    _viewStateLiveData.postNext { state ->
-                        state.copy(isLoading = false, throwable = null, pagedList = pagedList)
-                    }
-                }
     }
 
     /**

@@ -2,10 +2,13 @@ package com.qingmei2.sample.ui.main.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.paging.PagedList
 import com.qingmei2.architecture.core.base.view.fragment.BaseFragment
 import com.qingmei2.architecture.core.ext.jumpBrowser
 import com.qingmei2.architecture.core.ext.observe
 import com.qingmei2.sample.R
+import com.qingmei2.sample.entity.ReceivedEvent
+import com.qingmei2.sample.utils.removeAllAnimation
 import com.qingmei2.sample.utils.toast
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.kodein.di.Kodein
@@ -29,6 +32,7 @@ class HomeFragment : BaseFragment() {
         binds()
 
         mRecyclerView.adapter = mAdapter
+        mRecyclerView.removeAllAnimation()
     }
 
     private fun binds() {
@@ -45,17 +49,19 @@ class HomeFragment : BaseFragment() {
         // list item clicked event.
         observe(mAdapter.observeItemEvent(), requireActivity()::jumpBrowser)
 
-        // 订阅UI状态的变更
-        observe(mViewModel.viewStateLiveData, this::onStateArrived)
+        // subscribe UI state.
+        observe(mViewModel.viewStateLiveData, this::onNewState)
+        observe(mViewModel.pagedListLiveData, this::onPagedList)
     }
 
-    private fun onStateArrived(state: HomeViewState) {
+    private fun onPagedList(pagedList: PagedList<ReceivedEvent>) {
+        mAdapter.submitList(pagedList)
+        mRecyclerView.scrollToPosition(0)
+    }
+
+    private fun onNewState(state: HomeViewState) {
         if (state.throwable != null) {
             toast { state.throwable.message ?: "network error." }
-        }
-
-        if (state.pagedList != null) {
-            mAdapter.submitList(state.pagedList)
         }
 
         if (state.isLoading != mSwipeRefreshLayout.isRefreshing) {
