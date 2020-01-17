@@ -1,0 +1,2 @@
+- name: Android Emulator Runner
+  uses: ReactiveCircus/android-emulator-runner@v2.2.0
