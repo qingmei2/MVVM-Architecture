@@ -4,14 +4,14 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion build_version.compileSdkVersion
+    compileSdkVersion BuildVersions.compileSdkVersion
 
     defaultConfig {
         applicationId "com.qingmei2.sample"
-        minSdkVersion build_version.minSdkVersion
-        targetSdkVersion build_version.targetSdkVersion
-        versionCode build_version.versionCode
-        versionName build_version.versionName
+        minSdkVersion BuildVersions.minSdkVersion
+        targetSdkVersion BuildVersions.targetSdkVersion
+        versionCode BuildVersions.versionCode
+        versionName BuildVersions.versionName
 
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -42,29 +42,29 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':architecture-core')
 
-    implementation libs.appcompat
-    implementation libs.recyclerview
-    implementation libs.design
-    implementation libs.constraint
-    implementation libs.flexbox
-    implementation libs.swiperefreshlayout
+    implementation Dependencies.appcompat
+    implementation Dependencies.recyclerview
+    implementation Dependencies.materialDesign
+    implementation Dependencies.constraintlayout
+    implementation Dependencies.flexbox
+    implementation Dependencies.swiperefreshlayout
 
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.cpacm:floatingmusicmenu:1.0.0'
 
     implementation 'com.facebook.stetho:stetho:1.5.1'
 
-    debugImplementation libs.leak_canary_debug
-    debugImplementation libs.leak_canary_debug_support
-    releaseImplementation libs.leak_canary_release
+    debugImplementation Dependencies.leakCanaryDebug
+    debugImplementation Dependencies.leakCanaryDebugSupport
+    releaseImplementation Dependencies.leakCanaryRelease
 
-    kapt libs.glide_compiler
-    kapt libs.jetpack_room_compiler
-    kapt libs.jetpack_lifecycle_compiler
+    kapt Dependencies.glideCompiler
+    kapt Dependencies.roomCompiler
+    kapt Dependencies.lifecycleCompiler
 
-    testImplementation libs.junit
+    testImplementation Dependencies.junit4
 
-    androidTestImplementation libs.espresso_core
+    androidTestImplementation Dependencies.espresso
 }
 
 kapt {

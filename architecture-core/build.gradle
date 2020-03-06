@@ -4,13 +4,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion build_version.compileSdkVersion
+    compileSdkVersion BuildVersions.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion build_version.minSdkVersion
-        targetSdkVersion build_version.targetSdkVersion
-        versionCode build_version.versionCode
-        versionName build_version.versionName
+        minSdkVersion BuildVersions.minSdkVersion
+        targetSdkVersion BuildVersions.targetSdkVersion
+        versionCode BuildVersions.versionCode
+        versionName BuildVersions.versionName
 
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -42,50 +42,51 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // support
-    implementation libs.appcompat
-    implementation libs.design
-    implementation libs.recyclerview
+    implementation Dependencies.appcompat
+    implementation Dependencies.materialDesign
+    implementation Dependencies.recyclerview
 
-    api libs.kotlin_stdlib
-    api libs.kotlin_coroutines
+    api Dependencies.kotlinLibrary
+    api Dependencies.kotlinCoroutinesLibrary
 
-    api libs.jetpack_lifecycle_extensions
-    api libs.jetpack_lifecycle_java8
-    api libs.jetpack_lifecycle_ktx
+    api Dependencies.lifecycleExtension
+    api Dependencies.lifecycleJava8
+    api Dependencies.lifecycleKtx
 
-    api libs.jetpack_livedata_ktx
+    api Dependencies.livedataKtx
 
-    api libs.jetpack_viewmodel
-    api libs.jetpack_viewmodel_ktx
+    api Dependencies.viewModel
+    api Dependencies.viewModelKtx
 
-    api libs.jetpack_room
-    api libs.jetpack_room_ktx
+    api Dependencies.room
+    api Dependencies.roomKtx
 
-    api libs.jetpack_navigation
-    api libs.jetpack_navigation_ui
+    api Dependencies.navigation
+    api Dependencies.navigationUi
 
-    api libs.jetpack_paging
+    api Dependencies.paging
 
     // retrofit
-    api libs.retrofit
-    api libs.retrofit_gson
+    api Dependencies.retrofit
+    api Dependencies.retrofitGson
+    api Dependencies.retrofitRx
 
     // kodein
-    api libs.kodein
-    api libs.kodein_android
-    api libs.kodein_androidx
+    api Dependencies.kodein
+    api Dependencies.kodeinAndroid
+    api Dependencies.kodeinAndroidX
 
     // okhttp
-    api libs.okhttp
-    api libs.okhttp_logging
+    api Dependencies.okhttp
+    api Dependencies.okhttpLogging
 
     // glide
-    api libs.glide
-    kapt libs.glide_compiler
+    api Dependencies.glide
+    kapt Dependencies.glideCompiler
 
     // logger
-    api libs.timber
+    api Dependencies.timber
 
-    testImplementation libs.junit
-    androidTestImplementation libs.espresso_core
+    testImplementation Dependencies.junit4
+    androidTestImplementation Dependencies.espresso
 }
