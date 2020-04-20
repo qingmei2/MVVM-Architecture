@@ -100,25 +100,29 @@ class ReposViewModel(
         private val mHelper = PagingRequestHelper(mExecutor)
 
         override fun onZeroItemsLoaded() {
-            mHelper.runIfNotRunning(PagingRequestHelper.RequestType.INITIAL) { callback ->
-                viewModelScope.launch {
-                    val result = repository.fetchRepoByPage(fetchCurrentSort(), 1)
-                    handleResponse(result, 1)
-                    callback.recordSuccess()
+            mHelper.runIfNotRunning(PagingRequestHelper.RequestType.INITIAL, object : PagingRequestHelper.Request {
+                override fun run(callback: PagingRequestHelper.Request.Callback) {
+                    viewModelScope.launch {
+                        val result = repository.fetchRepoByPage(fetchCurrentSort(), 1)
+                        handleResponse(result, 1)
+                        callback.recordSuccess()
+                    }
                 }
-            }
+            })
         }
 
         override fun onItemAtEndLoaded(itemAtEnd: Repo) {
-            mHelper.runIfNotRunning(PagingRequestHelper.RequestType.AFTER) { callback ->
-                val currentPageIndex = (itemAtEnd.indexInSortResponse / 30) + 1
-                val nextPageIndex = currentPageIndex + 1
-                viewModelScope.launch {
-                    val result = repository.fetchRepoByPage(fetchCurrentSort(), nextPageIndex)
-                    handleResponse(result, nextPageIndex)
-                    callback.recordSuccess()
+            mHelper.runIfNotRunning(PagingRequestHelper.RequestType.AFTER, object : PagingRequestHelper.Request {
+                override fun run(callback: PagingRequestHelper.Request.Callback) {
+                    val currentPageIndex = (itemAtEnd.indexInSortResponse / 30) + 1
+                    val nextPageIndex = currentPageIndex + 1
+                    viewModelScope.launch {
+                        val result = repository.fetchRepoByPage(fetchCurrentSort(), nextPageIndex)
+                        handleResponse(result, nextPageIndex)
+                        callback.recordSuccess()
+                    }
                 }
-            }
+            })
         }
     }
 }

@@ -82,26 +82,30 @@ class HomeViewModel(
         private val mHelper = PagingRequestHelper(mExecutor)
 
         override fun onZeroItemsLoaded() {
-            mHelper.runIfNotRunning(PagingRequestHelper.RequestType.INITIAL) { callback ->
-                viewModelScope.launch {
-                    val result = repository.fetchEventByPage(1)
-                    handleResponse(result, 1)
-                    callback.recordSuccess()
+            mHelper.runIfNotRunning(PagingRequestHelper.RequestType.INITIAL, object : PagingRequestHelper.Request {
+                override fun run(callback: PagingRequestHelper.Request.Callback) {
+                    viewModelScope.launch {
+                        val result = repository.fetchEventByPage(1)
+                        handleResponse(result, 1)
+                        callback.recordSuccess()
+                    }
                 }
-            }
+            })
         }
 
         override fun onItemAtEndLoaded(itemAtEnd: ReceivedEvent) {
-            mHelper.runIfNotRunning(PagingRequestHelper.RequestType.AFTER) { callback ->
-                val currentPageIndex = (itemAtEnd.indexInResponse / 30) + 1
-                val nextPageIndex = currentPageIndex + 1
+            mHelper.runIfNotRunning(PagingRequestHelper.RequestType.AFTER, object : PagingRequestHelper.Request {
+                override fun run(callback: PagingRequestHelper.Request.Callback) {
+                    val currentPageIndex = (itemAtEnd.indexInResponse / 30) + 1
+                    val nextPageIndex = currentPageIndex + 1
 
-                viewModelScope.launch {
-                    val result = repository.fetchEventByPage(nextPageIndex)
-                    handleResponse(result, nextPageIndex)
-                    callback.recordSuccess()
+                    viewModelScope.launch {
+                        val result = repository.fetchEventByPage(nextPageIndex)
+                        handleResponse(result, nextPageIndex)
+                        callback.recordSuccess()
+                    }
                 }
-            }
+            })
         }
     }
 }
