@@ -41,15 +41,16 @@ class LoginRemoteDataSource(
 
     suspend fun login(): Results<UserInfo> {
         // 1.用户登录认证
-        val userAccessTokenResponse =
-                serviceManager.loginService.authorizations(LoginRequestModel.generate())
-        return when (val results1 = processApiResponse(userAccessTokenResponse)) {
+        val userAccessTokenResult = processApiResponse {
+            serviceManager.loginService.authorizations(LoginRequestModel.generate())
+        }
+
+        return when (userAccessTokenResult) {
             is Results.Success -> {
                 // 2.获取用户详细信息
-                val userInfoResponse = serviceManager.userService.fetchUserOwner()
-                processApiResponse(userInfoResponse)
+                processApiResponse(serviceManager.userService::fetchUserOwner)
             }
-            is Results.Failure -> results1
+            is Results.Failure -> userAccessTokenResult
         }
     }
 }
