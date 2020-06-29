@@ -10,6 +10,9 @@ object Versions {
     const val jetpack_navigation = "2.2.0-rc04"
     const val jetpack_paging = "2.1.1"
 
+    const val jetpack_activity = "1.2.0-alpha02"
+    const val jetpack_fragment = "1.3.0-alpha02"
+
     const val retrofit = "2.7.1"
     const val kodein = "6.0.1"
     const val glide = "4.10.0"
@@ -53,6 +56,12 @@ object Dependencies {
     const val swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha03"
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:1.1.3"
     const val flexbox = "com.google.android:flexbox:1.1.0"
+
+    const val activity = "androidx.activity:activity:${Versions.jetpack_activity}"
+    const val activityKtx = "androidx.activity:activity-ktx:${Versions.jetpack_activity}"
+    const val fragment = "androidx.fragment:fragment:${Versions.jetpack_fragment}"
+    const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.jetpack_fragment}"
+    const val fragmentTest = "androidx.fragment:fragment-testing:${Versions.jetpack_fragment}"
 
     const val lifecycleExtension = "androidx.lifecycle:lifecycle-extensions:${Versions.jetpack_lifecycle}"
     const val lifecycleJava8 = "androidx.lifecycle:lifecycle-common-java8:${Versions.jetpack_lifecycle}"

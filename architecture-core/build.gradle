@@ -66,6 +66,11 @@ dependencies {
 
     api Dependencies.paging
 
+    api Dependencies.activity
+    api Dependencies.activityKtx
+    api Dependencies.fragment
+    api Dependencies.fragmentKtx
+
     // retrofit
     api Dependencies.retrofit
     api Dependencies.retrofitGson
