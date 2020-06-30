@@ -1,8 +1,12 @@
 package com.qingmei2.sample.ui.login
 
+import android.Manifest
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import com.qingmei2.architecture.core.base.view.fragment.BaseFragment
 import com.qingmei2.architecture.core.ext.observe
 import com.qingmei2.sample.R
@@ -23,7 +27,15 @@ class LoginFragment : BaseFragment() {
 
     override val layoutId: Int = R.layout.fragment_login
 
-    private val mViewModel: LoginViewModel by instance()
+    private val mViewModel: LoginViewModel by instance<LoginViewModel>()
+
+    private val permissionRequest: ActivityResultLauncher<String> =
+            prepareCall(ActivityResultContracts.RequestPermission()) { isGrant ->
+                when (isGrant) {
+                    true -> mViewModel.login(tvUsername.text.toString(), tvPassword.text.toString())
+                    false -> Toast.makeText(requireContext(), "need permission first.", Toast.LENGTH_SHORT).show()
+                }
+            }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,7 +44,7 @@ class LoginFragment : BaseFragment() {
 
     private fun binds() {
         mBtnSignIn.setOnClickListener {
-            mViewModel.login(tvUsername.text.toString(), tvPassword.text.toString())
+            permissionRequest.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
         }
 
         observe(mViewModel.stateLiveData, this::onNewState)
@@ -67,7 +79,7 @@ class LoginFragment : BaseFragment() {
         }
 
         if (state.loginInfo != null) {
-            MainActivity.launch(activity!!)
+            MainActivity.launch(requireActivity())
         }
     }
 }
