@@ -16,9 +16,10 @@ import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.http.service.ServiceManager
 import com.qingmei2.sample.manager.UserManager
 import com.qingmei2.sample.utils.processApiResponse
+import javax.inject.Inject
 
 @SuppressLint("CheckResult")
-class ReposRepository(
+class ReposRepository @Inject constructor(
         remote: RemoteReposDataSource,
         local: LocalReposDataSource
 ) : BaseRepositoryBoth<RemoteReposDataSource, LocalReposDataSource>(remote, local) {
@@ -49,7 +50,7 @@ class ReposRepository(
     }
 }
 
-class RemoteReposDataSource(private val serviceManager: ServiceManager) : IRemoteDataSource {
+class RemoteReposDataSource @Inject constructor(private val serviceManager: ServiceManager) : IRemoteDataSource {
 
     suspend fun queryRepos(
             username: String,
@@ -72,7 +73,7 @@ class RemoteReposDataSource(private val serviceManager: ServiceManager) : IRemot
     }
 }
 
-class LocalReposDataSource(
+class LocalReposDataSource @Inject constructor(
         private val db: UserDatabase
 ) : ILocalDataSource {
 

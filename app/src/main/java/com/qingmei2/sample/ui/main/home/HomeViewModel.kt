@@ -2,6 +2,7 @@ package com.qingmei2.sample.ui.main.home
 
 import androidx.annotation.WorkerThread
 import androidx.fragment.app.Fragment
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import androidx.paging.PagedList
 import com.qingmei2.architecture.core.base.viewmodel.BaseViewModel
@@ -14,7 +15,7 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.Executors
 
 @SuppressWarnings("checkResult")
-class HomeViewModel(
+class HomeViewModel @ViewModelInject constructor(
         private val repository: HomeRepository
 ) : BaseViewModel() {
 

@@ -3,6 +3,7 @@ package com.qingmei2.sample.ui.main.repos
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.fragment.app.Fragment
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import androidx.paging.PagedList
 import com.qingmei2.architecture.core.base.viewmodel.BaseViewModel
@@ -16,7 +17,7 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.Executors
 
 @SuppressWarnings("checkResult")
-class ReposViewModel(
+class ReposViewModel @ViewModelInject constructor(
         private val repository: ReposRepository
 ) : BaseViewModel() {
 

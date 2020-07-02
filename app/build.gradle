@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion BuildVersions.compileSdkVersion
@@ -61,6 +62,11 @@ dependencies {
     kapt Dependencies.glideCompiler
     kapt Dependencies.roomCompiler
     kapt Dependencies.lifecycleCompiler
+
+    implementation Dependencies.daggerHilt
+    implementation Dependencies.daggerViewModel
+    kapt Dependencies.daggerAndroidCompiler
+    kapt Dependencies.daggerHiltCompiler
 
     testImplementation Dependencies.junit4
 

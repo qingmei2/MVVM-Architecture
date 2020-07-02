@@ -3,6 +3,7 @@ package com.qingmei2.sample.ui.main.repos
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.paging.PagedList
 import com.qingmei2.architecture.core.base.view.fragment.BaseFragment
 import com.qingmei2.architecture.core.ext.jumpBrowser
@@ -11,6 +12,7 @@ import com.qingmei2.sample.R
 import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.utils.removeAllAnimation
 import com.qingmei2.sample.utils.toast
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_repos.*
 import kotlinx.android.synthetic.main.fragment_repos.fabTop
@@ -19,14 +21,13 @@ import kotlinx.android.synthetic.main.fragment_repos.mSwipeRefreshLayout
 import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
 
+@AndroidEntryPoint
 class ReposFragment : BaseFragment() {
 
     override val kodein: Kodein = Kodein.lazy {
-        extend(parentKodein)
-        import(reposKodeinModule)
     }
 
-    private val mViewModel: ReposViewModel by instance()
+    private val mViewModel: ReposViewModel by viewModels()
 
     override val layoutId: Int = R.layout.fragment_repos
 

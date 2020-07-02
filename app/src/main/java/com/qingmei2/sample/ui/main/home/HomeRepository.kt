@@ -15,9 +15,10 @@ import com.qingmei2.sample.entity.ReceivedEvent
 import com.qingmei2.sample.http.service.ServiceManager
 import com.qingmei2.sample.manager.UserManager
 import com.qingmei2.sample.utils.processApiResponse
+import javax.inject.Inject
 
 @SuppressLint("CheckResult")
-class HomeRepository(
+class HomeRepository @Inject constructor(
         remoteDataSource: HomeRemoteDataSource,
         localDataSource: HomeLocalDataSource
 ) : BaseRepositoryBoth<HomeRemoteDataSource, HomeLocalDataSource>(remoteDataSource, localDataSource) {
@@ -47,7 +48,7 @@ class HomeRepository(
     }
 }
 
-class HomeRemoteDataSource(private val serviceManager: ServiceManager) : IRemoteDataSource {
+class HomeRemoteDataSource @Inject constructor(private val serviceManager: ServiceManager) : IRemoteDataSource {
 
     suspend fun fetchEventsByPage(
             username: String,
@@ -69,7 +70,7 @@ class HomeRemoteDataSource(private val serviceManager: ServiceManager) : IRemote
 }
 
 @SuppressLint("CheckResult")
-class HomeLocalDataSource(private val db: UserDatabase) : ILocalDataSource {
+class HomeLocalDataSource @Inject constructor(private val db: UserDatabase) : ILocalDataSource {
 
     fun fetchPagedListFromLocal(): DataSource.Factory<Int, ReceivedEvent> {
         return db.userReceivedEventDao().queryEvents()

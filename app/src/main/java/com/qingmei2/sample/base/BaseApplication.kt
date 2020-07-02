@@ -7,6 +7,7 @@ import com.qingmei2.architecture.core.logger.initLogger
 import com.qingmei2.sample.BuildConfig
 import com.qingmei2.sample.di.*
 import com.squareup.leakcanary.LeakCanary
+import dagger.hilt.android.HiltAndroidApp
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.androidModule
@@ -14,6 +15,7 @@ import org.kodein.di.android.x.androidXModule
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.singleton
 
+@HiltAndroidApp
 open class BaseApplication : Application(), KodeinAware {
 
     override val kodein: Kodein = Kodein.lazy {

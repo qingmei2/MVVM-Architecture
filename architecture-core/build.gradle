@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion BuildVersions.compileSdkVersion
@@ -66,6 +67,7 @@ dependencies {
 
     api Dependencies.paging
 
+    // activity & fragment
     api Dependencies.activity
     api Dependencies.activityKtx
     api Dependencies.fragment
@@ -80,6 +82,12 @@ dependencies {
     api Dependencies.kodein
     api Dependencies.kodeinAndroid
     api Dependencies.kodeinAndroidX
+
+    // dagger
+    api Dependencies.daggerHilt
+    api Dependencies.daggerViewModel
+    kapt Dependencies.daggerAndroidCompiler
+    kapt Dependencies.daggerHiltCompiler
 
     // okhttp
     api Dependencies.okhttp

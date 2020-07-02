@@ -2,24 +2,25 @@ package com.qingmei2.sample.ui.main.profile
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.request.RequestOptions
 import com.qingmei2.architecture.core.base.view.fragment.BaseFragment
 import com.qingmei2.architecture.core.ext.observe
 import com.qingmei2.architecture.core.image.GlideApp
 import com.qingmei2.sample.R
 import com.qingmei2.sample.utils.toast
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
 
+@AndroidEntryPoint
 class ProfileFragment : BaseFragment() {
 
     override val kodein: Kodein = Kodein.lazy {
-        extend(parentKodein)
-        import(profileKodeinModule)
     }
 
-    private val mViewModel: ProfileViewModel by instance()
+    private val mViewModel: ProfileViewModel by viewModels()
 
     override val layoutId: Int = R.layout.fragment_profile
 

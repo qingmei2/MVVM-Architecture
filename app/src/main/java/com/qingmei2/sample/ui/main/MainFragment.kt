@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.viewModels
 import androidx.viewpager.widget.ViewPager
 import com.qingmei2.architecture.core.adapter.ViewPagerAdapter
 import com.qingmei2.architecture.core.base.view.fragment.BaseFragment
@@ -13,25 +14,25 @@ import com.qingmei2.sample.R
 import com.qingmei2.sample.ui.main.home.HomeFragment
 import com.qingmei2.sample.ui.main.profile.ProfileFragment
 import com.qingmei2.sample.ui.main.repos.ReposFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
+import javax.inject.Inject
 
 @Suppress("PLUGIN_WARNING")
 @SuppressLint("CheckResult")
+@AndroidEntryPoint
 class MainFragment : BaseFragment() {
 
     override val kodein: Kodein = Kodein.lazy {
-        extend(parentKodein)
-        import(mainKodeinModule)
-        bind<FragmentManager>() with instance(childFragmentManager)
+
     }
 
     override val layoutId: Int = R.layout.fragment_main
 
-    @Suppress("unused")
-    private val mViewModel: MainViewModel by instance()     // not used
+    private val mViewModel: MainViewModel by viewModels()     // not used
 
     private var isPortMode: Boolean = true
 

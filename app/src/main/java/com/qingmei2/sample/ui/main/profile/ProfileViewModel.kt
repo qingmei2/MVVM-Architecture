@@ -1,13 +1,14 @@
 package com.qingmei2.sample.ui.main.profile
 
 import androidx.fragment.app.Fragment
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.qingmei2.architecture.core.base.viewmodel.BaseViewModel
 
-class ProfileViewModel(
+class ProfileViewModel @ViewModelInject constructor(
         private val repo: ProfileRepository
 ) : BaseViewModel() {
 

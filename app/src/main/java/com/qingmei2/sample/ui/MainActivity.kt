@@ -5,7 +5,9 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.Navigation
 import com.qingmei2.architecture.core.base.view.activity.BaseActivity
 import com.qingmei2.sample.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     override val layoutId = R.layout.activity_main
