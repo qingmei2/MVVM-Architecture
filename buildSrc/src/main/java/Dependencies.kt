@@ -15,6 +15,8 @@ object Versions {
 
     const val retrofit = "2.7.1"
     const val kodein = "6.0.1"
+    const val dagger = "2.28-alpha"
+    const val dagger_lifecycle = "1.0.0-alpha01"
     const val glide = "4.10.0"
 
     const val rxjava = "2.2.4"
@@ -40,6 +42,7 @@ object BuildVersions {
 object BuildPlugins {
     const val androidGradle = "com.android.tools.build:gradle:${Versions.android_plugin}"
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
+    const val daggerGradle = "com.google.dagger:hilt-android-gradle-plugin:${Versions.dagger}"
 }
 
 object Dependencies {
@@ -111,6 +114,12 @@ object Dependencies {
     const val kodein = "org.kodein.di:kodein-di-generic-jvm:${Versions.kodein}"
     const val kodeinAndroid = "org.kodein.di:kodein-di-framework-android-core:${Versions.kodein}"
     const val kodeinAndroidX = "org.kodein.di:kodein-di-framework-android-x:${Versions.kodein}"
+
+    const val daggerHilt= "com.google.dagger:hilt-android:${Versions.dagger}"
+    const val daggerAndroidCompiler= "com.google.dagger:hilt-android-compiler:${Versions.dagger}"
+
+    const val daggerViewModel= "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.dagger_lifecycle}"
+    const val daggerHiltCompiler= "androidx.hilt:hilt-compiler:${Versions.dagger_lifecycle}"
 
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
