@@ -6,9 +6,13 @@
 
 ## 通知
 
-* 这个项目采用了2种 `Mvvm` 的实现方式，你可以参考任意感兴趣的进行了解：[Jetpack + 协程](https://github.com/qingmei2/MVVM-Rhine) 或者 [Jetpack + RxJava](https://github.com/qingmei2/MVVM-Rhine/tree/branch_rxjava) 。
+这个项目采用了数种 `Mvvm` 的实现方式，你可以参考任意感兴趣的进行了解：
 
-* 项目中并未使用 `DataBinding`，我个人对 `Mvvm` 的见解，请参考 [这里](https://github.com/qingmei2/MVVM-Rhine/issues/15)。
+* [Jetpack + Coroutine + Dagger-Hilt](https://github.com/qingmei2/MVVM-Rhine) 
+* [Jetpack + Coroutine + Kodein](https://github.com/qingmei2/MVVM-Rhine) 
+* [Jetpack + RxJava + Kodein](https://github.com/qingmei2/MVVM-Rhine/tree/branch_rxjava) 
+
+> 项目中并未使用 `DataBinding`，我个人对 `Mvvm` 的见解，请参考 [这里](https://github.com/qingmei2/MVVM-Rhine/issues/15)。
 
 ## 屏幕截图
 
@@ -43,7 +47,9 @@
 
 ### 依赖注入
 
-* [Kodein-DI: Painless Kotlin Dependency Injection](https://github.com/Kodein-Framework/Kodein-DI)
+* [Dagger-hilt: Dependency injection with Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
+
+* [~~Kodein-DI: Painless Kotlin Dependency Injection~~](https://github.com/Kodein-Framework/Kodein-DI)
 
 ### 其它
 

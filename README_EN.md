@@ -39,7 +39,9 @@ This repo provides two `Mvvm` architecture implementation, see [Coroutine + Jetp
 
 ### DI
 
-* [Kodein-DI: Painless Kotlin Dependency Injection](https://github.com/Kodein-Framework/Kodein-DI)
+* [~~Kodein-DI: Painless Kotlin Dependency Injection~~](https://github.com/Kodein-Framework/Kodein-DI)
+
+* [Dagger-hilt: Dependency injection with Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
 
 ### Others
 
