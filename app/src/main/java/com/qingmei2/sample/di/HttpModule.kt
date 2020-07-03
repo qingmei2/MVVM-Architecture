@@ -19,6 +19,8 @@ import javax.inject.Singleton
 @Module
 @InstallIn(ApplicationComponent::class)
 object HttpModule {
+    const val TIME_OUT_SECONDS = 10
+    const val BASE_URL = "https://api.github.com/"
 
     @Provides
     @Singleton
