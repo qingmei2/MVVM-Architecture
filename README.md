@@ -1,26 +1,26 @@
-# Mvvm-Architecture
+# MVVM-Architecture
 
-**Android端 Mvvm + 协程 + Jetpack 架构组件的Github客户端。**
+**Android端 MVVM + Jetpack 架构组件的Github客户端。**
 
-* [English Document](https://github.com/qingmei2/MVVM-Rhine/blob/master/README_EN.md) | 中文文档
+* [English Document](https://github.com/qingmei2/MVVM-Architecture/blob/master/README_EN.md) | 中文文档
 
 ## 通知
 
 这个项目采用了数种 `Mvvm` 的实现方式，你可以参考任意感兴趣的进行了解：
 
-* [Jetpack + Coroutine + Dagger-Hilt](https://github.com/qingmei2/MVVM-Rhine) 
-* [Jetpack + Coroutine + Kodein](https://github.com/qingmei2/MVVM-Rhine) 
-* [Jetpack + RxJava + Kodein](https://github.com/qingmei2/MVVM-Rhine/tree/branch_rxjava) 
+* [Jetpack + Coroutine + Dagger-Hilt](https://github.com/qingmei2/MVVM-Architecture) 
+* [Jetpack + Coroutine + Kodein](https://github.com/qingmei2/MVVM-Architecture/tree/kodein_coroutine_livedata) 
+* [Jetpack + RxJava + Kodein](https://github.com/qingmei2/MVVM-Architecture/tree/branch_rxjava) 
 
-> 项目中并未使用 `DataBinding`，我个人对 `Mvvm` 的见解，请参考 [这里](https://github.com/qingmei2/MVVM-Rhine/issues/15)。
+> 项目中并未使用 `DataBinding`，我个人对 `Mvvm` 的见解，请参考 [这里](https://github.com/qingmei2/MVVM-Architecture/issues/15)。
 
 ## 屏幕截图
 
 <div align:left;display:inline;>
-<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/login.png"/>
-<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/home.png"/>
-<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/repos.png"/>
-<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/me.png"/>
+<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Architecture/blob/master/screenshots/login.png"/>
+<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Architecture/blob/master/screenshots/home.png"/>
+<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Architecture/blob/master/screenshots/repos.png"/>
+<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Architecture/blob/master/screenshots/me.png"/>
 </div>
 
 ## 三方组件
@@ -107,11 +107,6 @@ CLIENT_SECRET = "xxxxxx"
 >* [Android官方架构组件LiveData: 观察者模式领域二三事（*）](https://juejin.im/post/5c25753af265da61561f5335)
 >* [Android官方架构组件DataBinding-Ex:双向绑定篇（*）](https://juejin.im/post/5c3e04b7f265da611b589574)  
 
-如何使用`Kodein`进行依赖注入？
-
-> * [ 告别Dagger2，在Kotlin项目中使用Kodein进行依赖注入 ](https://www.jianshu.com/p/b0da805f7534)
-> * [ Android开发从Dagger2迁移至Kodein的感受  ](https://www.jianshu.com/p/e5eef49570b9)
-
 ## 感谢
 
 :art: 项目中的UI设计部分参考了 [gitme](https://github.com/flutterchina/gitme).
@@ -120,7 +115,7 @@ CLIENT_SECRET = "xxxxxx"
 
 ## 其他开源项目
 
-> [MVI-Rhine: 基于Jetpack + MVVM, 更加响应式&函数式的编程实践](https://github.com/qingmei2/MVI-Rhine)
+> [MVI-Architecture: 基于Jetpack, 更加响应式&函数式的编程实践](https://github.com/qingmei2/MVI-Architecture)
 
 > [RxImagePicker: 灵活的Android图片选择器，提供了知乎和微信主题的支持](https://github.com/qingmei2/RxImagePicker)
 

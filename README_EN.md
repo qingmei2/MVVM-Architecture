@@ -1,18 +1,22 @@
-# Mvvm-Architecture
+# MVVM-Architecture
 
-**The Mvvm arch using Coroutine and Android Jetpack.**
+**The MVVM arch using Coroutine and Android Jetpack.**
 
-* English Documentation | [中文文档](https://github.com/qingmei2/MVVM-Rhine)
+* English Documentation | [中文文档](https://github.com/qingmei2/MVVM-Architecture)
 
-This repo provides two `Mvvm` architecture implementation, see [Coroutine + Jetpack](https://github.com/qingmei2/MVVM-Rhine) or [RxJava + Jetpack](https://github.com/qingmei2/MVVM-Rhine/tree/branch_rxjava).
+This repo provides two `Mvvm` architecture implementation, see:
+ 
+* [Jetpack + Coroutine + Dagger-Hilt](https://github.com/qingmei2/MVVM-Architecture) 
+* [Jetpack + Coroutine + Kodein](https://github.com/qingmei2/MVVM-Architecture/tree/kodein_coroutine_livedata) 
+* [Jetpack + RxJava + Kodein](https://github.com/qingmei2/MVVM-Architecture/tree/branch_rxjava) 
 
 ## ScreenShots
 
 <div align:left;display:inline;>
-<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/login.png"/>
-<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/home.png"/>
-<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/repos.png"/>
-<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/me.png"/>
+<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Architecture/blob/master/screenshots/login.png"/>
+<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Architecture/blob/master/screenshots/home.png"/>
+<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Architecture/blob/master/screenshots/repos.png"/>
+<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Architecture/blob/master/screenshots/me.png"/>
 </div>
 
 ## Libraries
