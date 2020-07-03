@@ -24,9 +24,6 @@ import org.kodein.di.generic.instance
 @AndroidEntryPoint
 class ReposFragment : BaseFragment() {
 
-    override val kodein: Kodein = Kodein.lazy {
-    }
-
     private val mViewModel: ReposViewModel by viewModels()
 
     override val layoutId: Int = R.layout.fragment_repos

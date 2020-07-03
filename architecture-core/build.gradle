@@ -78,11 +78,6 @@ dependencies {
     api Dependencies.retrofitGson
     api Dependencies.retrofitRx
 
-    // kodein
-    api Dependencies.kodein
-    api Dependencies.kodeinAndroid
-    api Dependencies.kodeinAndroidX
-
     // dagger
     api Dependencies.daggerHilt
     api Dependencies.daggerViewModel

@@ -1,8 +1,10 @@
 package com.qingmei2.architecture.core.base.view.activity
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.qingmei2.architecture.core.base.view.IView
 
-abstract class BaseActivity : InjectionActivity() {
+abstract class BaseActivity : AppCompatActivity(), IView {
 
     abstract val layoutId: Int
 

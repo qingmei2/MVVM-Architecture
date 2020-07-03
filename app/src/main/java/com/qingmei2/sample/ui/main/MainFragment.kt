@@ -5,7 +5,6 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.viewpager.widget.ViewPager
 import com.qingmei2.architecture.core.adapter.ViewPagerAdapter
@@ -16,19 +15,11 @@ import com.qingmei2.sample.ui.main.profile.ProfileFragment
 import com.qingmei2.sample.ui.main.repos.ReposFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_main.*
-import org.kodein.di.Kodein
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import javax.inject.Inject
 
 @Suppress("PLUGIN_WARNING")
 @SuppressLint("CheckResult")
 @AndroidEntryPoint
 class MainFragment : BaseFragment() {
-
-    override val kodein: Kodein = Kodein.lazy {
-
-    }
 
     override val layoutId: Int = R.layout.fragment_main
 

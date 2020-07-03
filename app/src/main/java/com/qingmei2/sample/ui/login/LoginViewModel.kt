@@ -1,5 +1,6 @@
 package com.qingmei2.sample.ui.login
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.qingmei2.architecture.core.base.viewmodel.BaseViewModel
 import com.qingmei2.architecture.core.ext.postNext
@@ -8,7 +9,7 @@ import com.qingmei2.sample.http.Errors
 import kotlinx.coroutines.launch
 
 @SuppressWarnings("checkResult")
-class LoginViewModel(
+class LoginViewModel @ViewModelInject constructor(
         private val repo: LoginRepository
 ) : BaseViewModel() {
 

@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.qingmei2.architecture.core.base.view.IView
 
-abstract class BaseFragment : InjectionFragment() {
+abstract class BaseFragment : Fragment(), IView {
 
     private var mRootView: View? = null
 

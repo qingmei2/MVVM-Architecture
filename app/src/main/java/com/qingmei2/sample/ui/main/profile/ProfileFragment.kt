@@ -11,14 +11,9 @@ import com.qingmei2.sample.R
 import com.qingmei2.sample.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_profile.*
-import org.kodein.di.Kodein
-import org.kodein.di.generic.instance
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment() {
-
-    override val kodein: Kodein = Kodein.lazy {
-    }
 
     private val mViewModel: ProfileViewModel by viewModels()
 

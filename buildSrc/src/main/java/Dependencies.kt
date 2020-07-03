@@ -14,7 +14,6 @@ object Versions {
     const val jetpack_fragment = "1.3.0-alpha02"
 
     const val retrofit = "2.7.1"
-    const val kodein = "6.0.1"
     const val dagger = "2.28-alpha"
     const val dagger_lifecycle = "1.0.0-alpha01"
     const val glide = "4.10.0"
@@ -110,10 +109,6 @@ object Dependencies {
     const val autoDisposeKtx = "com.uber.autodispose:autodispose-ktx:${Versions.autodispose}"
     const val autoDisposeAndroidKtx = "com.uber.autodispose:autodispose-android-ktx:${Versions.autodispose}"
     const val autoDisposeArchsKtx = "com.uber.autodispose:autodispose-android-archcomponents-ktx:${Versions.autodispose}"
-
-    const val kodein = "org.kodein.di:kodein-di-generic-jvm:${Versions.kodein}"
-    const val kodeinAndroid = "org.kodein.di:kodein-di-framework-android-core:${Versions.kodein}"
-    const val kodeinAndroidX = "org.kodein.di:kodein-di-framework-android-x:${Versions.kodein}"
 
     const val daggerHilt= "com.google.dagger:hilt-android:${Versions.dagger}"
     const val daggerAndroidCompiler= "com.google.dagger:hilt-android-compiler:${Versions.dagger}"

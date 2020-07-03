@@ -11,8 +11,9 @@ import com.qingmei2.sample.http.service.bean.LoginRequestModel
 import com.qingmei2.sample.manager.UserManager
 import com.qingmei2.sample.repository.UserInfoRepository
 import com.qingmei2.sample.utils.processApiResponse
+import javax.inject.Inject
 
-class LoginRepository(
+class LoginRepository @Inject constructor(
         remoteDataSource: LoginRemoteDataSource,
         localDataSource: LoginLocalDataSource
 ) : BaseRepositoryBoth<LoginRemoteDataSource, LoginLocalDataSource>(remoteDataSource, localDataSource) {
@@ -35,7 +36,7 @@ class LoginRepository(
     }
 }
 
-class LoginRemoteDataSource(
+class LoginRemoteDataSource @Inject constructor(
         private val serviceManager: ServiceManager
 ) : IRemoteDataSource {
 
@@ -55,7 +56,7 @@ class LoginRemoteDataSource(
     }
 }
 
-class LoginLocalDataSource(
+class LoginLocalDataSource @Inject constructor(
         private val db: UserDatabase,
         private val userRepository: UserInfoRepository
 ) : ILocalDataSource {

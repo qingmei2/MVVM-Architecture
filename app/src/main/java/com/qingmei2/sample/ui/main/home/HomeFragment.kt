@@ -13,14 +13,9 @@ import com.qingmei2.sample.utils.removeAllAnimation
 import com.qingmei2.sample.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
-import org.kodein.di.Kodein
-import org.kodein.di.generic.instance
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
-
-    override val kodein: Kodein = Kodein.lazy {
-    }
 
     private val mViewModel: HomeViewModel by viewModels()
 
