@@ -18,8 +18,6 @@ import kotlinx.android.synthetic.main.fragment_repos.*
 import kotlinx.android.synthetic.main.fragment_repos.fabTop
 import kotlinx.android.synthetic.main.fragment_repos.mRecyclerView
 import kotlinx.android.synthetic.main.fragment_repos.mSwipeRefreshLayout
-import org.kodein.di.Kodein
-import org.kodein.di.generic.instance
 
 @AndroidEntryPoint
 class ReposFragment : BaseFragment() {
