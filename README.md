@@ -14,6 +14,8 @@
 
 > 项目中并未使用 `DataBinding`，我个人对 `Mvvm` 的见解，请参考 [这里](https://github.com/qingmei2/MVVM-Architecture/issues/15)。
 
+> 有的小伙伴好奇 **为什么这个项目这么简单** ，关于我对这个项目的定位，请参考 [这里](https://github.com/qingmei2/MVVM-Architecture/issues/44)。
+
 ## 屏幕截图
 
 <div align:left;display:inline;>
@@ -112,12 +114,6 @@ CLIENT_SECRET = "xxxxxx"
 :art: 项目中的UI设计部分参考了 [gitme](https://github.com/flutterchina/gitme).
 
 :star: 项目参考了 [rx-mvvm-android](https://github.com/ffgiraldez/rx-mvvm-android) 并对其部分代码进行了引用.
-
-## 其他开源项目
-
-> [MVI-Architecture: 基于Jetpack, 更加响应式&函数式的编程实践](https://github.com/qingmei2/MVI-Architecture)
-
-> [RxImagePicker: 灵活的Android图片选择器，提供了知乎和微信主题的支持](https://github.com/qingmei2/RxImagePicker)
 
 ## License
 
