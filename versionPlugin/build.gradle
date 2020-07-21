@@ -1,0 +1,25 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.72"
+    }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'java-gradle-plugin'
+repositories {
+    jcenter()
+}
+
+gradlePlugin {
+    plugins {
+        version {
+            // 在 app 模块需要通过 id 引用这个插件
+            id = 'com.github.qingmei2.plugin'
+            // 实现这个插件的类的路径
+            implementationClass = 'com.github.qingmei2.plugin.VersionPlugin'
+        }
+    }
+}

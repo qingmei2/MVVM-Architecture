@@ -1,8 +1,13 @@
+plugins {
+    id "com.github.qingmei2.plugin"
+}
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
+
+import com.github.qingmei2.plugin.*
 
 android {
     compileSdkVersion BuildVersions.compileSdkVersion

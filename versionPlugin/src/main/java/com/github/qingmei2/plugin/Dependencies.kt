@@ -1,3 +1,5 @@
+package com.github.qingmei2.plugin
+
 object Versions {
     const val android_plugin = "4.0.0"
     const val kotlin = "1.3.72"
@@ -36,12 +38,6 @@ object BuildVersions {
     const val targetSdkVersion = 29
     const val versionCode = 8
     const val versionName = "0.6.0"
-}
-
-object BuildPlugins {
-    const val androidGradle = "com.android.tools.build:gradle:${Versions.android_plugin}"
-    const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
-    const val daggerGradle = "com.google.dagger:hilt-android-gradle-plugin:${Versions.dagger}"
 }
 
 object Dependencies {
