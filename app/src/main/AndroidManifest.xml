@@ -26,6 +26,7 @@
         <activity
             android:name=".ui.MainActivity"
             android:launchMode="singleTop" />
+        <activity android:name=".ui.search.SearchActivity" />
     </application>
 
 </manifest>

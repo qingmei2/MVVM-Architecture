@@ -13,7 +13,6 @@ import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.utils.removeAllAnimation
 import com.qingmei2.sample.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_repos.*
 import kotlinx.android.synthetic.main.fragment_repos.fabTop
 import kotlinx.android.synthetic.main.fragment_repos.mRecyclerView

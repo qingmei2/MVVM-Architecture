@@ -8,9 +8,9 @@ object Versions {
     const val appcompat = "1.1.0"
     const val jetpack_lifecycle = "2.2.0-rc03"
     const val jetpack_viewModel = "2.2.0-rc03"
-    const val jetpack_room = "2.2.3"
+    const val jetpack_room = "2.3.0-alpha01"
     const val jetpack_navigation = "2.2.0-rc04"
-    const val jetpack_paging = "2.1.1"
+    const val jetpack_paging = "3.0.0-alpha04"
 
     const val jetpack_activity = "1.2.0-alpha02"
     const val jetpack_fragment = "1.3.0-alpha02"
