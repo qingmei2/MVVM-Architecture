@@ -5,7 +5,7 @@ import com.qingmei2.sample.http.Errors
 import retrofit2.Response
 import java.io.IOException
 
-suspend fun <T> processApiResponse(request: suspend () -> Response<T>): Results<T> {
+inline fun <T> processApiResponse(request: () -> Response<T>): Results<T> {
     return try {
         val response = request()
         val responseCode = response.code()

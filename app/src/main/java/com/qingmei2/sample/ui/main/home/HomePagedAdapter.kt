@@ -14,7 +14,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
@@ -24,7 +24,7 @@ import com.qingmei2.sample.entity.ReceivedEvent
 import com.qingmei2.sample.entity.Type
 import com.qingmei2.sample.utils.TimeConverter
 
-class HomePagedAdapter : PagedListAdapter<ReceivedEvent, HomePagedViewHolder>(diffCallback) {
+class HomePagedAdapter : PagingDataAdapter<ReceivedEvent, HomePagedViewHolder>(diffCallback) {
 
     private val itemEventObservable: MutableLiveData<String> = MutableLiveData()
 

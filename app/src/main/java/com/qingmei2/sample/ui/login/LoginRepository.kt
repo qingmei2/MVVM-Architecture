@@ -49,7 +49,7 @@ class LoginRemoteDataSource @Inject constructor(
         return when (userAccessTokenResult) {
             is Results.Success -> {
                 // 2.获取用户详细信息
-                processApiResponse(serviceManager.userService::fetchUserOwner)
+                processApiResponse { serviceManager.userService.fetchUserOwner() }
             }
             is Results.Failure -> userAccessTokenResult
         }
