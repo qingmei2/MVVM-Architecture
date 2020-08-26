@@ -6,7 +6,7 @@ import androidx.room.withTransaction
 import com.qingmei2.architecture.core.base.repository.BaseRepositoryBoth
 import com.qingmei2.architecture.core.base.repository.ILocalDataSource
 import com.qingmei2.architecture.core.base.repository.IRemoteDataSource
-import com.qingmei2.architecture.core.ext.paging.getPagingConfig
+import com.qingmei2.architecture.core.ext.paging.globalPagingConfig
 import com.qingmei2.sample.PAGING_REMOTE_PAGE_SIZE
 import com.qingmei2.sample.db.UserDatabase
 import com.qingmei2.sample.entity.ReceivedEvent
@@ -25,13 +25,11 @@ class HomeRepository @Inject constructor(
     fun fetchPager(): Pager<Int, ReceivedEvent> {
         val username: String = UserManager.INSTANCE.login
         return Pager(
-                config = getPagingConfig(),
-                remoteMediator = remoteDataSource.fetchRemoteMediator(username, localDataSource)
-        ) {
-            localDataSource.fetchPagedListFromLocal()
-        }
+                config = globalPagingConfig,
+                remoteMediator = remoteDataSource.fetchRemoteMediator(username, localDataSource),
+                pagingSourceFactory = { localDataSource.fetchPagedListFromLocal() }
+        )
     }
-
 }
 
 class HomeRemoteDataSource @Inject constructor(private val serviceManager: ServiceManager) : IRemoteDataSource {

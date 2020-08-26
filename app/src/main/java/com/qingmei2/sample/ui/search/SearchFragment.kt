@@ -65,10 +65,7 @@ class SearchFragment : BaseFragment() {
             }
         }
 
-        lifecycleScope.launch {
-            @Suppress("EXPERIMENTAL_API_USAGE")
-            mViewModel.mFlow.collectLatest(mAdapter::submitData)
-        }
+        observe(mViewModel.repoListLiveData) { mAdapter.submitData(lifecycle, it) }
 
         observe(mAdapter.observeItemEvent(), context!!::jumpBrowser)
     }

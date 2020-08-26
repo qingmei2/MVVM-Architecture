@@ -27,10 +27,9 @@ class SearchActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "SearchFragment"
 
-        fun launch(activity: FragmentActivity) =
-                activity.apply {
-                    startActivity(Intent(this, SearchActivity::class.java))
-                }
+        fun launch(activity: FragmentActivity) = activity.apply {
+            startActivity(Intent(this, SearchActivity::class.java))
+        }
     }
 
 }

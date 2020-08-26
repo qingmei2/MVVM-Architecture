@@ -40,20 +40,16 @@ class SearchAdapter : PagingDataAdapter<Repo, SearchViewHolder>(diffCallBack) {
 
     companion object {
 
-        private val diffCallBack: DiffUtil.ItemCallback<Repo> =
-                object : DiffUtil.ItemCallback<Repo>() {
-                    override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean {
-                        return oldItem.id == newItem.id
-                    }
+        private val diffCallBack: DiffUtil.ItemCallback<Repo> = object : DiffUtil.ItemCallback<Repo>() {
+            override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-                    override fun areContentsTheSame(oldItem: Repo, newItem: Repo): Boolean {
-                        return oldItem == newItem
-                    }
-
-                }
-
+            override fun areContentsTheSame(oldItem: Repo, newItem: Repo): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
-
 }
 
 class SearchViewHolder(
@@ -115,5 +111,4 @@ class SearchViewHolder(
                     else -> R.color.color_language_other
                 })
     }
-
 }

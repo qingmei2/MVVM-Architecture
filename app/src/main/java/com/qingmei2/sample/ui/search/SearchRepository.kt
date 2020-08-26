@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingSource
 import com.qingmei2.architecture.core.base.repository.BaseRepositoryRemote
 import com.qingmei2.architecture.core.base.repository.IRemoteDataSource
-import com.qingmei2.architecture.core.ext.paging.getPagingConfig
+import com.qingmei2.architecture.core.ext.paging.globalPagingConfig
 import com.qingmei2.sample.PAGING_REMOTE_PAGE_SIZE
 import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.http.service.UserService
@@ -17,7 +17,6 @@ class SearchRepository @Inject constructor(
     fun fetchPager(keyWord: String): Pager<Int, Repo> {
         return remoteDataSource.getPager(keyWord)
     }
-
 }
 
 class SearchRemoteDataSource @Inject constructor(
@@ -26,12 +25,10 @@ class SearchRemoteDataSource @Inject constructor(
 
     fun getPager(keyWord: String): Pager<Int, Repo> {
         return Pager(
-                getPagingConfig()
-        ) {
-            SearchPagingSource(userService, keyWord)
-        }
+                config = globalPagingConfig,
+                pagingSourceFactory = { SearchPagingSource(userService, keyWord) }
+        )
     }
-
 }
 
 class SearchPagingSource(
@@ -59,5 +56,4 @@ class SearchPagingSource(
             LoadResult.Error(exception)
         }
     }
-
 }
