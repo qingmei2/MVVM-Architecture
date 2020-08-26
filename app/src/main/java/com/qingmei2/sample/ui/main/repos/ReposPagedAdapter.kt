@@ -13,7 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
@@ -22,7 +22,7 @@ import com.qingmei2.sample.R
 import com.qingmei2.sample.entity.Repo
 import de.hdodenhof.circleimageview.CircleImageView
 
-class ReposPagedAdapter : PagedListAdapter<Repo, RepoPagedViewHolder>(diffCallback) {
+class ReposPagedAdapter : PagingDataAdapter<Repo, RepoPagedViewHolder>(diffCallback) {
 
     private val liveData: MutableLiveData<String> = MutableLiveData()
 

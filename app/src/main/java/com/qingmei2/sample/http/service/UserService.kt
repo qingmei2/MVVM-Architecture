@@ -23,7 +23,7 @@ interface UserService {
     suspend fun queryRepos(@Path("username") username: String,
                            @Query("page") pageIndex: Int,
                            @Query("per_page") perPage: Int,
-                           @Query("sort") sort: String): Response<List<Repo>>
+                           @Query("sort") sort: String): List<Repo>
 
     @GET("search/repositories")
     suspend fun search(@Query("q") q: String,
