@@ -3,6 +3,7 @@ package com.qingmei2.sample.ui.main.home
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.qingmei2.architecture.core.base.view.fragment.BaseFragment
@@ -41,9 +42,7 @@ class HomeFragment : BaseFragment() {
         }
 
         // swipe refresh event.
-        mSwipeRefreshLayout.setOnRefreshListener {
-            mAdapter.refresh()
-        }
+        mSwipeRefreshLayout.setOnRefreshListener(mAdapter::refresh)
 
         // search menu item clicked event.
         toolbar.setOnMenuItemClickListener {
@@ -54,19 +53,13 @@ class HomeFragment : BaseFragment() {
         // list item clicked event.
         observe(mAdapter.observeItemEvent(), requireActivity()::jumpBrowser)
 
-        // subscribe UI state.
-        lifecycleScope.launch {
-            mAdapter.loadStateFlow.collectLatest { loadStates ->
-                mSwipeRefreshLayout.isRefreshing = loadStates.refresh is LoadState.Loading
-            }
+        observe(mAdapter.loadStateFlow.asLiveData()) { loadStates ->
+            mSwipeRefreshLayout.isRefreshing = loadStates.refresh is LoadState.Loading
         }
 
-        lifecycleScope.launch {
-            mViewModel.mFlow.collectLatest {
-                mAdapter.submitData(it)
-                mRecyclerView.scrollToPosition(0)
-            }
+        observe(mViewModel.eventListLiveData) {
+            mAdapter.submitData(lifecycle, it)
+            mRecyclerView.scrollToPosition(0)
         }
     }
-
 }
