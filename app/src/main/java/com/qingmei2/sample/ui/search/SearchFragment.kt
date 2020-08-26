@@ -36,7 +36,7 @@ class SearchFragment : BaseFragment() {
 
         mSwipeRefreshLayout.setOnRefreshListener { mAdapter.refresh() }
 
-        mRecyclerView.adapter = mAdapter.withLoadStateFooter(LoadStateAdapter(mAdapter))
+        mRecyclerView.adapter = mAdapter.withLoadStateFooter(SearchLoadStateAdapter(mAdapter))
     }
 
     private fun binds() {

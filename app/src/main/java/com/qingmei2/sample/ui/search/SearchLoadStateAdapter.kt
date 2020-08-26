@@ -12,21 +12,21 @@ import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.qingmei2.sample.R
 
-class LoadStateAdapter(
+class SearchLoadStateAdapter(
         private val adapter: SearchAdapter?
-) : LoadStateAdapter<LoadStateViewHolder>() {
+) : LoadStateAdapter<SearchLoadStateViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): LoadStateViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): SearchLoadStateViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_search_footer, parent, false)
-        return LoadStateViewHolder(view, adapter)
+        return SearchLoadStateViewHolder(view, adapter)
     }
 
-    override fun onBindViewHolder(holder: LoadStateViewHolder, loadState: LoadState) {
+    override fun onBindViewHolder(holder: SearchLoadStateViewHolder, loadState: LoadState) {
         holder.binds(loadState)
     }
 }
 
-class LoadStateViewHolder(
+class SearchLoadStateViewHolder(
         view: View,
         private val adapter: SearchAdapter?
 ) : RecyclerView.ViewHolder(view) {
@@ -43,6 +43,5 @@ class LoadStateViewHolder(
             tvError.setOnClickListener { adapter?.retry() }
         }
     }
-
 }
 
