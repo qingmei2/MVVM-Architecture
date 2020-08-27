@@ -1,27 +1,7 @@
 package com.qingmei2.architecture.core.ext.paging
 
 import androidx.annotation.AnyThread
-import androidx.lifecycle.LiveData
-import androidx.paging.DataSource
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
 import androidx.paging.PagingConfig
-
-fun <Key : Any, Value : Any> DataSource.Factory<Key, Value>.toLiveDataPagedList(
-        config: PagedList.Config? = null,
-        boundaryCallback: PagedList.BoundaryCallback<Value>? = null
-): LiveData<PagedList<Value>> {
-    return LivePagedListBuilder(
-            this, config ?: PagedList.Config.Builder()
-            .setInitialLoadSizeHint(PAGING_DEFAULT_INITIAL_LOAD_SIZE_HINT)
-            .setPageSize(PAGING_DEFAULT_PAGE_SIZE)
-            .setPrefetchDistance(PAGING_DEFAULT_PREFETCH_DISTANCE)
-            .setEnablePlaceholders(false)
-            .build()
-    )
-            .setBoundaryCallback(boundaryCallback)
-            .build()
-}
 
 val globalPagingConfig: PagingConfig
     @AnyThread get() = PagingConfig(
