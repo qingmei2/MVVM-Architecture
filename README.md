@@ -6,15 +6,15 @@
 
 ## 通知
 
-这个项目采用了数种 `Mvvm` 的实现方式，你可以参考任意感兴趣的进行了解：
+这个项目采用了数种 `MVVM` 的实现方式，你可以参考任意感兴趣的进行了解：
 
 * [Jetpack + Coroutine + Dagger-Hilt](https://github.com/qingmei2/MVVM-Architecture) 
 * [Jetpack + Coroutine + Kodein](https://github.com/qingmei2/MVVM-Architecture/tree/kodein_coroutine_livedata) 
 * [Jetpack + RxJava + Kodein](https://github.com/qingmei2/MVVM-Architecture/tree/branch_rxjava) 
 
-> 项目中并未使用 `DataBinding`，我个人对 `Mvvm` 的见解，请参考 [这里](https://github.com/qingmei2/MVVM-Architecture/issues/15)。
+* 我为什么放弃了`DataBinding`，以及我个人对MVVM`的 **[理解](https://github.com/qingmei2/MVVM-Architecture/issues/15)** 。
 
-> 有的小伙伴好奇 **为什么这个项目这么简单** ，关于我对这个项目的定位，请参考 [这里](https://github.com/qingmei2/MVVM-Architecture/issues/44)。
+* 我对这个项目的 **[定位](https://github.com/qingmei2/MVVM-Architecture/issues/44)** 。
 
 ## 屏幕截图
 
@@ -39,7 +39,7 @@
 
 * [Navigation: Handle everything needed for in-app navigation.](https://developer.android.com/topic/libraries/architecture/navigation/)
 
-* [Paging: Makes it easier for you to load data gradually and gracefully within your app's RecyclerView.](https://developer.android.com/topic/libraries/architecture/paging/)
+* [Paging3: Makes it easier for you to load data gradually and gracefully within your app's RecyclerView.](https://developer.android.com/topic/libraries/architecture/paging/)
 
 ### 网络请求
 
@@ -114,6 +114,10 @@ CLIENT_SECRET = "xxxxxx"
 :art: 项目中的UI设计部分参考了 [gitme](https://github.com/flutterchina/gitme).
 
 :star: 项目参考了 [rx-mvvm-android](https://github.com/ffgiraldez/rx-mvvm-android) 并对其部分代码进行了引用.
+
+## Contributor
+
+感谢[DaQinShgy](https://github.com/DaQinShgy)贡献了`Paging3`相关的代码，并为项目增加了 **搜索** 功能页面。
 
 ## License
 

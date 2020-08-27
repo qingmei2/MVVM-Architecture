@@ -61,12 +61,3 @@ class LoginViewModel @ViewModelInject constructor(
         }
     }
 }
-
-@Suppress("UNCHECKED_CAST")
-class LoginViewModelFactory(
-        private val repo: LoginRepository
-) : ViewModelProvider.Factory {
-
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-            LoginViewModel(repo) as T
-}

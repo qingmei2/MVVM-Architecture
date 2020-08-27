@@ -1,20 +1,18 @@
 package com.qingmei2.sample.ui.main.home
 
 import android.annotation.SuppressLint
-import androidx.annotation.AnyThread
-import androidx.annotation.MainThread
-import androidx.paging.DataSource
+import androidx.paging.*
 import androidx.room.withTransaction
 import com.qingmei2.architecture.core.base.repository.BaseRepositoryBoth
 import com.qingmei2.architecture.core.base.repository.ILocalDataSource
 import com.qingmei2.architecture.core.base.repository.IRemoteDataSource
+import com.qingmei2.architecture.core.ext.paging.globalPagingConfig
 import com.qingmei2.sample.PAGING_REMOTE_PAGE_SIZE
-import com.qingmei2.sample.base.Results
 import com.qingmei2.sample.db.UserDatabase
 import com.qingmei2.sample.entity.ReceivedEvent
 import com.qingmei2.sample.http.service.ServiceManager
 import com.qingmei2.sample.manager.UserManager
-import com.qingmei2.sample.utils.processApiResponse
+import com.qingmei2.sample.utils.toast
 import javax.inject.Inject
 
 @SuppressLint("CheckResult")
@@ -23,63 +21,31 @@ class HomeRepository @Inject constructor(
         localDataSource: HomeLocalDataSource
 ) : BaseRepositoryBoth<HomeRemoteDataSource, HomeLocalDataSource>(remoteDataSource, localDataSource) {
 
-    @MainThread
-    suspend fun fetchEventByPage(
-            pageIndex: Int,
-            remoteRequestPerPage: Int = PAGING_REMOTE_PAGE_SIZE
-    ): Results<List<ReceivedEvent>> {
+    fun fetchPager(): Pager<Int, ReceivedEvent> {
         val username: String = UserManager.INSTANCE.login
-        return remoteDataSource.fetchEventsByPage(username, pageIndex, remoteRequestPerPage)
-    }
-
-    @AnyThread
-    suspend fun clearAndInsertNewData(items: List<ReceivedEvent>) {
-        localDataSource.clearAndInsertNewData(items)
-    }
-
-    @AnyThread
-    suspend fun insertNewPageData(items: List<ReceivedEvent>) {
-        localDataSource.insertNewPagedEventData(items)
-    }
-
-    @MainThread
-    fun fetchEventDataSourceFactory(): DataSource.Factory<Int, ReceivedEvent> {
-        return localDataSource.fetchPagedListFromLocal()
+        val remoteMediator = HomeRemoteMediator(username, remoteDataSource, localDataSource)
+        return Pager(
+                config = globalPagingConfig,
+                remoteMediator = remoteMediator,
+                pagingSourceFactory = { localDataSource.fetchPagedListFromLocal() }
+        )
     }
 }
 
 class HomeRemoteDataSource @Inject constructor(private val serviceManager: ServiceManager) : IRemoteDataSource {
 
-    suspend fun fetchEventsByPage(
-            username: String,
-            pageIndex: Int,
-            perPage: Int
-    ): Results<List<ReceivedEvent>> {
-        return fetchEventsByPageInternal(username, pageIndex, perPage)
-    }
-
-    private suspend fun fetchEventsByPageInternal(
-            username: String,
-            pageIndex: Int,
-            perPage: Int
-    ): Results<List<ReceivedEvent>> {
-        return processApiResponse {
-            serviceManager.userService.queryReceivedEvents(username, pageIndex, perPage)
-        }
+    suspend fun queryReceivedEvents(username: String,
+                                    pageIndex: Int,
+                                    perPage: Int): List<ReceivedEvent> {
+        return serviceManager.userService.queryReceivedEvents(username, pageIndex, perPage)
     }
 }
 
 @SuppressLint("CheckResult")
 class HomeLocalDataSource @Inject constructor(private val db: UserDatabase) : ILocalDataSource {
 
-    fun fetchPagedListFromLocal(): DataSource.Factory<Int, ReceivedEvent> {
+    fun fetchPagedListFromLocal(): PagingSource<Int, ReceivedEvent> {
         return db.userReceivedEventDao().queryEvents()
-    }
-
-    suspend fun clearOldData() {
-        db.withTransaction {
-            db.userReceivedEventDao().clearReceivedEvents()
-        }
     }
 
     suspend fun clearAndInsertNewData(data: List<ReceivedEvent>) {
@@ -93,6 +59,12 @@ class HomeLocalDataSource @Inject constructor(private val db: UserDatabase) : IL
         db.withTransaction { insertDataInternal(newPage) }
     }
 
+    suspend fun fetchNextIndex(): Int {
+        return db.withTransaction {
+            db.userReceivedEventDao().getNextIndexInReceivedEvents() ?: 0
+        }
+    }
+
     private suspend fun insertDataInternal(newPage: List<ReceivedEvent>) {
         val start = db.userReceivedEventDao().getNextIndexInReceivedEvents() ?: 0
         val items = newPage.mapIndexed { index, child ->
@@ -101,4 +73,39 @@ class HomeLocalDataSource @Inject constructor(private val db: UserDatabase) : IL
         }
         db.userReceivedEventDao().insert(items)
     }
+}
+
+@OptIn(ExperimentalPagingApi::class)
+class HomeRemoteMediator(
+        private val username: String,
+        private val remoteDataSource: HomeRemoteDataSource,
+        private val localDataSource: HomeLocalDataSource
+) : RemoteMediator<Int, ReceivedEvent>() {
+
+    override suspend fun load(loadType: LoadType, state: PagingState<Int, ReceivedEvent>): MediatorResult {
+        return try {
+            val pageIndex = when (loadType) {
+                LoadType.REFRESH -> 1
+                LoadType.PREPEND -> return MediatorResult.Success(true)
+                LoadType.APPEND -> {
+                    val nextIndex = localDataSource.fetchNextIndex()
+                    if (nextIndex % PAGING_REMOTE_PAGE_SIZE != 0) {
+                        return MediatorResult.Success(true)
+                    }
+                    nextIndex / PAGING_REMOTE_PAGE_SIZE + 1
+                }
+            }
+            val data = remoteDataSource.queryReceivedEvents(username, pageIndex, PAGING_REMOTE_PAGE_SIZE)
+            if (loadType == LoadType.REFRESH) {
+                localDataSource.clearAndInsertNewData(data)
+            } else {
+                localDataSource.insertNewPagedEventData(data)
+            }
+            MediatorResult.Success(data.isEmpty())
+        } catch (exception: Exception) {
+            toast { exception.toString() }
+            MediatorResult.Error(exception)
+        }
+    }
+
 }

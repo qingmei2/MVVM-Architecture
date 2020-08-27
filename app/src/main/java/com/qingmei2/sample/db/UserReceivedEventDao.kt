@@ -1,7 +1,7 @@
 package com.qingmei2.sample.db
 
 import androidx.annotation.WorkerThread
-import androidx.paging.DataSource
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -17,7 +17,7 @@ interface UserReceivedEventDao {
 
     @WorkerThread
     @Query("SELECT * FROM user_received_events ORDER BY indexInResponse ASC")
-    fun queryEvents(): DataSource.Factory<Int, ReceivedEvent>
+    fun queryEvents(): PagingSource<Int, ReceivedEvent>
 
     @WorkerThread
     @Query("DELETE FROM user_received_events")

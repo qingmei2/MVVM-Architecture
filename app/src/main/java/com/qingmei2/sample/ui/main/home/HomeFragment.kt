@@ -3,16 +3,19 @@ package com.qingmei2.sample.ui.main.home
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.paging.PagedList
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import com.qingmei2.architecture.core.base.view.fragment.BaseFragment
 import com.qingmei2.architecture.core.ext.jumpBrowser
 import com.qingmei2.architecture.core.ext.observe
 import com.qingmei2.sample.R
-import com.qingmei2.sample.entity.ReceivedEvent
+import com.qingmei2.sample.ui.search.SearchActivity
 import com.qingmei2.sample.utils.removeAllAnimation
-import com.qingmei2.sample.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
@@ -25,6 +28,7 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        toolbar.inflateMenu(R.menu.menu_home_search)
         binds()
 
         mRecyclerView.adapter = mAdapter
@@ -38,30 +42,24 @@ class HomeFragment : BaseFragment() {
         }
 
         // swipe refresh event.
-        mSwipeRefreshLayout.setOnRefreshListener {
-            mViewModel.refreshDataSource()
+        mSwipeRefreshLayout.setOnRefreshListener(mAdapter::refresh)
+
+        // search menu item clicked event.
+        toolbar.setOnMenuItemClickListener {
+            SearchActivity.launch(requireActivity())
+            true
         }
 
         // list item clicked event.
         observe(mAdapter.observeItemEvent(), requireActivity()::jumpBrowser)
 
-        // subscribe UI state.
-        observe(mViewModel.viewStateLiveData, this::onNewState)
-        observe(mViewModel.pagedListLiveData, this::onPagedList)
-    }
-
-    private fun onPagedList(pagedList: PagedList<ReceivedEvent>) {
-        mAdapter.submitList(pagedList)
-        mRecyclerView.scrollToPosition(0)
-    }
-
-    private fun onNewState(state: HomeViewState) {
-        if (state.throwable != null) {
-            toast { state.throwable.message ?: "network error." }
+        observe(mAdapter.loadStateFlow.asLiveData()) { loadStates ->
+            mSwipeRefreshLayout.isRefreshing = loadStates.refresh is LoadState.Loading
         }
 
-        if (state.isLoading != mSwipeRefreshLayout.isRefreshing) {
-            mSwipeRefreshLayout.isRefreshing = state.isLoading
+        observe(mViewModel.eventListLiveData) {
+            mAdapter.submitData(lifecycle, it)
+            mRecyclerView.scrollToPosition(0)
         }
     }
 }

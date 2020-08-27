@@ -1,6 +1,8 @@
 package com.qingmei2.sample.db
 
+import androidx.annotation.WorkerThread
 import androidx.paging.DataSource
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -14,7 +16,7 @@ interface UserReposDao {
     suspend fun insert(repos: List<Repo>)
 
     @Query("SELECT * FROM user_repos ORDER BY indexInSortResponse ASC")
-    fun queryRepos(): DataSource.Factory<Int, Repo>
+    fun queryRepos(): PagingSource<Int, Repo>
 
     @Query("DELETE FROM user_repos")
     suspend fun deleteAllRepos()
