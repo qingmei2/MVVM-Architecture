@@ -36,7 +36,7 @@ class ProfileFragment : BaseFragment() {
         }
 
         if (state.userInfo != null) {
-            GlideApp.with(context!!)
+            GlideApp.with(requireContext())
                     .load(state.userInfo.avatarUrl)
                     .apply(RequestOptions().circleCrop())
                     .into(mIvAvatar)
