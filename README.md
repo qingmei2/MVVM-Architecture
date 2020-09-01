@@ -117,7 +117,8 @@ CLIENT_SECRET = "xxxxxx"
 
 ## Contributor
 
-感谢[DaQinShgy](https://github.com/DaQinShgy)贡献了`Paging3`相关的代码，并为项目增加了 **搜索** 功能页面。
+* [DaQinShgy](https://github.com/DaQinShgy)
+* [GeorgCantor](https://github.com/GeorgCantor)
 
 ## License
 

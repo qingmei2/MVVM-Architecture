@@ -13,10 +13,10 @@ This repo provides two `Mvvm` architecture implementation, see:
 ## ScreenShots
 
 <div align:left;display:inline;>
-<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Architecture/blob/master/screenshots/login.png"/>
-<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Architecture/blob/master/screenshots/home.png"/>
-<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Architecture/blob/master/screenshots/repos.png"/>
-<img width="200" height="360" src="https://github.com/qingmei2/MVVM-Architecture/blob/master/screenshots/me.png"/>
+<img width="200" height="360" src="https://upload-images.jianshu.io/upload_images/7293029-17fd103f3c524a1c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200"/>
+<img width="200" height="360" src="https://upload-images.jianshu.io/upload_images/7293029-33af9e0ee5686851.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200"/>
+<img width="200" height="360" src="https://upload-images.jianshu.io/upload_images/7293029-177d808edca4f7ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200"/>
+<img width="200" height="360" src="https://upload-images.jianshu.io/upload_images/7293029-20e72a2bdfaa8f7e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200"/>
 </div>
 
 ## Libraries
@@ -64,13 +64,13 @@ $ git clone https://github.com/qingmei2/MVVM-Rhine.git
 Step2: [Register](https://github.com/settings/applications/new) OAuth Application.
 
 <div align:left;display:inline;>
-<img width="480" height="480" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/regist_step1.png"/>
+<img width="480" height="480" src="https://upload-images.jianshu.io/upload_images/7293029-e3f13ac45d520518.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/480"/>
 </div>
 
 Step3: Put the `Client ID` and the `Client Secret` into `local.properties`:
 
 <div align:left;display:inline;>
-<img width="550" height="384" src="https://github.com/qingmei2/MVVM-Rhine/blob/master/screenshots/regist_step2.png"/>
+<img width="550" height="384" src="https://upload-images.jianshu.io/upload_images/7293029-b84aaecb29d420bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/550"/>
 </div>
 
 ```groovy
@@ -83,6 +83,11 @@ CLIENT_SECRET = "xxxxxx"
 :art: The UI design of this project refers to [gitme](https://github.com/flutterchina/gitme).
 
 :star: This repo is inspired by [rx-mvvm-android](https://github.com/ffgiraldez/rx-mvvm-android) and uses some of its source code.
+
+## Contributors
+
+* [DaQinShgy](https://github.com/DaQinShgy)
+* [GeorgCantor](https://github.com/GeorgCantor)
 
 ## License
 
