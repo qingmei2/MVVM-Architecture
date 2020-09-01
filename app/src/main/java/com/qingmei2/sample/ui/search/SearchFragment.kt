@@ -67,7 +67,7 @@ class SearchFragment : BaseFragment() {
 
         observe(mViewModel.repoListLiveData) { mAdapter.submitData(lifecycle, it) }
 
-        observe(mAdapter.observeItemEvent(), context!!::jumpBrowser)
+        observe(mAdapter.observeItemEvent(), requireContext()::jumpBrowser)
     }
 
 }
