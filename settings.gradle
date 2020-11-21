@@ -1,2 +1,2 @@
-include ':app', ':architecture-core'
+include ':app', ':architecture-core',':module_protobuf'
 includeBuild 'versionPlugin'

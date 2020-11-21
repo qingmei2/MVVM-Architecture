@@ -50,7 +50,7 @@ object HttpModule {
                             }
                         }
                 )
-                .addInterceptor(BasicAuthInterceptor(mUserInfoRepository = userRepository))
+                .addInterceptor(BasicAuthInterceptor(repository = userRepository))
                 .build()
     }
 

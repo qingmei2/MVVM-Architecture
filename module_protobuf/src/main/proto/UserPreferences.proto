@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_package = "com.github.qingmei2.protobuf";
+option java_outer_classname = "UserPreferencesProtos";
+
+message UserPreferences {
+
+  string username = 1;
+  string password = 2;
+  bool autoLogin = 3;
+}

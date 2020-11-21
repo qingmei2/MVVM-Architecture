@@ -2,11 +2,13 @@ package com.qingmei2.sample.http.interceptor
 
 import android.util.Base64
 import com.qingmei2.sample.repository.UserInfoRepository
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
 
 class BasicAuthInterceptor(
-        private val mUserInfoRepository: UserInfoRepository
+        private val repository: UserInfoRepository
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -25,9 +27,13 @@ class BasicAuthInterceptor(
     }
 
     private fun getAuthorization(): String {
-        val accessToken = mUserInfoRepository.accessToken
-        val username = mUserInfoRepository.username
-        val password = mUserInfoRepository.password
+        val userPreferences = runBlocking {
+            repository.fetchUserInfoFlow().first()
+        }
+
+        val accessToken = ""
+        val username = userPreferences.username
+        val password = userPreferences.password
 
         if (accessToken.isBlank()) {
             val basicIsEmpty = username.isBlank() || password.isBlank()

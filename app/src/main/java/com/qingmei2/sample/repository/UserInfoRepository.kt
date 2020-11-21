@@ -1,20 +1,37 @@
 package com.qingmei2.sample.repository
 
-import android.content.SharedPreferences
+import androidx.datastore.DataStore
+import com.github.qingmei2.protobuf.UserPreferencesProtos
 import com.qingmei2.architecture.core.util.SingletonHolderSingleArg
-import com.qingmei2.architecture.core.util.prefs.boolean
-import com.qingmei2.architecture.core.util.prefs.string
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import java.io.IOException
 
-class UserInfoRepository(prefs: SharedPreferences) {
+@Suppress("PrivatePropertyName")
+class UserInfoRepository(private val dataStore: DataStore<UserPreferencesProtos.UserPreferences>) {
 
-    var accessToken: String by prefs.string("user_access_token", "")
+    fun fetchUserInfoFlow(): Flow<UserPreferencesProtos.UserPreferences> {
+        return dataStore.data.catch {
+            if (it is IOException) {
+                it.printStackTrace()
+                emit(UserPreferencesProtos.UserPreferences.getDefaultInstance())
+            } else {
+                throw it
+            }
+        }
+    }
 
-    var username by prefs.string("username", "")
-
-    var password by prefs.string("password", "")
-
-    var isAutoLogin: Boolean by prefs.boolean("auto_login", true)
+    suspend fun saveUserInfo(username: String,
+                             password: String) {
+        dataStore.updateData { userPreferences ->
+            userPreferences.toBuilder()
+                    .setUsername(username)
+                    .setPassword(password)
+                    .setAutoLogin(username.isNotEmpty() && password.isNotEmpty())
+                    .build()
+        }
+    }
 
     companion object :
-            SingletonHolderSingleArg<UserInfoRepository, SharedPreferences>(::UserInfoRepository)
+            SingletonHolderSingleArg<UserInfoRepository, DataStore<UserPreferencesProtos.UserPreferences>>(::UserInfoRepository)
 }

@@ -1,11 +1,12 @@
 plugins {
     id "com.github.qingmei2.plugin"
+    id "com.android.application"
+    id "kotlin-android"
+    id "kotlin-android-extensions"
+    id "kotlin-kapt"
+    id "dagger.hilt.android.plugin"
+    id "com.google.protobuf" version "0.8.12"
 }
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'dagger.hilt.android.plugin'
 
 import com.github.qingmei2.plugin.*
 
@@ -53,6 +54,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':architecture-core')
+    implementation project(':module_protobuf')
 
     implementation Dependencies.appcompat
     implementation Dependencies.recyclerview
