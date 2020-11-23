@@ -33,7 +33,9 @@ This repo provides two `Mvvm` architecture implementation, see:
 
 * [Navigation: Handle everything needed for in-app navigation.](https://developer.android.com/topic/libraries/architecture/navigation/)
 
-* [Paging: Makes it easier for you to load data gradually and gracefully within your app's RecyclerView.](https://developer.android.com/topic/libraries/architecture/paging/)
+* [Paging3: Makes it easier for you to load data gradually and gracefully within your app's RecyclerView.](https://developer.android.com/topic/libraries/architecture/paging/)
+
+* [DataStore: A data storage solution that allows you to store key-value pairs or typed objects with protocol buffers. ](https://developer.android.google.cn/topic/libraries/architecture/datastore?hl=zh_cn)
 
 ### Http
 

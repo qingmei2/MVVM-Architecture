@@ -41,6 +41,8 @@
 
 * [Paging3: Makes it easier for you to load data gradually and gracefully within your app's RecyclerView.](https://developer.android.com/topic/libraries/architecture/paging/)
 
+* [DataStore: A data storage solution that allows you to store key-value pairs or typed objects with protocol buffers. ](https://developer.android.google.cn/topic/libraries/architecture/datastore?hl=zh_cn)
+
 ### 网络请求
 
 * [Retrofit2: Type-safe HTTP client for Android and Java by Square, Inc.](https://github.com/square/retrofit)
