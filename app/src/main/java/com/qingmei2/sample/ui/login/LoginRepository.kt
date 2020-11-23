@@ -7,7 +7,6 @@ import com.qingmei2.sample.base.Results
 import com.qingmei2.sample.db.UserDatabase
 import com.qingmei2.sample.entity.UserInfo
 import com.qingmei2.sample.http.service.ServiceManager
-import com.qingmei2.sample.http.service.bean.LoginRequestModel
 import com.qingmei2.sample.manager.UserManager
 import com.qingmei2.sample.repository.UserInfoRepository
 import com.qingmei2.sample.utils.processApiResponse
@@ -43,18 +42,7 @@ class LoginRemoteDataSource @Inject constructor(
 ) : IRemoteDataSource {
 
     suspend fun login(): Results<UserInfo> {
-        // 1.用户登录认证
-        val userAccessTokenResult = processApiResponse {
-            serviceManager.loginService.authorizations(LoginRequestModel.generate())
-        }
-
-        return when (userAccessTokenResult) {
-            is Results.Success -> {
-                // 2.获取用户详细信息
-                processApiResponse { serviceManager.userService.fetchUserOwner() }
-            }
-            is Results.Failure -> userAccessTokenResult
-        }
+        return processApiResponse { serviceManager.userService.fetchUserOwner() }
     }
 }
 

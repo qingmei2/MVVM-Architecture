@@ -1,6 +1,6 @@
 package com.qingmei2.sample.http.interceptor
 
-import android.util.Base64
+import com.qingmei2.sample.BuildConfig
 import com.qingmei2.sample.repository.UserInfoRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -31,7 +31,7 @@ class BasicAuthInterceptor(
             repository.fetchUserInfoFlow().first()
         }
 
-        val accessToken = ""
+        val accessToken = BuildConfig.USER_ACCESS_TOKEN
         val username = userPreferences.username
         val password = userPreferences.password
 
@@ -41,7 +41,7 @@ class BasicAuthInterceptor(
                 ""
             } else {
                 "$username:$password".let {
-                    "basic " + Base64.encodeToString(it.toByteArray(), Base64.NO_WRAP)
+                    "basic " + android.util.Base64.encodeToString(it.toByteArray(), android.util.Base64.NO_WRAP)
                 }
             }
         }

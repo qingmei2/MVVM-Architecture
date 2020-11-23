@@ -1,22 +1,23 @@
 <resources>
-    <string name="app_name">MyGithub</string>
+	<string name="app_name">MyGithub</string>
 
-    <string name="main_nav_home">Home</string>
-    <string name="main_nav_repos">Repos</string>
-    <string name="main_nav_profile">Me</string>
+	<string name="main_nav_home">Home</string>
+	<string name="main_nav_repos">Repos</string>
+	<string name="main_nav_profile">Me</string>
 
-    <string name="login_tips">Sign in to GitHub</string>
-    <string name="login_hint_username">Username or email address</string>
-    <string name="login_hint_password">Password</string>
-    <string name="login_sign_in">Sign in</string>
+	<string name="login_tips">Sign in to GitHub</string>
+	<string name="login_hint_username">Username or email address</string>
+	<string name="login_hint_password">Password</string>
+	<string name="login_sign_in">Sign in</string>
+	<string name="login_sign_in_tips">最新的GitHub API限制了账号密码登录，开发者使用Access Token进行登录，这里只进行模拟登录</string>
 
-    <string name="repos_filter_created">Sort by created</string>
-    <string name="repos_filter_letter">Sort by letter</string>
-    <string name="repos_filter_update">Sort by update</string>
+	<string name="repos_filter_created">Sort by created</string>
+	<string name="repos_filter_letter">Sort by letter</string>
+	<string name="repos_filter_update">Sort by update</string>
 
-    <string name="common_loading_empty">it\'s empty here</string>
-    <string name="common_loading_error">network error</string>
+	<string name="common_loading_empty">it\'s empty here</string>
+	<string name="common_loading_error">network error</string>
 
-    <string name="search">Search</string>
+	<string name="search">Search</string>
 
 </resources>
