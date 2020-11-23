@@ -1,11 +1,12 @@
 plugins {
     id "com.github.qingmei2.plugin"
+    id "com.android.application"
+    id "kotlin-android"
+    id "kotlin-android-extensions"
+    id "kotlin-kapt"
+    id "dagger.hilt.android.plugin"
+    id "com.google.protobuf" version "0.8.12"
 }
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'dagger.hilt.android.plugin'
 
 import com.github.qingmei2.plugin.*
 
@@ -24,8 +25,7 @@ android {
 
         Properties properties = new Properties()
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
-        buildConfigField "String", "CLIENT_ID", properties.getProperty("CLIENT_ID")
-        buildConfigField "String", "CLIENT_SECRET", properties.getProperty("CLIENT_SECRET")
+        buildConfigField "String", "USER_ACCESS_TOKEN", properties.getProperty("USER_ACCESS_TOKEN")
     }
 
     buildTypes {
@@ -53,6 +53,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':architecture-core')
+    implementation project(':module_protobuf')
 
     implementation Dependencies.appcompat
     implementation Dependencies.recyclerview

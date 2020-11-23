@@ -7,10 +7,11 @@ import com.qingmei2.sample.base.Results
 import com.qingmei2.sample.db.UserDatabase
 import com.qingmei2.sample.entity.UserInfo
 import com.qingmei2.sample.http.service.ServiceManager
-import com.qingmei2.sample.http.service.bean.LoginRequestModel
 import com.qingmei2.sample.manager.UserManager
 import com.qingmei2.sample.repository.UserInfoRepository
 import com.qingmei2.sample.utils.processApiResponse
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class LoginRepository @Inject constructor(
@@ -31,7 +32,7 @@ class LoginRepository @Inject constructor(
         return userInfo
     }
 
-    fun fetchAutoLogin(): AutoLoginEvent {
+    fun fetchAutoLogin(): Flow<AutoLoginEvent> {
         return localDataSource.fetchAutoLogin()
     }
 }
@@ -41,18 +42,7 @@ class LoginRemoteDataSource @Inject constructor(
 ) : IRemoteDataSource {
 
     suspend fun login(): Results<UserInfo> {
-        // 1.用户登录认证
-        val userAccessTokenResult = processApiResponse {
-            serviceManager.loginService.authorizations(LoginRequestModel.generate())
-        }
-
-        return when (userAccessTokenResult) {
-            is Results.Success -> {
-                // 2.获取用户详细信息
-                processApiResponse { serviceManager.userService.fetchUserOwner() }
-            }
-            is Results.Failure -> userAccessTokenResult
-        }
+        return processApiResponse { serviceManager.userService.fetchUserOwner() }
     }
 }
 
@@ -61,24 +51,25 @@ class LoginLocalDataSource @Inject constructor(
         private val userRepository: UserInfoRepository
 ) : ILocalDataSource {
 
-    fun savePrefUser(username: String, password: String) {
-        userRepository.username = username
-        userRepository.password = password
+    suspend fun savePrefUser(username: String, password: String) {
+        userRepository.saveUserInfo(username, password)
     }
 
-    fun clearPrefsUser() {
-        userRepository.username = ""
-        userRepository.password = ""
+    suspend fun clearPrefsUser() {
+        userRepository.saveUserInfo("", "")
     }
 
-    fun fetchAutoLogin(): AutoLoginEvent {
-        val username = userRepository.username
-        val password = userRepository.password
-        val isAutoLogin = userRepository.isAutoLogin
-        return when (username.isNotEmpty() && password.isNotEmpty() && isAutoLogin) {
-            true -> AutoLoginEvent(true, username, password)
-            false -> AutoLoginEvent(false, "", "")
-        }
+    fun fetchAutoLogin(): Flow<AutoLoginEvent> {
+        return userRepository.fetchUserInfoFlow()
+                .map { user ->
+                    val username = user.username
+                    val password = user.password
+                    val isAutoLogin = user.autoLogin
+                    when (username.isNotEmpty() && password.isNotEmpty() && isAutoLogin) {
+                        true -> AutoLoginEvent(true, username, password)
+                        false -> AutoLoginEvent(false, "", "")
+                    }
+                }
     }
 }
 

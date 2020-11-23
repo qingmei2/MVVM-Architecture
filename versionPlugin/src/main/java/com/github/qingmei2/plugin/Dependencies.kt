@@ -11,6 +11,7 @@ object Versions {
     const val jetpack_room = "2.3.0-alpha01"
     const val jetpack_navigation = "2.2.0-rc04"
     const val jetpack_paging = "3.0.0-alpha04"
+    const val jetpack_datastore = "1.0.0-alpha01"
 
     const val jetpack_activity = "1.2.0-alpha02"
     const val jetpack_fragment = "1.3.0-alpha02"
@@ -78,6 +79,9 @@ object Dependencies {
 
     const val paging = "androidx.paging:paging-runtime:${Versions.jetpack_paging}"
     const val pagingRx = "androidx.paging:paging-rxjava2:${Versions.jetpack_paging}"
+
+    const val datastore = "androidx.datastore:datastore-preferences:${Versions.jetpack_datastore}"
+    const val protobuf = "com.google.protobuf:protobuf-javalite:3.10.0"
 
     const val room = "androidx.room:room-runtime:${Versions.jetpack_room}"
     const val roomCompiler = "androidx.room:room-compiler:${Versions.jetpack_room}"

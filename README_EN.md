@@ -33,7 +33,9 @@ This repo provides two `Mvvm` architecture implementation, see:
 
 * [Navigation: Handle everything needed for in-app navigation.](https://developer.android.com/topic/libraries/architecture/navigation/)
 
-* [Paging: Makes it easier for you to load data gradually and gracefully within your app's RecyclerView.](https://developer.android.com/topic/libraries/architecture/paging/)
+* [Paging3: Makes it easier for you to load data gradually and gracefully within your app's RecyclerView.](https://developer.android.com/topic/libraries/architecture/paging/)
+
+* [DataStore: A data storage solution that allows you to store key-value pairs or typed objects with protocol buffers. ](https://developer.android.google.cn/topic/libraries/architecture/datastore?hl=zh_cn)
 
 ### Http
 
@@ -58,24 +60,16 @@ This repo provides two `Mvvm` architecture implementation, see:
 Step1: Fork this repo directly:
 
 ```shell
-$ git clone https://github.com/qingmei2/MVVM-Rhine.git
+$ git clone https://github.com/qingmei2/MVVM-Architecture.git
 ```
 
-Step2: [Register](https://github.com/settings/applications/new) OAuth Application.
+Step2: [register](https://docs.github.com/cn/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token) OAuth Application and get access token.
 
-<div align:left;display:inline;>
-<img width="480" height="480" src="https://upload-images.jianshu.io/upload_images/7293029-e3f13ac45d520518.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/480"/>
-</div>
+Step3: Put the `USER_ACCESS_TOKEN` into `local.properties`:
 
-Step3: Put the `Client ID` and the `Client Secret` into `local.properties`:
-
-<div align:left;display:inline;>
-<img width="550" height="384" src="https://upload-images.jianshu.io/upload_images/7293029-b84aaecb29d420bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/550"/>
-</div>
 
 ```groovy
-CLIENT_ID = "xxxxxx"
-CLIENT_SECRET = "xxxxxx"
+USER_ACCESS_TOKEN="xxxxxxxxxxxxxxxxxxxxxxxxx" // your access token
 ```
 
 ## Thanks to
