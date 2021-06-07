@@ -24,8 +24,15 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         Properties properties = new Properties()
-        properties.load(project.rootProject.file('local.properties').newDataInputStream())
-        buildConfigField "String", "USER_ACCESS_TOKEN", properties.getProperty("USER_ACCESS_TOKEN")
+
+        final File propertiesFile = project.rootProject.file('local.properties')
+        if (propertiesFile != null && propertiesFile.exists()) {
+            properties.load(propertiesFile.newDataInputStream())
+            buildConfigField "String", "USER_ACCESS_TOKEN", properties.getProperty("USER_ACCESS_TOKEN")
+        } else {
+            // add this line just for passing CI.
+            buildConfigField "String", "USER_ACCESS_TOKEN", "\"TODO: set token at local.properties\""
+        }
     }
 
     buildTypes {
