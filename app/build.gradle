@@ -84,7 +84,6 @@ dependencies {
 
     implementation Dependencies.daggerHilt
     implementation Dependencies.daggerViewModel
-    kapt Dependencies.daggerAndroidCompiler
     kapt Dependencies.daggerHiltCompiler
 
     testImplementation Dependencies.junit4
@@ -95,6 +94,9 @@ dependencies {
     androidTestImplementation Dependencies.testRunner
     androidTestImplementation Dependencies.testRules
     androidTestImplementation Dependencies.benchmark
+
+    androidTestImplementation Dependencies.daggerHiltTest
+    kaptAndroidTest Dependencies.daggerHiltCompiler
 }
 
 kapt {

@@ -8,7 +8,7 @@ object Versions {
     const val appcompat = "1.1.0"
     const val jetpack_lifecycle = "2.2.0-rc03"
     const val jetpack_viewModel = "2.2.0-rc03"
-    const val jetpack_room = "2.3.0-alpha01"
+    const val jetpack_room = "2.3.0"
     const val jetpack_navigation = "2.2.0-rc04"
     const val jetpack_paging = "3.0.0-alpha04"
     const val jetpack_datastore = "1.0.0-alpha01"
@@ -17,7 +17,7 @@ object Versions {
     const val jetpack_fragment = "1.3.0-alpha02"
 
     const val retrofit = "2.7.1"
-    const val dagger = "2.28-alpha"
+    const val dagger = "2.36"
     const val dagger_lifecycle = "1.0.0-alpha01"
     const val glide = "4.10.0"
 
@@ -44,6 +44,7 @@ object BuildVersions {
 object Dependencies {
     const val kotlinLibrary = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
     const val kotlinCoroutinesLibrary = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlin_coroutines}"
+    const val kotlinCoroutinesTestLibrary = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.kotlin_coroutines}"
 
     const val appcompatV4 = "androidx.legacy:legacy-support-v4:${Versions.appcompat}"
     const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
@@ -111,10 +112,10 @@ object Dependencies {
     const val autoDisposeArchsKtx = "com.uber.autodispose:autodispose-android-archcomponents-ktx:${Versions.autodispose}"
 
     const val daggerHilt= "com.google.dagger:hilt-android:${Versions.dagger}"
-    const val daggerAndroidCompiler= "com.google.dagger:hilt-android-compiler:${Versions.dagger}"
+    const val daggerHiltCompiler= "com.google.dagger:hilt-android-compiler:${Versions.dagger}"
+    const val daggerHiltTest= "com.google.dagger:hilt-android-testing:${Versions.dagger}"
 
     const val daggerViewModel= "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.dagger_lifecycle}"
-    const val daggerHiltCompiler= "androidx.hilt:hilt-compiler:${Versions.dagger_lifecycle}"
 
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
