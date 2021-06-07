@@ -137,4 +137,6 @@ object Dependencies {
     const val espressoIdlingResource = "androidx.test.espresso:espresso-idling-resource:3.2.0"
     const val testRunner = "androidx.test:runner:1.1.0"
     const val testRules = "androidx.test:rules:1.1.0"
+
+    const val benchmark = "androidx.benchmark:benchmark-junit4:1.1.0-alpha01"
 }

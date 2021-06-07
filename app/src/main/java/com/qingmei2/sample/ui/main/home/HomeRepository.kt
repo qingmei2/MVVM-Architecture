@@ -103,7 +103,7 @@ class HomeRemoteMediator(
             }
             MediatorResult.Success(data.isEmpty())
         } catch (exception: Exception) {
-            toast { exception.toString() }
+            toast (exception.toString())
             MediatorResult.Error(exception)
         }
     }
