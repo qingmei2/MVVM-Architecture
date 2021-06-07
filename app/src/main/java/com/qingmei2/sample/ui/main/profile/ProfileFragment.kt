@@ -27,7 +27,7 @@ class ProfileFragment : BaseFragment() {
     private fun binds() {
         observe(mViewModel.viewStateLiveData, this::onNewState)
 
-        mBtnEdit.setOnClickListener { toast { "coming soon..." } }
+        mBtnEdit.setOnClickListener { toast("coming soon...") }
     }
 
     private fun onNewState(state: ProfileViewState) {

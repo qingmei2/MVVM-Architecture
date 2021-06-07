@@ -83,6 +83,11 @@ dependencies {
     testImplementation Dependencies.junit4
 
     androidTestImplementation Dependencies.espresso
+    androidTestImplementation Dependencies.espressoContrib
+    androidTestImplementation Dependencies.espressoIdlingResource
+    androidTestImplementation Dependencies.testRunner
+    androidTestImplementation Dependencies.testRules
+    androidTestImplementation Dependencies.benchmark
 }
 
 kapt {

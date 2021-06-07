@@ -64,9 +64,9 @@ class LoginFragment : BaseFragment() {
                         401 -> "username or password failure."
                         else -> "network failure"
                     }
-                else -> "network failure"
+                else -> "网络异常，请检查你的网络环境（GitHubAPI访问需要梯子）"
             }.also { str ->
-                toast { str }
+                toast(str)
             }
         }
 
