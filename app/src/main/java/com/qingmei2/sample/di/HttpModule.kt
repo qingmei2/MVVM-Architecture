@@ -3,7 +3,6 @@ package com.qingmei2.sample.di
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.qingmei2.sample.BuildConfig
-import com.qingmei2.sample.http.interceptor.BasicAuthInterceptor
 import com.qingmei2.sample.repository.UserInfoRepository
 import dagger.Module
 import dagger.Provides
@@ -50,7 +49,6 @@ object HttpModule {
                             }
                         }
                 )
-                .addInterceptor(BasicAuthInterceptor(repository = userRepository))
                 .build()
     }
 
