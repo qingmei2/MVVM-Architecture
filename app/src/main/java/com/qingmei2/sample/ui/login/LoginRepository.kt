@@ -3,6 +3,7 @@ package com.qingmei2.sample.ui.login
 import com.qingmei2.architecture.core.base.repository.BaseRepositoryBoth
 import com.qingmei2.architecture.core.base.repository.ILocalDataSource
 import com.qingmei2.architecture.core.base.repository.IRemoteDataSource
+import com.qingmei2.sample.BuildConfig
 import com.qingmei2.sample.base.Results
 import com.qingmei2.sample.db.UserDatabase
 import com.qingmei2.sample.entity.UserInfo
@@ -42,7 +43,8 @@ class LoginRemoteDataSource @Inject constructor(
 ) : IRemoteDataSource {
 
     suspend fun login(): Results<UserInfo> {
-        return processApiResponse { serviceManager.userService.fetchUserOwner() }
+        val auth = "token ${BuildConfig.USER_ACCESS_TOKEN}"
+        return processApiResponse { serviceManager.userService.fetchUserOwner(auth) }
     }
 }
 

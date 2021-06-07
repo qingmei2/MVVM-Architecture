@@ -5,14 +5,12 @@ import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.entity.SearchResult
 import com.qingmei2.sample.entity.UserInfo
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface UserService {
 
     @GET("user")
-    suspend fun fetchUserOwner(): Response<UserInfo>
+    suspend fun fetchUserOwner(@Header("Authorization") authorization: String): Response<UserInfo>
 
     @GET("users/{username}/received_events?")
     suspend fun queryReceivedEvents(@Path("username") username: String,
