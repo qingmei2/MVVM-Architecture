@@ -89,7 +89,6 @@ dependencies {
 
     // dagger
     api Dependencies.daggerHilt
-    api Dependencies.daggerViewModel
     kapt Dependencies.daggerHiltCompiler
 
     // okhttp

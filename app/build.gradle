@@ -83,7 +83,6 @@ dependencies {
     kapt Dependencies.lifecycleCompiler
 
     implementation Dependencies.daggerHilt
-    implementation Dependencies.daggerViewModel
     kapt Dependencies.daggerHiltCompiler
 
     testImplementation Dependencies.junit4

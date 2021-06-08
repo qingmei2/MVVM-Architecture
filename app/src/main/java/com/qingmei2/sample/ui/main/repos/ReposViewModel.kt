@@ -1,15 +1,17 @@
 package com.qingmei2.sample.ui.main.repos
 
 import androidx.annotation.MainThread
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.qingmei2.architecture.core.base.viewmodel.BaseViewModel
 import com.qingmei2.sample.entity.Repo
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
+@HiltViewModel
 @SuppressWarnings("checkResult")
-class ReposViewModel @ViewModelInject constructor(
+class ReposViewModel @Inject constructor(
         private val repository: ReposRepository
 ) : BaseViewModel() {
 
