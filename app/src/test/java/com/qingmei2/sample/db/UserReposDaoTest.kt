@@ -1,19 +1,18 @@
 package com.qingmei2.sample.db
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.paging.PagingSource
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.qingmei2.sample.MainCoroutineRule
 import com.qingmei2.sample.entity.Repo
+import com.qingmei2.sample.utils.REPO_LIST_SIZE10
+import com.qingmei2.sample.utils.readLocalJson
+import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
 
 @ExperimentalCoroutinesApi
@@ -41,16 +40,24 @@ class UserReposDaoTest {
         ).allowMainThreadQueries().build()
     }
 
-    @Test
-    fun insertRepoListTest() = runBlockingTest {
-        val mockItems = mockRepoList()
-        database.userReposDao().insert(mockItems)
-
-        val queryRepos: PagingSource<Int, Repo> = database.userReposDao().queryRepos()
-    }
-
     @After
     fun closeDb() {
         database.close()
+    }
+
+    @Test
+    fun insertRepoListTest() {
+        runBlockingTest {
+            val repoList = readLocalJson<List<Repo>>(REPO_LIST_SIZE10)
+            database.userReposDao().insert(repoList)
+
+            val insertedList = database.userReposDao().getAllRepos()
+
+            assertEquals(repoList.size, insertedList.size)
+
+            val randomItem: Repo = repoList[3]
+            val insertedItem = database.userReposDao().getRepoById(randomItem.id.toString())
+            assertEquals(insertedItem.hashCode(), randomItem.hashCode())
+        }
     }
 }

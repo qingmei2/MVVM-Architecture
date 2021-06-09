@@ -95,9 +95,10 @@ dependencies {
     androidTestImplementation Dependencies.espresso
     androidTestImplementation Dependencies.espressoContrib
     androidTestImplementation Dependencies.espressoIdlingResource
-    
+
     testImplementation Dependencies.testRunner
     testImplementation Dependencies.testRules
+    testImplementation Dependencies.gson
     androidTestImplementation Dependencies.testRunner
     androidTestImplementation Dependencies.testRules
 

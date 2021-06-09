@@ -23,16 +23,9 @@ interface UserReposDao {
     @Query("SELECT MAX(indexInSortResponse) + 1 FROM user_repos")
     suspend fun getNextIndexInRepos(): Int?
 
-    /**
-     * 根据Id获取指定的[Repo].
-     */
-    @VisibleForTesting(otherwise = VisibleForTesting.NONE)
     @Query("SELECT * FROM user_repos WHERE id = :repoId")
     suspend fun getRepoById(repoId: String): Repo?
 
-    /**
-     * 获取所有[Repo].
-     */
     @VisibleForTesting(otherwise = VisibleForTesting.NONE)
     @Query("SELECT * FROM user_repos")
     suspend fun getAllRepos(): List<Repo>

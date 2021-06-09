@@ -104,6 +104,8 @@ object Dependencies {
     const val retrofitGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
     const val retrofitRx = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit}"
 
+    const val gson = "com.google.code.gson:gson:2.8.5"
+
     const val rxjava = "io.reactivex.rxjava2:rxjava:${Versions.rxjava}"
     const val rxandroid = "com.squareup.retrofit2:rxandroid:${Versions.rxandroid}"
     const val rxkotlin = "com.squareup.retrofit2:rxkotlin:${Versions.rxkotlin}"
