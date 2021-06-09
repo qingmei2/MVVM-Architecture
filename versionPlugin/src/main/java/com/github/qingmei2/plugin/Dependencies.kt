@@ -6,6 +6,8 @@ object Versions {
     const val kotlin_coroutines = "1.3.3"
 
     const val appcompat = "1.1.0"
+    const val archTestingVersion = "2.1.0"
+
     const val jetpack_lifecycle = "2.2.0-rc03"
     const val jetpack_viewModel = "2.2.0-rc03"
     const val jetpack_room = "2.3.0"
@@ -28,6 +30,9 @@ object Versions {
     const val autodispose = "1.2.0"
 
     const val leakcanary = "1.6.2"
+
+    const val androidXTestExtKotlinRunnerVersion = "1.1.2"
+    const val androidXTestRulesVersion = "1.3.0"
 
     const val espresso = "3.2.0"
     const val robolectric = "3.3.2"
@@ -62,6 +67,8 @@ object Dependencies {
     const val fragment = "androidx.fragment:fragment:${Versions.jetpack_fragment}"
     const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.jetpack_fragment}"
     const val fragmentTest = "androidx.fragment:fragment-testing:${Versions.jetpack_fragment}"
+
+    const val archCoreTesting = "androidx.arch.core:core-testing:${Versions.archTestingVersion}"
 
     const val lifecycleExtension = "androidx.lifecycle:lifecycle-extensions:${Versions.jetpack_lifecycle}"
     const val lifecycleJava8 = "androidx.lifecycle:lifecycle-common-java8:${Versions.jetpack_lifecycle}"
@@ -111,11 +118,11 @@ object Dependencies {
     const val autoDisposeAndroidKtx = "com.uber.autodispose:autodispose-android-ktx:${Versions.autodispose}"
     const val autoDisposeArchsKtx = "com.uber.autodispose:autodispose-android-archcomponents-ktx:${Versions.autodispose}"
 
-    const val daggerHilt= "com.google.dagger:hilt-android:${Versions.dagger}"
-    const val daggerHiltCompiler= "com.google.dagger:hilt-android-compiler:${Versions.dagger}"
-    const val daggerHiltTest= "com.google.dagger:hilt-android-testing:${Versions.dagger}"
+    const val daggerHilt = "com.google.dagger:hilt-android:${Versions.dagger}"
+    const val daggerHiltCompiler = "com.google.dagger:hilt-android-compiler:${Versions.dagger}"
+    const val daggerHiltTest = "com.google.dagger:hilt-android-testing:${Versions.dagger}"
 
-    const val daggerViewModel= "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.dagger_lifecycle}"
+    const val daggerViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.dagger_lifecycle}"
 
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
@@ -127,6 +134,7 @@ object Dependencies {
     const val leakCanaryRelease = "com.squareup.leakcanary:leakcanary-android-no-op:${Versions.leakcanary}"
 
     const val junit4 = "junit:junit:4.13"
+    const val junit4Ktx = "androidx.test.ext:junit-ktx:${Versions.androidXTestExtKotlinRunnerVersion}"
 
     const val mockito_kotlin = "com.nhaarman:mockito-kotlin:1.5.0"
 
@@ -136,8 +144,8 @@ object Dependencies {
     const val espresso = "androidx.test.espresso:espresso-core:3.2.0"
     const val espressoContrib = "androidx.test.espresso:espresso-contrib:3.2.0"
     const val espressoIdlingResource = "androidx.test.espresso:espresso-idling-resource:3.2.0"
-    const val testRunner = "androidx.test:runner:1.1.0"
-    const val testRules = "androidx.test:rules:1.1.0"
+    const val testRunner = "androidx.test:runner:${Versions.androidXTestRulesVersion}"
+    const val testRules = "androidx.test:rules:${Versions.androidXTestRulesVersion}"
 
     const val benchmark = "androidx.benchmark:benchmark-junit4:1.1.0-alpha01"
 }
