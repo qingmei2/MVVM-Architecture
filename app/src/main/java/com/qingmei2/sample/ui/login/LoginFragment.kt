@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.prepareCall
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
@@ -23,14 +24,6 @@ class LoginFragment : BaseFragment() {
     override val layoutId: Int = R.layout.fragment_login
 
     private val mViewModel: LoginViewModel by viewModels()
-
-    private val permissionRequest: ActivityResultLauncher<String> =
-            prepareCall(ActivityResultContracts.RequestPermission()) { isGrant ->
-                when (isGrant) {
-                    true -> mViewModel.login(tvUsername.text.toString(), tvPassword.text.toString())
-                    false -> Toast.makeText(requireContext(), "need permission first.", Toast.LENGTH_SHORT).show()
-                }
-            }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

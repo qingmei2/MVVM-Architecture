@@ -1,14 +1,16 @@
 package com.qingmei2.sample.ui.search
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.qingmei2.architecture.core.base.viewmodel.BaseViewModel
 import com.qingmei2.sample.entity.Repo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.flatMapLatest
+import javax.inject.Inject
 
-class SearchViewModel @ViewModelInject constructor(
+@HiltViewModel
+class SearchViewModel @Inject constructor(
         private val repository: SearchRepository
 ) : BaseViewModel() {
 

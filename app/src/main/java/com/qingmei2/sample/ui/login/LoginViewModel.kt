@@ -1,6 +1,5 @@
 package com.qingmei2.sample.ui.login
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
@@ -9,12 +8,15 @@ import com.qingmei2.architecture.core.base.viewmodel.BaseViewModel
 import com.qingmei2.architecture.core.ext.postNext
 import com.qingmei2.sample.base.Results
 import com.qingmei2.sample.http.Errors
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@HiltViewModel
 @SuppressWarnings("checkResult")
-class LoginViewModel @ViewModelInject constructor(
+class LoginViewModel @Inject constructor(
         private val repo: LoginRepository
 ) : BaseViewModel() {
 
