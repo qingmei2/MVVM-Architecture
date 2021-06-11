@@ -33,9 +33,10 @@ object Versions {
 
     const val androidXTestExtKotlinRunnerVersion = "1.1.2"
     const val androidXTestRulesVersion = "1.3.0"
+    const val androidXTestCoreVersion = "1.3.0"
 
     const val espresso = "3.2.0"
-    const val robolectric = "3.3.2"
+    const val robolectric = "4.5.1"
 }
 
 object BuildVersions {
@@ -142,6 +143,9 @@ object Dependencies {
 
     const val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
     const val robolectricV4 = "org.robolectric:shadows-support-v4:${Versions.robolectric}"
+
+    const val androidXTestCore = "androidx.test:core:${Versions.androidXTestCoreVersion}"
+    const val androidXKtxTestCore = "androidx.test:core-ktx:${Versions.androidXTestCoreVersion}"
 
     const val espresso = "androidx.test.espresso:espresso-core:3.2.0"
     const val espressoContrib = "androidx.test.espresso:espresso-contrib:3.2.0"

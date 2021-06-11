@@ -1,16 +1,15 @@
 package com.qingmei2.sample.utils
 
-import com.qingmei2.sample.entity.Repo
 import java.io.*
 
 object JsonFileReader {
 
-    private val DEFAULT_FILE_PATH = "app${File.separator}src${File.separator}test${File.separator}assets${File.separator}json${File.separator}"
+    private val DEFAULT_FILE_PATH = "${File.separator}src${File.separator}test${File.separator}assets${File.separator}json${File.separator}"
 
     fun read(fileName: String): String {
         var jsonStr = ""
         try {
-            val jsonFile = File(DEFAULT_FILE_PATH + fileName)
+            val jsonFile = File(File("").absolutePath + DEFAULT_FILE_PATH + fileName)
 
             val fileReader = FileReader(jsonFile)
             val reader: Reader = InputStreamReader(FileInputStream(jsonFile), "utf-8")
@@ -32,11 +31,5 @@ object JsonFileReader {
 const val REPO_LIST_SIZE10 = "repo_list_qingmei2_size10.json"
 
 inline fun <reified T> readLocalJson(fileName: String): T {
-    return JsonFileReader.read(fileName).fromJson()
-}
-
-fun main() {
-    val result = readLocalJson<List<Repo>>(REPO_LIST_SIZE10)
-
-    println(result)
+    return JsonFileReader.read(fileName).fromJson<T>()
 }

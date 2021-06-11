@@ -21,7 +21,7 @@ android {
         versionName BuildVersions.versionName
 
         multiDexEnabled true
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.qingmei2.sample.CustomTestRunner"
 
         Properties properties = new Properties()
 
@@ -32,6 +32,17 @@ android {
         } else {
             // add this line just for passing CI.
             buildConfigField "String", "USER_ACCESS_TOKEN", "\"TODO: set token at local.properties\""
+        }
+    }
+
+    // Always show the result of every unit test, even if it passes.
+    testOptions.unitTests {
+        includeAndroidResources = true
+
+        all {
+            testLogging {
+                events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+            }
         }
     }
 
@@ -74,6 +85,11 @@ dependencies {
 
     implementation 'com.facebook.stetho:stetho:1.5.1'
 
+    // AndroidX Test - JVM testing
+    implementation Dependencies.androidXTestCore
+    testImplementation Dependencies.androidXKtxTestCore
+    androidTestImplementation Dependencies.androidXKtxTestCore
+
     debugImplementation Dependencies.leakCanaryDebug
     debugImplementation Dependencies.leakCanaryDebugSupport
     releaseImplementation Dependencies.leakCanaryRelease
@@ -99,6 +115,7 @@ dependencies {
     testImplementation Dependencies.testRunner
     testImplementation Dependencies.testRules
     testImplementation Dependencies.gson
+    testImplementation Dependencies.robolectric
     androidTestImplementation Dependencies.testRunner
     androidTestImplementation Dependencies.testRules
 
