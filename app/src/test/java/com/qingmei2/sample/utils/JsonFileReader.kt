@@ -1,5 +1,6 @@
 package com.qingmei2.sample.utils
 
+import com.google.gson.reflect.TypeToken
 import java.io.*
 
 object JsonFileReader {
@@ -31,5 +32,7 @@ object JsonFileReader {
 const val REPO_LIST_SIZE10 = "repo_list_qingmei2_size10.json"
 
 inline fun <reified T> readLocalJson(fileName: String): T {
-    return JsonFileReader.read(fileName).fromJson<T>()
+    val json = JsonFileReader.read(fileName)
+    val type = object : TypeToken<T>() {}.type
+    return GsonUtils.INSTANCE.fromJson(json, type)
 }

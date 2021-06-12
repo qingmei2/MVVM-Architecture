@@ -6,9 +6,9 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.request.RequestOptions
 import com.qingmei2.architecture.core.base.view.fragment.BaseFragment
 import com.qingmei2.architecture.core.ext.observe
+import com.qingmei2.architecture.core.ext.toast
 import com.qingmei2.architecture.core.image.GlideApp
 import com.qingmei2.sample.R
-import com.qingmei2.sample.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_profile.*
 
@@ -27,7 +27,7 @@ class ProfileFragment : BaseFragment() {
     private fun binds() {
         observe(mViewModel.viewStateLiveData, this::onNewState)
 
-        mBtnEdit.setOnClickListener { toast("coming soon...") }
+        mBtnEdit.setOnClickListener { context?.toast("coming soon...") }
     }
 
     private fun onNewState(state: ProfileViewState) {

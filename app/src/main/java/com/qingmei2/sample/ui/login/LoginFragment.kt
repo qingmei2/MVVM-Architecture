@@ -10,10 +10,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import com.qingmei2.architecture.core.base.view.fragment.BaseFragment
 import com.qingmei2.architecture.core.ext.observe
+import com.qingmei2.architecture.core.ext.toast
 import com.qingmei2.sample.R
 import com.qingmei2.sample.http.Errors
 import com.qingmei2.sample.ui.MainActivity
-import com.qingmei2.sample.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_login.*
 import retrofit2.HttpException
@@ -59,7 +59,7 @@ class LoginFragment : BaseFragment() {
                     }
                 else -> "网络异常，请检查你的网络环境（GitHubAPI访问需要梯子）"
             }.also { str ->
-                toast(str)
+                context?.toast(str)
             }
         }
 

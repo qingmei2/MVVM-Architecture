@@ -85,6 +85,7 @@ dependencies {
     // retrofit
     api Dependencies.retrofit
     api Dependencies.retrofitGson
+    api Dependencies.gson
     api Dependencies.retrofitRx
 
     // dagger

@@ -12,7 +12,6 @@ import com.qingmei2.sample.db.UserDatabase
 import com.qingmei2.sample.entity.ReceivedEvent
 import com.qingmei2.sample.http.service.ServiceManager
 import com.qingmei2.sample.manager.UserManager
-import com.qingmei2.sample.utils.toast
 import javax.inject.Inject
 
 @SuppressLint("CheckResult")
@@ -103,7 +102,6 @@ class HomeRemoteMediator(
             }
             MediatorResult.Success(data.isEmpty())
         } catch (exception: Exception) {
-            toast (exception.toString())
             MediatorResult.Error(exception)
         }
     }

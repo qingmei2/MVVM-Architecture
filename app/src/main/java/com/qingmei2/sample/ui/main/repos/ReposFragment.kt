@@ -11,7 +11,6 @@ import com.qingmei2.architecture.core.ext.jumpBrowser
 import com.qingmei2.architecture.core.ext.observe
 import com.qingmei2.sample.R
 import com.qingmei2.sample.utils.removeAllAnimation
-import com.qingmei2.sample.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_repos.*
