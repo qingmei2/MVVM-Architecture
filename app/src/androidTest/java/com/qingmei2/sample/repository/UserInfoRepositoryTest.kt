@@ -1,18 +1,22 @@
 package com.qingmei2.sample.repository
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.datastore.DataStore
 import androidx.datastore.createDataStore
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
-import androidx.test.filters.SmallTest
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.runner.AndroidJUnit4
 import com.github.qingmei2.protobuf.UserPreferencesProtos
 import com.github.qingmei2.protobuf.UserPreferencesSerializer
-import com.qingmei2.architecture.core.base.BaseApplication
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import org.junit.*
+import org.junit.After
+import org.junit.Assert
+import org.junit.Assert.assertEquals
+import org.junit.Before
+import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
@@ -23,23 +27,24 @@ import org.junit.runner.RunWith
 @MediumTest
 class UserInfoRepositoryTest {
 
-    private lateinit var dataStore: DataStore<UserPreferencesProtos.UserPreferences>
-    private lateinit var repository: UserInfoRepository
+    private var dataStore: DataStore<UserPreferencesProtos.UserPreferences> =
+            InstrumentationRegistry.getInstrumentation().context.createDataStore(
+                    fileName = "user_prefs_test.pb",
+                    serializer = UserPreferencesSerializer
+            )
+    private var repository: UserInfoRepository = UserInfoRepository(dataStore)
 
     @Before
     fun initRepository() {
-        dataStore = BaseApplication.INSTANCE.createDataStore(
-                fileName = "user_prefs_test.pb",
-                serializer = UserPreferencesSerializer
-        )
 
-        repository = UserInfoRepository(dataStore)
     }
 
     @After
-    fun clearRepository() = runBlocking {
-        dataStore.updateData { it ->
-            it.toBuilder().clear().build()
+    fun clearRepository() {
+        runBlocking {
+            dataStore.updateData { it ->
+                it.toBuilder().clear().build()
+            }
         }
     }
 
@@ -47,9 +52,23 @@ class UserInfoRepositoryTest {
     fun getDefaultInfoTest() {
         runBlocking {
             repository.fetchUserInfoFlow().collect { user: UserPreferencesProtos.UserPreferences ->
-                Assert.assertEquals(user.username.isEmpty(), true)
-                Assert.assertEquals(user.password.isEmpty(), true)
-                Assert.assertEquals(user.autoLogin, false)
+                assertEquals(user.username.isEmpty(), true)
+                assertEquals(user.password.isEmpty(), true)
+                assertEquals(user.autoLogin, false)
+            }
+        }
+    }
+
+    @Test
+    fun saveUserInfoTest() {
+        runBlocking {
+            val username = "qingmei2"
+            val password = "123456"
+            repository.saveUserInfo(username,password)
+            repository.fetchUserInfoFlow().collect { user: UserPreferencesProtos.UserPreferences ->
+                assertEquals(user.username, username)
+                assertEquals(user.password, password)
+                assertEquals(user.autoLogin, true)
             }
         }
     }

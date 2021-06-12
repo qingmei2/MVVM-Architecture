@@ -1,11 +1,10 @@
 package com.qingmei2.sample.db
 
-import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
+import androidx.test.runner.AndroidJUnit4
 import com.qingmei2.sample.MainCoroutineRule
 import com.qingmei2.sample.entity.Repo
 import com.qingmei2.sample.utils.REPO_LIST_SIZE10
@@ -15,7 +14,6 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.*
 import org.junit.Assert.assertEquals
 import org.junit.runner.RunWith
-import org.robolectric.annotation.Config
 
 /**
  * [UserReposDao] test.
