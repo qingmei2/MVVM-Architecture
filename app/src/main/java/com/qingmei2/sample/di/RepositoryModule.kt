@@ -3,7 +3,6 @@ package com.qingmei2.sample.di
 import android.app.Application
 import androidx.datastore.DataStore
 import androidx.datastore.createDataStore
-import androidx.datastore.preferences.Preferences
 import com.github.qingmei2.protobuf.UserPreferencesProtos
 import com.github.qingmei2.protobuf.UserPreferencesSerializer
 import com.qingmei2.sample.repository.UserInfoRepository

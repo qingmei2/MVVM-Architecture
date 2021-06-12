@@ -1,0 +1,325 @@
+[
+  {
+    "id": "16753331265",
+    "type": "WatchEvent",
+    "actor": {
+      "id": 5214214,
+      "login": "drakeet",
+      "display_login": "drakeet",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/drakeet",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5214214?"
+    },
+    "repo": {
+      "id": 246385526,
+      "name": "rougsig/flowmarbles",
+      "url": "https://api.github.com/repos/rougsig/flowmarbles"
+    },
+    "payload": {
+      "action": "started"
+    },
+    "public": true,
+    "created_at": "2021-06-12T09:08:41Z"
+  },
+  {
+    "id": "16752206435",
+    "type": "WatchEvent",
+    "actor": {
+      "id": 1361086,
+      "login": "ZacSweers",
+      "display_login": "ZacSweers",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/ZacSweers",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1361086?"
+    },
+    "repo": {
+      "id": 144624537,
+      "name": "ThinkingLogic/kotlin-builder-annotation",
+      "url": "https://api.github.com/repos/ThinkingLogic/kotlin-builder-annotation"
+    },
+    "payload": {
+      "action": "started"
+    },
+    "public": true,
+    "created_at": "2021-06-12T04:04:10Z",
+    "org": {
+      "id": 4944151,
+      "login": "ThinkingLogic",
+      "gravatar_id": "",
+      "url": "https://api.github.com/orgs/ThinkingLogic",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4944151?"
+    }
+  },
+  {
+    "id": "16752206193",
+    "type": "WatchEvent",
+    "actor": {
+      "id": 1361086,
+      "login": "ZacSweers",
+      "display_login": "ZacSweers",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/ZacSweers",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1361086?"
+    },
+    "repo": {
+      "id": 155285356,
+      "name": "juanchosaravia/autodsl",
+      "url": "https://api.github.com/repos/juanchosaravia/autodsl"
+    },
+    "payload": {
+      "action": "started"
+    },
+    "public": true,
+    "created_at": "2021-06-12T04:04:06Z"
+  },
+  {
+    "id": "16752205824",
+    "type": "WatchEvent",
+    "actor": {
+      "id": 1361086,
+      "login": "ZacSweers",
+      "display_login": "ZacSweers",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/ZacSweers",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1361086?"
+    },
+    "repo": {
+      "id": 367590003,
+      "name": "theapache64/create-compose-app",
+      "url": "https://api.github.com/repos/theapache64/create-compose-app"
+    },
+    "payload": {
+      "action": "started"
+    },
+    "public": true,
+    "created_at": "2021-06-12T04:04:00Z"
+  },
+  {
+    "id": "16752205534",
+    "type": "WatchEvent",
+    "actor": {
+      "id": 1361086,
+      "login": "ZacSweers",
+      "display_login": "ZacSweers",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/ZacSweers",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1361086?"
+    },
+    "repo": {
+      "id": 361707096,
+      "name": "jittya/KMMT",
+      "url": "https://api.github.com/repos/jittya/KMMT"
+    },
+    "payload": {
+      "action": "started"
+    },
+    "public": true,
+    "created_at": "2021-06-12T04:03:56Z"
+  },
+  {
+    "id": "16751846453",
+    "type": "WatchEvent",
+    "actor": {
+      "id": 5214214,
+      "login": "drakeet",
+      "display_login": "drakeet",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/drakeet",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5214214?"
+    },
+    "repo": {
+      "id": 16148181,
+      "name": "TomRoush/PdfBox-Android",
+      "url": "https://api.github.com/repos/TomRoush/PdfBox-Android"
+    },
+    "payload": {
+      "action": "started"
+    },
+    "public": true,
+    "created_at": "2021-06-12T02:28:36Z"
+  },
+  {
+    "id": "16741424129",
+    "type": "WatchEvent",
+    "actor": {
+      "id": 18431596,
+      "login": "zicen",
+      "display_login": "zicen",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/zicen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18431596?"
+    },
+    "repo": {
+      "id": 167174767,
+      "name": "qingmei2/MVI-Archtecture",
+      "url": "https://api.github.com/repos/qingmei2/MVI-Archtecture"
+    },
+    "payload": {
+      "action": "started"
+    },
+    "public": true,
+    "created_at": "2021-06-11T10:15:53Z"
+  },
+  {
+    "id": "16739713009",
+    "type": "CreateEvent",
+    "actor": {
+      "id": 8130553,
+      "login": "sunfusheng",
+      "display_login": "sunfusheng",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/sunfusheng",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8130553?"
+    },
+    "repo": {
+      "id": 375954587,
+      "name": "sunfusheng/OSSRH-70050",
+      "url": "https://api.github.com/repos/sunfusheng/OSSRH-70050"
+    },
+    "payload": {
+      "ref": null,
+      "ref_type": "repository",
+      "master_branch": "main",
+      "description": null,
+      "pusher_type": "user"
+    },
+    "public": true,
+    "created_at": "2021-06-11T08:19:33Z"
+  },
+  {
+    "id": "16738158667",
+    "type": "WatchEvent",
+    "actor": {
+      "id": 36151453,
+      "login": "dame1985li",
+      "display_login": "dame1985li",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/dame1985li",
+      "avatar_url": "https://avatars.githubusercontent.com/u/36151453?"
+    },
+    "repo": {
+      "id": 106916945,
+      "name": "qingmei2/MVVM-Architecture",
+      "url": "https://api.github.com/repos/qingmei2/MVVM-Architecture"
+    },
+    "payload": {
+      "action": "started"
+    },
+    "public": true,
+    "created_at": "2021-06-11T06:19:13Z"
+  },
+  {
+    "id": "16736638802",
+    "type": "WatchEvent",
+    "actor": {
+      "id": 1833474,
+      "login": "wasabeef",
+      "display_login": "wasabeef",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/wasabeef",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1833474?"
+    },
+    "repo": {
+      "id": 162907718,
+      "name": "TinoGuo/pin_input_text_field",
+      "url": "https://api.github.com/repos/TinoGuo/pin_input_text_field"
+    },
+    "payload": {
+      "action": "started"
+    },
+    "public": true,
+    "created_at": "2021-06-11T03:02:43Z"
+  },
+  {
+    "id": "16735730351",
+    "type": "WatchEvent",
+    "actor": {
+      "id": 22957498,
+      "login": "im-o",
+      "display_login": "im-o",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/im-o",
+      "avatar_url": "https://avatars.githubusercontent.com/u/22957498?"
+    },
+    "repo": {
+      "id": 106916945,
+      "name": "qingmei2/MVVM-Architecture",
+      "url": "https://api.github.com/repos/qingmei2/MVVM-Architecture"
+    },
+    "payload": {
+      "action": "started"
+    },
+    "public": true,
+    "created_at": "2021-06-11T00:50:53Z"
+  },
+  {
+    "id": "16734143244",
+    "type": "ReleaseEvent",
+    "actor": {
+      "id": 2928034,
+      "login": "bcorso",
+      "display_login": "bcorso",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/bcorso",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2928034?"
+    },
+    "repo": {
+      "id": 7968417,
+      "name": "google/dagger",
+      "url": "https://api.github.com/repos/google/dagger"
+    },
+    "payload": {
+      "action": "published",
+      "release": {
+        "url": "https://api.github.com/repos/google/dagger/releases/44444796",
+        "assets_url": "https://api.github.com/repos/google/dagger/releases/44444796/assets",
+        "upload_url": "https://uploads.github.com/repos/google/dagger/releases/44444796/assets{?name,label}",
+        "html_url": "https://github.com/google/dagger/releases/tag/dagger-2.37",
+        "id": 44444796,
+        "author": {
+          "login": "bcorso",
+          "id": 2928034,
+          "node_id": "MDQ6VXNlcjI5MjgwMzQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/2928034?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/bcorso",
+          "html_url": "https://github.com/bcorso",
+          "followers_url": "https://api.github.com/users/bcorso/followers",
+          "following_url": "https://api.github.com/users/bcorso/following{/other_user}",
+          "gists_url": "https://api.github.com/users/bcorso/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/bcorso/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/bcorso/subscriptions",
+          "organizations_url": "https://api.github.com/users/bcorso/orgs",
+          "repos_url": "https://api.github.com/users/bcorso/repos",
+          "events_url": "https://api.github.com/users/bcorso/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/bcorso/received_events",
+          "type": "User",
+          "site_admin": false
+        },
+        "node_id": "MDc6UmVsZWFzZTQ0NDQ0Nzk2",
+        "tag_name": "dagger-2.37",
+        "target_commitish": "master",
+        "name": "Dagger 2.37",
+        "draft": false,
+        "prerelease": false,
+        "created_at": "2021-06-10T18:48:34Z",
+        "published_at": "2021-06-10T21:43:33Z",
+        "assets": [],
+        "tarball_url": "https://api.github.com/repos/google/dagger/tarball/dagger-2.37",
+        "zipball_url": "https://api.github.com/repos/google/dagger/zipball/dagger-2.37",
+        "body": "# What’s New in Dagger\r\n\r\n## Bug Fixes\r\n\r\n* Fix #1079: Added an automatic module name to the `com.google.dagger:dagger` artifact to improve Java 9 compatibility. (cb308856a)\r\n* Removed the `com.google.dagger:dagger-android-jarimpl` artifact. This was an internal-only artifact, so its removal should not affect users. (6da2e7ea8)\r\n\r\n# What’s New in Hilt\r\n\r\n## Build performance improvements for Gradle\r\n\r\nThere’s a new flag, [`enableAggregatingTask`](https://dagger.dev/hilt/gradle-setup#aggregating-task), supported by the Hilt Gradle plugin that allows Hilt to perform classpath aggregation in a dedicated Gradle task. This allows Hilt’s annotation processors to be “isolating” so that they are only invoked when necessary. This reduces incremental compilation times by reducing how often an incremental change causes a rebuild of the Dagger components. For details on how to enable this flag see https://dagger.dev/hilt/gradle-setup#aggregating-task.\r\n\r\nNote that the default for `enableAggregatingTask` is currently `false`, but it will be changed to `true` in an upcoming release, so please try to enable this flag and report any issues.\r\n\r\nAlso, note that `enableAggregatingTask` will automatically enable [`sharing test components`](https://dagger.dev/hilt/compiler-options.html#sharing-test-components), so please read the caveats for enabling that flag as well.\r\n\r\nFinally, `enableAggregatingTask` replaces  [`enableExperimentalClasspathAggregation`](https://dagger.dev/hilt/gradle-setup#classpath-aggregation) which will be removed in an upcoming release. Please replace any usages of `enableExperimentalClasspathAggregation` with `enableAggregatingTask`.\r\n\r\n## Bug Fixes\r\n\r\n* Fix #2662: Fixes an issue in Hilt's bytecode transform that would cause classes to fail validation if they contained an instantiation of an object whose type is the same as the superclass of the @AndroidEntryPoint annotated class. (839a84940)\r\n",
+        "short_description_html": "<h1>What’s New in Dagger</h1>\n<h2>Bug Fixes</h2>\n<ul>\n<li>Fix #1079: Added an automatic module name to the <code>com.google.dagger:dagger</code> artifact to improve Java 9 compatibility. (cb308856a)</li>\n<li>Removed the <code>com.google.dagger:dagger-…</code>\n</li>\n</ul>",
+        "is_short_description_html_truncated": true
+      }
+    },
+    "public": true,
+    "created_at": "2021-06-10T21:43:34Z",
+    "org": {
+      "id": 1342004,
+      "login": "google",
+      "gravatar_id": "",
+      "url": "https://api.github.com/orgs/google",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1342004?"
+    }
+  }
+]

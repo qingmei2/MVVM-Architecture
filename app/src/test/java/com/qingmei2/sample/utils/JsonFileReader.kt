@@ -30,6 +30,7 @@ object JsonFileReader {
 }
 
 const val REPO_LIST_SIZE10 = "repo_list_qingmei2_size10.json"
+const val EVENT_LIST_SIZE12 = "event_list_qingmei2_size12.json"
 
 inline fun <reified T> readLocalJson(fileName: String): T {
     val json = JsonFileReader.read(fileName)

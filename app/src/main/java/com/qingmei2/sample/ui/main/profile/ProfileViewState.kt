@@ -15,7 +15,7 @@ data class ProfileViewState(
             return ProfileViewState(
                     isLoading = false,
                     throwable = null,
-                    userInfo = UserManager.INSTANCE
+                    userInfo = UserManager.userInfo
             )
         }
     }

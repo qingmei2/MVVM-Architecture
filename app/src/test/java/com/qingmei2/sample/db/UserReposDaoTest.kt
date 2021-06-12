@@ -17,10 +17,12 @@ import org.junit.Assert.assertEquals
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
+/**
+ * [UserReposDao] test.
+ */
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @SmallTest
-@Config(sdk = [Build.VERSION_CODES.O_MR1])
 class UserReposDaoTest {
 
     private lateinit var database: UserDatabase
@@ -70,5 +72,18 @@ class UserReposDaoTest {
         val allRepos = database.userReposDao().getAllRepos()
 
         assertEquals(allRepos.size, 0)
+    }
+
+    @Test
+    fun getNextIndexInReposTest() = runBlockingTest {
+        val repoList = readLocalJson<List<Repo>>(REPO_LIST_SIZE10)
+        repoList.forEachIndexed { index, repo ->
+            repo.indexInSortResponse = index
+        }
+        database.userReposDao().insert(repoList)
+
+        val nextIndexInRepos = database.userReposDao().getNextIndexInRepos()
+
+        assertEquals(nextIndexInRepos, repoList.size)
     }
 }

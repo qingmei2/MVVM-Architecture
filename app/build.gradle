@@ -107,6 +107,7 @@ dependencies {
 
     testImplementation Dependencies.kotlinCoroutinesTestLibrary
     testImplementation Dependencies.archCoreTesting
+    androidTestImplementation Dependencies.kotlinCoroutinesTestLibrary
 
     androidTestImplementation Dependencies.espresso
     androidTestImplementation Dependencies.espressoContrib

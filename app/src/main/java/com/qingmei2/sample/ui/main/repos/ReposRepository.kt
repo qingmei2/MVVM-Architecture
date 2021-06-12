@@ -26,7 +26,7 @@ class ReposRepository @Inject constructor(
 
     @MainThread
     fun fetchRepoPager(): Pager<Int, Repo> {
-        val username: String = UserManager.INSTANCE.login
+        val username: String = UserManager.userInfo.login
         val remoteMediator = RepoPageRemoteMediator(remoteDataSource, localDataSource, sortKeyProvider, username)
 
         return Pager(

@@ -21,7 +21,7 @@ class HomeRepository @Inject constructor(
 ) : BaseRepositoryBoth<HomeRemoteDataSource, HomeLocalDataSource>(remoteDataSource, localDataSource) {
 
     fun fetchPager(): Pager<Int, ReceivedEvent> {
-        val username: String = UserManager.INSTANCE.login
+        val username: String = UserManager.userInfo.login
         val remoteMediator = HomeRemoteMediator(username, remoteDataSource, localDataSource)
         return Pager(
                 config = globalPagingConfig,

@@ -28,7 +28,7 @@ class LoginRepository @Inject constructor(
         // 如果登录失败，清除登录信息
         when (userInfo) {
             is Results.Failure -> localDataSource.clearPrefsUser()
-            is Results.Success -> UserManager.INSTANCE = requireNotNull(userInfo.data)
+            is Results.Success -> UserManager.userInfo = requireNotNull(userInfo.data)
         }
         return userInfo
     }
