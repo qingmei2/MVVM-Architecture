@@ -6,12 +6,14 @@ import androidx.paging.cachedIn
 import com.qingmei2.architecture.core.base.viewmodel.BaseViewModel
 import com.qingmei2.sample.entity.Repo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-        private val repository: SearchRepository
+        private val repository: SearchRepository,
+        private val dispatcher: CoroutineDispatcher
 ) : BaseViewModel() {
 
     private val mSearchKeyLiveData = MutableLiveData<String>(SEARCH_KEY_DEFAULT)

@@ -9,6 +9,7 @@ import com.qingmei2.architecture.core.ext.postNext
 import com.qingmei2.sample.base.Results
 import com.qingmei2.sample.http.Errors
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
@@ -17,7 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 @SuppressWarnings("checkResult")
 class LoginViewModel @Inject constructor(
-        private val repo: LoginRepository
+        private val repo: LoginRepository,
+        private val dispatcher: CoroutineDispatcher
 ) : BaseViewModel() {
 
     private val _stateLiveData: MutableLiveData<LoginViewState> = MutableLiveData(LoginViewState.initial())
@@ -31,7 +33,7 @@ class LoginViewModel @Inject constructor(
             true -> _stateLiveData.postNext { state ->
                 state.copy(isLoading = false, throwable = Errors.EmptyInputError, loginInfo = null)
             }
-            false -> viewModelScope.launch {
+            false -> viewModelScope.launch(dispatcher) {
                 _stateLiveData.postNext {
                     it.copy(isLoading = true, throwable = null, loginInfo = null)
                 }

@@ -7,12 +7,14 @@ import androidx.paging.cachedIn
 import com.qingmei2.architecture.core.base.viewmodel.BaseViewModel
 import com.qingmei2.sample.entity.Repo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
 @HiltViewModel
 @SuppressWarnings("checkResult")
 class ReposViewModel @Inject constructor(
-        private val repository: ReposRepository
+        private val repository: ReposRepository,
+        private val dispatcher: CoroutineDispatcher
 ) : BaseViewModel() {
 
     private val _viewStateLiveData: MutableLiveData<String> = MutableLiveData(sortByUpdate)

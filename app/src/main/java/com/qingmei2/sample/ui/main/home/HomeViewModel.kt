@@ -8,12 +8,14 @@ import androidx.paging.cachedIn
 import com.qingmei2.architecture.core.base.viewmodel.BaseViewModel
 import com.qingmei2.sample.entity.ReceivedEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
 @HiltViewModel
 @SuppressWarnings("checkResult")
 class HomeViewModel @Inject constructor(
-        repository: HomeRepository
+        repository: HomeRepository,
+        private val dispatcher: CoroutineDispatcher
 ) : BaseViewModel() {
 
     val eventListLiveData: LiveData<PagingData<ReceivedEvent>> =

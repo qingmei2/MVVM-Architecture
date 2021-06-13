@@ -35,6 +35,18 @@ android {
         }
     }
 
+    android {
+        sourceSets {
+            String sharedTestDir = 'src/sharedTest/java'
+            test {
+                java.srcDirs += sharedTestDir
+            }
+            androidTest {
+                java.srcDirs += sharedTestDir
+            }
+        }
+    }
+
     // Always show the result of every unit test, even if it passes.
     testOptions.unitTests {
         includeAndroidResources = true
@@ -123,7 +135,9 @@ dependencies {
     androidTestImplementation Dependencies.benchmark
 
     androidTestImplementation Dependencies.daggerHiltTest
+    testImplementation Dependencies.daggerHiltTest
     kaptAndroidTest Dependencies.daggerHiltCompiler
+    kaptTest Dependencies.daggerHiltCompiler
     androidTestImplementation Dependencies.archCoreTesting
 }
 
