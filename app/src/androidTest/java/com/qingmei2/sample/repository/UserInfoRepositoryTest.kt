@@ -7,13 +7,12 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import com.github.qingmei2.protobuf.UserPreferencesProtos
 import com.github.qingmei2.protobuf.UserPreferencesSerializer
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import org.junit.After
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -28,10 +27,10 @@ import org.junit.runner.RunWith
 class UserInfoRepositoryTest {
 
     private var dataStore: DataStore<UserPreferencesProtos.UserPreferences> =
-            InstrumentationRegistry.getInstrumentation().context.createDataStore(
-                    fileName = "user_prefs_test.pb",
-                    serializer = UserPreferencesSerializer
-            )
+        InstrumentationRegistry.getInstrumentation().context.createDataStore(
+            fileName = "user_prefs_test.pb",
+            serializer = UserPreferencesSerializer
+        )
     private var repository: UserInfoRepository = UserInfoRepository(dataStore)
 
     @Before
@@ -41,7 +40,7 @@ class UserInfoRepositoryTest {
 
     @After
     fun clearRepository() {
-        runBlocking {
+        GlobalScope.launch(Dispatchers.Main)  {
             dataStore.updateData { it ->
                 it.toBuilder().clear().build()
             }
@@ -50,7 +49,7 @@ class UserInfoRepositoryTest {
 
     @Test
     fun getDefaultInfoTest() {
-        runBlocking {
+        GlobalScope.launch(Dispatchers.Main)  {
             repository.fetchUserInfoFlow().collect { user: UserPreferencesProtos.UserPreferences ->
                 assertEquals(user.username.isEmpty(), true)
                 assertEquals(user.password.isEmpty(), true)
@@ -61,10 +60,10 @@ class UserInfoRepositoryTest {
 
     @Test
     fun saveUserInfoTest() {
-        runBlocking {
+        GlobalScope.launch(Dispatchers.Main) {
             val username = "qingmei2"
             val password = "123456"
-            repository.saveUserInfo(username,password)
+            repository.saveUserInfo(username, password)
             repository.fetchUserInfoFlow().collect { user: UserPreferencesProtos.UserPreferences ->
                 assertEquals(user.username, username)
                 assertEquals(user.password, password)
