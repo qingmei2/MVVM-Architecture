@@ -104,6 +104,11 @@ USER_ACCESS_TOKEN="xxxxxxxxxxxxxxxxxxxxxxxxx"
 >* [Android官方架构组件LiveData: 观察者模式领域二三事（*）](https://juejin.im/post/5c25753af265da61561f5335)
 >* [Android官方架构组件DataBinding-Ex:双向绑定篇（*）](https://juejin.im/post/5c3e04b7f265da611b589574)  
 
+## 一些有趣的项目推荐
+
+* [Net](https://github.com/liangjingkanji/Net/): 基于kt协程的网络请求库，简单易上手；
+* [BRV](https://github.com/liangjingkanji/BRV/): 基于kt的列表库，快速构建MVVM下的UI列表
+
 ## 感谢
 
 :art: 项目中的UI设计部分参考了 [gitme](https://github.com/flutterchina/gitme).
